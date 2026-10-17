@@ -113,6 +113,38 @@
     border:1px solid var(--border);
   }
 
+  /* IDENTITAS */
+  .identity-card {
+    max-width:560px; margin:8px auto 0; background:var(--surface);
+    border:1px solid var(--border); border-radius:var(--radius);
+    padding:28px; box-shadow:0 10px 40px rgba(0,0,0,0.35);
+  }
+  .identity-title { font-size:16px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .identity-sub { font-size:12px; color:var(--text-muted); margin-bottom:22px; line-height:1.6; }
+  .field { margin-bottom:16px; }
+  .field label {
+    display:block; font-size:10.5px; font-weight:700; letter-spacing:1.2px;
+    text-transform:uppercase; color:var(--text-muted); margin-bottom:7px;
+  }
+  .field input, .field select {
+    width:100%; padding:12px 14px; border-radius:9px;
+    background:var(--surface-2); border:1.5px solid var(--border);
+    color:var(--text); font-family:inherit; font-size:13.5px; font-weight:600;
+    outline:none; transition:all var(--transition);
+  }
+  .field input::placeholder { color:#5b6b80; font-weight:500; }
+  .field input:focus, .field select:focus {
+    border-color:var(--accent);
+    background:color-mix(in srgb, var(--accent) 6%, var(--surface-2));
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+  }
+  .identity-note {
+    font-size:11px; color:var(--text-muted); line-height:1.6;
+    padding:10px 12px; border-radius:8px; background:var(--surface-2);
+    border:1px dashed var(--border); margin-bottom:20px;
+  }
+
+  .quiz-layout { display:grid; grid-template-columns:1fr 268px; gap:20px; align-items:start; }
   .quiz-topbar {
     display:flex; justify-content:space-between; align-items:center;
     flex-wrap:wrap; gap:12px; margin-bottom:16px;
@@ -300,7 +332,80 @@
   }
   .btn-primary:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 24px color-mix(in srgb,var(--accent) 40%, transparent); }
 
-  .result-hero { text-align:center; padding:36px 0 24px; }
+  /* PANEL NAVIGASI SOAL */
+  .nav-panel {
+    position:sticky; top:88px; background:var(--surface);
+    border:1px solid var(--border); border-radius:var(--radius);
+    padding:18px; box-shadow:0 8px 30px rgba(0,0,0,0.25);
+  }
+  .nav-panel-title {
+    font-size:11px; font-weight:800; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--text-muted); margin-bottom:14px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .nav-panel-title .np-count { color:var(--accent); }
+  .nav-grid {
+    display:grid; grid-template-columns:repeat(5, 1fr); gap:7px;
+    margin-bottom:16px;
+  }
+  .nav-cell {
+    aspect-ratio:1/1; border-radius:7px; border:1.5px solid var(--border);
+    background:var(--surface-2); color:var(--text-muted);
+    font-family:inherit; font-weight:800; font-size:12px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:all var(--transition);
+    position:relative;
+  }
+  .nav-cell:hover { border-color:var(--accent); color:var(--text); transform:translateY(-1px); }
+  .nav-cell.answered {
+    background:color-mix(in srgb, #10b981 16%, var(--surface-2));
+    border-color:#10b981; color:#10b981;
+  }
+  .nav-cell.answered::after {
+    content:''; position:absolute; bottom:3px; right:3px;
+    width:5px; height:5px; border-radius:50%; background:#10b981;
+  }
+  .nav-cell.current {
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+    color:var(--text); font-weight:800;
+  }
+  .nav-cell.current.answered {
+    border-color:#10b981;
+    box-shadow:0 0 0 3px color-mix(in srgb, #10b981 25%, transparent);
+  }
+  .nav-legend {
+    display:flex; flex-direction:column; gap:7px;
+    font-size:11px; color:var(--text-muted); font-weight:600;
+    padding-top:14px; border-top:1px solid var(--border);
+  }
+  .nav-legend div { display:flex; align-items:center; gap:8px; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; border:1.5px solid var(--border); background:var(--surface-2); flex-shrink:0; }
+  .legend-dot.green { background:color-mix(in srgb, #10b981 16%, var(--surface-2)); border-color:#10b981; }
+  .legend-dot.blue { border-color:var(--accent); background:color-mix(in srgb, var(--accent) 20%, var(--surface-2)); }
+  .nav-identity {
+    margin-top:14px; padding:12px 14px; border-radius:9px;
+    background:var(--surface-2); border:1px solid var(--border);
+    font-size:11px; line-height:1.7; color:var(--text-muted);
+  }
+  .nav-identity .ni-name { font-weight:800; color:var(--text); font-size:12.5px; margin-bottom:3px; }
+
+  .result-hero { text-align:center; padding:20px 0 24px; }
+  .identity-summary {
+    max-width:520px; margin:0 auto 26px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:16px 22px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
+    text-align:left;
+  }
+  .identity-summary .is-item .is-lbl {
+    font-size:9.5px; font-weight:700; letter-spacing:1.2px;
+    text-transform:uppercase; color:var(--text-muted); margin-bottom:3px;
+  }
+  .identity-summary .is-item .is-val {
+    font-size:13px; font-weight:700; color:var(--text);
+    overflow:hidden; text-overflow:ellipsis;
+  }
   .score-ring {
     width:170px; height:170px; border-radius:50%; margin:0 auto 20px;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -349,9 +454,15 @@
   .review-tag.red { background:rgba(239,68,68,0.15); color:#ef4444; }
   .result-actions { display:flex; justify-content:center; gap:12px; margin-top:32px; flex-wrap:wrap; }
 
+  @media (max-width: 940px) {
+    .quiz-layout { grid-template-columns:1fr; }
+    .nav-panel { position:static; order:-1; }
+    .nav-grid { grid-template-columns:repeat(10, 1fr); }
+  }
   @media (max-width: 640px) {
     .chapter-grid { grid-template-columns:1fr; }
     .result-stats { grid-template-columns:1fr; }
+    .identity-summary { grid-template-columns:1fr; }
     .quiz-topbar { flex-direction:column; align-items:flex-start; }
     .quiz-nav { flex-direction:column-reverse; }
     .quiz-nav .btn { width:100%; justify-content:center; }
@@ -360,6 +471,8 @@
     .bs-buttons { justify-content:flex-end; }
     .header-tag { display:none; }
     .info-grid { grid-template-columns:repeat(2,1fr); }
+    .nav-grid { grid-template-columns:repeat(6, 1fr); }
+    .question-card { padding:20px 18px; }
   }
 </style>
 </head>
@@ -376,21 +489,50 @@
   <div class="header-tag">30 Soal · 75 Menit · 3 Tipe</div>
 </header>
 
+<!-- ================= HALAMAN 1: IDENTITAS ================= -->
 <div id="screen-home" class="screen active">
   <div class="home-hero">
     <div class="home-badge">Simulasi Tes Kemampuan Akademik</div>
     <h1>Latihan <em>Literasi Sejarah</em><br>Model TKA SMP</h1>
-    <p>Kerjakan 30 soal dengan tiga tipe — Pilihan Ganda, Pilihan Ganda Kompleks, dan Benar/Salah — dilengkapi stimulus teks sejarah. Waktu 75 menit, nilai akhir muncul otomatis.</p>
+    <p>Isi identitasmu terlebih dahulu, lalu pilih bab. Kerjakan 30 soal dengan tiga tipe — Pilihan Ganda, Pilihan Ganda Kompleks, dan Benar/Salah — dilengkapi stimulus teks sejarah.</p>
   </div>
-  <div class="info-grid">
+
+  <div class="identity-card">
+    <div class="identity-title">Identitas Peserta</div>
+    <div class="identity-sub">Data ini akan ditampilkan pada halaman hasil akhir. Pastikan terisi dengan benar.</div>
+    <div class="field">
+      <label for="inpNama">Nama Lengkap</label>
+      <input type="text" id="inpNama" placeholder="Contoh: Nadia Putri Ramadhani" maxlength="60" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="inpSekolah">Asal Sekolah</label>
+      <input type="text" id="inpSekolah" placeholder="Contoh: SMP Negeri 3 Yogyakarta" maxlength="80" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="inpKelas">Kelas</label>
+      <select id="inpKelas">
+        <option value="">— Pilih Kelas —</option>
+        <option value="Kelas 7">Kelas 7</option>
+        <option value="Kelas 8">Kelas 8</option>
+        <option value="Kelas 9">Kelas 9</option>
+      </select>
+    </div>
+    <div class="identity-note">
+      Dengan mengisi identitas, kamu siap mengerjakan simulasi. Nilai akhir akan muncul otomatis setelah semua soal selesai dijawab.
+    </div>
+  </div>
+
+  <div class="info-grid" style="margin-top:28px;">
     <div class="info-card"><div class="num">30</div><div class="lbl">Soal per Sesi</div></div>
     <div class="info-card"><div class="num">75</div><div class="lbl">Menit</div></div>
     <div class="info-card"><div class="num">3</div><div class="lbl">Tipe Soal</div></div>
     <div class="info-card"><div class="num">6</div><div class="lbl">Bab Materi</div></div>
   </div>
+
   <div class="chapter-grid" id="chapterGrid"></div>
 </div>
 
+<!-- ================= HALAMAN 2: KUIS ================= -->
 <div id="screen-quiz" class="screen">
   <div class="quiz-topbar">
     <div class="quiz-meta">
@@ -400,29 +542,58 @@
     <div class="timer-box" id="timerBox"><span class="timer-icon">⏱</span><span id="timerText">75:00</span></div>
   </div>
   <div class="progress-track"><div class="progress-track-fill" id="progressTrackFill"></div></div>
-  <div class="stimulus-box" id="stimulusBox">
-    <div class="stimulus-header">Bacaan</div>
-    <div class="stimulus-title" id="stimulusTitle"></div>
-    <div class="stimulus-text" id="stimulusText"></div>
-    <div class="stimulus-source" id="stimulusSource"></div>
-  </div>
-  <div class="question-card">
-    <div class="q-header">
-      <div class="q-number" id="qNumber">SOAL 01</div>
-      <div class="q-type" id="qType">Pilihan Ganda</div>
+
+  <div class="quiz-layout">
+    <div class="quiz-main">
+      <div class="stimulus-box" id="stimulusBox">
+        <div class="stimulus-header">Bacaan</div>
+        <div class="stimulus-title" id="stimulusTitle"></div>
+        <div class="stimulus-text" id="stimulusText"></div>
+        <div class="stimulus-source" id="stimulusSource"></div>
+      </div>
+      <div class="question-card">
+        <div class="q-header">
+          <div class="q-number" id="qNumber">SOAL 01</div>
+          <div class="q-type" id="qType">Pilihan Ganda</div>
+        </div>
+        <div class="q-text" id="qText"></div>
+        <div id="answerArea"></div>
+        <div class="explanation" id="explanationBox"></div>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" id="prevBtn" onclick="prevQuestion()">← Sebelumnya</button>
+        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Selanjutnya →</button>
+      </div>
     </div>
-    <div class="q-text" id="qText"></div>
-    <div id="answerArea"></div>
-    <div class="explanation" id="explanationBox"></div>
-  </div>
-  <div class="quiz-nav">
-    <button class="btn btn-ghost" id="prevBtn" onclick="prevQuestion()">← Sebelumnya</button>
-    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Selanjutnya →</button>
+
+    <!-- PANEL NAVIGASI SOAL -->
+    <aside class="nav-panel" aria-label="Navigasi Soal">
+      <div class="nav-panel-title">
+        <span>Navigasi Soal</span>
+        <span class="np-count" id="navAnsweredCount">0/30</span>
+      </div>
+      <div class="nav-grid" id="navGrid"></div>
+      <div class="nav-legend">
+        <div><span class="legend-dot green"></span> Sudah dijawab</div>
+        <div><span class="legend-dot blue"></span> Soal saat ini</div>
+        <div><span class="legend-dot"></span> Belum dijawab</div>
+      </div>
+      <div class="nav-identity" id="navIdentity">
+        <div class="ni-name">Peserta</div>
+        <div>—</div>
+      </div>
+    </aside>
   </div>
 </div>
 
+<!-- ================= HALAMAN 3: HASIL ================= -->
 <div id="screen-result" class="screen">
   <div class="result-hero">
+    <div class="identity-summary" id="resultIdentity">
+      <div class="is-item"><div class="is-lbl">Nama</div><div class="is-val" id="resNama">—</div></div>
+      <div class="is-item"><div class="is-lbl">Asal Sekolah</div><div class="is-val" id="resSekolah">—</div></div>
+      <div class="is-item"><div class="is-lbl">Kelas</div><div class="is-val" id="resKelas">—</div></div>
+    </div>
     <div class="score-ring" id="scoreRing" style="--pct:0;">
       <div class="score-value" id="scoreValue">0</div>
       <div class="score-label">Nilai Akhir</div>
@@ -470,31 +641,23 @@ const CHAPTERS = [
 
 /* ============================================================
    BANK SOAL — 6 BAB × 30 SOAL
+   (Isi BANK sama persis dengan file asli — tidak diubah)
    ============================================================ */
 const BANK = {
-
   1: {
     stimuli: {
-      s1: {
-        title: "Herodotus dan Bapak Sejarah",
-        text: "Herodotus (sekitar 484–425 SM) dikenal sebagai \"Bapak Sejarah\". Karyanya, Historia, mencatat peristiwa Perang Persia–Yunani dengan cara yang belum pernah dilakukan sebelumnya: ia mengumpulkan keterangan dari berbagai sumber, membandingkannya, lalu menyusunnya menjadi satu narasi. Meski sebagian isinya bercampur mitos, metode Herodotus meletakkan dasar penyelidikan sejarah sebagai upaya memahami masa lalu secara sistematis.",
-        source: "Sumber: Sejarah Dunia Kuno (adaptasi)"
-      },
-      s2: {
-        title: "Sumber Primer dan Sekunder",
-        text: "Dalam penelitian sejarah, sumber dibedakan berdasarkan kedekatannya dengan peristiwa. Sumber primer adalah sumber yang dibuat atau dihasilkan pada masa peristiwa berlangsung, misalnya prasasti, naskah asli, foto, dan kesaksian pelaku. Sumber sekunder adalah sumber yang dibuat setelah peristiwa terjadi oleh pihak yang tidak terlibat langsung, seperti buku sejarah, artikel, dan dokumenter. Semakin dekat sumber dengan peristiwa, semakin tinggi nilai kesaksiannya, meski tetap perlu dikritik.",
-        source: "Sumber: Buku Metode Sejarah (adaptasi)"
-      },
-      s3: {
-        title: "Kronologi dan Periodisasi",
-        text: "Kronologi adalah urutan peristiwa berdasarkan waktu terjadinya. Periodisasi adalah pembabakan waktu berdasarkan ciri khas tertentu. Keduanya membantu sejarawan menyusun peristiwa secara sistematis sehingga hubungan sebab-akibat dapat dilihat dengan jelas. Sejarah Indonesia, misalnya, lazim dibagi menjadi masa Praaksara, Hindu–Buddha, Islam, Kolonial, dan Kemerdekaan. Tanpa kronologi dan periodisasi, peristiwa sejarah akan tampak acak dan sulit dipahami.",
-        source: "Sumber: Pengantar Ilmu Sejarah (adaptasi)"
-      },
-      s4: {
-        title: "Diakronik dan Sinkronik",
-        text: "Berpikir diakronik berarti melihat peristiwa secara memanjang dalam waktu — dari satu peristiwa ke peristiwa berikutnya. Berpikir sinkronik berarti melihat peristiwa pada satu titik waktu secara meluas, mencakup berbagai aspek seperti politik, ekonomi, sosial, dan budaya. Sejarawan menggunakan keduanya secara bergantian: diakronik untuk melihat perubahan, sinkronik untuk memahami keadaan pada suatu masa.",
-        source: "Sumber: Berpikir Sejarah (adaptasi)"
-      }
+      s1: { title:"Herodotus dan Bapak Sejarah",
+        text:"Herodotus (sekitar 484–425 SM) dikenal sebagai \"Bapak Sejarah\". Karyanya, Historia, mencatat peristiwa Perang Persia–Yunani dengan cara yang belum pernah dilakukan sebelumnya: ia mengumpulkan keterangan dari berbagai sumber, membandingkannya, lalu menyusunnya menjadi satu narasi. Meski sebagian isinya bercampur mitos, metode Herodotus meletakkan dasar penyelidikan sejarah sebagai upaya memahami masa lalu secara sistematis.",
+        source:"Sumber: Sejarah Dunia Kuno (adaptasi)" },
+      s2: { title:"Sumber Primer dan Sekunder",
+        text:"Dalam penelitian sejarah, sumber dibedakan berdasarkan kedekatannya dengan peristiwa. Sumber primer adalah sumber yang dibuat atau dihasilkan pada masa peristiwa berlangsung, misalnya prasasti, naskah asli, foto, dan kesaksian pelaku. Sumber sekunder adalah sumber yang dibuat setelah peristiwa terjadi oleh pihak yang tidak terlibat langsung, seperti buku sejarah, artikel, dan dokumenter. Semakin dekat sumber dengan peristiwa, semakin tinggi nilai kesaksiannya, meski tetap perlu dikritik.",
+        source:"Sumber: Buku Metode Sejarah (adaptasi)" },
+      s3: { title:"Kronologi dan Periodisasi",
+        text:"Kronologi adalah urutan peristiwa berdasarkan waktu terjadinya. Periodisasi adalah pembabakan waktu berdasarkan ciri khas tertentu. Keduanya membantu sejarawan menyusun peristiwa secara sistematis sehingga hubungan sebab-akibat dapat dilihat dengan jelas. Sejarah Indonesia, misalnya, lazim dibagi menjadi masa Praaksara, Hindu–Buddha, Islam, Kolonial, dan Kemerdekaan. Tanpa kronologi dan periodisasi, peristiwa sejarah akan tampak acak dan sulit dipahami.",
+        source:"Sumber: Pengantar Ilmu Sejarah (adaptasi)" },
+      s4: { title:"Diakronik dan Sinkronik",
+        text:"Berpikir diakronik berarti melihat peristiwa secara memanjang dalam waktu — dari satu peristiwa ke peristiwa berikutnya. Berpikir sinkronik berarti melihat peristiwa pada satu titik waktu secara meluas, mencakup berbagai aspek seperti politik, ekonomi, sosial, dan budaya. Sejarawan menggunakan keduanya secara bergantian: diakronik untuk melihat perubahan, sinkronik untuk memahami keadaan pada suatu masa.",
+        source:"Sumber: Berpikir Sejarah (adaptasi)" }
     },
     questions: [
       { t:'PG', stim:'s1', q:"Berdasarkan teks, mengapa Herodotus dijuluki \"Bapak Sejarah\"?", o:["Karena ia menulis buku paling tebal","Karena ia mengumpulkan, membandingkan, dan menyusun sumber menjadi narasi","Karena ia seorang raja Yunani","Karena ia menciptakan sistem kalender"], a:1, e:"Herodotus dijuluki Bapak Sejarah karena metode penyelidikannya: mengumpulkan, membandingkan, dan menyusun sumber." },
@@ -557,29 +720,20 @@ const BANK = {
       ], e:"Verifikasi berarti menguji kebenaran, bukan mengarang cerita." }
     ]
   },
-
   2: {
     stimuli: {
-      s1: {
-        title: "Asal-Usul Nama Tempat di Nusantara",
-        text: "Toponimi adalah ilmu yang mempelajari asal-usul dan makna nama tempat. Banyak nama tempat di Indonesia berasal dari bahasa daerah atau bahasa asing. Nama \"Cibodas\" berasal dari bahasa Sunda: ci (air) + bodas (putih). Nama \"Surabaya\" dikaitkan dengan legenda pertarungan Sura (hiu) dan Baya (buaya). Nama \"Jayapura\" berasal dari bahasa Sanskerta: jaya (kemenangan) + pura (kota). Pola penamaan tempat dapat bersifat deskriptif (menggambarkan alam), simbolik (mengandung harapan), atau asosiatif (dikaitkan tokoh atau peristiwa).",
-        source: "Sumber: Pengantar Toponimi Nusantara (adaptasi)"
-      },
-      s2: {
-        title: "Kearifan Lokal Nusantara",
-        text: "Kearifan lokal adalah nilai, pengetahuan, dan kebiasaan masyarakat setempat yang diwariskan dari generasi ke generasi. Contohnya, Subak di Bali adalah sistem irigasi tradisional yang diakui UNESCO sebagai Warisan Budaya Dunia pada 2012. Tana' Ulen di Kalimantan adalah hutan adat masyarakat Dayak yang dilindungi secara tradisional. Sasi di Maluku adalah tradisi menjaga kelestarian laut. Sambatan di Jawa adalah tradisi gotong royong membangun rumah. Semua kearifan lokal ini mengandung nilai kerja sama, keseimbangan alam, dan spiritualitas.",
-        source: "Sumber: Kearifan Lokal Nusantara (adaptasi)"
-      },
-      s3: {
-        title: "Tradisi Lisan sebagai Sumber Sejarah",
-        text: "Tradisi lisan adalah warisan budaya yang disampaikan dari mulut ke mulut. Bentuknya beragam: mitos, legenda, dongeng, fabel, pantun, dan nyanyian rakyat. Legenda adalah cerita rakyat yang dianggap benar-benar terjadi, seperti Tangkuban Perahu. Mitos adalah cerita suci, seperti Nyai Roro Kidul. Tradisi lisan dapat menjadi sumber sejarah, tetapi perlu dikritik karena mudah berubah saat diwariskan.",
-        source: "Sumber: Tradisi Lisan Nusantara (adaptasi)"
-      },
-      s4: {
-        title: "Tokoh Lokal dalam Sejarah Daerah",
-        text: "Setiap daerah memiliki tokoh penting yang berperan dalam sejarah setempat. Cut Nyak Dhien dari Aceh, Pangeran Diponegoro dari Jawa, Pattimura dari Maluku, dan Sultan Hasanuddin dari Makassar adalah contoh pahlawan perjuangan yang namanya dikenang hingga kini. Selain pahlawan perjuangan, tokoh lokal juga bisa berupa ulama, raja, seniman, atau pelopor pembangunan. Peran mereka dapat ditelusuri melalui wawancara sesepuh, arsip desa, situs bersejarah, atau nama jalan dan gedung.",
-        source: "Sumber: Tokoh-Tokoh Lokal Nusantara (adaptasi)"
-      }
+      s1: { title:"Asal-Usul Nama Tempat di Nusantara",
+        text:"Toponimi adalah ilmu yang mempelajari asal-usul dan makna nama tempat. Banyak nama tempat di Indonesia berasal dari bahasa daerah atau bahasa asing. Nama \"Cibodas\" berasal dari bahasa Sunda: ci (air) + bodas (putih). Nama \"Surabaya\" dikaitkan dengan legenda pertarungan Sura (hiu) dan Baya (buaya). Nama \"Jayapura\" berasal dari bahasa Sanskerta: jaya (kemenangan) + pura (kota). Pola penamaan tempat dapat bersifat deskriptif (menggambarkan alam), simbolik (mengandung harapan), atau asosiatif (dikaitkan tokoh atau peristiwa).",
+        source:"Sumber: Pengantar Toponimi Nusantara (adaptasi)" },
+      s2: { title:"Kearifan Lokal Nusantara",
+        text:"Kearifan lokal adalah nilai, pengetahuan, dan kebiasaan masyarakat setempat yang diwariskan dari generasi ke generasi. Contohnya, Subak di Bali adalah sistem irigasi tradisional yang diakui UNESCO sebagai Warisan Budaya Dunia pada 2012. Tana' Ulen di Kalimantan adalah hutan adat masyarakat Dayak yang dilindungi secara tradisional. Sasi di Maluku adalah tradisi menjaga kelestarian laut. Sambatan di Jawa adalah tradisi gotong royong membangun rumah. Semua kearifan lokal ini mengandung nilai kerja sama, keseimbangan alam, dan spiritualitas.",
+        source:"Sumber: Kearifan Lokal Nusantara (adaptasi)" },
+      s3: { title:"Tradisi Lisan sebagai Sumber Sejarah",
+        text:"Tradisi lisan adalah warisan budaya yang disampaikan dari mulut ke mulut. Bentuknya beragam: mitos, legenda, dongeng, fabel, pantun, dan nyanyian rakyat. Legenda adalah cerita rakyat yang dianggap benar-benar terjadi, seperti Tangkuban Perahu. Mitos adalah cerita suci, seperti Nyai Roro Kidul. Tradisi lisan dapat menjadi sumber sejarah, tetapi perlu dikritik karena mudah berubah saat diwariskan.",
+        source:"Sumber: Tradisi Lisan Nusantara (adaptasi)" },
+      s4: { title:"Tokoh Lokal dalam Sejarah Daerah",
+        text:"Setiap daerah memiliki tokoh penting yang berperan dalam sejarah setempat. Cut Nyak Dhien dari Aceh, Pangeran Diponegoro dari Jawa, Pattimura dari Maluku, dan Sultan Hasanuddin dari Makassar adalah contoh pahlawan perjuangan yang namanya dikenang hingga kini. Selain pahlawan perjuangan, tokoh lokal juga bisa berupa ulama, raja, seniman, atau pelopor pembangunan. Peran mereka dapat ditelusuri melalui wawancara sesepuh, arsip desa, situs bersejarah, atau nama jalan dan gedung.",
+        source:"Sumber: Tokoh-Tokoh Lokal Nusantara (adaptasi)" }
     },
     questions: [
       { t:'PG', stim:'s1', q:"Berdasarkan teks, kata \"toponimi\" mempelajari ...", o:["Asal-usul nama tempat","Sistem irigasi","Cerita rakyat","Adat istiadat"], a:0, e:"Toponimi mempelajari asal-usul dan makna nama tempat." },
@@ -646,29 +800,20 @@ const BANK = {
       ], e:"Nama tempat dapat berubah seiring waktu dan pengaruh budaya." }
     ]
   },
-
   3: {
     stimuli: {
-      s1: {
-        title: "Pertempuran Surabaya 1945",
-        text: "Setelah Proklamasi 17 Agustus 1945, pasukan Sekutu (Inggris) datang ke Surabaya untuk melucuti senjata Jepang. Namun, mereka juga membawa NICA — pemerintahan sipil Belanda yang ingin mengembalikan kekuasaan kolonial. Ketegangan memuncak pada akhir Oktober 1945. Pada 9 November 1945, Inggris mengeluarkan ultimatum agar rakyat Surabaya menyerah. Rakyat menolak. Pada 10 November 1945, pertempuran besar pecah. Bung Tomo membakar semangat rakyat melalui radio. Peristiwa ini kemudian diperingati sebagai Hari Pahlawan Nasional.",
-        source: "Sumber: Sejarah Indonesia Modern (adaptasi)"
-      },
-      s2: {
-        title: "VOC dan Monopoli Rempah",
-        text: "VOC (Vereenigde Oostindische Compagnie) didirikan pada 20 Maret 1602. VOC diberi hak istimewa oleh pemerintah Belanda, termasuk hak berperang, membangun benteng, dan mengadakan perjanjian. Untuk menguasai perdagangan rempah, VOC menerapkan monopoli, politik devide et impera (adu domba), dan hongi tochten — pelayaran menghancurkan kebun rempah rakyat. Pada 1621, di bawah Gubernur Jenderal JP Coen, VOC menaklukkan Banda dan melakukan pembantaian terhadap penduduknya. VOC dibubarkan pada 1799 karena korupsi dan bangkrut.",
-        source: "Sumber: Sejarah VOC di Nusantara (adaptasi)"
-      },
-      s3: {
-        title: "Jalur Rempah Nusantara",
-        text: "Jalur Rempah adalah jaringan perdagangan rempah yang menghubungkan Nusantara dengan India, Tiongkok, Arab, dan Eropa. Rempah utama Nusantara adalah cengkih dari Maluku (Ternate, Tidore, Moti, Makian, Bacan) dan pala dari Kepulauan Banda. Sebelum bangsa Eropa datang, rempah Nusantara sudah sampai ke India, Tiongkok, dan Timur Tengah melalui pedagang India dan Arab. Bangsa Eropa kemudian mencari jalur laut langsung untuk mendapatkan rempah tanpa perantara.",
-        source: "Sumber: Jalur Rempah Nusantara (adaptasi)"
-      },
-      s4: {
-        title: "Keterhubungan Lokal, Nasional, Global",
-        text: "Peristiwa sejarah dapat dianalisis dalam tiga skala: lokal, nasional, dan global. Perang Dunia II (global) menyebabkan Jepang menduduki Indonesia (nasional), yang kemudian memicu kerja paksa di berbagai daerah (lokal). Sebaliknya, Pertempuran Surabaya (lokal) menjadi simbol perlawanan bangsa (nasional) dan menarik perhatian dunia internasional (global). Memahami keterhubungan ini membantu kita melihat bahwa peristiwa lokal tidak pernah benar-benar kecil — ia selalu terhubung dengan skala yang lebih luas.",
-        source: "Sumber: Berpikir Sejarah Lintas Skala (adaptasi)"
-      }
+      s1: { title:"Pertempuran Surabaya 1945",
+        text:"Setelah Proklamasi 17 Agustus 1945, pasukan Sekutu (Inggris) datang ke Surabaya untuk melucuti senjata Jepang. Namun, mereka juga membawa NICA — pemerintahan sipil Belanda yang ingin mengembalikan kekuasaan kolonial. Ketegangan memuncak pada akhir Oktober 1945. Pada 9 November 1945, Inggris mengeluarkan ultimatum agar rakyat Surabaya menyerah. Rakyat menolak. Pada 10 November 1945, pertempuran besar pecah. Bung Tomo membakar semangat rakyat melalui radio. Peristiwa ini kemudian diperingati sebagai Hari Pahlawan Nasional.",
+        source:"Sumber: Sejarah Indonesia Modern (adaptasi)" },
+      s2: { title:"VOC dan Monopoli Rempah",
+        text:"VOC (Vereenigde Oostindische Compagnie) didirikan pada 20 Maret 1602. VOC diberi hak istimewa oleh pemerintah Belanda, termasuk hak berperang, membangun benteng, dan mengadakan perjanjian. Untuk menguasai perdagangan rempah, VOC menerapkan monopoli, politik devide et impera (adu domba), dan hongi tochten — pelayaran menghancurkan kebun rempah rakyat. Pada 1621, di bawah Gubernur Jenderal JP Coen, VOC menaklukkan Banda dan melakukan pembantaian terhadap penduduknya. VOC dibubarkan pada 1799 karena korupsi dan bangkrut.",
+        source:"Sumber: Sejarah VOC di Nusantara (adaptasi)" },
+      s3: { title:"Jalur Rempah Nusantara",
+        text:"Jalur Rempah adalah jaringan perdagangan rempah yang menghubungkan Nusantara dengan India, Tiongkok, Arab, dan Eropa. Rempah utama Nusantara adalah cengkih dari Maluku (Ternate, Tidore, Moti, Makian, Bacan) dan pala dari Kepulauan Banda. Sebelum bangsa Eropa datang, rempah Nusantara sudah sampai ke India, Tiongkok, dan Timur Tengah melalui pedagang India dan Arab. Bangsa Eropa kemudian mencari jalur laut langsung untuk mendapatkan rempah tanpa perantara.",
+        source:"Sumber: Jalur Rempah Nusantara (adaptasi)" },
+      s4: { title:"Keterhubungan Lokal, Nasional, Global",
+        text:"Peristiwa sejarah dapat dianalisis dalam tiga skala: lokal, nasional, dan global. Perang Dunia II (global) menyebabkan Jepang menduduki Indonesia (nasional), yang kemudian memicu kerja paksa di berbagai daerah (lokal). Sebaliknya, Pertempuran Surabaya (lokal) menjadi simbol perlawanan bangsa (nasional) dan menarik perhatian dunia internasional (global). Memahami keterhubungan ini membantu kita melihat bahwa peristiwa lokal tidak pernah benar-benar kecil — ia selalu terhubung dengan skala yang lebih luas.",
+        source:"Sumber: Berpikir Sejarah Lintas Skala (adaptasi)" }
     },
     questions: [
       { t:'PG', stim:'s1', q:"Berdasarkan teks, yang memicu Pertempuran Surabaya adalah ...", o:["Ultimatum Inggris agar rakyat menyerah","Kedatangan Jepang","Perjanjian dengan Belanda","Konferensi Asia-Afrika"], a:0, e:"Ultimatum Inggris pada 9 November 1945 memicu pertempuran." },
@@ -734,29 +879,20 @@ const BANK = {
       ], e:"Kebangkitan Nasional ditandai berdirinya Budi Utomo pada 1908, bukan Sarekat Islam." }
     ]
   },
-
   4: {
     stimuli: {
-      s1: {
-        title: "Teori Out of Taiwan",
-        text: "Teori Out of Taiwan menyatakan bahwa bangsa Austronesia berasal dari Taiwan sekitar 5.000–4.000 SM, lalu menyebar ke Filipina, Indonesia, hingga Pasifik. Teori ini didukung oleh bukti linguistik (kesamaan bahasa Austronesia), bukti arkeologis (kesamaan teknologi pertanian dan bahari), serta penelitian genetika modern. Teori ini juga didukung oleh ahli bahasa seperti Robert Blust dan penelitian DNA yang menunjukkan kesamaan genetik penduduk Indonesia dengan penduduk Taiwan.",
-        source: "Sumber: Asal-Usul Bangsa Austronesia (adaptasi)"
-      },
-      s2: {
-        title: "Proto Melayu dan Deutro Melayu",
-        text: "Proto Melayu (Melayu Tua) datang ke Nusantara sekitar 1500 SM pada zaman Neolitikum. Mereka membawa kapak persegi dan kapak lonjong, serta kebudayaan megalitikum. Keturunannya di Indonesia antara lain Suku Batak, Dayak, Toraja, dan Nias. Deutro Melayu (Melayu Muda) datang sekitar 500 SM pada zaman Logam. Mereka membawa kapak corong dan nekara. Keturunannya antara lain Suku Jawa, Bugis, Minangkabau, Bali, dan Sunda. Kedatangan Deutro Melayu mendorong Proto Melayu ke pedalaman.",
-        source: "Sumber: Bangsa Austronesia (adaptasi)"
-      },
-      s3: {
-        title: "Kebudayaan Megalitikum",
-        text: "Megalitikum berarti \"zaman batu besar\" (megas = besar, lithos = batu). Kebudayaan ini dibawa oleh bangsa Austronesia (Proto Melayu) saat bermigrasi ke Nusantara sekitar 1500 SM. Bentuk peninggalannya antara lain menhir (tugu batu tegak untuk pemujaan roh leluhur), dolmen (meja batu untuk altar persembahan), sarkofagus (peti batu untuk kubur orang penting), dan arca (patung batu). Situs megalitikum di Indonesia antara lain Gunung Padang (Cianjur), Bori Kalimbuang (Toraja), dan Waruga (Minahasa).",
-        source: "Sumber: Kebudayaan Megalitikum Nusantara (adaptasi)"
-      },
-      s4: {
-        title: "Bahasa Austronesia",
-        text: "Rumpun bahasa Austronesia terdiri dari lebih dari 1.200 bahasa yang tersebar dari Madagaskar hingga Selandia Baru. Bahasa-bahasa ini berasal dari satu induk yang sama: bahasa Proto-Austronesia. Kesamaan kata dasar, seperti \"mata\" (Indonesia), \"mata\" (Tagalog), \"mata\" (Maori), dan \"maso\" (Madagaskar), membuktikan kekerabatan bahasa tersebut. Bahasa Indonesia yang kita gunakan sekarang adalah turunan dari bahasa Melayu, yang termasuk rumpun Austronesia.",
-        source: "Sumber: Rumpun Bahasa Austronesia (adaptasi)"
-      }
+      s1: { title:"Teori Out of Taiwan",
+        text:"Teori Out of Taiwan menyatakan bahwa bangsa Austronesia berasal dari Taiwan sekitar 5.000–4.000 SM, lalu menyebar ke Filipina, Indonesia, hingga Pasifik. Teori ini didukung oleh bukti linguistik (kesamaan bahasa Austronesia), bukti arkeologis (kesamaan teknologi pertanian dan bahari), serta penelitian genetika modern. Teori ini juga didukung oleh ahli bahasa seperti Robert Blust dan penelitian DNA yang menunjukkan kesamaan genetik penduduk Indonesia dengan penduduk Taiwan.",
+        source:"Sumber: Asal-Usul Bangsa Austronesia (adaptasi)" },
+      s2: { title:"Proto Melayu dan Deutro Melayu",
+        text:"Proto Melayu (Melayu Tua) datang ke Nusantara sekitar 1500 SM pada zaman Neolitikum. Mereka membawa kapak persegi dan kapak lonjong, serta kebudayaan megalitikum. Keturunannya di Indonesia antara lain Suku Batak, Dayak, Toraja, dan Nias. Deutro Melayu (Melayu Muda) datang sekitar 500 SM pada zaman Logam. Mereka membawa kapak corong dan nekara. Keturunannya antara lain Suku Jawa, Bugis, Minangkabau, Bali, dan Sunda. Kedatangan Deutro Melayu mendorong Proto Melayu ke pedalaman.",
+        source:"Sumber: Bangsa Austronesia (adaptasi)" },
+      s3: { title:"Kebudayaan Megalitikum",
+        text:"Megalitikum berarti \"zaman batu besar\" (megas = besar, lithos = batu). Kebudayaan ini dibawa oleh bangsa Austronesia (Proto Melayu) saat bermigrasi ke Nusantara sekitar 1500 SM. Bentuk peninggalannya antara lain menhir (tugu batu tegak untuk pemujaan roh leluhur), dolmen (meja batu untuk altar persembahan), sarkofagus (peti batu untuk kubur orang penting), dan arca (patung batu). Situs megalitikum di Indonesia antara lain Gunung Padang (Cianjur), Bori Kalimbuang (Toraja), dan Waruga (Minahasa).",
+        source:"Sumber: Kebudayaan Megalitikum Nusantara (adaptasi)" },
+      s4: { title:"Bahasa Austronesia",
+        text:"Rumpun bahasa Austronesia terdiri dari lebih dari 1.200 bahasa yang tersebar dari Madagaskar hingga Selandia Baru. Bahasa-bahasa ini berasal dari satu induk yang sama: bahasa Proto-Austronesia. Kesamaan kata dasar, seperti \"mata\" (Indonesia), \"mata\" (Tagalog), \"mata\" (Maori), dan \"maso\" (Madagaskar), membuktikan kekerabatan bahasa tersebut. Bahasa Indonesia yang kita gunakan sekarang adalah turunan dari bahasa Melayu, yang termasuk rumpun Austronesia.",
+        source:"Sumber: Rumpun Bahasa Austronesia (adaptasi)" }
     },
     questions: [
       { t:'PG', stim:'s1', q:"Berdasarkan teks, teori Out of Taiwan didukung oleh bukti berikut, KECUALI ...", o:["Linguistik","Arkeologis","Genetika","Astronomi"], a:3, e:"Astronomi tidak disebut sebagai bukti dalam teks." },
@@ -822,29 +958,20 @@ const BANK = {
       ], e:"Bahasa Austronesia memiliki lebih dari 1.200 bahasa." }
     ]
   },
-
   5: {
     stimuli: {
-      s1: {
-        title: "Banda dan Pala",
-        text: "Kepulauan Banda adalah satu-satunya wilayah di dunia yang menghasilkan pala pada abad ke-16. Pala dari Banda menjadi komoditas paling dicari di Eropa. Di Eropa, satu kilogram pala bisa bernilai setara dengan tujuh ekor sapi. Pulau Run, salah satu pulau di Banda, pernah ditukar oleh Inggris dengan Belanda: Inggris menyerahkan Pulau Run, Belanda menyerahkan Pulau Manhattan (New York) di Amerika. Peristiwa ini menunjukkan betapa berharganya rempah Nusantara pada masa itu.",
-        source: "Sumber: Kepulauan Banda dan Sejarah Rempah (adaptasi)"
-      },
-      s2: {
-        title: "VOC dan Monopoli Rempah",
-        text: "VOC menerapkan monopoli perdagangan rempah di Maluku dan Banda. Rakyat hanya boleh berdagang dengan VOC. Untuk menjaga harga tetap tinggi, VOC melakukan hongi tochten — pelayaran menghancurkan kebun rempah rakyat. VOC juga menerapkan politik devide et impera — adu domba antar kerajaan Nusantara. Pada 1621, di bawah JP Coen, VOC menaklukkan Banda dan melakukan pembantaian terhadap penduduknya. Rakyat Maluku dan Banda mengalami penderitaan yang mendalam akibat praktik monopoli VOC.",
-        source: "Sumber: VOC dan Rakyat Nusantara (adaptasi)"
-      },
-      s3: {
-        title: "Akulturasi Budaya Jalur Rempah",
-        text: "Jalur rempah bukan hanya jalur barang, tetapi juga jalur budaya. Berbagai budaya bertemu di pelabuhan-pelabuhan Nusantara, menghasilkan akulturasi. Contohnya, masjid beratap tumpang adalah perpaduan Islam, Hindu, dan Jawa. Batik Pekalongan dipengaruhi budaya Tiongkok dan Belanda. Keroncong adalah musik perpaduan Portugis dan Nusantara. Kata-kata serapan dari Sanskerta, Arab, Portugis, dan Belanda memperkaya bahasa Indonesia. Semua ini adalah jejak akulturasi budaya melalui jalur rempah.",
-        source: "Sumber: Akulturasi Budaya Nusantara (adaptasi)"
-      },
-      s4: {
-        title: "Pelabuhan Nusantara",
-        text: "Pelabuhan-pelabuhan di Nusantara menjadi simpul perdagangan rempah. Malaka adalah pelabuhan terbesar di Asia Tenggara sebelum 1511. Banten menjadi pusat lada di Jawa Barat. Makassar adalah pelabuhan bebas terbesar di Indonesia timur. Ternate dan Tidore adalah pusat perdagangan cengkih. Banda Neira adalah pusat perdagangan pala. Setiap pelabuhan memiliki peran penting dalam jaringan perdagangan rempah Nusantara.",
-        source: "Sumber: Pelabuhan-Pelabuhan Nusantara (adaptasi)"
-      }
+      s1: { title:"Banda dan Pala",
+        text:"Kepulauan Banda adalah satu-satunya wilayah di dunia yang menghasilkan pala pada abad ke-16. Pala dari Banda menjadi komoditas paling dicari di Eropa. Di Eropa, satu kilogram pala bisa bernilai setara dengan tujuh ekor sapi. Pulau Run, salah satu pulau di Banda, pernah ditukar oleh Inggris dengan Belanda: Inggris menyerahkan Pulau Run, Belanda menyerahkan Pulau Manhattan (New York) di Amerika. Peristiwa ini menunjukkan betapa berharganya rempah Nusantara pada masa itu.",
+        source:"Sumber: Kepulauan Banda dan Sejarah Rempah (adaptasi)" },
+      s2: { title:"VOC dan Monopoli Rempah",
+        text:"VOC menerapkan monopoli perdagangan rempah di Maluku dan Banda. Rakyat hanya boleh berdagang dengan VOC. Untuk menjaga harga tetap tinggi, VOC melakukan hongi tochten — pelayaran menghancurkan kebun rempah rakyat. VOC juga menerapkan politik devide et impera — adu domba antar kerajaan Nusantara. Pada 1621, di bawah JP Coen, VOC menaklukkan Banda dan melakukan pembantaian terhadap penduduknya. Rakyat Maluku dan Banda mengalami penderitaan yang mendalam akibat praktik monopoli VOC.",
+        source:"Sumber: VOC dan Rakyat Nusantara (adaptasi)" },
+      s3: { title:"Akulturasi Budaya Jalur Rempah",
+        text:"Jalur rempah bukan hanya jalur barang, tetapi juga jalur budaya. Berbagai budaya bertemu di pelabuhan-pelabuhan Nusantara, menghasilkan akulturasi. Contohnya, masjid beratap tumpang adalah perpaduan Islam, Hindu, dan Jawa. Batik Pekalongan dipengaruhi budaya Tiongkok dan Belanda. Keroncong adalah musik perpaduan Portugis dan Nusantara. Kata-kata serapan dari Sanskerta, Arab, Portugis, dan Belanda memperkaya bahasa Indonesia. Semua ini adalah jejak akulturasi budaya melalui jalur rempah.",
+        source:"Sumber: Akulturasi Budaya Nusantara (adaptasi)" },
+      s4: { title:"Pelabuhan Nusantara",
+        text:"Pelabuhan-pelabuhan di Nusantara menjadi simpul perdagangan rempah. Malaka adalah pelabuhan terbesar di Asia Tenggara sebelum 1511. Banten menjadi pusat lada di Jawa Barat. Makassar adalah pelabuhan bebas terbesar di Indonesia timur. Ternate dan Tidore adalah pusat perdagangan cengkih. Banda Neira adalah pusat perdagangan pala. Setiap pelabuhan memiliki peran penting dalam jaringan perdagangan rempah Nusantara.",
+        source:"Sumber: Pelabuhan-Pelabuhan Nusantara (adaptasi)" }
     },
     questions: [
       { t:'PG', stim:'s1', q:"Berdasarkan teks, satu kilogram pala pada abad ke-16 di Eropa setara dengan ...", o:["1 ekor sapi","7 ekor sapi","10 ekor sapi","100 ekor sapi"], a:1, e:"Satu kilogram pala setara tujuh ekor sapi." },
@@ -910,29 +1037,20 @@ const BANK = {
       ], e:"Selat Malaka hingga kini masih menjadi jalur pelayaran tersibuk di dunia." }
     ]
   },
-
   6: {
     stimuli: {
-      s1: {
-        title: "Penelitian Sejarah Lokal",
-        text: "Untuk meneliti sejarah lokal, kita dapat mengikuti delapan tahapan keterampilan proses. Pertama, mengamati: melihat papan nama desa, bangunan tua, atau situs bersejarah. Kedua, menanya: merumuskan pertanyaan kritis seperti \"mengapa desa ini bernama demikian?\". Ketiga, mengumpulkan informasi: wawancara sesepuh, membaca arsip desa, mencari buku sejarah lokal. Keempat, mengolah informasi: membandingkan versi cerita dan memeriksa keasliannya. Kelima, menguji dan menerapkan konsep: menerapkan konsep toponimi pada nama desa. Keenam, mengevaluasi dan merefleksi: menilai hasil penelitian dan merenungkan maknanya. Ketujuh, mengomunikasikan: menyajikan hasil dalam bentuk laporan atau video. Kedelapan, menyusun rencana tindak lanjut: merancang aksi nyata, misalnya membuat papan informasi sejarah di balai desa.",
-        source: "Sumber: Panduan Penelitian Sejarah Lokal (adaptasi)"
-      },
-      s2: {
-        title: "Kritik Sumber Sejarah",
-        text: "Kritik sumber adalah tahap menguji keaslian dan kredibilitas sumber sejarah. Kritik ekstern menguji keaslian fisik sumber: apakah bahannya sesuai zaman? apakah tulisan atau bentuknya asli? Kritik intern menguji isi sumber: apakah informasinya masuk akal? apakah konsisten dengan sumber lain? Setelah kritik, sejarawan melakukan interpretasi — penafsiran makna fakta. Sumber yang telah teruji kebenarannya disebut bukti sejarah, dan pernyataan yang didukung bukti disebut fakta sejarah. Fakta keras (hard fact) dapat dibuktikan langsung, sedangkan fakta lunak (soft fact) masih diperdebatkan.",
-        source: "Sumber: Metode Sejarah (adaptasi)"
-      },
-      s3: {
-        title: "Merefleksi Sejarah",
-        text: "Merefleksi berarti merenungkan makna, nilai, dan pelajaran yang dapat diambil dari peristiwa sejarah. Tanpa refleksi, sejarah hanya menjadi tumpukan cerita masa lalu. Dengan refleksi, sejarah menjadi cermin bagi kehidupan kita. Misalnya, setelah mempelajari pembantaian Banda 1621, kita dapat merefleksikan bahwa keserakahan dapat menghancurkan kehidupan, dan kita berkomitmen menolak ketidakadilan. Refleksi juga membantu kita memahami keterhubungan antara masa lampau, masa kini, dan masa depan.",
-        source: "Sumber: Refleksi dalam Pembelajaran Sejarah (adaptasi)"
-      },
-      s4: {
-        title: "Rencana Tindak Lanjut",
-        text: "Menyusun rencana tindak lanjut adalah tahap akhir keterampilan proses sejarah. Setelah penelitian selesai, siswa merancang aksi nyata secara kolaboratif. Contohnya, jika menemukan situs megalitikum yang terabaikan, siswa dapat mengusulkan perawatan situs kepada pemerintah desa. Jika mengumpulkan cerita rakyat yang hampir punah, siswa dapat membuat buku kumpulan cerita dan membagikannya ke perpustakaan sekolah. Tahap ini membedakan pembelajaran sejarah yang bermakna dari sekadar tugas sekolah.",
-        source: "Sumber: Pembelajaran Sejarah Berbasis Proyek (adaptasi)"
-      }
+      s1: { title:"Penelitian Sejarah Lokal",
+        text:"Untuk meneliti sejarah lokal, kita dapat mengikuti delapan tahapan keterampilan proses. Pertama, mengamati: melihat papan nama desa, bangunan tua, atau situs bersejarah. Kedua, menanya: merumuskan pertanyaan kritis seperti \"mengapa desa ini bernama demikian?\". Ketiga, mengumpulkan informasi: wawancara sesepuh, membaca arsip desa, mencari buku sejarah lokal. Keempat, mengolah informasi: membandingkan versi cerita dan memeriksa keasliannya. Kelima, menguji dan menerapkan konsep: menerapkan konsep toponimi pada nama desa. Keenam, mengevaluasi dan merefleksi: menilai hasil penelitian dan merenungkan maknanya. Ketujuh, mengomunikasikan: menyajikan hasil dalam bentuk laporan atau video. Kedelapan, menyusun rencana tindak lanjut: merancang aksi nyata, misalnya membuat papan informasi sejarah di balai desa.",
+        source:"Sumber: Panduan Penelitian Sejarah Lokal (adaptasi)" },
+      s2: { title:"Kritik Sumber Sejarah",
+        text:"Kritik sumber adalah tahap menguji keaslian dan kredibilitas sumber sejarah. Kritik ekstern menguji keaslian fisik sumber: apakah bahannya sesuai zaman? apakah tulisan atau bentuknya asli? Kritik intern menguji isi sumber: apakah informasinya masuk akal? apakah konsisten dengan sumber lain? Setelah kritik, sejarawan melakukan interpretasi — penafsiran makna fakta. Sumber yang telah teruji kebenarannya disebut bukti sejarah, dan pernyataan yang didukung bukti disebut fakta sejarah. Fakta keras (hard fact) dapat dibuktikan langsung, sedangkan fakta lunak (soft fact) masih diperdebatkan.",
+        source:"Sumber: Metode Sejarah (adaptasi)" },
+      s3: { title:"Merefleksi Sejarah",
+        text:"Merefleksi berarti merenungkan makna, nilai, dan pelajaran yang dapat diambil dari peristiwa sejarah. Tanpa refleksi, sejarah hanya menjadi tumpukan cerita masa lalu. Dengan refleksi, sejarah menjadi cermin bagi kehidupan kita. Misalnya, setelah mempelajari pembantaian Banda 1621, kita dapat merefleksikan bahwa keserakahan dapat menghancurkan kehidupan, dan kita berkomitmen menolak ketidakadilan. Refleksi juga membantu kita memahami keterhubungan antara masa lampau, masa kini, dan masa depan.",
+        source:"Sumber: Refleksi dalam Pembelajaran Sejarah (adaptasi)" },
+      s4: { title:"Rencana Tindak Lanjut",
+        text:"Menyusun rencana tindak lanjut adalah tahap akhir keterampilan proses sejarah. Setelah penelitian selesai, siswa merancang aksi nyata secara kolaboratif. Contohnya, jika menemukan situs megalitikum yang terabaikan, siswa dapat mengusulkan perawatan situs kepada pemerintah desa. Jika mengumpulkan cerita rakyat yang hampir punah, siswa dapat membuat buku kumpulan cerita dan membagikannya ke perpustakaan sekolah. Tahap ini membedakan pembelajaran sejarah yang bermakna dari sekadar tugas sekolah.",
+        source:"Sumber: Pembelajaran Sejarah Berbasis Proyek (adaptasi)" }
     },
     questions: [
       { t:'PG', stim:'s1', q:"Berdasarkan teks, tahapan pertama dalam keterampilan proses sejarah adalah ...", o:["Menanya","Mengamati","Mengolah informasi","Mengomunikasikan"], a:1, e:"Urutan dimulai dari mengamati." },
@@ -1018,10 +1136,6 @@ function shuffleInPlace(arr) {
   }
   return arr;
 }
-
-/* ============================================================
-   PENYEIMBANGAN JAWABAN
-   ============================================================ */
 function balancePG(chapter) {
   const pgList = chapter.questions.filter(q => q.t === 'PG');
   const n = pgList.length;
@@ -1058,23 +1172,15 @@ function balanceMMA(chapter) {
   });
 }
 function balanceBS(chapter) {
-  chapter.questions.filter(q => q.t === 'BS').forEach(q => {
-    shuffleInPlace(q.st);
-  });
+  chapter.questions.filter(q => q.t === 'BS').forEach(q => { shuffleInPlace(q.st); });
 }
 function prepareBank() {
   CHAPTERS.forEach(ch => {
     const bank = BANK[ch.id];
     if (!bank) return;
-    balancePG(bank);
-    balanceMMA(bank);
-    balanceBS(bank);
+    balancePG(bank); balanceMMA(bank); balanceBS(bank);
   });
 }
-
-/* ============================================================
-   PENYUSUNAN SESI — 30 SOAL
-   ============================================================ */
 function buildSession(chapterId) {
   const bank = BANK[chapterId];
   const stimuli = bank.stimuli;
@@ -1084,9 +1190,7 @@ function buildSession(chapterId) {
     if (q.stim) {
       if (!groups.has(q.stim)) groups.set(q.stim, []);
       groups.get(q.stim).push(q);
-    } else {
-      standalone.push(q);
-    }
+    } else standalone.push(q);
   });
   const blocks = [];
   groups.forEach((qs, sid) => {
@@ -1095,9 +1199,7 @@ function buildSession(chapterId) {
   shuffleInPlace(blocks);
   const questions = [];
   blocks.forEach(b => {
-    b.questions.forEach(q => {
-      questions.push({ ...q, _stim: b.stim, _stimId: b.stimId });
-    });
+    b.questions.forEach(q => questions.push({ ...q, _stim: b.stim, _stimId: b.stimId }));
   });
   shuffleInPlace(standalone).forEach(q => {
     questions.push({ ...q, _stim: null, _stimId: null });
@@ -1106,16 +1208,47 @@ function buildSession(chapterId) {
 }
 
 /* ============================================================
-   STATE & LOGIKA APLIKASI
+   STATE & LOGIKA
    ============================================================ */
-const SOAL_PER_SESI = 30;
 const DURASI_DETIK = 75 * 60;
-
 let state = {
   bab: null, questions: [], answers: [], current: 0,
-  timer: null, timeLeft: DURASI_DETIK, finished: false
+  timer: null, timeLeft: DURASI_DETIK, finished: false,
+  identitas: { nama:'', sekolah:'', kelas:'' }
 };
 
+/* === Identitas === */
+function getIdentitas() {
+  const nama = document.getElementById('inpNama').value.trim();
+  const sekolah = document.getElementById('inpSekolah').value.trim();
+  const kelas = document.getElementById('inpKelas').value;
+  if (!nama) { alert('Mohon isi Nama Lengkap terlebih dahulu.'); document.getElementById('inpNama').focus(); return null; }
+  if (!sekolah) { alert('Mohon isi Asal Sekolah terlebih dahulu.'); document.getElementById('inpSekolah').focus(); return null; }
+  if (!kelas) { alert('Mohon pilih Kelas terlebih dahulu.'); document.getElementById('inpKelas').focus(); return null; }
+  return { nama, sekolah, kelas };
+}
+function applyIdentitasToNav() {
+  const ni = document.getElementById('navIdentity');
+  const id = state.identitas;
+  ni.innerHTML = `
+    <div class="ni-name">${escapeHtml(id.nama || 'Peserta')}</div>
+    <div>${escapeHtml(id.sekolah || '—')}</div>
+    <div>${escapeHtml(id.kelas || '—')}</div>
+  `;
+}
+function applyIdentitasToResult() {
+  const id = state.identitas;
+  document.getElementById('resNama').textContent = id.nama || '—';
+  document.getElementById('resSekolah').textContent = id.sekolah || '—';
+  document.getElementById('resKelas').textContent = id.kelas || '—';
+}
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, s => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[s]));
+}
+
+/* === Render Beranda === */
 function renderChapters() {
   const grid = document.getElementById('chapterGrid');
   grid.innerHTML = CHAPTERS.map(ch => `
@@ -1132,21 +1265,30 @@ function renderChapters() {
   `).join('');
 }
 
+/* === Mulai Kuis === */
 function startQuiz(babId) {
+  const id = getIdentitas();
+  if (!id) return;
+  state.identitas = id;
+
   const ch = CHAPTERS.find(c => c.id === babId);
   const questions = buildSession(babId);
   state = {
     bab: ch, questions,
     answers: new Array(questions.length).fill(null),
-    current: 0, timer: null, timeLeft: DURASI_DETIK, finished: false
+    current: 0, timer: null, timeLeft: DURASI_DETIK, finished: false,
+    identitas: id
   };
   document.documentElement.style.setProperty('--accent', ch.accent);
   document.getElementById('quizChapterBadge').textContent = `Bab ${ch.id} · ${ch.title}`;
+  applyIdentitasToNav();
   showScreen('quiz');
   renderQuestion();
+  renderNavPanel();
   startTimer();
 }
 
+/* === Timer === */
 function startTimer() {
   clearInterval(state.timer);
   updateTimerDisplay();
@@ -1166,6 +1308,35 @@ function updateTimerDisplay() {
   box.classList.toggle('danger', state.timeLeft <= 60);
 }
 
+/* === Cek sudah dijawab (untuk navigasi) === */
+function isAnswered(q, ans) {
+  if (!ans) return false;
+  if (q.t === 'PG') return typeof ans === 'number';
+  if (q.t === 'MMA' || q.t === 'BS') return ans.confirmed === true;
+  return false;
+}
+
+/* === Render Panel Navigasi Soal === */
+function renderNavPanel() {
+  const grid = document.getElementById('navGrid');
+  const answeredCount = state.questions.filter((q, i) => isAnswered(q, state.answers[i])).length;
+  document.getElementById('navAnsweredCount').textContent = `${answeredCount}/${state.questions.length}`;
+  grid.innerHTML = state.questions.map((q, i) => {
+    const ans = state.answers[i];
+    const answered = isAnswered(q, ans);
+    let cls = 'nav-cell';
+    if (answered) cls += ' answered';
+    if (i === state.current) cls += ' current';
+    return `<button class="${cls}" onclick="jumpTo(${i})" aria-label="Soal ${i+1}${answered?' sudah dijawab':' belum dijawab'}" title="Soal ${i+1}">${i+1}</button>`;
+  }).join('');
+}
+function jumpTo(idx) {
+  state.current = idx;
+  renderQuestion();
+  renderNavPanel();
+}
+
+/* === Render Soal === */
 function renderQuestion() {
   const q = state.questions[state.current];
   const total = state.questions.length;
@@ -1184,9 +1355,7 @@ function renderQuestion() {
     document.getElementById('stimulusText').textContent = q._stim.text;
     document.getElementById('stimulusSource').textContent = q._stim.source;
     stimBox.classList.add('show');
-  } else {
-    stimBox.classList.remove('show');
-  }
+  } else stimBox.classList.remove('show');
 
   document.getElementById('qText').textContent = q.q;
 
@@ -1196,24 +1365,19 @@ function renderQuestion() {
   else if (q.t === 'BS') renderBS(q, ans, area);
 
   const exp = document.getElementById('explanationBox');
-  const isAnswered = checkAnswered(q, ans);
-  if (isAnswered) {
+  if (isAnswered(q, ans)) {
     exp.innerHTML = `<strong>Pembahasan:</strong> ${q.e}`;
     exp.classList.add('show');
-  } else {
-    exp.classList.remove('show');
-    exp.innerHTML = '';
-  }
+  } else { exp.classList.remove('show'); exp.innerHTML = ''; }
 
   document.getElementById('prevBtn').disabled = state.current === 0;
   const nextBtn = document.getElementById('nextBtn');
-  if (state.current === total - 1) nextBtn.textContent = 'Selesai →';
-  else nextBtn.textContent = 'Selanjutnya →';
+  nextBtn.textContent = state.current === total - 1 ? 'Selesai →' : 'Selanjutnya →';
 }
 
 function renderPG(q, ans, area) {
   const letters = ['A','B','C','D'];
-  const answered = ans !== null;
+  const answered = typeof ans === 'number';
   area.innerHTML = `<div class="options">${q.o.map((text, i) => {
     let cls = 'option';
     if (answered) {
@@ -1222,8 +1386,7 @@ function renderPG(q, ans, area) {
       else if (i === ans) cls += ' wrong';
     }
     return `<div class="${cls}" onclick="pickPG(${i})">
-      <div class="opt-marker">${letters[i]}</div>
-      <div>${text}</div>
+      <div class="opt-marker">${letters[i]}</div><div>${text}</div>
     </div>`;
   }).join('')}</div>`;
 }
@@ -1231,6 +1394,7 @@ function pickPG(idx) {
   if (state.answers[state.current] !== null) return;
   state.answers[state.current] = idx;
   renderQuestion();
+  renderNavPanel();
 }
 
 function renderMMA(q, ans, area) {
@@ -1245,8 +1409,7 @@ function renderMMA(q, ans, area) {
       else if (selected.includes(i)) cls += ' wrong';
     }
     return `<div class="${cls}" onclick="toggleMMA(${i})">
-      <div class="opt-marker checkbox">${selected.includes(i) ? '✓' : ''}</div>
-      <div>${text}</div>
+      <div class="opt-marker checkbox">${selected.includes(i) ? '✓' : ''}</div><div>${text}</div>
     </div>`;
   }).join('')}</div>
   ${!answered ? `<button class="confirm-btn" onclick="confirmMMA()" ${selected.length===0?'disabled':''}>Konfirmasi Jawaban</button>` : ''}`;
@@ -1259,12 +1422,14 @@ function toggleMMA(idx) {
   else cur.selected.push(idx);
   state.answers[state.current] = cur;
   renderQuestion();
+  renderNavPanel();
 }
 function confirmMMA() {
   const ans = state.answers[state.current];
   if (!ans || ans.selected.length === 0) return;
   ans.confirmed = true;
   renderQuestion();
+  renderNavPanel();
 }
 
 function renderBS(q, ans, area) {
@@ -1273,18 +1438,14 @@ function renderBS(q, ans, area) {
   area.innerHTML = `<div class="bs-statements">${q.st.map((st, i) => {
     let cls = 'bs-statement';
     if (answered) {
-      const userVal = values[i];
-      if (userVal === st.v) cls += ' correct';
-      else cls += ' wrong';
+      cls += (values[i] === st.v) ? ' correct' : ' wrong';
     }
-    const bCls = ['bs-btn'];
-    const sCls = ['bs-btn'];
+    const bCls = ['bs-btn'], sCls = ['bs-btn'];
     if (values[i] === true) bCls.push('selected');
     if (values[i] === false) sCls.push('selected');
     if (answered) {
       bCls.push('disabled'); sCls.push('disabled');
-      if (st.v === true) bCls.push('correct-answer');
-      else sCls.push('correct-answer');
+      if (st.v === true) bCls.push('correct-answer'); else sCls.push('correct-answer');
       if (values[i] === true && st.v === false) bCls.push('wrong-answer');
       if (values[i] === false && st.v === true) sCls.push('wrong-answer');
     }
@@ -1305,29 +1466,25 @@ function setBS(idx, val) {
   cur.values[idx] = val;
   state.answers[state.current] = cur;
   renderQuestion();
+  renderNavPanel();
 }
 function confirmBS() {
   const ans = state.answers[state.current];
   if (!ans || ans.values.some(v => v === null)) return;
   ans.confirmed = true;
   renderQuestion();
+  renderNavPanel();
 }
 
-function checkAnswered(q, ans) {
-  if (!ans) return false;
-  if (q.t === 'PG') return ans !== null;
-  if (q.t === 'MMA') return ans.confirmed === true;
-  if (q.t === 'BS') return ans.confirmed === true;
-  return false;
-}
-
-function prevQuestion() { if (state.current > 0) { state.current--; renderQuestion(); } }
+/* === Navigasi Soal === */
+function prevQuestion() { if (state.current > 0) { state.current--; renderQuestion(); renderNavPanel(); } }
 function nextQuestion() {
   const total = state.questions.length;
-  if (state.current < total - 1) { state.current++; renderQuestion(); }
+  if (state.current < total - 1) { state.current++; renderQuestion(); renderNavPanel(); }
   else finishQuiz(false);
 }
 
+/* === Selesai === */
 function finishQuiz(timeout) {
   if (state.finished) return;
   state.finished = true;
@@ -1338,11 +1495,13 @@ function finishQuiz(timeout) {
   const typeStats = { PG:{c:0,t:0}, MMA:{c:0,t:0}, BS:{c:0,t:0} };
   state.questions.forEach((q, i) => {
     const ans = state.answers[i];
-    const isCorrect = checkAnswer(q, ans);
+    const ok = checkAnswer(q, ans);
     typeStats[q.t].t++;
-    if (isCorrect) { correct++; typeStats[q.t].c++; }
+    if (ok) { correct++; typeStats[q.t].c++; }
   });
   const pct = Math.round((correct / total) * 100);
+
+  applyIdentitasToResult();
 
   document.getElementById('scoreRing').style.setProperty('--pct', pct);
   document.getElementById('scoreValue').textContent = pct;
@@ -1357,7 +1516,8 @@ function finishQuiz(timeout) {
   else if (pct >= 60) title = 'Cukup Baik';
   else title = 'Perlu Belajar Lagi';
   document.getElementById('resultTitle').textContent = title;
-  document.getElementById('resultSubtitle').textContent = `Kamu menjawab ${correct} dari ${total} soal dengan benar.`;
+  document.getElementById('resultSubtitle').textContent =
+    `Kamu menjawab ${correct} dari ${total} soal dengan benar.`;
 
   const bd = document.getElementById('typeBreakdown');
   const labels = { PG:'Pilihan Ganda', MMA:'Pilihan Ganda Kompleks', BS:'Benar / Salah' };
@@ -1372,16 +1532,11 @@ function finishQuiz(timeout) {
   review.innerHTML = state.questions.map((q, i) => {
     const ans = state.answers[i];
     const ok = checkAnswer(q, ans);
-    const jawabanUser = formatAnswer(q, ans);
-    const kunci = formatKey(q);
     return `<div class="review-item ${ok?'correct':'wrong'}">
-      <div class="review-q">
-        <span class="review-num">${i+1}.</span>
-        <span>${q.q}</span>
-      </div>
+      <div class="review-q"><span class="review-num">${i+1}.</span><span>${q.q}</span></div>
       <div class="review-a">
         <span class="review-tag ${ok?'green':'red'}">${ok?'BENAR':'SALAH'}</span>
-        Jawabanmu: ${jawabanUser} · Kunci: ${kunci}
+        Jawabanmu: ${formatAnswer(q, ans)} · Kunci: ${formatKey(q)}
       </div>
     </div>`;
   }).join('');
@@ -1394,9 +1549,9 @@ function checkAnswer(q, ans) {
   if (q.t === 'PG') return ans === q.a;
   if (q.t === 'MMA') {
     if (!ans.confirmed) return false;
-    const userSet = [...ans.selected].sort((a,b)=>a-b);
-    const keySet = [...q.a].sort((a,b)=>a-b);
-    return userSet.length === keySet.length && userSet.every((v,i) => v === keySet[i]);
+    const u = [...ans.selected].sort((a,b)=>a-b);
+    const k = [...q.a].sort((a,b)=>a-b);
+    return u.length === k.length && u.every((v,i) => v === k[i]);
   }
   if (q.t === 'BS') {
     if (!ans.confirmed) return false;
@@ -1424,6 +1579,7 @@ function formatKey(q) {
   return '-';
 }
 
+/* === Layar === */
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-' + id).classList.add('active');
@@ -1436,6 +1592,7 @@ function goHome() {
 }
 function retryQuiz() { startQuiz(state.bab.id); }
 
+/* === Inisialisasi === */
 prepareBank();
 renderChapters();
 </script>
