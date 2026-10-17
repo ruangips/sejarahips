@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bab 1 — Konsep Dasar Ilmu Sejarah | Pesawat Tempur IPS</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+  html, body { height:100%; }
+  body {
+    background:#07111f; color:white; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+
+  /* ========== LOADING SCREEN ========== */
+  #loader {
+    position:fixed; inset:0; z-index:9999;
+    background:#07111f;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:24px;
+    transition: opacity .7s ease, visibility .7s ease;
+  }
+  #loader.hide { opacity:0; visibility:hidden; pointer-events:none; }
+
+  #loader::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.06) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    animation:gridMove 12s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes gridMove {
+    from { background-position:0 0; }
+    to { background-position:44px 44px; }
+  }
+
+  #loader::after {
+    content:''; position:absolute;
+    width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(14,165,233,0.35), transparent 65%);
+    filter:blur(90px);
+    animation:orbPulse 3s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes orbPulse {
+    0%,100% { transform:scale(1); opacity:.6; }
+    50% { transform:scale(1.15); opacity:1; }
+  }
+
+  /* ========== LOGO MGE 3D ========== */
+  .mge-logo-wrap {
+    position:relative; z-index:1;
+    width:150px; height:150px;
+    display:flex; align-items:center; justify-content:center;
+    animation:logoFloat 3s ease-in-out infinite;
+  }
+  @keyframes logoFloat {
+    0%, 100% { transform:translateY(0); }
+    50% { transform:translateY(-8px); }
+  }
+  .mge-ring-outer {
+    position:absolute; inset:0;
+    border-radius:50%;
+    border:2px solid transparent;
+    border-top-color:#38bdf8;
+    border-right-color:#818cf8;
+    border-bottom-color:transparent;
+    border-left-color:#a78bfa;
+    animation:spinRing 1.6s linear infinite;
+    filter:drop-shadow(0 0 8px rgba(56,189,248,0.9));
+  }
+  .mge-ring-inner {
+    position:absolute; inset:12px;
+    border-radius:50%;
+    border:1.5px dashed rgba(56,189,248,0.5);
+    animation:spinRingReverse 4s linear infinite;
+  }
+  @keyframes spinRing { to { transform:rotate(360deg); } }
+  @keyframes spinRingReverse { to { transform:rotate(-360deg); } }
+
+  .mge-circle {
+    position:absolute; inset:20px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 25%, #1e3a5f 0%, #0b1b30 55%, #050d18 100%);
+    box-shadow:
+      0 0 0 1px rgba(56,189,248,0.35) inset,
+      0 0 24px rgba(14,165,233,0.55),
+      0 0 60px rgba(56,189,248,0.35),
+      inset 0 -8px 20px rgba(0,0,0,0.6);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .mge-circle::before {
+    content:'';
+    position:absolute;
+    top:-50%; left:-50%;
+    width:200%; height:200%;
+    background:conic-gradient(from 0deg, transparent 0%, rgba(56,189,248,0.25) 20%, transparent 40%);
+    animation:shimmer 3s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes shimmer { to { transform:rotate(360deg); } }
+
+  .mge-text {
+    position:relative;
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:44px; font-weight:900;
+    letter-spacing:2px; line-height:1;
+    background:linear-gradient(180deg, #e0f2fe 0%, #38bdf8 45%, #6366f1 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:
+      0 1px 0 rgba(56,189,248,0.4),
+      0 2px 0 rgba(56,189,248,0.3),
+      0 3px 0 rgba(99,102,241,0.3),
+      0 4px 8px rgba(0,0,0,0.6),
+      0 0 22px rgba(56,189,248,0.85);
+    filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+    animation:textPulse 2.4s ease-in-out infinite;
+    z-index:2;
+    transform:perspective(500px) rotateX(6deg);
+  }
+  @keyframes textPulse {
+    0%, 100% {
+      filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+      transform:perspective(500px) rotateX(6deg) scale(1);
+    }
+    50% {
+      filter:drop-shadow(0 0 22px rgba(56,189,248,1));
+      transform:perspective(500px) rotateX(6deg) scale(1.05);
+    }
+  }
+  .mge-text::after {
+    content:'MGE';
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(255,255,255,0.85) 0%, transparent 55%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    pointer-events:none; z-index:3;
+  }
+
+  .brand-text {
+    position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+    gap:10px; margin-top:4px;
+    animation:fadeInUp .9s ease .2s both;
+  }
+  .brand-text .brand-line {
+    width:26px; height:1px;
+    background:linear-gradient(90deg, transparent, #38bdf8, transparent);
+  }
+  .brand-text .brand-label {
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:13px; font-weight:700;
+    letter-spacing:5px; text-transform:uppercase;
+    background:linear-gradient(90deg, #38bdf8 0%, #a78bfa 50%, #38bdf8 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:brandShine 3.5s linear infinite;
+    white-space:nowrap;
+  }
+  @keyframes brandShine {
+    0% { background-position:0% 50%; }
+    100% { background-position:200% 50%; }
+  }
+
+  .loader-title {
+    position:relative; z-index:1;
+    font-size:15px; font-weight:bold;
+    letter-spacing:4px; text-transform:uppercase;
+    color:#cbd5e1;
+    animation:fadeInUp .8s ease .3s both;
+  }
+  .loader-sub {
+    position:relative; z-index:1;
+    color:#64748b; font-size:11px;
+    letter-spacing:2px; text-transform:uppercase;
+    animation:fadeInUp .8s ease .4s both;
+  }
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(10px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .loader-bar {
+    position:relative; z-index:1;
+    width:240px; height:4px;
+    background:#132941; border-radius:4px;
+    overflow:hidden; margin-top:4px;
+    animation:fadeInUp .8s ease .5s both;
+  }
+  .loader-bar-fill {
+    height:100%; width:0%;
+    background:linear-gradient(90deg,#0ea5e9,#38bdf8,#818cf8);
+    border-radius:4px;
+    box-shadow:0 0 12px rgba(56,189,248,0.7);
+    animation:loadFill 1.8s cubic-bezier(.65,.05,.36,1) forwards;
+  }
+  @keyframes loadFill {
+    0% { width:0%; }
+    40% { width:45%; }
+    70% { width:75%; }
+    100% { width:100%; }
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    padding:14px 5%; display:flex; justify-content:space-between; align-items:center;
+    background:#0b1b30; border-bottom:2px solid #0ea5e9;
+    flex-shrink:0; z-index:50;
+  }
+  .logo { font-size:16px; font-weight:bold; color:#38bdf8; display:flex; align-items:center; gap:8px; }
+  .back-btn {
+    color:white; text-decoration:none; background:#0ea5e9; padding:8px 18px;
+    border-radius:8px; font-weight:bold; font-size:13px; transition:.3s;
+  }
+  .back-btn:hover { background:#0284c7; }
+
+  /* ========== PROGRESS BAR ========== */
+  .progress-wrap {
+    height:4px; background:#132941; position:relative; flex-shrink:0;
+  }
+  .progress-fill {
+    height:100%; background:linear-gradient(90deg,#0ea5e9,#38bdf8);
+    width:0%; transition:width .5s ease;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout { flex:1; display:flex; overflow:hidden; }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar {
+    width:290px; background:#0b1b30; border-right:1px solid #1b3b5d;
+    overflow-y:auto; flex-shrink:0; padding:20px 0;
+  }
+  .sidebar::-webkit-scrollbar { width:6px; }
+  .sidebar::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:3px; }
+
+  .sidebar-title {
+    padding:0 20px 15px; font-size:12px; font-weight:bold;
+    color:#64748b; letter-spacing:1.5px; text-transform:uppercase;
+  }
+
+  .nav-item {
+    display:flex; align-items:center; gap:12px;
+    padding:12px 20px; cursor:pointer;
+    border-left:4px solid transparent;
+    transition:.25s; font-size:14px; color:#cbd5e1;
+  }
+  .nav-item:hover { background:#132941; color:#38bdf8; }
+  .nav-item.active {
+    background:#132941; color:#38bdf8;
+    border-left-color:#38bdf8; font-weight:bold;
+  }
+  .nav-item .num {
+    width:26px; height:26px; border-radius:50%;
+    background:#1b3b5d; color:#94a3b8;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:bold; flex-shrink:0;
+    transition:.25s;
+  }
+  .nav-item.active .num { background:#0ea5e9; color:white; }
+  .nav-item.done .num { background:#065f46; color:#10b981; }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex:1; overflow-y:auto; position:relative; scroll-behavior:smooth;
+  }
+  .main::-webkit-scrollbar { width:8px; }
+  .main::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:4px; }
+
+  .page {
+    display:none;
+    padding:40px 6% 120px;
+    max-width:900px; margin:0 auto;
+    animation: slideIn .4s ease;
+  }
+  .page.active { display:block; }
+  @keyframes slideIn {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .page-badge {
+    display:inline-block; padding:5px 14px;
+    background:#132941; color:#38bdf8;
+    border-radius:20px; font-size:12px;
+    font-weight:bold; margin-bottom:12px;
+    border:1px solid #2a4a6a;
+  }
+  .page-title { font-size:30px; margin-bottom:8px; line-height:1.3; }
+  .page-title span { color:#38bdf8; }
+  .page-subtitle {
+    color:#94a3b8; font-size:14px; margin-bottom:30px;
+    padding-bottom:20px; border-bottom:2px solid #1b3b5d;
+  }
+
+  .page h3 { color:#7dd3fc; font-size:17px; margin:22px 0 10px; }
+  .page h4 { color:#a5b4fc; font-size:15px; margin:18px 0 8px; }
+  .page p { color:#cbd5e1; margin-bottom:12px; text-align:justify; line-height:1.75; }
+  .page ul, .page ol { color:#cbd5e1; margin:10px 0 15px 25px; }
+  .page ul li, .page ol li { margin-bottom:8px; line-height:1.7; }
+
+  .highlight {
+    background:linear-gradient(135deg,#132941,#0f2337);
+    border-left:4px solid #38bdf8;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#e0f2fe; font-size:14px; line-height:1.7;
+  }
+  .highlight strong { color:#38bdf8; }
+
+  .contoh {
+    background:linear-gradient(135deg,#0f2a1a,#0a1f12);
+    border-left:4px solid #10b981;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#d1fae5; font-size:14px; line-height:1.7;
+  }
+  .contoh strong { color:#34d399; }
+
+  .warning {
+    background:linear-gradient(135deg,#2a1a0f,#1f1308);
+    border-left:4px solid #f59e0b;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#fef3c7; font-size:14px; line-height:1.7;
+  }
+  .warning strong { color:#fbbf24; }
+
+  table {
+    width:100%; border-collapse:collapse; margin:16px 0;
+    background:#132941; border-radius:10px; overflow:hidden; font-size:13px;
+  }
+  table th {
+    background:#0ea5e9; color:white; padding:12px;
+    text-align:left; font-size:13px;
+  }
+  table td {
+    padding:12px; color:#cbd5e1;
+    border-bottom:1px solid #1b3b5d;
+    vertical-align:top; line-height:1.6;
+  }
+  table tr:last-child td { border-bottom:none; }
+  table tr:nth-child(even) td { background:#0f2337; }
+
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:15px 0; }
+  .mini-card {
+    background:#132941; border-radius:10px; padding:18px;
+    border:1px solid #2a4a6a; transition:.3s;
+  }
+  .mini-card:hover { border-color:#38bdf8; transform:translateY(-3px); }
+  .mini-card .icon { font-size:30px; margin-bottom:8px; }
+  .mini-card h4 { color:#38bdf8; font-size:15px; margin-bottom:6px; }
+  .mini-card p { font-size:13px; color:#94a3b8; margin:0; text-align:left; }
+
+  .peta-konsep {
+    background:#132941; border-radius:15px; padding:25px;
+    text-align:center; border:2px dashed #38bdf8; margin:15px 0;
+  }
+  .peta-konsep .node {
+    display:inline-block; padding:10px 20px; border-radius:10px;
+    font-weight:bold; font-size:13px; margin:5px;
+  }
+  .peta-konsep .node.utama { background:#0ea5e9; color:white; font-size:15px; padding:14px 28px; }
+  .peta-konsep .node.sub { background:#1b3b5d; color:#7dd3fc; }
+  .peta-konsep .node.detail { background:#132941; color:#94a3b8; border:1px solid #2a4a6a; }
+  .peta-konsep .arrow { color:#38bdf8; font-size:22px; display:block; margin:4px 0; }
+
+  .glosarium-item {
+    background:#132941; border-radius:10px; padding:14px 18px;
+    margin-bottom:10px; border-left:4px solid #a855f7;
+    transition:.3s;
+  }
+  .glosarium-item:hover { transform:translateX(5px); }
+  .glosarium-item strong { color:#c084fc; font-size:14px; }
+  .glosarium-item span { color:#cbd5e1; font-size:13px; }
+
+  .soal-item {
+    background:#132941; border-radius:10px; padding:18px 22px;
+    margin-bottom:15px; border-left:4px solid #f59e0b;
+  }
+  .soal-item .nomor { color:#fbbf24; font-weight:bold; font-size:13px; }
+  .soal-item .pertanyaan { color:#e0f2fe; font-size:14px; margin:8px 0; line-height:1.6; }
+  .soal-item .pilihan { color:#94a3b8; font-size:13px; margin-left:15px; line-height:1.8; }
+  .soal-item .jawaban {
+    margin-top:10px; padding:12px 15px; background:#0f2a1a;
+    border-radius:8px; color:#d1fae5; font-size:13px; display:none; line-height:1.6;
+  }
+  .soal-item .jawaban.show { display:block; animation:slideIn .3s ease; }
+  .toggle-btn {
+    margin-top:8px; padding:6px 14px; background:#1b3b5d; border:1px solid #2a4a6a;
+    border-radius:6px; color:#7dd3fc; font-size:12px; cursor:pointer;
+    transition:.2s;
+  }
+  .toggle-btn:hover { background:#2a4a6a; }
+
+  .proyek {
+    background:linear-gradient(135deg,#1a0f2a,#2a1a3a);
+    border-radius:15px; padding:25px; border:2px solid #a855f7;
+  }
+  .proyek ol { color:#e9d5ff; margin-left:20px; }
+  .proyek ol li { margin-bottom:10px; line-height:1.7; }
+
+  /* ========== FOOTER NAV ========== */
+  .footer-nav {
+    position:fixed; bottom:0; left:290px; right:0;
+    background:#0b1b30; border-top:1px solid #1b3b5d;
+    padding:14px 6%; display:flex; justify-content:space-between;
+    align-items:center; z-index:40;
+  }
+  .footer-nav button {
+    padding:12px 24px; border:none; border-radius:10px;
+    font-weight:bold; font-size:14px; cursor:pointer;
+    transition:.3s; display:flex; align-items:center; gap:8px;
+  }
+  .nav-prev { background:#1b3b5d; color:#94a3b8; }
+  .nav-prev:hover:not(:disabled) { background:#2a4a6a; color:white; }
+  .nav-prev:disabled { opacity:.3; cursor:not-allowed; }
+  .nav-next {
+    background:linear-gradient(135deg,#0ea5e9,#0284c7); color:white;
+    box-shadow:0 4px 15px rgba(14,165,233,0.3);
+  }
+  .nav-next:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(14,165,233,0.5); }
+  .nav-next:disabled { opacity:.3; cursor:not-allowed; }
+
+  .page-counter { color:#64748b; font-size:13px; font-weight:bold; }
+
+  .menu-toggle {
+    display:none; background:#0ea5e9; border:none; color:white;
+    padding:8px 12px; border-radius:8px; font-size:18px; cursor:pointer;
+  }
+
+  @media (max-width: 800px) {
+    .sidebar {
+      position:fixed; top:0; left:0; bottom:0; z-index:100;
+      transform:translateX(-100%); transition:.3s;
+      box-shadow:4px 0 20px rgba(0,0,0,0.5);
+    }
+    .sidebar.open { transform:translateX(0); }
+    .sidebar-overlay {
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6);
+      z-index:99;
+    }
+    .sidebar-overlay.show { display:block; }
+    .menu-toggle { display:block; }
+    .footer-nav { left:0; padding:12px 4%; }
+    .footer-nav button { padding:10px 16px; font-size:12px; }
+    .page { padding:25px 5% 100px; }
+    .page-title { font-size:22px; }
+    .grid-2 { grid-template-columns:1fr; }
+    .logo span.fulllogo { display:none; }
+    .loader-title { font-size:13px; letter-spacing:3px; }
+    .loader-bar { width:200px; }
+    .mge-logo-wrap { width:120px; height:120px; }
+    .mge-text { font-size:34px; }
+    .brand-text .brand-label { font-size:11px; letter-spacing:4px; }
+    .brand-text .brand-line { width:18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== LOADING SCREEN ========== -->
+<div id="loader">
+  <div class="mge-logo-wrap">
+    <div class="mge-ring-outer"></div>
+    <div class="mge-ring-inner"></div>
+    <div class="mge-circle">
+      <div class="mge-text">MGE</div>
+    </div>
+  </div>
+
+  <div class="brand-text">
+    <span class="brand-line"></span>
+    <span class="brand-label">MAEDA GAMES EDU</span>
+    <span class="brand-line"></span>
+  </div>
+
+  <div class="loader-title">Memuat Materi</div>
+
+  <div class="loader-bar">
+    <div class="loader-bar-fill"></div>
+  </div>
+
+  <div class="loader-sub">Bab 1 · Konsep Dasar Ilmu Sejarah</div>
+</div>
+
+<header>
+  <div class="logo">
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    📜 <span class="fulllogo">SEJARAH — BAB 1</span>
+  </div>
+  <a href="sejarah.html" class="back-btn">← Menu Bab</a>
+</header>
+
+<div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+  <!-- SIDEBAR NAV -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">📑 Daftar Materi</div>
+    <div class="nav-item active" onclick="goTo(0)">
+      <span class="num">1</span> Pengertian Sejarah
+    </div>
+    <div class="nav-item" onclick="goTo(1)">
+      <span class="num">2</span> Sejarah sebagai Ilmu
+    </div>
+    <div class="nav-item" onclick="goTo(2)">
+      <span class="num">3</span> Unsur Sejarah
+    </div>
+    <div class="nav-item" onclick="goTo(3)">
+      <span class="num">4</span> Kronologi
+    </div>
+    <div class="nav-item" onclick="goTo(4)">
+      <span class="num">5</span> Periodisasi
+    </div>
+    <div class="nav-item" onclick="goTo(5)">
+      <span class="num">6</span> Konsep Perubahan
+    </div>
+    <div class="nav-item" onclick="goTo(6)">
+      <span class="num">7</span> Diakronik & Sinkronik
+    </div>
+    <div class="nav-item" onclick="goTo(7)">
+      <span class="num">8</span> Anakronisme
+    </div>
+    <div class="nav-item" onclick="goTo(8)">
+      <span class="num">9</span> Sumber Sejarah
+    </div>
+    <div class="nav-item" onclick="goTo(9)">
+      <span class="num">10</span> Bukti & Fakta
+    </div>
+    <div class="nav-item" onclick="goTo(10)">
+      <span class="num">11</span> Historiografi
+    </div>
+    <div class="nav-item" onclick="goTo(11)">
+      <span class="num">12</span> Keterampilan Sejarah
+    </div>
+    <div class="nav-item" onclick="goTo(12)">
+      <span class="num">13</span> Peta Konsep
+    </div>
+    <div class="nav-item" onclick="goTo(13)">
+      <span class="num">14</span> Ringkasan
+    </div>
+    <div class="nav-item" onclick="goTo(14)">
+      <span class="num">15</span> Glosarium
+    </div>
+    <div class="nav-item" onclick="goTo(15)">
+      <span class="num">16</span> Soal Latihan
+    </div>
+    <div class="nav-item" onclick="goTo(16)">
+      <span class="num">17</span> Proyek Siswa
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main" id="main">
+
+    <!-- ===== PAGE 1: PENGERTIAN SEJARAH ===== -->
+    <section class="page active">
+      <div class="page-badge">📖 MATERI 1 dari 17</div>
+      <h2 class="page-title">Pengertian <span>Sejarah</span></h2>
+      <p class="page-subtitle">Memahami makna sejarah dari etimologi hingga definisi para ahli</p>
+
+      <p><strong style="color:#38bdf8">Sejarah</strong> adalah ilmu yang mempelajari kehidupan manusia pada masa lampau dalam ruang dan waktu tertentu, beserta perubahan dan keberlanjutannya hingga masa kini.</p>
+
+      <h3>Etimologi (Asal Kata)</h3>
+      <table>
+        <tr><th>Bahasa</th><th>Kata</th><th>Arti</th></tr>
+        <tr><td>Arab</td><td><strong>Syajaratun</strong></td><td>Pohon — melambangkan pertumbuhan & silsilah</td></tr>
+        <tr><td>Yunani</td><td><strong>Historia</strong></td><td>Penyelidikan / pengetahuan dari hasil penyelidikan</td></tr>
+        <tr><td>Inggris</td><td><strong>History</strong></td><td>Masa lampau umat manusia</td></tr>
+        <tr><td>Belanda</td><td><strong>Geschiedenis</strong></td><td>Peristiwa yang telah terjadi</td></tr>
+        <tr><td>Jerman</td><td><strong>Geschichte</strong></td><td>Sesuatu yang telah terjadi</td></tr>
+      </table>
+
+      <h3>Definisi Sejarah Menurut Para Ahli</h3>
+      <table>
+        <tr><th>Tokoh</th><th>Definisi</th></tr>
+        <tr><td><strong>Herodotus</strong></td><td>Sejarah adalah kajian tentang asal-usul, perkembangan, dan perjalanan suatu peradaban (Bapak Sejarah).</td></tr>
+        <tr><td><strong>Ibnu Khaldun</strong></td><td>Sejarah adalah catatan tentang masyarakat manusia, perubahan yang terjadi, dan sebab-sebabnya.</td></tr>
+        <tr><td><strong>Moh. Yamin</strong></td><td>Sejarah adalah ilmu pengetahuan tentang cerita kejadian masa lampau yang disusun secara sistematis.</td></tr>
+        <tr><td><strong>E.H. Carr</strong></td><td>Sejarah adalah dialog antara sejarawan dan fakta-faktanya.</td></tr>
+        <tr><td><strong>R.G. Collingwood</strong></td><td>Sejarah adalah penyelidikan tentang tindakan manusia di masa lampau.</td></tr>
+      </table>
+
+      <div class="highlight">
+        💡 <strong>Inti pengertian sejarah:</strong><br>
+        📌 Ilmu tentang <strong>manusia</strong><br>
+        📌 Terjadi pada <strong>masa lampau</strong><br>
+        📌 Berada dalam <strong>ruang & waktu</strong><br>
+        📌 Mempelajari <strong>perubahan & keberlanjutan</strong>
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Ketika kita mempelajari "Sumpah Pemuda 28 Oktober 1928", kita sedang belajar sejarah — karena peristiwa itu melibatkan manusia (para pemuda), terjadi pada ruang (Jakarta), dan waktu (1928).
+      </div>
+    </section>
+
+    <!-- ===== PAGE 2: SEJARAH SEBAGAI ILMU ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 2 dari 17</div>
+      <h2 class="page-title">Sejarah sebagai <span>Ilmu Pengetahuan</span></h2>
+      <p class="page-subtitle">Mengapa sejarah disebut ilmu dan bukan sekadar cerita</p>
+
+      <p>Sejarah disebut <strong style="color:#38bdf8">ilmu</strong> karena memiliki syarat-syarat keilmuan tertentu — bukan sekadar dongeng atau legenda.</p>
+
+      <h3>Ciri-Ciri Sejarah sebagai Ilmu</h3>
+      <table>
+        <tr><th>Ciri</th><th>Penjelasan</th></tr>
+        <tr><td><strong>Empiris</strong></td><td>Berdasarkan pengalaman & bukti nyata yang dapat diteliti</td></tr>
+        <tr><td><strong>Memiliki objek</strong></td><td>Objeknya adalah manusia & kejadian masa lampau</td></tr>
+        <tr><td><strong>Memiliki metode</strong></td><td>Menggunakan metode sejarah: heuristik, kritik, interpretasi, historiografi</td></tr>
+        <tr><td><strong>Sistematis</strong></td><td>Disusun secara berurutan & logis</td></tr>
+        <tr><td><strong>Objektif</strong></td><td>Berdasarkan fakta, bukan prasangka penulis</td></tr>
+        <tr><td><strong>Verifikatif</strong></td><td>Dapat diperiksa ulang kebenarannya</td></tr>
+      </table>
+
+      <h3>Sejarah vs Dongeng</h3>
+      <table>
+        <tr><th>Aspek</th><th>Sejarah</th><th>Dongeng</th></tr>
+        <tr><td>Sumber</td><td>Bukti & data yang teruji</td><td>Tidak jelas, anonim</td></tr>
+        <tr><td>Kebenaran</td><td>Dapat diverifikasi</td><td>Tidak dapat dibuktikan</td></tr>
+        <tr><td>Tujuan</td><td>Memahami masa lampau</td><td>Menghibur / memberi pesan moral</td></tr>
+        <tr><td>Contoh</td><td>Proklamasi 1945</td><td>Timun Mas, Cinderella</td></tr>
+      </table>
+
+      <h3>Sejarah sebagai Ilmu, Seni, dan Cerita</h3>
+      <div class="grid-2">
+        <div class="mini-card">
+          <div class="icon">🔬</div>
+          <h4>Sejarah sebagai Ilmu</h4>
+          <p>Memiliki metode, objek, dan dapat diuji kebenarannya.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🎨</div>
+          <h4>Sejarah sebagai Seni</h4>
+          <p>Diperlukan intuisi, imajinasi, dan gaya bahasa untuk menuliskannya.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">📖</div>
+          <h4>Sejarah sebagai Cerita</h4>
+          <p>Hasil rekonstruksi masa lalu yang disusun dalam bentuk narasi.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">⚖️</div>
+          <h4>Sejarah sebagai Ilmu</h4>
+          <p>Menuntut objektivitas — memisahkan fakta dari opini.</p>
+        </div>
+      </div>
+
+      <div class="warning">
+        ⚠️ <strong>Penting!</strong> Sejarah bukan sekadar hafal tahun dan nama tokoh. Sejarah adalah ilmu yang melatih kita berpikir kritis, menghubungkan peristiwa, dan memahami mengapa sesuatu terjadi.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 3: UNSUR SEJARAH ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 3 dari 17</div>
+      <h2 class="page-title">Unsur-Unsur <span>Sejarah</span></h2>
+      <p class="page-subtitle">Tiga unsur utama: manusia, ruang, dan waktu</p>
+
+      <p>Suatu peristiwa dapat disebut <strong style="color:#38bdf8">peristiwa sejarah</strong> jika mengandung tiga unsur pokok berikut.</p>
+
+      <h3>1. 👥 Manusia</h3>
+      <p>Manusia adalah <strong>pelaku dan penulis sejarah</strong>. Tanpa manusia, tidak ada sejarah — karena sejarah adalah kisah tentang tindakan manusia.</p>
+      <ul>
+        <li><strong>Individu</strong> — peran satu orang (Ir. Soekarno)</li>
+        <li><strong>Kelompok</strong> — peran sekelompok orang (BPUPKI, Sumpah Pemuda)</li>
+        <li><strong>Masyarakat</strong> — peran masyarakat luas (reformasi 1998)</li>
+      </ul>
+
+      <h3>2. 🌍 Ruang</h3>
+      <p>Ruang adalah <strong>tempat terjadinya peristiwa</strong> — berupa lokasi geografis, baik sempit (kota) maupun luas (dunia).</p>
+      <ul>
+        <li>Peristiwa proklamasi terjadi di Jalan Pegangsaan Timur No. 56, Jakarta.</li>
+        <li>Peristiwa tsunami Aceh (2004) terjadi di pesisir Nanggroe Aceh Darussalam.</li>
+      </ul>
+
+      <h3>3. ⏰ Waktu</h3>
+      <p>Waktu adalah <strong>kapan peristiwa terjadi</strong>. Waktu membuat sejarah bersifat unik — setiap peristiwa hanya terjadi sekali dan tidak terulang.</p>
+      <ul>
+        <li>Peristiwa 17 Agustus 1945 — hari Proklamasi Kemerdekaan.</li>
+        <li>Peristiwa 28 Oktober 1928 — Sumpah Pemuda.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Rumus singkat:</strong><br>
+        Peristiwa Sejarah = <strong>Manusia</strong> + <strong>Ruang</strong> + <strong>Waktu</strong><br>
+        Jika salah satu tidak ada → bukan peristiwa sejarah.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh analisis:</strong> "Peristiwa 17 Agustus 1945 di Jakarta".<br>
+        👥 Manusia: Soekarno, Hatta, rakyat Indonesia<br>
+        🌍 Ruang: Jl. Pegangsaan Timur 56, Jakarta<br>
+        ⏰ Waktu: 17 Agustus 1945, pukul 10.00 WIB<br>
+        → Memenuhi tiga unsur → disebut peristiwa sejarah.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 4: KRONOLOGI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 4 dari 17</div>
+      <h2 class="page-title">Kronologi <span>dalam Sejarah</span></h2>
+      <p class="page-subtitle">Urutan waktu sebagai dasar berpikir sejarah</p>
+
+      <p><strong style="color:#38bdf8">Kronologi</strong> berasal dari kata Yunani <em>chronos</em> (waktu) dan <em>logos</em> (ilmu). Jadi, kronologi adalah <strong>ilmu tentang urutan waktu</strong> atau penyusunan peristiwa berdasarkan urutan waktu terjadinya.</p>
+
+      <h3>Pentingnya Kronologi</h3>
+      <ul>
+        <li>Menghindari <strong>kekacauan urutan</strong> peristiwa.</li>
+        <li>Membantu melihat <strong>hubungan sebab-akibat</strong>.</li>
+        <li>Menghindari <strong>anakronisme</strong> (menempatkan peristiwa di luar zamannya).</li>
+        <li>Memudahkan <strong>rekonstruksi masa lampau</strong> secara sistematis.</li>
+      </ul>
+
+      <h3>Cara Menyusun Kronologi</h3>
+      <ol>
+        <li>Kumpulkan peristiwa yang akan disusun.</li>
+        <li>Tentukan tanggal, bulan, dan tahun setiap peristiwa.</li>
+        <li>Susun dari yang paling awal ke yang paling akhir.</li>
+        <li>Perhatikan hubungan sebab-akibat antar peristiwa.</li>
+      </ol>
+
+      <h3>Contoh Kronologi</h3>
+      <table>
+        <tr><th>Tanggal</th><th>Peristiwa</th></tr>
+        <tr><td>1908</td><td>Berdirinya Budi Utomo (Kebangkitan Nasional)</td></tr>
+        <tr><td>28 Oktober 1928</td><td>Sumpah Pemuda</td></tr>
+        <tr><td>17 Agustus 1945</td><td>Proklamasi Kemerdekaan</td></tr>
+        <tr><td>10 November 1945</td><td>Pertempuran Surabaya (Hari Pahlawan)</td></tr>
+      </table>
+
+      <div class="warning">
+        ⚠️ <strong>Tanpa kronologi:</strong> Peristiwa bisa terbalik — misalnya menyebut Proklamasi sebelum Sumpah Pemuda. Ini akan merusak logika sejarah.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh kronologi pribadi:</strong><br>
+        2008 → lahir → 2014 → masuk SD → 2020 → masuk SMP → 2023 → lulus SMP.<br>
+        Urutan ini membantu memahami perjalanan hidupmu — begitulah cara kerja kronologi dalam sejarah.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 5: PERIODISASI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 5 dari 17</div>
+      <h2 class="page-title">Periodisasi <span>Sejarah</span></h2>
+      <p class="page-subtitle">Pembabakan waktu untuk memudahkan pemahaman</p>
+
+      <p><strong style="color:#38bdf8">Periodisasi</strong> adalah pembabakan atau pembagian waktu dalam sejarah berdasarkan ciri-ciri khas tertentu.</p>
+
+      <h3>Tujuan Periodisasi</h3>
+      <ul>
+        <li>Memudahkan <strong>pemahaman</strong> terhadap peristiwa sejarah.</li>
+        <li>Melihat <strong>pola perubahan</strong> antar zaman.</li>
+        <li>Menyusun sejarah secara <strong>sistematis</strong>.</li>
+        <li>Membandingkan <strong>ciri khas</strong> setiap periode.</li>
+      </ul>
+
+      <h3>Periodisasi Sejarah Indonesia (Contoh)</h3>
+      <table>
+        <tr><th>Periode</th><th>Ciri Utama</th></tr>
+        <tr><td><strong>Masa Praaksara</strong></td><td>Sebelum mengenal tulisan</td></tr>
+        <tr><td><strong>Masa Hindu-Buddha</strong></td><td>Berdirinya kerajaan seperti Kutai, Sriwijaya, Majapahit</td></tr>
+        <tr><td><strong>Masa Islam</strong></td><td>Kerajaan-kerajaan Islam di Nusantara (Samudera Pasai, Demak, Mataram Islam)</td></tr>
+        <tr><td><strong>Masa Kolonial</strong></td><td>Penjajahan Portugis, Belanda, Inggris, Jepang</td></tr>
+        <tr><td><strong>Masa Kemerdekaan</strong></td><td>Setelah Proklamasi 1945 hingga kini</td></tr>
+      </table>
+
+      <h3>Dasar Periodisasi</h3>
+      <table>
+        <tr><th>Berdasarkan</th><th>Contoh</th></tr>
+        <tr><td>Peristiwa besar</td><td>Zaman sebelum & sesudah Proklamasi</td></tr>
+        <tr><td>Dinasti / kerajaan</td><td>Zaman Majapahit, zaman Mataram</td></tr>
+        <tr><td>Kebudayaan</td><td>Zaman Batu, Zaman Perunggu</td></tr>
+        <tr><td>Teknologi</td><td>Revolusi Industri 1.0, 2.0, 3.0, 4.0</td></tr>
+      </table>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Membagi "Sejarah Indonesia" ke dalam bab-bab seperti "Praaksara", "Hindu-Buddha", "Islam", dan "Kolonial" — itulah periodisasi. Tujuannya agar materi lebih mudah dipahami daripada menyajikan 500 tahun sejarah sekaligus.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 6: PERUBAHAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 6 dari 17</div>
+      <h2 class="page-title">Konsep <span>Perubahan</span> dalam Sejarah</h2>
+      <p class="page-subtitle">Bagaimana masa lalu bergerak menuju masa kini</p>
+
+      <p><strong style="color:#38bdf8">Perubahan</strong> adalah salah satu ciri utama sejarah. Masa lalu selalu bergerak, berkembang, dan berubah — meninggalkan jejak yang memengaruhi masa kini.</p>
+
+      <h3>Jenis Perubahan Berdasarkan Kecepatan</h3>
+      <table>
+        <tr><th>Jenis</th><th>Pengertian</th><th>Contoh</th></tr>
+        <tr><td><strong>Evolusi</strong></td><td>Perubahan lambat & bertahap</td><td>Perkembangan bahasa, adat istiadat</td></tr>
+        <tr><td><strong>Revolusi</strong></td><td>Perubahan cepat & mendasar</td><td>Revolusi Prancis 1789, Revolusi Industri</td></tr>
+      </table>
+
+      <h3>Jenis Perubahan Berdasarkan Skala</h3>
+      <table>
+        <tr><th>Jenis</th><th>Pengertian</th><th>Contoh</th></tr>
+        <tr><td><strong>Perubahan kecil</strong></td><td>Tidak berdampak besar</td><td>Model pakaian, gaya rambut</td></tr>
+        <tr><td><strong>Perubahan besar</strong></td><td>Mengubah struktur masyarakat</td><td>Kemerdekaan, reformasi, industrialisasi</td></tr>
+      </table>
+
+      <h3>Faktor Pendorong Perubahan</h3>
+      <ul>
+        <li><strong>Kontak budaya</strong> — bertemu dengan budaya lain.</li>
+        <li><strong>Pendidikan</strong> — meningkatkan pola pikir.</li>
+        <li><strong>Teknologi</strong> — memunculkan cara baru.</li>
+        <li><strong>Konflik/perang</strong> — memicu perubahan drastis.</li>
+        <li><strong>Perubahan lingkungan</strong> — bencana, cuaca, migrasi.</li>
+      </ul>
+
+      <h3>Faktor Penghambat Perubahan</h3>
+      <ul>
+        <li><strong>Adat istiadat kuat</strong> — tradisi sulit diubah.</li>
+        <li><strong>Takut kegagalan</strong> — ragu mencoba hal baru.</li>
+        <li><strong>Kurangnya pengetahuan</strong> — tidak tahu adanya inovasi.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Perubahan + Keberlanjutan:</strong> Sejarah bukan hanya tentang perubahan, tetapi juga <em>keberlanjutan</em>. Contohnya: meskipun alat komunikasi berubah dari surat → telepon → HP, kebutuhan manusia untuk berkomunikasi <strong>tetap berlanjut</strong>.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Dulu orang menulis surat dengan pena & kertas → kini mengirim pesan lewat smartphone. Alatnya berubah, tetapi esensi (berkomunikasi) tetap berlanjut. Itulah perubahan + keberlanjutan.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 7: DIAKRONIK & SINKRONIK ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 7 dari 17</div>
+      <h2 class="page-title">Berpikir <span>Diakronik & Sinkronik</span></h2>
+      <p class="page-subtitle">Dua cara sejarawan melihat peristiwa masa lalu</p>
+
+      <p>Sejarawan menggunakan dua cara berpikir utama untuk memahami peristiwa masa lalu: <strong style="color:#38bdf8">diakronik</strong> dan <strong style="color:#38bdf8">sinkronik</strong>.</p>
+
+      <h3>1. Berpikir Diakronik (Memanjang dalam Waktu)</h3>
+      <p>Berpikir <strong>diakronik</strong> berarti melihat peristiwa secara <em>kronologis</em> — memanjang dalam waktu, dari satu peristiwa ke peristiwa berikutnya.</p>
+      <ul>
+        <li>Ciri: <strong>kronologis</strong>, <strong>berurutan</strong>, <strong>berkesinambungan</strong>.</li>
+        <li>Fokus: <strong>apa yang berubah dan kapan</strong>.</li>
+        <li>Contoh: Sejarah perjalanan Proklamasi — dari Rengasdengklok → perumusan teks → pembacaan → penyebaran berita.</li>
+      </ul>
+
+      <h3>2. Berpikir Sinkronik (Meluas dalam Ruang)</h3>
+      <p>Berpikir <strong>sinkronik</strong> berarti melihat peristiwa pada <em>satu titik waktu</em> — tetapi dari berbagai aspek atau sudut pandang.</p>
+      <ul>
+        <li>Ciri: <strong>meluas</strong>, <strong>menyeluruh</strong>, <strong>analitis</strong>.</li>
+        <li>Fokus: <strong>bagaimana keadaan saat itu</strong>.</li>
+        <li>Contoh: Kondisi Indonesia pada 1945 — politik, ekonomi, sosial, budaya pada tahun yang sama.</li>
+      </ul>
+
+      <h3>Perbandingan</h3>
+      <table>
+        <tr><th>Aspek</th><th>Diakronik</th><th>Sinkronik</th></tr>
+        <tr><td>Arah</td><td>Memanjang dalam waktu</td><td>Meluas dalam ruang</td></tr>
+        <tr><td>Sifat</td><td>Kronologis & berurutan</td><td>Analitis & menyeluruh</td></tr>
+        <tr><td>Fokus</td><td>Perubahan dari waktu ke waktu</td><td>Keadaan pada satu waktu</td></tr>
+        <tr><td>Contoh</td><td>Sejarah kerajaan dari abad ke abad</td><td>Keadaan Nusantara pada abad ke-14</td></tr>
+      </table>
+
+      <div class="highlight">
+        💡 <strong>Analogi:</strong><br>
+        🎬 <strong>Diakronik</strong> = seperti menonton film — bergerak dari awal sampai akhir.<br>
+        📸 <strong>Sinkronik</strong> = seperti melihat foto — satu momen, tetapi detailnya dianalisis menyeluruh.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 8: ANAKRONISME ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 8 dari 17</div>
+      <h2 class="page-title">Anakronisme <span>dalam Sejarah</span></h2>
+      <p class="page-subtitle">Kesalahan menempatkan sesuatu di luar zamannya</p>
+
+      <p><strong style="color:#38bdf8">Anakronisme</strong> adalah kesalahan dalam sejarah karena menempatkan peristiwa, tokoh, benda, atau konsep pada waktu yang tidak sesuai dengan zamannya.</p>
+
+      <h3>Ciri-Ciri Anakronisme</h3>
+      <ul>
+        <li>Menempatkan sesuatu pada zaman yang salah.</li>
+        <li>Sering muncul dalam film, novel, atau cerita sejarah.</li>
+        <li>Mengaburkan kebenaran sejarah.</li>
+      </ul>
+
+      <h3>Contoh Anakronisme</h3>
+      <table>
+        <tr><th>Contoh</th><th>Mengapa Anakronisme?</th></tr>
+        <tr><td>Raden Wijaya memakai HP untuk menelepon</td><td>HP belum ada pada abad ke-13</td></tr>
+        <tr><td>Pahlawan nasional naik mobil mewah pada 1820</td><td>Mobil baru ada akhir abad ke-19</td></tr>
+        <tr><td>Pertempuran Diponegoro memakai senapan mesin</td><td>Senapan mesin belum ada pada 1825–1830</td></tr>
+        <tr><td>Soekarno menonton TV saat Proklamasi</td><td>TV belum masuk Indonesia pada 1945</td></tr>
+      </table>
+
+      <h3>Mengapa Harus Dihindari?</h3>
+      <ul>
+        <li>Merusak <strong>kredibilitas</strong> sebuah karya sejarah.</li>
+        <li>Menyesatkan <strong>pemahaman</strong> pembaca/pemirsa.</li>
+        <li>Menghilangkan <strong> nilai pendidikan </strong>sejarah.</li>
+      </ul>
+
+      <div class="warning">
+        ⚠️ <strong>Hati-hati:</strong> Anakronisme sering muncul dalam film & novel "bernuansa sejarah". Sebagai pelajar, kamu harus kritis memeriksa apakah adegan atau benda di dalamnya sesuai dengan zamannya.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Latihan kritis:</strong><br>
+        Sebuah film menampilkan pasukan Majapahit membawa bendera merah putih. Apakah ini anakronisme? <strong>Tidak</strong>, jika konteksnya warna panji kerajaan. <strong>Ya</strong>, jika bendera yang dibawa adalah bendera Merah Putih versi kemerdekaan 1945. Perhatikan konteks!
+      </div>
+    </section>
+
+    <!-- ===== PAGE 9: SUMBER SEJARAH ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 9 dari 17</div>
+      <h2 class="page-title">Sumber <span>Sejarah</span></h2>
+      <p class="page-subtitle">Bahan utama sejarawan merekonstruksi masa lalu</p>
+
+      <p><strong style="color:#38bdf8">Sumber sejarah</strong> adalah segala sesuatu yang dapat memberikan informasi tentang masa lampau — baik berupa tulisan, lisan, benda, maupun rekaman.</p>
+
+      <h3>A. Berdasarkan Sifat (Kedekatan dengan Peristiwa)</h3>
+      <table>
+        <tr><th>Jenis</th><th>Pengertian</th><th>Contoh</th></tr>
+        <tr><td><strong>Primer</strong></td><td>Dibuat/terjadi <em>pada saat peristiwa berlangsung</em> oleh pelaku/saksi</td><td>Naskah asli Proklamasi, foto 1945, prasasti</td></tr>
+        <tr><td><strong>Sekunder</strong></td><td>Dibuat <em>setelah peristiwa</em>, oleh yang tidak terlibat langsung</td><td>Buku sejarah, artikel, dokumenter</td></tr>
+        <tr><td><strong>Tersier</strong></td><td>Kompilasi/ringkasan dari sumber sekunder</td><td>Ensiklopedia, buku pelajaran ringkas</td></tr>
+      </table>
+
+      <h3>B. Berdasarkan Bentuk</h3>
+      <table>
+        <tr><th>Jenis</th><th>Penjelasan</th><th>Contoh</th></tr>
+        <tr><td><strong>Tertulis</strong></td><td>Berupa dokumen, arsip, prasasti</td><td>Prasasti Yupa, teks Proklamasi, surat kabar lama</td></tr>
+        <tr><td><strong>Lisan</strong></td><td>Berupa cerita, wawancara, tradisi lisan</td><td>Cerita rakyat, wawancara veteran</td></tr>
+        <tr><td><strong>Benda (artefak)</strong></td><td>Peninggalan fisik</td><td>Candi Borobudur, kapak batu, keramik</td></tr>
+        <tr><td><strong>Audio-visual</strong></td><td>Rekaman gambar & suara</td><td>Film dokumenter, rekaman pidato</td></tr>
+      </table>
+
+      <h3>C. Contoh Sumber Primer vs Sekunder</h3>
+      <div class="grid-2">
+        <div class="mini-card">
+          <div class="icon">📜</div>
+          <h4>Sumber Primer</h4>
+          <p>Naskah asli Proklamasi, foto pembacaan teks 1945, prasasti Yupa Kutai.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">📘</div>
+          <h4>Sumber Sekunder</h4>
+          <p>Buku "Sejarah Indonesia Modern", artikel majalah tentang 1945, dokumenter TV.</p>
+        </div>
+      </div>
+
+      <div class="warning">
+        ⚠️ <strong>Penting diingat:</strong> Semakin dekat sumber dengan peristiwa, semakin tinggi <em>nilai kesaksiannya</em> — tetapi tetap perlu dikritik (diverifikasi) kebenarannya.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 10: BUKTI & FAKTA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 10 dari 17</div>
+      <h2 class="page-title">Bukti & <span>Fakta Sejarah</span></h2>
+      <p class="page-subtitle">Dari sumber menjadi dasar rekonstruksi masa lalu</p>
+
+      <h3>1. Bukti Sejarah</h3>
+      <p><strong style="color:#38bdf8">Bukti sejarah</strong> adalah sumber sejarah yang sudah teruji kebenarannya dan dapat mendukung pernyataan tentang masa lampau.</p>
+      <ul>
+        <li>Berupa prasasti, naskah, artefak, atau foto.</li>
+        <li>Sudah melalui <strong>kritik intern & ekstern</strong>.</li>
+        <li>Bersifat <strong>objektif & nyata</strong>.</li>
+      </ul>
+
+      <h3>2. Fakta Sejarah</h3>
+      <p><strong style="color:#38bdf8">Fakta sejarah</strong> adalah pernyataan yang sudah dianggap benar karena didukung bukti-bukti sejarah.</p>
+      <table>
+        <tr><th>Jenis Fakta</th><th>Pengertian</th><th>Contoh</th></tr>
+        <tr><td><strong>Fakta Keras (Hard Fact)</strong></td><td>Dapat dibuktikan secara langsung dari sumber</td><td>"Proklamasi dibacakan 17 Agustus 1945"</td></tr>
+        <tr><td><strong>Fakta Lunak (Soft Fact)</strong></td><td>Masih diperdebatkan / perlu interpretasi</td><td>"Siapa penulis naskah proklamasi?"</td></tr>
+      </table>
+
+      <h3>Hubungan Sumber → Bukti → Fakta</h3>
+      <div class="peta-konsep">
+        <span class="node utama">SUMBER SEJARAH</span>
+        <span class="arrow">↓ kritik intern & ekstern</span>
+        <span class="node sub">BUKTI SEJARAH</span>
+        <span class="arrow">↓ interpretasi</span>
+        <span class="node sub">FAKTA SEJARAH</span>
+        <span class="arrow">↓ rekonstruksi</span>
+        <span class="node detail">PERISTIWA MASA LALU</span>
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong><br>
+        📜 <strong>Sumber:</strong> Prasasti Yupa di Kutai.<br>
+        ✔️ <strong>Bukti:</strong> Prasasti tersebut teruji asli & berasal dari abad ke-4.<br>
+        📌 <strong>Fakta:</strong> "Kerajaan Kutai berdiri sekitar abad ke-4 M dan diperintah oleh Raja Mulawarman."
+      </div>
+    </section>
+
+    <!-- ===== PAGE 11: HISTORIOGRAFI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 11 dari 17</div>
+      <h2 class="page-title">Historiografi</h2>
+      <p class="page-subtitle">Cara sejarawan menuliskan hasil penelitiannya</p>
+
+      <p><strong style="color:#38bdf8">Historiografi</strong> adalah cara penulisan sejarah atau hasil penulisan sejarah berdasarkan penelitian yang dilakukan sejarawan.</p>
+
+      <h3>Metode Sejarah (4 Tahap)</h3>
+      <table>
+        <tr><th>Tahap</th><th>Kegiatan</th></tr>
+        <tr><td><strong>1. Heuristik</strong></td><td>Mencari & mengumpulkan sumber sejarah</td></tr>
+        <tr><td><strong>2. Kritik / Verifikasi</strong></td><td>Menguji keaslian (ekstern) & isi (intern) sumber</td></tr>
+        <tr><td><strong>3. Interpretasi</strong></td><td>Menafsirkan & menghubungkan fakta</td></tr>
+        <tr><td><strong>4. Historiografi</strong></td><td>Menuliskan hasil sebagai kisah sejarah</td></tr>
+      </table>
+
+      <h3>Jenis Historiografi</h3>
+      <table>
+        <tr><th>Jenis</th><th>Ciri Khas</th><th>Contoh</th></tr>
+        <tr><td><strong>Historiografi Tradisional</strong></td><td>Bercampur mitos & legenda, istana-sentris, magis-religius</td><td>Babad Tanah Jawi, Sejarah Melayu</td></tr>
+        <tr><td><strong>Historiografi Kolonial</strong></td><td>Sudut pandang Belanda, mengagungkan penjajah</td><td>Buku karangan sejarawan kolonial</td></tr>
+        <tr><td><strong>Historiografi Nasional</strong></td><td>Indonesia-sentris, menguatkan identitas bangsa</td><td>Buku sejarah nasional Indonesia</td></tr>
+        <tr><td><strong>Historiografi Modern</strong></td><td>Ilmiah, kritis, multi-perspektif</td><td>Karya sejarawan universitas modern</td></tr>
+      </table>
+
+      <div class="highlight">
+        💡 <strong>Kesimpulan:</strong> Menulis sejarah bukan sekadar menyalin cerita — tetapi proses ilmiah yang <strong>panjang, teliti, dan kritis</strong> melalui empat tahap metode sejarah.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 12: KETERAMPILAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 12 dari 17</div>
+      <h2 class="page-title">Keterampilan <span>Berpikir Sejarah</span></h2>
+      <p class="page-subtitle">Empat keterampilan yang perlu dikuasai pelajar sejarah</p>
+
+      <div class="grid-2">
+        <div class="mini-card">
+          <div class="icon">⏳</div>
+          <h4>1. Berpikir Kronologis</h4>
+          <p>Menyusun peristiwa sesuai urutan waktu — dari yang paling awal ke yang paling akhir.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🔗</div>
+          <h4>2. Berpikir Kausalitas</h4>
+          <p>Mencari hubungan sebab-akibat — mengapa peristiwa itu terjadi dan apa dampaknya.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🔍</div>
+          <h4>3. Interpretasi</h4>
+          <p>Menafsirkan makna sumber — membandingkan berbagai versi untuk menemukan pemahaman yang utuh.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">✍️</div>
+          <h4>4. Historiografi</h4>
+          <p>Menuliskan hasil analisis menjadi cerita sejarah yang sistematis dan berdasarkan fakta.</p>
+        </div>
+      </div>
+
+      <h3>Contoh Penerapan</h3>
+      <table>
+        <tr><th>Keterampilan</th><th>Contoh Pertanyaan</th></tr>
+        <tr><td>Kronologis</td><td>"Apa yang terjadi sebelum dan sesudah Sumpah Pemuda?"</td></tr>
+        <tr><td>Kausalitas</td><td>"Mengapa Sumpah Pemuda muncul pada 1928, bukan sebelumnya?"</td></tr>
+        <tr><td>Interpretasi</td><td>"Bagaimana tafsir berbeda tentang peran Soekarno dalam proklamasi?"</td></tr>
+        <tr><td>Historiografi</td><td>"Bagaimana menulis kisah Sumpah Pemuda secara objektif?"</td></tr>
+      </table>
+
+      <div class="contoh">
+        🌰 <strong>Tips belajar sejarah:</strong><br>
+        Jangan hanya hafal tahun. Tanyakan: <em>"Apa yang berubah?", "Mengapa terjadi?", "Siapa yang terdampak?"</em> — itulah cara berpikir sejarawan.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 13: PETA KONSEP ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 13 dari 17</div>
+      <h2 class="page-title">Peta <span>Konsep</span></h2>
+      <p class="page-subtitle">Ringkasan visual hubungan antar konsep</p>
+
+      <div class="peta-konsep">
+        <div class="node utama">ILMU SEJARAH</div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node sub">Manusia</span>
+          <span class="node sub">Ruang</span>
+          <span class="node sub">Waktu</span>
+        </div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node sub">Kronologi</span>
+          <span class="node sub">Periodisasi</span>
+          <span class="node sub">Perubahan</span>
+        </div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node detail">Diakronik</span>
+          <span class="node detail">Sinkronik</span>
+          <span class="node detail">Anakronisme</span>
+        </div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node sub">Sumber Sejarah</span>
+          <span class="node sub">Bukti & Fakta</span>
+        </div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node detail">Historiografi</span>
+          <span class="node detail">Keterampilan Berpikir</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 14: RINGKASAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 14 dari 17</div>
+      <h2 class="page-title">Ringkasan <span>Bab 1</span></h2>
+      <p class="page-subtitle">Poin-poin penting yang harus diingat</p>
+
+      <ul>
+        <li><strong>Sejarah</strong> = ilmu yang mempelajari manusia dalam ruang & waktu, beserta perubahan dan keberlanjutannya.</li>
+        <li><strong>Tiga unsur sejarah</strong> = manusia, ruang, waktu.</li>
+        <li><strong>Sejarah sebagai ilmu</strong> = empiris, memiliki objek, metode, sistematis, objektif, verifikatif.</li>
+        <li><strong>Kronologi</strong> = urutan waktu peristiwa. <strong>Periodisasi</strong> = pembabakan waktu berdasarkan ciri khas.</li>
+        <li><strong>Perubahan</strong> dalam sejarah bisa cepat (revolusi) atau lambat (evolusi), disertai <strong>keberlanjutan</strong>.</li>
+        <li><strong>Diakronik</strong> = memanjang dalam waktu; <strong>Sinkronik</strong> = meluas dalam ruang.</li>
+        <li><strong>Anakronisme</strong> = kesalahan menempatkan peristiwa/benda di luar zamannya.</li>
+        <li><strong>Sumber sejarah</strong> = primer, sekunder, tersier; bisa tertulis, lisan, benda, audio-visual.</li>
+        <li><strong>Bukti & fakta sejarah</strong> = hasil kritik dan interpretasi atas sumber.</li>
+        <li><strong>Metode sejarah</strong> = heuristik → kritik → interpretasi → historiografi.</li>
+        <li><strong>Historiografi</strong> = penulisan sejarah; jenisnya: tradisional, kolonial, nasional, modern.</li>
+        <li><strong>Keterampilan berpikir sejarah</strong> = kronologis, kausalitas, interpretasi, historiografi.</li>
+      </ul>
+    </section>
+
+    <!-- ===== PAGE 15: GLOSARIUM ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 15 dari 17</div>
+      <h2 class="page-title">Glosarium <span>Istilah Penting</span></h2>
+      <p class="page-subtitle">Kumpulan istilah kunci dalam bab ini</p>
+
+      <div class="glosarium-item"><strong>Anakronisme</strong><br><span>Kesalahan menempatkan peristiwa/benda di luar zaman yang seharusnya.</span></div>
+      <div class="glosarium-item"><strong>Diakronik</strong><br><span>Cara berpikir sejarah yang memanjang dalam waktu (kronologis).</span></div>
+      <div class="glosarium-item"><strong>Fakta Sejarah</strong><br><span>Pernyataan yang dianggap benar karena didukung bukti-bukti.</span></div>
+      <div class="glosarium-item"><strong>Heuristik</strong><br><span>Tahap pertama metode sejarah: mengumpulkan sumber.</span></div>
+      <div class="glosarium-item"><strong>Historiografi</strong><br><span>Penulisan sejarah berdasarkan hasil penelitian.</span></div>
+      <div class="glosarium-item"><strong>Interpretasi</strong><br><span>Penafsiran terhadap fakta atau sumber sejarah.</span></div>
+      <div class="glosarium-item"><strong>Kausalitas</strong><br><span>Hubungan sebab-akibat antar peristiwa.</span></div>
+      <div class="glosarium-item"><strong>Kronologi</strong><br><span>Urutan peristiwa berdasarkan waktu terjadinya.</span></div>
+      <div class="glosarium-item"><strong>Kritik</strong><br><span>Tahap menguji keaslian dan isi sumber sejarah.</span></div>
+      <div class="glosarium-item"><strong>Periodisasi</strong><br><span>Pembabakan waktu dalam sejarah berdasarkan ciri khas.</span></div>
+      <div class="glosarium-item"><strong>Sinkronik</strong><br><span>Cara berpikir sejarah yang meluas dalam ruang pada satu waktu.</span></div>
+      <div class="glosarium-item"><strong>Sumber Primer</strong><br><span>Sumber yang berasal dari masa peristiwa terjadi.</span></div>
+      <div class="glosarium-item"><strong>Sumber Sekunder</strong><br><span>Sumber yang dibuat setelah peristiwa terjadi.</span></div>
+      <div class="glosarium-item"><strong>Sumber Tersier</strong><br><span>Kompilasi/ringkasan dari sumber sekunder.</span></div>
+    </section>
+
+    <!-- ===== PAGE 16: SOAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 16 dari 17</div>
+      <h2 class="page-title">Soal Latihan + <span>Pembahasan</span></h2>
+      <p class="page-subtitle">Klik tombol untuk memeriksa jawabanmu</p>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 1</div>
+        <div class="pertanyaan">Kata "sejarah" berasal dari bahasa Arab "syajaratun" yang berarti...</div>
+        <div class="pilihan">A. Batu<br>B. Pohon<br>C. Tulisan<br>D. Waktu</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> "Syajaratun" berarti pohon — melambangkan pertumbuhan dan silsilah.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 2</div>
+        <div class="pertanyaan">Berikut yang BUKAN termasuk unsur sejarah adalah...</div>
+        <div class="pilihan">A. Manusia<br>B. Ruang<br>C. Waktu<br>D. Cuaca</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: D.</strong> Tiga unsur sejarah adalah manusia, ruang, dan waktu.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 3</div>
+        <div class="pertanyaan">Urutan peristiwa berdasarkan waktu terjadinya disebut...</div>
+        <div class="pilihan">A. Periodisasi<br>B. Kronologi<br>C. Historiografi<br>D. Interpretasi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Kronologi adalah urutan waktu peristiwa dari awal ke akhir.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 4</div>
+        <div class="pertanyaan">Cara berpikir sejarah yang memanjang dalam waktu disebut...</div>
+        <div class="pilihan">A. Sinkronik<br>B. Diakronik<br>C. Anakronisme<br>D. Historiografi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Diakronik = memanjang dalam waktu (kronologis).</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 5</div>
+        <div class="pertanyaan">Kesalahan menempatkan benda/peristiwa di luar zamannya disebut...</div>
+        <div class="pilihan">A. Kronologi<br>B. Periodisasi<br>C. Anakronisme<br>D. Interpretasi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Anakronisme = kesalahan penempatan waktu.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 6</div>
+        <div class="pertanyaan">Prasasti Yupa dari Kutai termasuk sumber...</div>
+        <div class="pilihan">A. Sekunder<br>B. Tersier<br>C. Primer<br>D. Fiktif</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Prasasti Yupa dibuat pada masa peristiwa terjadi → sumber primer.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 7</div>
+        <div class="pertanyaan">Tahap pertama dalam metode sejarah adalah...</div>
+        <div class="pilihan">A. Kritik<br>B. Interpretasi<br>C. Heuristik<br>D. Historiografi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Heuristik = mengumpulkan sumber sejarah.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 8</div>
+        <div class="pertanyaan">Penulisan sejarah berdasarkan hasil penelitian disebut...</div>
+        <div class="pilihan">A. Kronologi<br>B. Historiografi<br>C. Anakronisme<br>D. Periodisasi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Historiografi adalah penulisan kisah sejarah.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 9</div>
+        <div class="pertanyaan">Cara berpikir sejarah yang meluas dalam ruang pada satu waktu disebut...</div>
+        <div class="pilihan">A. Diakronik<br>B. Sinkronik<br>C. Kronologis<br>D. Kausalitas</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Sinkronik = meluas dalam ruang, pada satu titik waktu.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 10</div>
+        <div class="pertanyaan">Hubungan sebab-akibat antar peristiwa dalam sejarah disebut...</div>
+        <div class="pilihan">A. Kronologi<br>B. Periodisasi<br>C. Kausalitas<br>D. Anakronisme</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Kausalitas = hubungan sebab-akibat antar peristiwa.</div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 17: PROYEK ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 17 dari 17</div>
+      <h2 class="page-title">Proyek / <span>Aktivitas Siswa</span></h2>
+      <p class="page-subtitle">Kerjakan salah satu proyek berikut untuk memperdalam pemahaman</p>
+
+      <div class="proyek">
+        <ol>
+          <li><strong>Buat garis waktu (timeline)</strong> perjalanan hidupmu dari lahir hingga sekarang. Beri keterangan: manusia, ruang, dan waktu pada setiap peristiwa penting.</li>
+          <li><strong>Wawancarai</strong> kakek/nenek atau anggota keluarga yang lebih tua tentang peristiwa penting di kampung halaman pada masa mudanya. Tuliskan hasilnya dalam bentuk narasi sejarah (100–200 kata).</li>
+          <li><strong>Bandingkan</strong> dua berita dari surat kabar lama dan surat kabar hari ini tentang peristiwa yang sama (misalnya 17 Agustus). Temukan perbedaan cara penyajian dan analisislah mengapa berbeda.</li>
+          <li><strong>Buat peta konsep</strong> "Konsep Dasar Ilmu Sejarah" — mencakup manusia, ruang, waktu, kronologi, periodisasi, perubahan, diakronik, sinkronik, sumber, fakta, historiografi.</li>
+          <li><strong>Cari 3 contoh anakronisme</strong> dalam film atau novel yang kamu tonton/baca. Jelaskan mengapa termasuk anakronisme dan bagaimana seharusnya.</li>
+        </ol>
+      </div>
+
+      <div class="highlight" style="text-align:center; margin-top:30px;">
+        🎉 <strong>Selamat!</strong> Kamu telah menyelesaikan seluruh materi Bab 1.
+        Sekarang saatnya uji pemahamanmu dengan kuis!
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="footer-nav">
+  <button class="nav-prev" id="prevBtn" onclick="prev()">← Sebelumnya</button>
+  <span class="page-counter"><span id="currentNum">1</span> / 17</span>
+  <button class="nav-next" id="nextBtn" onclick="next()">Selanjutnya →</button>
+</div>
+
+<script>
+const pages = document.querySelectorAll('.page');
+const navItems = document.querySelectorAll('.nav-item');
+const progressFill = document.getElementById('progressFill');
+const currentNum = document.getElementById('currentNum');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const mainArea = document.getElementById('main');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+let currentPage = 0;
+const totalPages = pages.length;
+
+function goTo(index) {
+  if (index < 0 || index >= totalPages) return;
+
+  pages[currentPage].classList.remove('active');
+  navItems[currentPage].classList.remove('active');
+  navItems[currentPage].classList.add('done');
+
+  currentPage = index;
+
+  pages[currentPage].classList.add('active');
+  navItems[currentPage].classList.add('active');
+
+  progressFill.style.width = ((currentPage + 1) / totalPages * 100) + '%';
+  currentNum.textContent = currentPage + 1;
+
+  prevBtn.disabled = currentPage === 0;
+  if (currentPage === totalPages - 1) {
+    nextBtn.textContent = '🎮 Mulai Kuis';
+  } else {
+    nextBtn.textContent = 'Selanjutnya →';
+  }
+
+  mainArea.scrollTop = 0;
+  if (window.innerWidth <= 800) {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+}
+
+function next() {
+  if (currentPage === totalPages - 1) {
+    window.location.href = 'sejarah-bab1-kuis.html';
+    return;
+  }
+  goTo(currentPage + 1);
+}
+
+function prev() {
+  goTo(currentPage - 1);
+}
+
+function toggleSidebar() {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+}
+
+function toggleJawaban(btn) {
+  const jawaban = btn.nextElementSibling;
+  if (jawaban.classList.contains('show')) {
+    jawaban.classList.remove('show');
+    btn.textContent = 'Lihat Jawaban';
+  } else {
+    jawaban.classList.add('show');
+    btn.textContent = 'Sembunyikan';
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+goTo(0);
+
+/* ========== LOADING SCREEN ========== */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }, 2200);
+});
+
+setTimeout(() => {
+  const loader = document.getElementById('loader');
+  if (loader && !loader.classList.contains('hide')) {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }
+}, 4500);
+</script>
+
+</body>
+</html>
