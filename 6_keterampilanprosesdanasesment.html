@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bab 6 — Keterampilan Proses & Asesmen | Pesawat Tempur IPS</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+  html, body { height:100%; }
+  body {
+    background:#07111f; color:white; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+
+  /* ========== LOADING SCREEN ========== */
+  #loader {
+    position:fixed; inset:0; z-index:9999;
+    background:#07111f;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:24px;
+    transition: opacity .7s ease, visibility .7s ease;
+  }
+  #loader.hide { opacity:0; visibility:hidden; pointer-events:none; }
+
+  #loader::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.06) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    animation:gridMove 12s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes gridMove {
+    from { background-position:0 0; }
+    to { background-position:44px 44px; }
+  }
+
+  #loader::after {
+    content:''; position:absolute;
+    width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(14,165,233,0.35), transparent 65%);
+    filter:blur(90px);
+    animation:orbPulse 3s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes orbPulse {
+    0%,100% { transform:scale(1); opacity:.6; }
+    50% { transform:scale(1.15); opacity:1; }
+  }
+
+  /* ========== LOGO MGE 3D ========== */
+  .mge-logo-wrap {
+    position:relative; z-index:1;
+    width:150px; height:150px;
+    display:flex; align-items:center; justify-content:center;
+    animation:logoFloat 3s ease-in-out infinite;
+  }
+  @keyframes logoFloat {
+    0%, 100% { transform:translateY(0); }
+    50% { transform:translateY(-8px); }
+  }
+  .mge-ring-outer {
+    position:absolute; inset:0;
+    border-radius:50%;
+    border:2px solid transparent;
+    border-top-color:#38bdf8;
+    border-right-color:#818cf8;
+    border-bottom-color:transparent;
+    border-left-color:#a78bfa;
+    animation:spinRing 1.6s linear infinite;
+    filter:drop-shadow(0 0 8px rgba(56,189,248,0.9));
+  }
+  .mge-ring-inner {
+    position:absolute; inset:12px;
+    border-radius:50%;
+    border:1.5px dashed rgba(56,189,248,0.5);
+    animation:spinRingReverse 4s linear infinite;
+  }
+  @keyframes spinRing { to { transform:rotate(360deg); } }
+  @keyframes spinRingReverse { to { transform:rotate(-360deg); } }
+
+  .mge-circle {
+    position:absolute; inset:20px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 25%, #1e3a5f 0%, #0b1b30 55%, #050d18 100%);
+    box-shadow:
+      0 0 0 1px rgba(56,189,248,0.35) inset,
+      0 0 24px rgba(14,165,233,0.55),
+      0 0 60px rgba(56,189,248,0.35),
+      inset 0 -8px 20px rgba(0,0,0,0.6);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .mge-circle::before {
+    content:'';
+    position:absolute;
+    top:-50%; left:-50%;
+    width:200%; height:200%;
+    background:conic-gradient(from 0deg, transparent 0%, rgba(56,189,248,0.25) 20%, transparent 40%);
+    animation:shimmer 3s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes shimmer { to { transform:rotate(360deg); } }
+
+  .mge-text {
+    position:relative;
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:44px; font-weight:900;
+    letter-spacing:2px; line-height:1;
+    background:linear-gradient(180deg, #e0f2fe 0%, #38bdf8 45%, #6366f1 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:
+      0 1px 0 rgba(56,189,248,0.4),
+      0 2px 0 rgba(56,189,248,0.3),
+      0 3px 0 rgba(99,102,241,0.3),
+      0 4px 8px rgba(0,0,0,0.6),
+      0 0 22px rgba(56,189,248,0.85);
+    filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+    animation:textPulse 2.4s ease-in-out infinite;
+    z-index:2;
+    transform:perspective(500px) rotateX(6deg);
+  }
+  @keyframes textPulse {
+    0%, 100% {
+      filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+      transform:perspective(500px) rotateX(6deg) scale(1);
+    }
+    50% {
+      filter:drop-shadow(0 0 22px rgba(56,189,248,1));
+      transform:perspective(500px) rotateX(6deg) scale(1.05);
+    }
+  }
+  .mge-text::after {
+    content:'MGE';
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(255,255,255,0.85) 0%, transparent 55%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    pointer-events:none; z-index:3;
+  }
+
+  .brand-text {
+    position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+    gap:10px; margin-top:4px;
+    animation:fadeInUp .9s ease .2s both;
+  }
+  .brand-text .brand-line {
+    width:26px; height:1px;
+    background:linear-gradient(90deg, transparent, #38bdf8, transparent);
+  }
+  .brand-text .brand-label {
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:13px; font-weight:700;
+    letter-spacing:5px; text-transform:uppercase;
+    background:linear-gradient(90deg, #38bdf8 0%, #a78bfa 50%, #38bdf8 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:brandShine 3.5s linear infinite;
+    white-space:nowrap;
+  }
+  @keyframes brandShine {
+    0% { background-position:0% 50%; }
+    100% { background-position:200% 50%; }
+  }
+
+  .loader-title {
+    position:relative; z-index:1;
+    font-size:15px; font-weight:bold;
+    letter-spacing:4px; text-transform:uppercase;
+    color:#cbd5e1;
+    animation:fadeInUp .8s ease .3s both;
+  }
+  .loader-sub {
+    position:relative; z-index:1;
+    color:#64748b; font-size:11px;
+    letter-spacing:2px; text-transform:uppercase;
+    animation:fadeInUp .8s ease .4s both;
+  }
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(10px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .loader-bar {
+    position:relative; z-index:1;
+    width:240px; height:4px;
+    background:#132941; border-radius:4px;
+    overflow:hidden; margin-top:4px;
+    animation:fadeInUp .8s ease .5s both;
+  }
+  .loader-bar-fill {
+    height:100%; width:0%;
+    background:linear-gradient(90deg,#0ea5e9,#38bdf8,#818cf8);
+    border-radius:4px;
+    box-shadow:0 0 12px rgba(56,189,248,0.7);
+    animation:loadFill 1.8s cubic-bezier(.65,.05,.36,1) forwards;
+  }
+  @keyframes loadFill {
+    0% { width:0%; }
+    40% { width:45%; }
+    70% { width:75%; }
+    100% { width:100%; }
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    padding:14px 5%; display:flex; justify-content:space-between; align-items:center;
+    background:#0b1b30; border-bottom:2px solid #0ea5e9;
+    flex-shrink:0; z-index:50;
+  }
+  .logo { font-size:16px; font-weight:bold; color:#38bdf8; display:flex; align-items:center; gap:8px; }
+  .back-btn {
+    color:white; text-decoration:none; background:#0ea5e9; padding:8px 18px;
+    border-radius:8px; font-weight:bold; font-size:13px; transition:.3s;
+  }
+  .back-btn:hover { background:#0284c7; }
+
+  /* ========== PROGRESS BAR ========== */
+  .progress-wrap {
+    height:4px; background:#132941; position:relative; flex-shrink:0;
+  }
+  .progress-fill {
+    height:100%; background:linear-gradient(90deg,#0ea5e9,#38bdf8);
+    width:0%; transition:width .5s ease;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout { flex:1; display:flex; overflow:hidden; }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar {
+    width:290px; background:#0b1b30; border-right:1px solid #1b3b5d;
+    overflow-y:auto; flex-shrink:0; padding:20px 0;
+  }
+  .sidebar::-webkit-scrollbar { width:6px; }
+  .sidebar::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:3px; }
+
+  .sidebar-title {
+    padding:0 20px 15px; font-size:12px; font-weight:bold;
+    color:#64748b; letter-spacing:1.5px; text-transform:uppercase;
+  }
+
+  .nav-item {
+    display:flex; align-items:center; gap:12px;
+    padding:12px 20px; cursor:pointer;
+    border-left:4px solid transparent;
+    transition:.25s; font-size:14px; color:#cbd5e1;
+  }
+  .nav-item:hover { background:#132941; color:#38bdf8; }
+  .nav-item.active {
+    background:#132941; color:#38bdf8;
+    border-left-color:#38bdf8; font-weight:bold;
+  }
+  .nav-item .num {
+    width:26px; height:26px; border-radius:50%;
+    background:#1b3b5d; color:#94a3b8;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:bold; flex-shrink:0;
+    transition:.25s;
+  }
+  .nav-item.active .num { background:#0ea5e9; color:white; }
+  .nav-item.done .num { background:#065f46; color:#10b981; }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex:1; overflow-y:auto; position:relative; scroll-behavior:smooth;
+  }
+  .main::-webkit-scrollbar { width:8px; }
+  .main::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:4px; }
+
+  .page {
+    display:none;
+    padding:40px 6% 120px;
+    max-width:900px; margin:0 auto;
+    animation: slideIn .4s ease;
+  }
+  .page.active { display:block; }
+  @keyframes slideIn {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .page-badge {
+    display:inline-block; padding:5px 14px;
+    background:#132941; color:#38bdf8;
+    border-radius:20px; font-size:12px;
+    font-weight:bold; margin-bottom:12px;
+    border:1px solid #2a4a6a;
+  }
+  .page-title { font-size:30px; margin-bottom:8px; line-height:1.3; }
+  .page-title span { color:#38bdf8; }
+  .page-subtitle {
+    color:#94a3b8; font-size:14px; margin-bottom:30px;
+    padding-bottom:20px; border-bottom:2px solid #1b3b5d;
+  }
+
+  .page h3 { color:#7dd3fc; font-size:17px; margin:22px 0 10px; }
+  .page h4 { color:#a5b4fc; font-size:15px; margin:18px 0 8px; }
+  .page p { color:#cbd5e1; margin-bottom:12px; text-align:justify; line-height:1.75; }
+  .page ul, .page ol { color:#cbd5e1; margin:10px 0 15px 25px; }
+  .page ul li, .page ol li { margin-bottom:8px; line-height:1.7; }
+
+  .highlight {
+    background:linear-gradient(135deg,#132941,#0f2337);
+    border-left:4px solid #38bdf8;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#e0f2fe; font-size:14px; line-height:1.7;
+  }
+  .highlight strong { color:#38bdf8; }
+
+  .contoh {
+    background:linear-gradient(135deg,#0f2a1a,#0a1f12);
+    border-left:4px solid #10b981;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#d1fae5; font-size:14px; line-height:1.7;
+  }
+  .contoh strong { color:#34d399; }
+
+  .warning {
+    background:linear-gradient(135deg,#2a1a0f,#1f1308);
+    border-left:4px solid #f59e0b;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#fef3c7; font-size:14px; line-height:1.7;
+  }
+  .warning strong { color:#fbbf24; }
+
+  table {
+    width:100%; border-collapse:collapse; margin:16px 0;
+    background:#132941; border-radius:10px; overflow:hidden; font-size:13px;
+  }
+  table th {
+    background:#0ea5e9; color:white; padding:12px;
+    text-align:left; font-size:13px;
+  }
+  table td {
+    padding:12px; color:#cbd5e1;
+    border-bottom:1px solid #1b3b5d;
+    vertical-align:top; line-height:1.6;
+  }
+  table tr:last-child td { border-bottom:none; }
+  table tr:nth-child(even) td { background:#0f2337; }
+
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:15px 0; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:15px; margin:15px 0; }
+  .mini-card {
+    background:#132941; border-radius:10px; padding:18px;
+    border:1px solid #2a4a6a; transition:.3s;
+  }
+  .mini-card:hover { border-color:#38bdf8; transform:translateY(-3px); }
+  .mini-card .icon { font-size:30px; margin-bottom:8px; }
+  .mini-card h4 { color:#38bdf8; font-size:15px; margin-bottom:6px; }
+  .mini-card p { font-size:13px; color:#94a3b8; margin:0; text-align:left; }
+
+  .peta-konsep {
+    background:#132941; border-radius:15px; padding:25px;
+    text-align:center; border:2px dashed #38bdf8; margin:15px 0;
+  }
+  .peta-konsep .node {
+    display:inline-block; padding:10px 20px; border-radius:10px;
+    font-weight:bold; font-size:13px; margin:5px;
+  }
+  .peta-konsep .node.utama { background:#0ea5e9; color:white; font-size:15px; padding:14px 28px; }
+  .peta-konsep .node.sub { background:#1b3b5d; color:#7dd3fc; }
+  .peta-konsep .node.detail { background:#132941; color:#94a3b8; border:1px solid #2a4a6a; }
+  .peta-konsep .arrow { color:#38bdf8; font-size:22px; display:block; margin:4px 0; }
+
+  .glosarium-item {
+    background:#132941; border-radius:10px; padding:14px 18px;
+    margin-bottom:10px; border-left:4px solid #a855f7;
+    transition:.3s;
+  }
+  .glosarium-item:hover { transform:translateX(5px); }
+  .glosarium-item strong { color:#c084fc; font-size:14px; }
+  .glosarium-item span { color:#cbd5e1; font-size:13px; }
+
+  .soal-item {
+    background:#132941; border-radius:10px; padding:18px 22px;
+    margin-bottom:15px; border-left:4px solid #f59e0b;
+  }
+  .soal-item .nomor { color:#fbbf24; font-weight:bold; font-size:13px; }
+  .soal-item .pertanyaan { color:#e0f2fe; font-size:14px; margin:8px 0; line-height:1.6; }
+  .soal-item .pilihan { color:#94a3b8; font-size:13px; margin-left:15px; line-height:1.8; }
+  .soal-item .jawaban {
+    margin-top:10px; padding:12px 15px; background:#0f2a1a;
+    border-radius:8px; color:#d1fae5; font-size:13px; display:none; line-height:1.6;
+  }
+  .soal-item .jawaban.show { display:block; animation:slideIn .3s ease; }
+  .toggle-btn {
+    margin-top:8px; padding:6px 14px; background:#1b3b5d; border:1px solid #2a4a6a;
+    border-radius:6px; color:#7dd3fc; font-size:12px; cursor:pointer;
+    transition:.2s;
+  }
+  .toggle-btn:hover { background:#2a4a6a; }
+
+  .proyek {
+    background:linear-gradient(135deg,#1a0f2a,#2a1a3a);
+    border-radius:15px; padding:25px; border:2px solid #a855f7;
+  }
+  .proyek ol { color:#e9d5ff; margin-left:20px; }
+  .proyek ol li { margin-bottom:10px; line-height:1.7; }
+
+  /* ========== FOOTER NAV ========== */
+  .footer-nav {
+    position:fixed; bottom:0; left:290px; right:0;
+    background:#0b1b30; border-top:1px solid #1b3b5d;
+    padding:14px 6%; display:flex; justify-content:space-between;
+    align-items:center; z-index:40;
+  }
+  .footer-nav button {
+    padding:12px 24px; border:none; border-radius:10px;
+    font-weight:bold; font-size:14px; cursor:pointer;
+    transition:.3s; display:flex; align-items:center; gap:8px;
+  }
+  .nav-prev { background:#1b3b5d; color:#94a3b8; }
+  .nav-prev:hover:not(:disabled) { background:#2a4a6a; color:white; }
+  .nav-prev:disabled { opacity:.3; cursor:not-allowed; }
+  .nav-next {
+    background:linear-gradient(135deg,#0ea5e9,#0284c7); color:white;
+    box-shadow:0 4px 15px rgba(14,165,233,0.3);
+  }
+  .nav-next:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(14,165,233,0.5); }
+  .nav-next:disabled { opacity:.3; cursor:not-allowed; }
+
+  .page-counter { color:#64748b; font-size:13px; font-weight:bold; }
+
+  .menu-toggle {
+    display:none; background:#0ea5e9; border:none; color:white;
+    padding:8px 12px; border-radius:8px; font-size:18px; cursor:pointer;
+  }
+
+  @media (max-width: 800px) {
+    .sidebar {
+      position:fixed; top:0; left:0; bottom:0; z-index:100;
+      transform:translateX(-100%); transition:.3s;
+      box-shadow:4px 0 20px rgba(0,0,0,0.5);
+    }
+    .sidebar.open { transform:translateX(0); }
+    .sidebar-overlay {
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6);
+      z-index:99;
+    }
+    .sidebar-overlay.show { display:block; }
+    .menu-toggle { display:block; }
+    .footer-nav { left:0; padding:12px 4%; }
+    .footer-nav button { padding:10px 16px; font-size:12px; }
+    .page { padding:25px 5% 100px; }
+    .page-title { font-size:22px; }
+    .grid-2, .grid-3 { grid-template-columns:1fr; }
+    .logo span.fulllogo { display:none; }
+    .loader-title { font-size:13px; letter-spacing:3px; }
+    .loader-bar { width:200px; }
+    .mge-logo-wrap { width:120px; height:120px; }
+    .mge-text { font-size:34px; }
+    .brand-text .brand-label { font-size:11px; letter-spacing:4px; }
+    .brand-text .brand-line { width:18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== LOADING SCREEN ========== -->
+<div id="loader">
+  <div class="mge-logo-wrap">
+    <div class="mge-ring-outer"></div>
+    <div class="mge-ring-inner"></div>
+    <div class="mge-circle">
+      <div class="mge-text">MGE</div>
+    </div>
+  </div>
+
+  <div class="brand-text">
+    <span class="brand-line"></span>
+    <span class="brand-label">MAEDA GAMES EDU</span>
+    <span class="brand-line"></span>
+  </div>
+
+  <div class="loader-title">Memuat Materi</div>
+
+  <div class="loader-bar">
+    <div class="loader-bar-fill"></div>
+  </div>
+
+  <div class="loader-sub">Bab 6 · Keterampilan Proses & Asesmen</div>
+</div>
+
+<header>
+  <div class="logo">
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    📜 <span class="fulllogo">SEJARAH — BAB 6</span>
+  </div>
+  <a href="sejarah.html" class="back-btn">← Menu Bab</a>
+</header>
+
+<div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+  <!-- SIDEBAR NAV -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">📑 Daftar Materi</div>
+    <div class="nav-item active" onclick="goTo(0)">
+      <span class="num">1</span> Pengertian Keterampilan Proses
+    </div>
+    <div class="nav-item" onclick="goTo(1)">
+      <span class="num">2</span> Mengapa Penting?
+    </div>
+    <div class="nav-item" onclick="goTo(2)">
+      <span class="num">3</span> Enam Tahapan
+    </div>
+    <div class="nav-item" onclick="goTo(3)">
+      <span class="num">4</span> Mengamati
+    </div>
+    <div class="nav-item" onclick="goTo(4)">
+      <span class="num">5</span> Menanya
+    </div>
+    <div class="nav-item" onclick="goTo(5)">
+      <span class="num">6</span> Mengumpulkan Informasi
+    </div>
+    <div class="nav-item" onclick="goTo(6)">
+      <span class="num">7</span> Mengolah Informasi
+    </div>
+    <div class="nav-item" onclick="goTo(7)">
+      <span class="num">8</span> Merefleksi
+    </div>
+    <div class="nav-item" onclick="goTo(8)">
+      <span class="num">9</span> Mengomunikasikan
+    </div>
+    <div class="nav-item" onclick="goTo(9)">
+      <span class="num">10</span> Berpikir Kritis
+    </div>
+    <div class="nav-item" onclick="goTo(10)">
+      <span class="num">11</span> Berpikir Kreatif
+    </div>
+    <div class="nav-item" onclick="goTo(11)">
+      <span class="num">12</span> Asesmen Formatif & Sumatif
+    </div>
+    <div class="nav-item" onclick="goTo(12)">
+      <span class="num">13</span> Peta Konsep
+    </div>
+    <div class="nav-item" onclick="goTo(13)">
+      <span class="num">14</span> Ringkasan
+    </div>
+    <div class="nav-item" onclick="goTo(14)">
+      <span class="num">15</span> Glosarium
+    </div>
+    <div class="nav-item" onclick="goTo(15)">
+      <span class="num">16</span> Soal Latihan
+    </div>
+    <div class="nav-item" onclick="goTo(16)">
+      <span class="num">17</span> Proyek Siswa
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main" id="main">
+
+    <!-- ===== PAGE 1: PENGERTIAN ===== -->
+    <section class="page active">
+      <div class="page-badge">📖 MATERI 1 dari 17</div>
+      <h2 class="page-title">Pengertian <span>Keterampilan Proses Sejarah</span></h2>
+      <p class="page-subtitle">Belajar sejarah bukan hanya hafal, tetapi berpikir dan bertindak seperti sejarawan</p>
+
+      <p><strong style="color:#38bdf8">Keterampilan proses sejarah</strong> adalah serangkaian kemampuan yang digunakan untuk <em>meneliti, memahami, dan menyimpulkan</em> peristiwa masa lalu seperti yang dilakukan oleh seorang sejarawan.</p>
+
+      <p>Dalam Kurikulum Merdeka Fase D, keterampilan proses menjadi salah satu elemen inti pembelajaran sejarah — bukan sekadar pelengkap. Ini karena sejarah bukan hanya tentang <em>apa yang terjadi</em>, tetapi juga <em>bagaimana kita mengetahui dan memahami</em> apa yang terjadi.</p>
+
+      <h3>Bedanya Hafalan dan Berpikir Sejarah</h3>
+      <table>
+        <tr><th>Hafalan</th><th>Keterampilan Proses</th></tr>
+        <tr><td>Menghafal tahun dan nama tokoh</td><td>Memahami makna dan keterhubungan peristiwa</td></tr>
+        <tr><td>Menerima informasi begitu saja</td><td>Memeriksa dan menguji kebenaran sumber</td></tr>
+        <tr><td>Mengandalkan satu buku</td><td>Membandingkan berbagai sumber</td></tr>
+        <tr><td>Berhenti pada "apa"</td><td>Bertanya "mengapa" dan "bagaimana"</td></tr>
+      </table>
+
+      <h3>Contoh Sederhana</h3>
+      <p>Misalnya kamu membaca bahwa "Proklamasi dibacakan pada 17 Agustus 1945".<br>
+      <strong>Jika hanya hafalan</strong> — kamu akan mengingat tanggal itu saja.<br>
+      <strong>Jika menggunakan keterampilan proses</strong> — kamu akan bertanya: siapa yang menyusun teksnya? mengapa dipilih tanggal itu? bagaimana reaksi rakyat? apa dampak jangka panjangnya?</p>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Sejarah bukan sekadar pelajaran hafalan. Sejarah adalah <strong>latihan berpikir</strong> — seperti detektif yang memeriksa bukti dan menyimpulkan fakta.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Analogi:</strong> Sejarawan mirip detektif. Ia mengumpulkan petunjuk (sumber), memeriksanya (kritik), menyimpulkan (interpretasi), lalu menyusun laporan (historiografi).
+      </div>
+    </section>
+
+    <!-- ===== PAGE 2: MENGAPA PENTING ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 2 dari 17</div>
+      <h2 class="page-title">Mengapa <span>Keterampilan Proses Penting?</span></h2>
+      <p class="page-subtitle">Manfaat bagi pelajar, masyarakat, dan masa depan</p>
+
+      <p>Di era informasi yang serba cepat, kemampuan <strong>menyaring, memeriksa, dan menafsirkan</strong> informasi menjadi sangat penting. Berita palsu (hoaks) mudah menyebar, termasuk berita sejarah yang tidak akurat.</p>
+
+      <h3>Manfaat Keterampilan Proses</h3>
+      <div class="grid-2">
+        <div class="mini-card">
+          <div class="icon">🧠</div>
+          <h4>Berpikir Kritis</h4>
+          <p>Terbiasa memeriksa kebenaran sumber sebelum percaya.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🔍</div>
+          <h4>Melek Informasi</h4>
+          <p>Mampu membedakan fakta dari opini dan hoaks.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">💡</div>
+          <h4>Berpikir Kreatif</h4>
+          <p>Menyajikan sejarah dengan cara yang menarik dan orisinal.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🤝</div>
+          <h4>Kolaborasi</h4>
+          <p>Bekerja sama meneliti sejarah daerah bersama teman.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">📚</div>
+          <h4>Kemandirian</h4>
+          <p>Mampu meneliti dan belajar sejarah secara mandiri.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🇮🇩</div>
+          <h4>Karakter Pancasila</h4>
+          <p>Menjadi warga negara yang bernalar kritis dan kreatif.</p>
+        </div>
+      </div>
+
+      <h3>Kaitannya dengan Profil Pelajar Pancasila</h3>
+      <table>
+        <tr><th>Dimensi</th><th>Wujud dalam Sejarah</th></tr>
+        <tr><td><strong>Bernalar Kritis</strong></td><td>Menguji kebenaran sumber, menganalisis sebab-akibat</td></tr>
+        <tr><td><strong>Kreatif</strong></td><td>Menyajikan hasil penelitian dengan cara inovatif</td></tr>
+        <tr><td><strong>Berkebinekaan Global</strong></td><td>Menghargai perspektif budaya lain dalam sejarah</td></tr>
+        <tr><td><strong>Mandiri</strong></td><td>Meneliti sendiri tanpa hanya bergantung pada buku</td></tr>
+        <tr><td><strong>Bergotong Royong</strong></td><td>Bekerja sama mengumpulkan sejarah lokal</td></tr>
+        <tr><td><strong>Berakhlak Mulia</strong></td><td>Jujur dalam menuliskan sumber dan temuan</td></tr>
+      </table>
+
+      <div class="warning">
+        ⚠️ <strong>Penting:</strong> Di era hoaks, keterampilan proses sejarah menjadi <strong>perisai</strong> melawan informasi palsu. Orang yang biasa berpikir kritis tidak mudah tertipu.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh nyata:</strong> Ketika membaca berita viral tentang sejarah yang belum tentu benar, pelajar yang terampil akan memeriksa sumbernya, membandingkan dengan sumber resmi, dan baru memutuskan untuk percaya.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 3: ENAM TAHAPAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 3 dari 17</div>
+      <h2 class="page-title">Enam <span>Tahapan Keterampilan Proses</span></h2>
+      <p class="page-subtitle">Alur kerja sejarawan dari awal hingga akhir</p>
+
+      <p>Keterampilan proses sejarah terdiri dari <strong>enam tahapan utama</strong> yang saling berkaitan, seperti rantai kerja seorang detektif.</p>
+
+      <h3>Enam Tahapan</h3>
+      <table>
+        <tr><th>No</th><th>Tahapan</th><th>Kegiatan</th></tr>
+        <tr><td>1</td><td><strong>Mengamati</strong></td><td>Melihat, mengamati, dan mencatat fakta atau sumber sejarah di sekitar kita</td></tr>
+        <tr><td>2</td><td><strong>Menanya</strong></td><td>Merumuskan pertanyaan-pertanyaan kritis tentang peristiwa sejarah</td></tr>
+        <tr><td>3</td><td><strong>Mengumpulkan Informasi</strong></td><td>Mencari sumber-sumber sejarah: buku, arsip, wawancara, situs</td></tr>
+        <tr><td>4</td><td><strong>Mengolah Informasi</strong></td><td>Mengkritik, membandingkan, dan menafsirkan sumber</td></tr>
+        <tr><td>5</td><td><strong>Merefleksi</strong></td><td>Merenungkan makna peristiwa dan pelajarannya bagi masa kini</td></tr>
+        <tr><td>6</td><td><strong>Mengomunikasikan</strong></td><td>Menyajikan hasil penelitian: laporan, presentasi, infografis, video</td></tr>
+      </table>
+
+      <h3>Alur Sederhana</h3>
+      <div class="peta-konsep">
+        <div class="node utama">MENGAMATI</div>
+        <span class="arrow">↓</span>
+        <div class="node sub">MENANYA</div>
+        <span class="arrow">↓</span>
+        <div class="node sub">MENGUMPULKAN INFORMASI</div>
+        <span class="arrow">↓</span>
+        <div class="node sub">MENGOLAH INFORMASI</div>
+        <span class="arrow">↓</span>
+        <div class="node sub">MEREFLEKSI</div>
+        <span class="arrow">↓</span>
+        <div class="node utama">MENGOMUNIKASIKAN</div>
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Penting diingat:</strong> Enam tahapan ini bukan langkah kaku — kadang kita perlu kembali ke tahap sebelumnya jika menemukan hal baru. Tetapi secara umum, alur ini membantu kita meneliti secara sistematis.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh penerapan:</strong> Saat meneliti asal-usul nama kampungmu — kamu mulai dengan mengamati (melihat papan nama), menanya (mengapa namanya begitu?), mengumpulkan informasi (wawancara sesepuh), mengolah (bandingkan versi), merefleksi (apa maknanya?), dan mengomunikasikan (tulis laporan).
+      </div>
+    </section>
+
+    <!-- ===== PAGE 4: MENGAMATI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 4 dari 17</div>
+      <h2 class="page-title">Tahap 1: <span>Mengamati</span></h2>
+      <p class="page-subtitle">Langkah awal melihat jejak masa lalu di sekitar kita</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Mengamati</strong> adalah kegiatan menggunakan pancaindra untuk memperhatikan benda, peristiwa, atau lingkungan sebagai sumber sejarah.</p>
+
+      <h3>Apa yang Bisa Diamati?</h3>
+      <ul>
+        <li><strong>Benda bersejarah</strong> — prasasti, monumen, bangunan tua, keramik, senjata.</li>
+        <li><strong>Lingkungan</strong> — nama tempat, tata kota, situs bersejarah.</li>
+        <li><strong>Dokumen</strong> — foto lama, surat, arsip, naskah kuno.</li>
+        <li><strong>Tradisi</strong> — upacara adat, tarian, permainan tradisional.</li>
+        <li><strong>Cerita masyarakat</strong> — legenda, mitos, cerita rakyat.</li>
+      </ul>
+
+      <h3>Cara Mengamati yang Baik</h3>
+      <table>
+        <tr><th>Prinsip</th><th>Penjelasan</th></tr>
+        <tr><td><strong>Teliti</strong></td><td>Perhatikan detail kecil — tulisan, ukiran, warna, bentuk.</td></tr>
+        <tr><td><strong>Objektif</strong></td><td>Catat apa adanya, tanpa menambahkan dugaan.</td></tr>
+        <tr><td><strong>Menyeluruh</strong></td><td>Amati dari berbagai sudut pandang.</td></tr>
+        <tr><td><strong>Dokumentatif</strong></td><td>Foto, catat, dan simpan hasil pengamatan.</td></tr>
+      </table>
+
+      <h3>Contoh Pengamatan</h3>
+      <p>Jika kamu mengamati masjid tua di daerahmu, perhatikan:</p>
+      <ul>
+        <li>Tahun berdirinya (dari prasasti atau catatan).</li>
+        <li>Bentuk arsitekturnya (atap tumpang, ukiran, tiang).</li>
+        <li>Ornamen &amp; kaligrafi.</li>
+        <li>Cerita masyarakat tentang masjid tersebut.</li>
+        <li>Foto lama jika ada.</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Latihan:</strong> Coba amati satu benda bersejarah di sekolahmu — piala, foto, prasasti, atau bangunan. Catat apa yang kamu lihat: bentuk, warna, tulisan, kondisi, dan usia perkiraan. Itulah awal kerja seorang sejarawan!
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Tips:</strong> Bawa buku catatan kecil dan kamera (HP) ke mana pun. Banyak penemuan sejarah dimulai dari pengamatan sederhana.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 5: MENANYA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 5 dari 17</div>
+      <h2 class="page-title">Tahap 2: <span>Menanya</span></h2>
+      <p class="page-subtitle">Merumuskan pertanyaan kritis seperti sejarawan</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Menanya</strong> adalah kegiatan merumuskan pertanyaan yang <em>relevan, spesifik, dan dapat dijawab</em> tentang objek yang diamati.</p>
+
+      <p>Pertanyaan yang baik adalah <strong>awal dari penelitian yang baik</strong>. Tanpa pertanyaan, pengamatan hanya akan jadi tumpukan data tanpa makna.</p>
+
+      <h3>Jenis-Jenis Pertanyaan Sejarah</h3>
+      <table>
+        <tr><th>Kata Tanya</th><th>Fokus</th><th>Contoh</th></tr>
+        <tr><td><strong>Apa</strong></td><td>Fakta / peristiwa</td><td>Apa yang terjadi pada 17 Agustus 1945?</td></tr>
+        <tr><td><strong>Siapa</strong></td><td>Pelaku</td><td>Siapa yang membacakan teks proklamasi?</td></tr>
+        <tr><td><strong>Kapan</strong></td><td>Waktu</td><td>Kapan peristiwa itu terjadi?</td></tr>
+        <tr><td><strong>Di mana</strong></td><td>Tempat</td><td>Di mana proklamasi dibacakan?</td></tr>
+        <tr><td><strong>Mengapa</strong></td><td>Sebab</td><td>Mengapa proklamasi dilakukan saat itu?</td></tr>
+        <tr><td><strong>Bagaimana</strong></td><td>Proses</td><td>Bagaimana reaksi rakyat setelah proklamasi?</td></tr>
+      </table>
+
+      <h3>Pertanyaan Tingkat Tinggi (HOTS)</h3>
+      <p>Pertanyaan yang baik bukan hanya yang bisa dijawab "ya" atau "tidak". Ciri pertanyaan berkualitas:</p>
+      <ul>
+        <li>Membutuhkan <strong>analisis</strong>, bukan hanya hafalan.</li>
+        <li>Mendorong <strong>membandingkan</strong> berbagai sumber.</li>
+        <li>Mengajak <strong>mengevaluasi</strong> kebenaran informasi.</li>
+        <li>Membuka ruang <strong>interpretasi</strong> yang berbeda.</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Contoh pertanyaan HOTS:</strong><br>
+        ❌ <em>"Kapan VOC didirikan?"</em> (hafalan)<br>
+        ✅ <em>"Mengapa VOC didirikan, dan bagaimana pengaruhnya terhadap rakyat Nusantara?"</em> (analisis)<br>
+        ✅ <em>"Jika VOC tidak dibubarkan, bagaimana nasib Nusantara?"</em> (spekulasi kritis)
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Tips:</strong> Mulai dengan pertanyaan sederhana (apa, siapa, kapan), lalu naik ke pertanyaan mendalam (mengapa, bagaimana). Ini melatih berpikir bertingkat.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 6: MENGUMPULKAN INFORMASI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 6 dari 17</div>
+      <h2 class="page-title">Tahap 3: <span>Mengumpulkan Informasi</span></h2>
+      <p class="page-subtitle">Mencari sumber-sumber sejarah untuk menjawab pertanyaan</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Mengumpulkan informasi</strong> adalah kegiatan mencari dan menghimpun sumber-sumber sejarah yang relevan dengan pertanyaan penelitian.</p>
+
+      <p>Dalam metode sejarah, tahap ini disebut <strong>heuristik</strong> — dari bahasa Yunani <em>heuriskein</em> yang berarti "menemukan".</p>
+
+      <h3>Jenis-Jenis Sumber</h3>
+      <table>
+        <tr><th>Jenis</th><th>Contoh</th></tr>
+        <tr><td><strong>Primer</strong></td><td>Prasasti, naskah asli, foto zaman peristiwa, wawancara saksi</td></tr>
+        <tr><td><strong>Sekunder</strong></td><td>Buku sejarah, artikel, dokumenter, ensiklopedia</td></tr>
+        <tr><td><strong>Tersier</strong></td><td>Ringkasan atau kompilasi dari sumber sekunder</td></tr>
+      </table>
+
+      <h3>Teknik Mengumpulkan Informasi</h3>
+      <ol>
+        <li><strong>Studi pustaka</strong> — membaca buku, jurnal, artikel di perpustakaan.</li>
+        <li><strong>Wawancara</strong> — bertanya kepada sesepuh, tokoh, atau saksi sejarah.</li>
+        <li><strong>Observasi lapangan</strong> — mengunjungi situs, museum, atau lokasi bersejarah.</li>
+        <li><strong>Dokumentasi</strong> — memotret, merekam, mencatat.</li>
+        <li><strong>Penelusuran digital</strong> — mencari arsip digital di internet dengan kritis.</li>
+        <li><strong>Survei arsip</strong> — mencari dokumen di kantor desa, gereja, masjid, atau perpustakaan.</li>
+      </ol>
+
+      <h3>Panduan Wawancara</h3>
+      <ul>
+        <li>Siapkan daftar pertanyaan sebelum wawancara.</li>
+        <li>Minta izin untuk merekam atau mencatat.</li>
+        <li>Bertanya dengan sopan dan terbuka.</li>
+        <li>Catat nama, usia, dan tanggal wawancara narasumber.</li>
+        <li>Ucapkan terima kasih setelah wawancara.</li>
+      </ul>
+
+      <div class="warning">
+        ⚠️ <strong>Hati-hati:</strong> Tidak semua informasi di internet benar! Periksa situsnya — apakah resmi, dari lembaga pendidikan, atau blog pribadi. Bandingkan dengan sumber lain.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Untuk meneliti asal-usul desamu, kamu bisa:
+        <ul>
+          <li>Wawancara 3 sesepuh.</li>
+          <li>Membaca buku "Sejarah Kabupaten X".</li>
+          <li>Melihat arsip desa.</li>
+          <li>Memfoto prasasti atau bangunan tua.</li>
+        </ul>
+        Semua itu adalah sumber informasi!
+      </div>
+    </section>
+
+    <!-- ===== PAGE 7: MENGOLAH INFORMASI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 7 dari 17</div>
+      <h2 class="page-title">Tahap 4: <span>Mengolah Informasi</span></h2>
+      <p class="page-subtitle">Mengkritik dan menafsirkan sumber sejarah</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Mengolah informasi</strong> adalah kegiatan memeriksa, membandingkan, dan menafsirkan sumber-sumber yang telah dikumpulkan — hingga diperoleh kesimpulan yang kredibel.</p>
+
+      <p>Tahap ini terdiri dari dua proses penting: <strong>kritik sumber</strong> dan <strong>interpretasi</strong>.</p>
+
+      <h3>1. Kritik Sumber</h3>
+      <table>
+        <tr><th>Jenis Kritik</th><th>Fokus</th><th>Contoh Pertanyaan</th></tr>
+        <tr><td><strong>Kritik Ekstern</strong></td><td>Keaslian sumber</td><td>Apakah prasasti ini asli dari abad ke-8? Bahannya sesuai zaman?</td></tr>
+        <tr><td><strong>Kritik Intern</strong></td><td>Isi sumber</td><td>Apakah isi kesaksian ini masuk akal dan konsisten?</td></tr>
+      </table>
+
+      <h3>2. Interpretasi (Penafsiran)</h3>
+      <p>Setelah sumber diperiksa, sejarawan menafsirkan maknanya. Interpretasi bisa berbeda antar sejarawan — dan itu wajar, selama berdasarkan bukti.</p>
+      <ul>
+        <li><strong>Interpretasi tunggal</strong> — disimpulkan dengan satu sudut pandang.</li>
+        <li><strong>Interpretasi multi-perspektif</strong> — dilihat dari berbagai sudut pandang.</li>
+      </ul>
+
+      <h3>Contoh Kritik Sumber</h3>
+      <p>Kamu mewawancarai dua sesepuh tentang asal-usul nama desa:</p>
+      <table>
+        <tr><th>Versi</th><th>Isi</th><th>Kritik</th></tr>
+        <tr><td>Sesepuh A</td><td>Nama desa berasal dari nama pohon besar</td><td>Masuk akal, banyak nama desa dari nama tumbuhan</td></tr>
+        <tr><td>Sesepuh B</td><td>Nama desa berasal dari nama raja sakti</td><td>Perlu diperiksa: ada bukti arsip atau tidak?</td></tr>
+      </table>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Mengolah informasi berarti <strong>tidak langsung percaya</strong>. Bandingkan, periksa, dan simpulkan berdasarkan bukti terkuat.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Kalau dua sumber bertentangan, sejarawan memeriksa: mana yang lebih tua? mana yang lebih dekat dengan peristiwa? mana yang didukung bukti fisik? Itulah kritik sumber.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 8: MEREFLEKSI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 8 dari 17</div>
+      <h2 class="page-title">Tahap 5: <span>Merefleksi</span></h2>
+      <p class="page-subtitle">Merenungkan makna dan pelajaran dari peristiwa sejarah</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Merefleksi</strong> adalah kegiatan merenungkan makna, nilai, dan pelajaran yang dapat diambil dari peristiwa sejarah — kemudian menghubungkannya dengan kehidupan masa kini dan masa depan.</p>
+
+      <p>Tanpa refleksi, sejarah hanya menjadi tumpukan cerita masa lalu. Dengan refleksi, sejarah menjadi <strong>cermin</strong> bagi kehidupan kita.</p>
+
+      <h3>Pertanyaan Reflektif</h3>
+      <ul>
+        <li>Apa pelajaran yang bisa diambil dari peristiwa ini?</li>
+        <li>Bagaimana peristiwa ini memengaruhi kehidupan kita hari ini?</li>
+        <li>Apakah ada kesalahan masa lalu yang perlu dihindari?</li>
+        <li>Apakah ada nilai baik yang perlu dilanjutkan?</li>
+        <li>Jika saya berada di zaman itu, apa yang akan saya lakukan?</li>
+      </ul>
+
+      <h3>Contoh Refleksi</h3>
+      <p><strong>Peristiwa:</strong> Pembantaian Banda oleh VOC tahun 1621.</p>
+      <table>
+        <tr><th>Aspek</th><th>Refleksi</th></tr>
+        <tr><td><strong>Pelajaran</strong></td><td>Keserakahan dan monopoli dapat menghancurkan kehidupan rakyat.</td></tr>
+        <tr><td><strong>Relevansi kini</strong></td><td>Sampai hari ini, keadilan ekonomi masih harus diperjuangkan.</td></tr>
+        <tr><td><strong>Nilai baik</strong></td><td>Rakyat Banda berani mempertahankan hak dan tanahnya.</td></tr>
+        <tr><td><strong>Komitmen pribadi</strong></td><td>Menolak ketidakadilan dan menghargai hak asasi manusia.</td></tr>
+      </table>
+
+      <h3>Refleksi vs Kesimpulan</h3>
+      <table>
+        <tr><th>Kesimpulan</th><th>Refleksi</th></tr>
+        <tr><td>Berfokus pada fakta</td><td>Berfokus pada makna</td></tr>
+        <tr><td>"VOC membubarkan diri tahun 1799."</td><td>"Keserakahan dapat menghancurkan diri sendiri."</td></tr>
+        <tr><td>Menjawab "apa"</td><td>Menjawab "apa maknanya bagi saya"</td></tr>
+      </table>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Refleksi adalah jembatan antara <strong>masa lalu</strong> dan <strong>diri kita</strong>. Tanpa refleksi, sejarah tidak berdampak pada kehidupan.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Setelah mempelajari perjuangan para pahlawan, siswa merefleksikan: "Bagaimana saya bisa mengisi kemerdekaan hari ini?" — dari situlah tumbuh kesadaran untuk belajar, berkarya, dan menjadi warga negara yang baik.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 9: MENGOMUNIKASIKAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 9 dari 17</div>
+      <h2 class="page-title">Tahap 6: <span>Mengomunikasikan</span></h2>
+      <p class="page-subtitle">Menyajikan hasil penelitian kepada orang lain</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Mengomunikasikan</strong> adalah kegiatan menyampaikan hasil penelitian sejarah dalam bentuk yang jelas, menarik, dan dapat dipahami orang lain.</p>
+
+      <p>Dalam metode sejarah, tahap ini disebut <strong>historiografi</strong> — penulisan sejarah berdasarkan hasil penelitian.</p>
+
+      <h3>Bentuk-Bentuk Penyajian</h3>
+      <table>
+        <tr><th>Bentuk</th><th>Keterangan</th></tr>
+        <tr><td><strong>Laporan tertulis</strong></td><td>Artikel, makalah, esai, buku kecil</td></tr>
+        <tr><td><strong>Presentasi</strong></td><td>Diskusi di depan kelas dengan slide</td></tr>
+        <tr><td><strong>Infografis</strong></td><td>Poster visual yang menarik</td></tr>
+        <tr><td><strong>Garis waktu</strong></td><td>Timeline visual peristiwa sejarah</td></tr>
+        <tr><td><strong>Video pendek</strong></td><td>Dokumenter mini, vlog sejarah</td></tr>
+        <tr><td><strong>Podcast</strong></td><td>Rekaman suara bercerita sejarah</td></tr>
+        <tr><td><strong>Pameran mini</strong></td><td>Display karya di kelas atau sekolah</td></tr>
+      </table>
+
+      <h3>Prinsip Penyajian yang Baik</h3>
+      <ul>
+        <li><strong>Jelas</strong> — mudah dipahami audiens.</li>
+        <li><strong>Menarik</strong> — menggunakan visual atau cerita.</li>
+        <li><strong>Sistematis</strong> — mengikuti alur kronologis atau tematik.</li>
+        <li><strong>Jujur</strong> — menyebutkan sumber jika mengutip.</li>
+        <li><strong>Kreatif</strong> — memilih cara penyajian yang sesuai audiens.</li>
+      </ul>
+
+      <h3>Struktur Laporan Sejarah</h3>
+      <ol>
+        <li><strong>Pendahuluan</strong> — latar belakang &amp; tujuan penelitian.</li>
+        <li><strong>Isi</strong> — hasil penelitian dan analisis.</li>
+        <li><strong>Penutup</strong> — kesimpulan &amp; refleksi.</li>
+        <li><strong>Daftar sumber</strong> — menyebutkan sumber yang digunakan.</li>
+      </ol>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Setelah meneliti asal-usul nama desamu, kamu bisa membuat video pendek 3 menit yang menceritakan hasil penelitianmu — lengkap dengan gambar dan narasi. Ini adalah bentuk historiografi modern!
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Tips:</strong> Pilih bentuk penyajian yang <strong>kamu kuasai</strong> dan <strong>sesuai audiens</strong>. Kalau suka menulis — buat artikel. Kalau suka desain — buat infografis. Kalau suka bicara — buat podcast atau presentasi.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 10: BERPIKIR KRITIS ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 10 dari 17</div>
+      <h2 class="page-title">Berpikir <span>Kritis dalam Sejarah</span></h2>
+      <p class="page-subtitle">Sikap dasar sejarawan sejati</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Berpikir kritis</strong> adalah kemampuan menganalisis informasi secara mendalam, memeriksa bukti, dan menyimpulkan secara objektif — tidak menerima sesuatu begitu saja.</p>
+
+      <h3>Ciri-Ciri Berpikir Kritis</h3>
+      <ul>
+        <li>Selalu <strong>bertanya "mengapa"</strong> dan "bagaimana".</li>
+        <li><strong>Memeriksa sumber</strong> sebelum percaya.</li>
+        <li><strong>Membandingkan</strong> berbagai sudut pandang.</li>
+        <li><strong>Membedakan fakta dan opini</strong>.</li>
+        <li><strong>Menghindari prasangka</strong> pribadi.</li>
+        <li><strong>Berani mengubah pendapat</strong> jika ada bukti baru.</li>
+      </ul>
+
+      <h3>Pertanyaan Kritis Wajib</h3>
+      <table>
+        <tr><th>Pertanyaan</th><th>Tujuan</th></tr>
+        <tr><td>Siapa yang menulis/membuat sumber ini?</td><td>Menguji kredibilitas penulis</td></tr>
+        <tr><td>Kapan sumber ini dibuat?</td><td>Menguji kedekatan dengan peristiwa</td></tr>
+        <tr><td>Apa kepentingan penulis?</td><td>Menguji bias atau kepentingan</td></tr>
+        <tr><td>Apakah ada sumber lain yang mendukung?</td><td>Menguji konsistensi</td></tr>
+        <tr><td>Apakah informasinya masuk akal?</td><td>Menguji logika</td></tr>
+      </table>
+
+      <h3>Contoh Berpikir Kritis</h3>
+      <p><strong>Klaim:</strong> "Raden Wijaya memakai kacamata saat upacara."</p>
+      <table>
+        <tr><th>Analisis Kritis</th><th>Hasil</th></tr>
+        <tr><td>Kapan kacamata ditemukan?</td><td>Abad ke-13 di Eropa — mungkin sezaman, tapi belum lazim di Nusantara</td></tr>
+        <tr><td>Apakah ada bukti?</td><td>Tidak ada prasasti atau catatan yang mendukung</td></tr>
+        <tr><td>Kesimpulan</td><td>Kemungkinan anakronisme</td></tr>
+      </table>
+
+      <div class="warning">
+        ⚠️ <strong>Hati-hati hoaks sejarah!</strong> Banyak konten viral berisi klaim sejarah palsu. Biasakan memeriksa: siapa penulisnya, sumbernya apa, dan apakah didukung sumber resmi.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Latihan kritis:</strong> Jika kamu melihat video viral "fakta sejarah tersembunyi", tanyakan: siapa pembuatnya? Apa sumbernya? Apakah ada sejarawan yang mendukung? Jangan langsung share sebelum memverifikasi!
+      </div>
+    </section>
+
+    <!-- ===== PAGE 11: BERPIKIR KREATIF ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 11 dari 17</div>
+      <h2 class="page-title">Berpikir <span>Kreatif dalam Sejarah</span></h2>
+      <p class="page-subtitle">Menyajikan sejarah dengan cara baru dan menarik</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Berpikir kreatif</strong> adalah kemampuan menghasilkan ide, cara, atau karya baru dalam mempelajari dan menyajikan sejarah — tanpa mengorbankan kebenaran fakta.</p>
+
+      <p>Kreativitas bukan berarti mengarang cerita. Kreativitas berarti <strong>menyajikan fakta dengan cara yang menarik</strong>.</p>
+
+      <h3>Contoh Kreativitas dalam Sejarah</h3>
+      <table>
+        <tr><th>Bidang</th><th>Contoh Kreasi</th></tr>
+        <tr><td><strong>Menulis</strong></td><td>Cerpen sejarah, komik sejarah, puisi bertema sejarah</td></tr>
+        <tr><td><strong>Visual</strong></td><td>Infografis, poster, ilustrasi digital, timeline kreatif</td></tr>
+        <tr><td><strong>Audio-Visual</strong></td><td>Vlog sejarah, film pendek, animasi, podcast</td></tr>
+        <tr><td><strong>Pertunjukan</strong></td><td>Drama sejarah, teater mini, tari bertema sejarah</td></tr>
+        <tr><td><strong>Digital</strong></td><td>Website sejarah, game edukasi, tur virtual</td></tr>
+        <tr><td><strong>Kriya</strong></td><td>Maket candi, miniatur kapal, replika artefak</td></tr>
+      </table>
+
+      <h3>Prinsip Kreativitas Sejarah</h3>
+      <ul>
+        <li><strong>Setia pada fakta</strong> — tidak memutarbalikkan sejarah.</li>
+        <li><strong>Menarik &amp; komunikatif</strong> — mudah dipahami audiens.</li>
+        <li><strong>Orisinal</strong> — bukan menjiplak karya orang lain.</li>
+        <li><strong>Bertanggung jawab</strong> — mencantumkan sumber.</li>
+      </ul>
+
+      <h3>Contoh Proyek Kreatif</h3>
+      <ul>
+        <li>Membuat <strong>komik strip</strong> tentang Sumpah Pemuda.</li>
+        <li>Membuat <strong>video pendek</strong> tentang asal-usul nama desa.</li>
+        <li>Membuat <strong>podcast</strong> wawancara dengan sesepuh kampung.</li>
+        <li>Membuat <strong>game kartu</strong> dengan tokoh-tokoh sejarah.</li>
+        <li>Membuat <strong>pameran mini</strong> di kelas tentang sejarah lokal.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Kreativitas adalah cara kita <strong>membuat sejarah hidup kembali</strong>. Sejarah tidak harus membosankan — bisa seru dan menarik jika disajikan dengan kreatif!
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh nyata:</strong> Banyak kreator muda membuat konten sejarah di TikTok atau YouTube — mengemas sejarah dalam durasi singkat, dengan visual menarik, dan bahasa yang mudah dipahami. Ini adalah bentuk kreativitas sejarah yang efektif!
+      </div>
+    </section>
+
+    <!-- ===== PAGE 12: ASESMEN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 12 dari 17</div>
+      <h2 class="page-title">Asesmen <span>Formatif &amp; Sumatif</span></h2>
+      <p class="page-subtitle">Bagaimana kemampuan sejarah dinilai dalam Kurikulum Merdeka</p>
+
+      <h3>Pengertian Asesmen</h3>
+      <p><strong style="color:#38bdf8">Asesmen</strong> adalah proses pengumpulan dan pengolahan informasi untuk mengukur capaian belajar siswa.</p>
+
+      <p>Dalam Kurikulum Merdeka, ada dua jenis asesmen utama: <strong>formatif</strong> dan <strong>sumatif</strong>.</p>
+
+      <h3>Perbandingan Asesmen</h3>
+      <table>
+        <tr><th>Aspek</th><th>Formatif</th><th>Sumatif</th></tr>
+        <tr><td><strong>Tujuan</strong></td><td>Memantau perkembangan belajar</td><td>Mengukur capaian akhir</td></tr>
+        <tr><td><strong>Waktu</strong></td><td>Selama proses belajar</td><td>Akhir satu lingkup materi / semester</td></tr>
+        <tr><td><strong>Sifat</strong></td><td>Diagnostik &amp; perbaikan</td><td>Penilaian hasil</td></tr>
+        <tr><td><strong>Contoh</strong></td><td>Kuis singkat, tugas harian, refleksi, diskusi kelas</td><td>Ujian akhir, proyek akhir, portofolio</td></tr>
+        <tr><td><strong>Bagi siswa</strong></td><td>Mengetahui kekurangan untuk diperbaiki</td><td>Mengetahui hasil akhir capaian</td></tr>
+        <tr><td><strong>Bagi guru</strong></td><td>Menyesuaikan metode mengajar</td><td>Menentukan nilai rapor</td></tr>
+      </table>
+
+      <h3>Bentuk-Bentuk Asesmen Sejarah</h3>
+      <table>
+        <tr><th>Bentuk</th><th>Contoh</th></tr>
+        <tr><td><strong>Tes tertulis</strong></td><td>Pilihan ganda, esai, uraian</td></tr>
+        <tr><td><strong>Tugas proyek</strong></td><td>Penelitian sejarah lokal, pameran mini</td></tr>
+        <tr><td><strong>Portofolio</strong></td><td>Kumpulan karya siswa sepanjang semester</td></tr>
+        <tr><td><strong>Presentasi</strong></td><td>Diskusi kelompok atau paparan hasil penelitian</td></tr>
+        <tr><td><strong>Praktik</strong></td><td>Wawancara, kunjungan situs, pengamatan langsung</td></tr>
+        <tr><td><strong>Refleksi tertulis</strong></td><td>Jurnal belajar, catatan refleksi</td></tr>
+      </table>
+
+      <h3>Asesmen Berbasis Keterampilan</h3>
+      <p>Asesmen sejarah modern tidak hanya mengukur hafalan, tetapi juga:</p>
+      <ul>
+        <li>Kemampuan <strong>menganalisis sumber</strong>.</li>
+        <li>Kemampuan <strong>menyusun kronologi</strong>.</li>
+        <li>Kemampuan <strong>membandingkan perspektif</strong>.</li>
+        <li>Kemampuan <strong>merefleksikan</strong> makna sejarah.</li>
+        <li>Kemampuan <strong>berkomunikasi</strong> hasil penelitian.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Asesmen bukan hanya soal nilai. Asesmen formatif membantu kita memperbaiki diri, sedangkan sumatif mengukur capaian akhir. Keduanya <strong>sama pentingnya</strong>.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 13: PETA KONSEP ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 13 dari 17</div>
+      <h2 class="page-title">Peta <span>Konsep</span></h2>
+      <p class="page-subtitle">Ringkasan visual hubungan antar konsep</p>
+
+      <div class="peta-konsep">
+        <div class="node utama">KETERAMPILAN PROSES SEJARAH</div>
+        <span class="arrow">↓ terdiri dari 6 tahapan</span>
+        <div>
+          <span class="node sub">Mengamati</span>
+          <span class="node sub">Menanya</span>
+          <span class="node sub">Mengumpulkan</span>
+        </div>
+        <div>
+          <span class="node sub">Mengolah</span>
+          <span class="node sub">Merefleksi</span>
+          <span class="node sub">Mengomunikasikan</span>
+        </div>
+        <span class="arrow">↓ diperkuat dengan</span>
+        <div>
+          <span class="node detail">Berpikir Kritis</span>
+          <span class="node detail">Berpikir Kreatif</span>
+        </div>
+        <span class="arrow">↓ diukur melalui</span>
+        <div>
+          <span class="node sub">Asesmen Formatif</span>
+          <span class="node sub">Asesmen Sumatif</span>
+        </div>
+        <span class="arrow">↓ membentuk</span>
+        <div class="node utama">PROFIL PELAJAR PANCASILA</div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 14: RINGKASAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 14 dari 17</div>
+      <h2 class="page-title">Ringkasan <span>Bab 6</span></h2>
+      <p class="page-subtitle">Poin-poin penting yang harus diingat</p>
+
+      <ul>
+        <li><strong>Keterampilan proses sejarah</strong> = kemampuan meneliti dan memahami masa lalu seperti sejarawan.</li>
+        <li><strong>6 tahapan</strong>: mengamati → menanya → mengumpulkan informasi → mengolah → merefleksi → mengomunikasikan.</li>
+        <li><strong>Mengamati</strong> — menggunakan pancaindra untuk mencatat fakta &amp; sumber sejarah.</li>
+        <li><strong>Menanya</strong> — merumuskan pertanyaan kritis (HOTS), bukan hanya hafalan.</li>
+        <li><strong>Mengumpulkan informasi</strong> — heuristik: studi pustaka, wawancara, observasi, dokumentasi.</li>
+        <li><strong>Mengolah informasi</strong> — kritik ekstern &amp; intern + interpretasi.</li>
+        <li><strong>Merefleksi</strong> — merenungkan makna dan pelajaran sejarah.</li>
+        <li><strong>Mengomunikasikan</strong> — historiografi: laporan, presentasi, infografis, video, podcast.</li>
+        <li><strong>Berpikir kritis</strong> — memeriksa sumber, membandingkan, menyimpulkan objektif.</li>
+        <li><strong>Berpikir kreatif</strong> — menyajikan fakta dengan cara baru tanpa mengorbankan kebenaran.</li>
+        <li><strong>Asesmen formatif</strong> — selama proses (kuis, tugas, refleksi).</li>
+        <li><strong>Asesmen sumatif</strong> — akhir lingkup materi (ujian, proyek akhir, portofolio).</li>
+        <li><strong>Profil Pelajar Pancasila</strong> — bernalar kritis, kreatif, mandiri, bergotong royong.</li>
+      </ul>
+    </section>
+
+    <!-- ===== PAGE 15: GLOSARIUM ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 15 dari 17</div>
+      <h2 class="page-title">Glosarium <span>Istilah Penting</span></h2>
+      <p class="page-subtitle">Kumpulan istilah kunci dalam bab ini</p>
+
+      <div class="glosarium-item"><strong>Asesmen</strong><br><span>Proses pengumpulan dan pengolahan informasi untuk mengukur capaian belajar.</span></div>
+      <div class="glosarium-item"><strong>Asesmen Formatif</strong><br><span>Asesmen yang dilakukan selama proses belajar untuk memantau perkembangan.</span></div>
+      <div class="glosarium-item"><strong>Asesmen Sumatif</strong><br><span>Asesmen di akhir lingkup materi untuk mengukur capaian hasil belajar.</span></div>
+      <div class="glosarium-item"><strong>Heuristik</strong><br><span>Tahap mengumpulkan sumber-sumber sejarah.</span></div>
+      <div class="glosarium-item"><strong>Historiografi</strong><br><span>Penulisan sejarah berdasarkan hasil penelitian.</span></div>
+      <div class="glosarium-item"><strong>Hoaks</strong><br><span>Informasi palsu yang disebarkan seolah-olah benar.</span></div>
+      <div class="glosarium-item"><strong>HOTS</strong><br><span>Higher Order Thinking Skills — keterampilan berpikir tingkat tinggi.</span></div>
+      <div class="glosarium-item"><strong>Interpretasi</strong><br><span>Penafsiran terhadap makna sumber atau fakta sejarah.</span></div>
+      <div class="glosarium-item"><strong>Keterampilan Proses</strong><br><span>Rangkaian kemampuan untuk meneliti dan memahami peristiwa sejarah.</span></div>
+      <div class="glosarium-item"><strong>Kritik Ekstern</strong><br><span>Kritik terhadap keaslian sumber sejarah.</span></div>
+      <div class="glosarium-item"><strong>Kritik Intern</strong><br><span>Kritik terhadap isi/kredibilitas sumber sejarah.</span></div>
+      <div class="glosarium-item"><strong>Portofolio</strong><br><span>Kumpulan karya siswa sepanjang periode belajar.</span></div>
+      <div class="glosarium-item"><strong>Profil Pelajar Pancasila</strong><br><span>Enam dimensi karakter pelajar Indonesia: beriman, berkebinekaan, gotong royong, mandiri, bernalar kritis, kreatif.</span></div>
+      <div class="glosarium-item"><strong>Refleksi</strong><br><span>Kegiatan merenungkan makna dan pelajaran dari peristiwa.</span></div>
+      <div class="glosarium-item"><strong>Wawancara</strong><br><span>Teknik mengumpulkan informasi melalui tanya-jawab dengan narasumber.</span></div>
+    </section>
+
+    <!-- ===== PAGE 16: SOAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 16 dari 17</div>
+      <h2 class="page-title">Soal Latihan + <span>Pembahasan</span></h2>
+      <p class="page-subtitle">Klik tombol untuk memeriksa jawabanmu</p>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 1</div>
+        <div class="pertanyaan">Tahapan pertama dalam keterampilan proses sejarah adalah...</div>
+        <div class="pilihan">A. Menanya<br>B. Mengamati<br>C. Mengomunikasikan<br>D. Merefleksi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Urutan keterampilan proses: mengamati → menanya → mengumpulkan → mengolah → merefleksi → mengomunikasikan.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 2</div>
+        <div class="pertanyaan">Tahap mengumpulkan sumber-sumber sejarah dalam metode sejarah disebut...</div>
+        <div class="pilihan">A. Interpretasi<br>B. Heuristik<br>C. Historiografi<br>D. Kritik</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Heuristik berasal dari bahasa Yunani <em>heuriskein</em> yang berarti "menemukan".</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 3</div>
+        <div class="pertanyaan">Pertanyaan "Mengapa VOC didirikan?" termasuk pertanyaan...</div>
+        <div class="pilihan">A. Hafalan<br>B. HOTS (berpikir tingkat tinggi)<br>C. Retoris<br>D. Tertutup</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Pertanyaan "mengapa" menuntut analisis dan pemahaman mendalam — termasuk HOTS.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 4</div>
+        <div class="pertanyaan">Kritik terhadap keaslian sumber sejarah disebut kritik...</div>
+        <div class="pilihan">A. Intern<br>B. Ekstern<br>C. Filologi<br>D. Hermeneutik</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Kritik ekstern menguji keaslian fisik sumber (bahan, usia, bentuk).</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 5</div>
+        <div class="pertanyaan">Kegiatan merenungkan makna dan pelajaran dari peristiwa sejarah disebut...</div>
+        <div class="pilihan">A. Mengamati<br>B. Merefleksi<br>C. Mengumpulkan<br>D. Mengomunikasikan</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Refleksi adalah merenungkan makna sejarah untuk kehidupan.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 6</div>
+        <div class="pertanyaan">Penulisan sejarah berdasarkan hasil penelitian disebut...</div>
+        <div class="pilihan">A. Heuristik<br>B. Kritik<br>C. Historiografi<br>D. Interpretasi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Historiografi adalah tahap akhir — penulisan hasil penelitian sejarah.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 7</div>
+        <div class="pertanyaan">Berikut yang BUKAN termasuk ciri berpikir kritis adalah...</div>
+        <div class="pilihan">A. Memeriksa sumber<br>B. Membandingkan versi<br>C. Menerima semua informasi begitu saja<br>D. Bertanya "mengapa"</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Berpikir kritis berarti TIDAK menerima informasi begitu saja tanpa diperiksa.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 8</div>
+        <div class="pertanyaan">Asesmen yang dilakukan selama proses belajar disebut asesmen...</div>
+        <div class="pilihan">A. Sumatif<br>B. Formatif<br>C. Diagnostik<br>D. Nasional</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Asesmen formatif dilakukan selama proses belajar untuk memantau perkembangan siswa.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 9</div>
+        <div class="pertanyaan">Membuat video pendek tentang asal-usul nama desa termasuk keterampilan...</div>
+        <div class="pilihan">A. Mengamati<br>B. Mengomunikasikan (kreatif)<br>C. Merefleksi<br>D. Kritik sumber</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Membuat video adalah bentuk penyajian (mengomunikasikan) hasil penelitian dengan kreatif.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 10</div>
+        <div class="pertanyaan">Dimensi Profil Pelajar Pancasila yang paling berkaitan dengan keterampilan proses sejarah adalah...</div>
+        <div class="pilihan">A. Beriman &amp; bertakwa<br>B. Bernalar kritis &amp; kreatif<br>C. Berkebinekaan global<br>D. Mandiri saja</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Keterampilan proses sejarah sangat berkaitan dengan bernalar kritis dan kreatif — walau juga mendukung dimensi lain.</div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 17: PROYEK ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 17 dari 17</div>
+      <h2 class="page-title">Proyek / <span>Aktivitas Siswa</span></h2>
+      <p class="page-subtitle">Kerjakan salah satu proyek berikut untuk memperdalam pemahaman</p>
+
+      <div class="proyek">
+        <ol>
+          <li><strong>Proyek mini penelitian.</strong> Pilih satu topik sejarah lokal (nama desa, bangunan tua, tokoh daerah). Lakukan 6 tahapan keterampilan proses: amati, tanya, kumpulkan, olah, refleksi, komunikasikan. Presentasikan hasilnya.</li>
+          <li><strong>Buat portofolio sejarah.</strong> Kumpulkan semua tugas sejarahmu selama satu semester (catatan, foto, laporan). Susun jadi portofolio rapi dengan cover dan refleksi di akhir.</li>
+          <li><strong>Analisis hoaks sejarah.</strong> Cari satu konten viral (TikTok/YouTube/Instagram) yang membahas sejarah. Analisis kritis: apakah sumbernya kredibel? Apakah ada kekeliruan? Tuliskan hasil analisismu.</li>
+          <li><strong>Wawancara + video.</strong> Wawancarai sesepuh kampung tentang peristiwa penting di desamu. Rekam dan edit menjadi video 3–5 menit. Ini adalah bentuk historiografi kreatif.</li>
+          <li><strong>Jurnal refleksi harian.</strong> Selama 2 minggu, catat setiap hari satu hal bersejarah yang kamu amati di sekitarmu (benda, bangunan, tradisi). Refleksikan maknanya untuk kehidupanmu.</li>
+        </ol>
+      </div>
+
+      <div class="highlight" style="text-align:center; margin-top:30px;">
+        🎉 <strong>Selamat!</strong> Kamu telah menyelesaikan seluruh materi Bab 6 — dan seluruh rangkaian materi Sejarah Fase D dari Jejak Nusantara!
+        Sekarang saatnya uji pemahamanmu dengan kuis akhir!
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="footer-nav">
+  <button class="nav-prev" id="prevBtn" onclick="prev()">← Sebelumnya</button>
+  <span class="page-counter"><span id="currentNum">1</span> / 17</span>
+  <button class="nav-next" id="nextBtn" onclick="next()">Selanjutnya →</button>
+</div>
+
+<script>
+const pages = document.querySelectorAll('.page');
+const navItems = document.querySelectorAll('.nav-item');
+const progressFill = document.getElementById('progressFill');
+const currentNum = document.getElementById('currentNum');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const mainArea = document.getElementById('main');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+let currentPage = 0;
+const totalPages = pages.length;
+
+function goTo(index) {
+  if (index < 0 || index >= totalPages) return;
+
+  pages[currentPage].classList.remove('active');
+  navItems[currentPage].classList.remove('active');
+  navItems[currentPage].classList.add('done');
+
+  currentPage = index;
+
+  pages[currentPage].classList.add('active');
+  navItems[currentPage].classList.add('active');
+
+  progressFill.style.width = ((currentPage + 1) / totalPages * 100) + '%';
+  currentNum.textContent = currentPage + 1;
+
+  prevBtn.disabled = currentPage === 0;
+  if (currentPage === totalPages - 1) {
+    nextBtn.textContent = '🎮 Mulai Kuis';
+  } else {
+    nextBtn.textContent = 'Selanjutnya →';
+  }
+
+  mainArea.scrollTop = 0;
+  if (window.innerWidth <= 800) {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+}
+
+function next() {
+  if (currentPage === totalPages - 1) {
+    window.location.href = 'sejarah-bab6-kuis.html';
+    return;
+  }
+  goTo(currentPage + 1);
+}
+
+function prev() {
+  goTo(currentPage - 1);
+}
+
+function toggleSidebar() {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+}
+
+function toggleJawaban(btn) {
+  const jawaban = btn.nextElementSibling;
+  if (jawaban.classList.contains('show')) {
+    jawaban.classList.remove('show');
+    btn.textContent = 'Lihat Jawaban';
+  } else {
+    jawaban.classList.add('show');
+    btn.textContent = 'Sembunyikan';
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+goTo(0);
+
+/* ========== LOADING SCREEN ========== */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }, 2200);
+});
+
+setTimeout(() => {
+  const loader = document.getElementById('loader');
+  if (loader && !loader.classList.contains('hide')) {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }
+}, 4500);
+</script>
+
+</body>
+</html>
