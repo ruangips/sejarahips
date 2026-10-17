@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bab 5 — Jalur Rempah Nusantara | Pesawat Tempur IPS</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+  html, body { height:100%; }
+  body {
+    background:#07111f; color:white; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+
+  /* ========== LOADING SCREEN ========== */
+  #loader {
+    position:fixed; inset:0; z-index:9999;
+    background:#07111f;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:24px;
+    transition: opacity .7s ease, visibility .7s ease;
+  }
+  #loader.hide { opacity:0; visibility:hidden; pointer-events:none; }
+
+  #loader::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.06) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    animation:gridMove 12s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes gridMove {
+    from { background-position:0 0; }
+    to { background-position:44px 44px; }
+  }
+
+  #loader::after {
+    content:''; position:absolute;
+    width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(14,165,233,0.35), transparent 65%);
+    filter:blur(90px);
+    animation:orbPulse 3s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes orbPulse {
+    0%,100% { transform:scale(1); opacity:.6; }
+    50% { transform:scale(1.15); opacity:1; }
+  }
+
+  /* ========== LOGO MGE 3D ========== */
+  .mge-logo-wrap {
+    position:relative; z-index:1;
+    width:150px; height:150px;
+    display:flex; align-items:center; justify-content:center;
+    animation:logoFloat 3s ease-in-out infinite;
+  }
+  @keyframes logoFloat {
+    0%, 100% { transform:translateY(0); }
+    50% { transform:translateY(-8px); }
+  }
+  .mge-ring-outer {
+    position:absolute; inset:0;
+    border-radius:50%;
+    border:2px solid transparent;
+    border-top-color:#38bdf8;
+    border-right-color:#818cf8;
+    border-bottom-color:transparent;
+    border-left-color:#a78bfa;
+    animation:spinRing 1.6s linear infinite;
+    filter:drop-shadow(0 0 8px rgba(56,189,248,0.9));
+  }
+  .mge-ring-inner {
+    position:absolute; inset:12px;
+    border-radius:50%;
+    border:1.5px dashed rgba(56,189,248,0.5);
+    animation:spinRingReverse 4s linear infinite;
+  }
+  @keyframes spinRing { to { transform:rotate(360deg); } }
+  @keyframes spinRingReverse { to { transform:rotate(-360deg); } }
+
+  .mge-circle {
+    position:absolute; inset:20px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 25%, #1e3a5f 0%, #0b1b30 55%, #050d18 100%);
+    box-shadow:
+      0 0 0 1px rgba(56,189,248,0.35) inset,
+      0 0 24px rgba(14,165,233,0.55),
+      0 0 60px rgba(56,189,248,0.35),
+      inset 0 -8px 20px rgba(0,0,0,0.6);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .mge-circle::before {
+    content:'';
+    position:absolute;
+    top:-50%; left:-50%;
+    width:200%; height:200%;
+    background:conic-gradient(from 0deg, transparent 0%, rgba(56,189,248,0.25) 20%, transparent 40%);
+    animation:shimmer 3s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes shimmer { to { transform:rotate(360deg); } }
+
+  .mge-text {
+    position:relative;
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:44px; font-weight:900;
+    letter-spacing:2px; line-height:1;
+    background:linear-gradient(180deg, #e0f2fe 0%, #38bdf8 45%, #6366f1 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:
+      0 1px 0 rgba(56,189,248,0.4),
+      0 2px 0 rgba(56,189,248,0.3),
+      0 3px 0 rgba(99,102,241,0.3),
+      0 4px 8px rgba(0,0,0,0.6),
+      0 0 22px rgba(56,189,248,0.85);
+    filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+    animation:textPulse 2.4s ease-in-out infinite;
+    z-index:2;
+    transform:perspective(500px) rotateX(6deg);
+  }
+  @keyframes textPulse {
+    0%, 100% {
+      filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+      transform:perspective(500px) rotateX(6deg) scale(1);
+    }
+    50% {
+      filter:drop-shadow(0 0 22px rgba(56,189,248,1));
+      transform:perspective(500px) rotateX(6deg) scale(1.05);
+    }
+  }
+  .mge-text::after {
+    content:'MGE';
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(255,255,255,0.85) 0%, transparent 55%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    pointer-events:none; z-index:3;
+  }
+
+  .brand-text {
+    position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+    gap:10px; margin-top:4px;
+    animation:fadeInUp .9s ease .2s both;
+  }
+  .brand-text .brand-line {
+    width:26px; height:1px;
+    background:linear-gradient(90deg, transparent, #38bdf8, transparent);
+  }
+  .brand-text .brand-label {
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:13px; font-weight:700;
+    letter-spacing:5px; text-transform:uppercase;
+    background:linear-gradient(90deg, #38bdf8 0%, #a78bfa 50%, #38bdf8 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:brandShine 3.5s linear infinite;
+    white-space:nowrap;
+  }
+  @keyframes brandShine {
+    0% { background-position:0% 50%; }
+    100% { background-position:200% 50%; }
+  }
+
+  .loader-title {
+    position:relative; z-index:1;
+    font-size:15px; font-weight:bold;
+    letter-spacing:4px; text-transform:uppercase;
+    color:#cbd5e1;
+    animation:fadeInUp .8s ease .3s both;
+  }
+  .loader-sub {
+    position:relative; z-index:1;
+    color:#64748b; font-size:11px;
+    letter-spacing:2px; text-transform:uppercase;
+    animation:fadeInUp .8s ease .4s both;
+  }
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(10px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .loader-bar {
+    position:relative; z-index:1;
+    width:240px; height:4px;
+    background:#132941; border-radius:4px;
+    overflow:hidden; margin-top:4px;
+    animation:fadeInUp .8s ease .5s both;
+  }
+  .loader-bar-fill {
+    height:100%; width:0%;
+    background:linear-gradient(90deg,#0ea5e9,#38bdf8,#818cf8);
+    border-radius:4px;
+    box-shadow:0 0 12px rgba(56,189,248,0.7);
+    animation:loadFill 1.8s cubic-bezier(.65,.05,.36,1) forwards;
+  }
+  @keyframes loadFill {
+    0% { width:0%; }
+    40% { width:45%; }
+    70% { width:75%; }
+    100% { width:100%; }
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    padding:14px 5%; display:flex; justify-content:space-between; align-items:center;
+    background:#0b1b30; border-bottom:2px solid #0ea5e9;
+    flex-shrink:0; z-index:50;
+  }
+  .logo { font-size:16px; font-weight:bold; color:#38bdf8; display:flex; align-items:center; gap:8px; }
+  .back-btn {
+    color:white; text-decoration:none; background:#0ea5e9; padding:8px 18px;
+    border-radius:8px; font-weight:bold; font-size:13px; transition:.3s;
+  }
+  .back-btn:hover { background:#0284c7; }
+
+  /* ========== PROGRESS BAR ========== */
+  .progress-wrap {
+    height:4px; background:#132941; position:relative; flex-shrink:0;
+  }
+  .progress-fill {
+    height:100%; background:linear-gradient(90deg,#0ea5e9,#38bdf8);
+    width:0%; transition:width .5s ease;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout { flex:1; display:flex; overflow:hidden; }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar {
+    width:290px; background:#0b1b30; border-right:1px solid #1b3b5d;
+    overflow-y:auto; flex-shrink:0; padding:20px 0;
+  }
+  .sidebar::-webkit-scrollbar { width:6px; }
+  .sidebar::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:3px; }
+
+  .sidebar-title {
+    padding:0 20px 15px; font-size:12px; font-weight:bold;
+    color:#64748b; letter-spacing:1.5px; text-transform:uppercase;
+  }
+
+  .nav-item {
+    display:flex; align-items:center; gap:12px;
+    padding:12px 20px; cursor:pointer;
+    border-left:4px solid transparent;
+    transition:.25s; font-size:14px; color:#cbd5e1;
+  }
+  .nav-item:hover { background:#132941; color:#38bdf8; }
+  .nav-item.active {
+    background:#132941; color:#38bdf8;
+    border-left-color:#38bdf8; font-weight:bold;
+  }
+  .nav-item .num {
+    width:26px; height:26px; border-radius:50%;
+    background:#1b3b5d; color:#94a3b8;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:bold; flex-shrink:0;
+    transition:.25s;
+  }
+  .nav-item.active .num { background:#0ea5e9; color:white; }
+  .nav-item.done .num { background:#065f46; color:#10b981; }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex:1; overflow-y:auto; position:relative; scroll-behavior:smooth;
+  }
+  .main::-webkit-scrollbar { width:8px; }
+  .main::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:4px; }
+
+  .page {
+    display:none;
+    padding:40px 6% 120px;
+    max-width:900px; margin:0 auto;
+    animation: slideIn .4s ease;
+  }
+  .page.active { display:block; }
+  @keyframes slideIn {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .page-badge {
+    display:inline-block; padding:5px 14px;
+    background:#132941; color:#38bdf8;
+    border-radius:20px; font-size:12px;
+    font-weight:bold; margin-bottom:12px;
+    border:1px solid #2a4a6a;
+  }
+  .page-title { font-size:30px; margin-bottom:8px; line-height:1.3; }
+  .page-title span { color:#38bdf8; }
+  .page-subtitle {
+    color:#94a3b8; font-size:14px; margin-bottom:30px;
+    padding-bottom:20px; border-bottom:2px solid #1b3b5d;
+  }
+
+  .page h3 { color:#7dd3fc; font-size:17px; margin:22px 0 10px; }
+  .page h4 { color:#a5b4fc; font-size:15px; margin:18px 0 8px; }
+  .page p { color:#cbd5e1; margin-bottom:12px; text-align:justify; line-height:1.75; }
+  .page ul, .page ol { color:#cbd5e1; margin:10px 0 15px 25px; }
+  .page ul li, .page ol li { margin-bottom:8px; line-height:1.7; }
+
+  .highlight {
+    background:linear-gradient(135deg,#132941,#0f2337);
+    border-left:4px solid #38bdf8;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#e0f2fe; font-size:14px; line-height:1.7;
+  }
+  .highlight strong { color:#38bdf8; }
+
+  .contoh {
+    background:linear-gradient(135deg,#0f2a1a,#0a1f12);
+    border-left:4px solid #10b981;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#d1fae5; font-size:14px; line-height:1.7;
+  }
+  .contoh strong { color:#34d399; }
+
+  .warning {
+    background:linear-gradient(135deg,#2a1a0f,#1f1308);
+    border-left:4px solid #f59e0b;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#fef3c7; font-size:14px; line-height:1.7;
+  }
+  .warning strong { color:#fbbf24; }
+
+  table {
+    width:100%; border-collapse:collapse; margin:16px 0;
+    background:#132941; border-radius:10px; overflow:hidden; font-size:13px;
+  }
+  table th {
+    background:#0ea5e9; color:white; padding:12px;
+    text-align:left; font-size:13px;
+  }
+  table td {
+    padding:12px; color:#cbd5e1;
+    border-bottom:1px solid #1b3b5d;
+    vertical-align:top; line-height:1.6;
+  }
+  table tr:last-child td { border-bottom:none; }
+  table tr:nth-child(even) td { background:#0f2337; }
+
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:15px 0; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:15px; margin:15px 0; }
+  .mini-card {
+    background:#132941; border-radius:10px; padding:18px;
+    border:1px solid #2a4a6a; transition:.3s;
+  }
+  .mini-card:hover { border-color:#38bdf8; transform:translateY(-3px); }
+  .mini-card .icon { font-size:30px; margin-bottom:8px; }
+  .mini-card h4 { color:#38bdf8; font-size:15px; margin-bottom:6px; }
+  .mini-card p { font-size:13px; color:#94a3b8; margin:0; text-align:left; }
+
+  .peta-konsep {
+    background:#132941; border-radius:15px; padding:25px;
+    text-align:center; border:2px dashed #38bdf8; margin:15px 0;
+  }
+  .peta-konsep .node {
+    display:inline-block; padding:10px 20px; border-radius:10px;
+    font-weight:bold; font-size:13px; margin:5px;
+  }
+  .peta-konsep .node.utama { background:#0ea5e9; color:white; font-size:15px; padding:14px 28px; }
+  .peta-konsep .node.sub { background:#1b3b5d; color:#7dd3fc; }
+  .peta-konsep .node.detail { background:#132941; color:#94a3b8; border:1px solid #2a4a6a; }
+  .peta-konsep .arrow { color:#38bdf8; font-size:22px; display:block; margin:4px 0; }
+
+  .glosarium-item {
+    background:#132941; border-radius:10px; padding:14px 18px;
+    margin-bottom:10px; border-left:4px solid #a855f7;
+    transition:.3s;
+  }
+  .glosarium-item:hover { transform:translateX(5px); }
+  .glosarium-item strong { color:#c084fc; font-size:14px; }
+  .glosarium-item span { color:#cbd5e1; font-size:13px; }
+
+  .soal-item {
+    background:#132941; border-radius:10px; padding:18px 22px;
+    margin-bottom:15px; border-left:4px solid #f59e0b;
+  }
+  .soal-item .nomor { color:#fbbf24; font-weight:bold; font-size:13px; }
+  .soal-item .pertanyaan { color:#e0f2fe; font-size:14px; margin:8px 0; line-height:1.6; }
+  .soal-item .pilihan { color:#94a3b8; font-size:13px; margin-left:15px; line-height:1.8; }
+  .soal-item .jawaban {
+    margin-top:10px; padding:12px 15px; background:#0f2a1a;
+    border-radius:8px; color:#d1fae5; font-size:13px; display:none; line-height:1.6;
+  }
+  .soal-item .jawaban.show { display:block; animation:slideIn .3s ease; }
+  .toggle-btn {
+    margin-top:8px; padding:6px 14px; background:#1b3b5d; border:1px solid #2a4a6a;
+    border-radius:6px; color:#7dd3fc; font-size:12px; cursor:pointer;
+    transition:.2s;
+  }
+  .toggle-btn:hover { background:#2a4a6a; }
+
+  .proyek {
+    background:linear-gradient(135deg,#1a0f2a,#2a1a3a);
+    border-radius:15px; padding:25px; border:2px solid #a855f7;
+  }
+  .proyek ol { color:#e9d5ff; margin-left:20px; }
+  .proyek ol li { margin-bottom:10px; line-height:1.7; }
+
+  /* ========== FOOTER NAV ========== */
+  .footer-nav {
+    position:fixed; bottom:0; left:290px; right:0;
+    background:#0b1b30; border-top:1px solid #1b3b5d;
+    padding:14px 6%; display:flex; justify-content:space-between;
+    align-items:center; z-index:40;
+  }
+  .footer-nav button {
+    padding:12px 24px; border:none; border-radius:10px;
+    font-weight:bold; font-size:14px; cursor:pointer;
+    transition:.3s; display:flex; align-items:center; gap:8px;
+  }
+  .nav-prev { background:#1b3b5d; color:#94a3b8; }
+  .nav-prev:hover:not(:disabled) { background:#2a4a6a; color:white; }
+  .nav-prev:disabled { opacity:.3; cursor:not-allowed; }
+  .nav-next {
+    background:linear-gradient(135deg,#0ea5e9,#0284c7); color:white;
+    box-shadow:0 4px 15px rgba(14,165,233,0.3);
+  }
+  .nav-next:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(14,165,233,0.5); }
+  .nav-next:disabled { opacity:.3; cursor:not-allowed; }
+
+  .page-counter { color:#64748b; font-size:13px; font-weight:bold; }
+
+  .menu-toggle {
+    display:none; background:#0ea5e9; border:none; color:white;
+    padding:8px 12px; border-radius:8px; font-size:18px; cursor:pointer;
+  }
+
+  @media (max-width: 800px) {
+    .sidebar {
+      position:fixed; top:0; left:0; bottom:0; z-index:100;
+      transform:translateX(-100%); transition:.3s;
+      box-shadow:4px 0 20px rgba(0,0,0,0.5);
+    }
+    .sidebar.open { transform:translateX(0); }
+    .sidebar-overlay {
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6);
+      z-index:99;
+    }
+    .sidebar-overlay.show { display:block; }
+    .menu-toggle { display:block; }
+    .footer-nav { left:0; padding:12px 4%; }
+    .footer-nav button { padding:10px 16px; font-size:12px; }
+    .page { padding:25px 5% 100px; }
+    .page-title { font-size:22px; }
+    .grid-2, .grid-3 { grid-template-columns:1fr; }
+    .logo span.fulllogo { display:none; }
+    .loader-title { font-size:13px; letter-spacing:3px; }
+    .loader-bar { width:200px; }
+    .mge-logo-wrap { width:120px; height:120px; }
+    .mge-text { font-size:34px; }
+    .brand-text .brand-label { font-size:11px; letter-spacing:4px; }
+    .brand-text .brand-line { width:18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== LOADING SCREEN ========== -->
+<div id="loader">
+  <div class="mge-logo-wrap">
+    <div class="mge-ring-outer"></div>
+    <div class="mge-ring-inner"></div>
+    <div class="mge-circle">
+      <div class="mge-text">MGE</div>
+    </div>
+  </div>
+
+  <div class="brand-text">
+    <span class="brand-line"></span>
+    <span class="brand-label">MAEDA GAMES EDU</span>
+    <span class="brand-line"></span>
+  </div>
+
+  <div class="loader-title">Memuat Materi</div>
+
+  <div class="loader-bar">
+    <div class="loader-bar-fill"></div>
+  </div>
+
+  <div class="loader-sub">Bab 5 · Jalur Rempah Nusantara</div>
+</div>
+
+<header>
+  <div class="logo">
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    📜 <span class="fulllogo">SEJARAH — BAB 5</span>
+  </div>
+  <a href="sejarah.html" class="back-btn">← Menu Bab</a>
+</header>
+
+<div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+  <!-- SIDEBAR NAV -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">📑 Daftar Materi</div>
+    <div class="nav-item active" onclick="goTo(0)">
+      <span class="num">1</span> Pengertian Jalur Rempah
+    </div>
+    <div class="nav-item" onclick="goTo(1)">
+      <span class="num">2</span> Rempah Khas Nusantara
+    </div>
+    <div class="nav-item" onclick="goTo(2)">
+      <span class="num">3</span> Sejarah Awal Rempah
+    </div>
+    <div class="nav-item" onclick="goTo(3)">
+      <span class="num">4</span> Rute Jalur Rempah
+    </div>
+    <div class="nav-item" onclick="goTo(4)">
+      <span class="num">5</span> Pelabuhan Nusantara
+    </div>
+    <div class="nav-item" onclick="goTo(5)">
+      <span class="num">6</span> Maluku &amp; Banda
+    </div>
+    <div class="nav-item" onclick="goTo(6)">
+      <span class="num">7</span> Kedatangan Bangsa Eropa
+    </div>
+    <div class="nav-item" onclick="goTo(7)">
+      <span class="num">8</span> VOC &amp; Monopoli
+    </div>
+    <div class="nav-item" onclick="goTo(8)">
+      <span class="num">9</span> Dampak Perdagangan
+    </div>
+    <div class="nav-item" onclick="goTo(9)">
+      <span class="num">10</span> Akulturasi Budaya
+    </div>
+    <div class="nav-item" onclick="goTo(10)">
+      <span class="num">11</span> Peran Nusantara
+    </div>
+    <div class="nav-item" onclick="goTo(11)">
+      <span class="num">12</span> Warisan Jalur Rempah
+    </div>
+    <div class="nav-item" onclick="goTo(12)">
+      <span class="num">13</span> Peta Konsep
+    </div>
+    <div class="nav-item" onclick="goTo(13)">
+      <span class="num">14</span> Ringkasan
+    </div>
+    <div class="nav-item" onclick="goTo(14)">
+      <span class="num">15</span> Glosarium
+    </div>
+    <div class="nav-item" onclick="goTo(15)">
+      <span class="num">16</span> Soal Latihan
+    </div>
+    <div class="nav-item" onclick="goTo(16)">
+      <span class="num">17</span> Proyek Siswa
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main" id="main">
+
+    <!-- ===== PAGE 1: PENGERTIAN JALUR REMPAH ===== -->
+    <section class="page active">
+      <div class="page-badge">📖 MATERI 1 dari 17</div>
+      <h2 class="page-title">Pengertian <span>Jalur Rempah</span></h2>
+      <p class="page-subtitle">Memahami jaringan perdagangan rempah Nusantara</p>
+
+      <p><strong style="color:#38bdf8">Jalur Rempah</strong> adalah jaringan perdagangan rempah yang menghubungkan Nusantara dengan berbagai wilayah di Asia, Timur Tengah, dan Eropa. Jalur ini menjadi salah satu jalur perdagangan paling penting dalam sejarah dunia.</p>
+
+      <p>Jalur Rempah bukan hanya jalur ekonomi — ia juga menjadi jalur pertukaran budaya, ilmu pengetahuan, dan agama yang membentuk peradaban dunia.</p>
+
+      <h3>Mengapa Disebut "Jalur Rempah"?</h3>
+      <p>Karena komoditas utama yang diperdagangkan melalui jaringan ini adalah <strong>rempah-rempah</strong> — terutama dari Maluku dan Kepulauan Banda yang menjadi satu-satunya penghasil cengkih dan pala di dunia pada masa itu.</p>
+
+      <h3>Ciri-Ciri Jalur Rempah</h3>
+      <ul>
+        <li><strong>Berbasis maritim</strong> — melalui laut dengan kapal layar.</li>
+        <li><strong>Melintasi banyak negara</strong> — Nusantara, India, Tiongkok, Arab, Eropa.</li>
+        <li><strong>Komoditas utama</strong> — cengkih, pala, lada, kayu manis.</li>
+        <li><strong>Berlangsung berabad-abad</strong> — dari abad ke-2 hingga ke-17.</li>
+        <li><strong>Bertemu berbagai budaya</strong> — melahirkan akulturasi.</li>
+      </ul>
+
+      <h3>Pentingnya Jalur Rempah bagi Dunia</h3>
+      <ul>
+        <li><strong>Ekonomi</strong> — rempah menjadi komoditas paling mahal di dunia.</li>
+        <li><strong>Politik</strong> — persaingan antarnegara Eropa memperebutkan jalur ini.</li>
+        <li><strong>Budaya</strong> — pertukaran tradisi, bahasa, dan agama.</li>
+        <li><strong>Pengetahuan</strong> — peta dunia, teknologi pelayaran, dan navigasi berkembang.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Jalur Rempah adalah <strong>urat nadi perdagangan dunia</strong> yang menjadikan Nusantara sebagai pusatnya.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Fakta menarik:</strong> Di Eropa, 1 kg pala pada abad ke-16 bisa bernilai setara dengan 7 ekor sapi! Begitu mahalnya rempah Nusantara sampai-sampai orang Eropa menyebutnya "emas yang bisa dimakan".
+      </div>
+    </section>
+
+    <!-- ===== PAGE 2: REMPAH KHAS NUSANTARA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 2 dari 17</div>
+      <h2 class="page-title">Rempah Khas <span>Nusantara</span></h2>
+      <p class="page-subtitle">Komoditas yang mengubah arah sejarah dunia</p>
+
+      <p>Nusantara — terutama <strong>Maluku dan Kepulauan Banda</strong> — adalah satu-satunya wilayah di dunia yang menghasilkan rempah-rempah paling berharga pada abad ke-15 hingga ke-17.</p>
+
+      <h3>Rempah Utama Nusantara</h3>
+      <table>
+        <tr><th>Rempah</th><th>Daerah Penghasil</th><th>Kegunaan</th></tr>
+        <tr><td><strong>🌶️ Cengkih</strong></td><td>Ternate, Tidore, Moti, Makian, Bacan</td><td>Pengawet makanan, obat, penyedap</td></tr>
+        <tr><td><strong>🥜 Pala (biji &amp; foeli)</strong></td><td>Kepulauan Banda</td><td>Pengawet, obat, penyedap</td></tr>
+        <tr><td><strong>🫑 Lada</strong></td><td>Sumatra, Jawa, Kalimantan</td><td>Penyedap, pengawet</td></tr>
+        <tr><td><strong>🪵 Kayu Manis</strong></td><td>Sumatra, Jawa</td><td>Penyedap, obat</td></tr>
+        <tr><td><strong>🕯️ Kemenyan</strong></td><td>Sumatra, Kalimantan</td><td>Dupa, ritual keagamaan</td></tr>
+        <tr><td><strong>🟤 Kemiri</strong></td><td>Jawa, Bali, Sulawesi</td><td>Penyedap, minyak</td></tr>
+        <tr><td><strong>🌿 Jahe, kunyit, lengkuas</strong></td><td>Seluruh Nusantara</td><td>Obat tradisional, penyedap</td></tr>
+      </table>
+
+      <h3>Mengapa Rempah Nusantara Begitu Berharga?</h3>
+      <ul>
+        <li><strong>Hanya tumbuh di Nusantara</strong> — cengkih dan pala tidak bisa ditanam di Eropa.</li>
+        <li><strong>Kegunaan serbaguna</strong> — untuk pengawet, obat, penyedap, dan ritual.</li>
+        <li><strong>Sulit didapat</strong> — harus melewati jalur panjang dan berbahaya.</li>
+        <li><strong>Permintaan tinggi</strong> — terutama dari Eropa yang tidak punya rempah sendiri.</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Fakta menarik:</strong> Pulau Run (salah satu pulau di Banda) pernah ditukar oleh Inggris dengan Belanda. Inggris menyerahkan Pulau Run, Belanda menyerahkan Pulau Manhattan (New York) di Amerika! Begitu berharganya rempah Nusantara.
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Kesimpulan:</strong> Rempah Nusantara bukan sekadar bumbu dapur — ia adalah <strong>komoditas yang mengubah dunia</strong>.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 3: SEJARAH AWAL REMPAH ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 3 dari 17</div>
+      <h2 class="page-title">Sejarah Awal <span>Perdagangan Rempah</span></h2>
+      <p class="page-subtitle">Jejak rempah dari Nusantara hingga ke seluruh dunia</p>
+
+      <p>Perdagangan rempah Nusantara sudah berlangsung jauh sebelum kedatangan bangsa Eropa. Sejak awal Masehi, rempah dari Nusantara telah sampai ke India, Tiongkok, Timur Tengah, bahkan Romawi.</p>
+
+      <h3>Kronologi Awal Perdagangan Rempah</h3>
+      <table>
+        <tr><th>Abad</th><th>Peristiwa</th></tr>
+        <tr><td><strong>Abad ke-1 M</strong></td><td>Pedagang India datang ke Nusantara mencari rempah dan emas</td></tr>
+        <tr><td><strong>Abad ke-2–7</strong></td><td>Jaringan perdagangan Sriwijaya menghubungkan Nusantara dengan Tiongkok dan India</td></tr>
+        <tr><td><strong>Abad ke-7–13</strong></td><td>Kerajaan Sriwijaya menguasai jalur Selat Malaka</td></tr>
+        <tr><td><strong>Abad ke-13–15</strong></td><td>Majapahit menguasai perdagangan rempah Nusantara bagian timur</td></tr>
+        <tr><td><strong>Abad ke-15</strong></td><td>Malaka menjadi pelabuhan terbesar di Asia Tenggara</td></tr>
+        <tr><td><strong>Abad ke-16</strong></td><td>Bangsa Eropa tiba di Nusantara</td></tr>
+      </table>
+
+      <h3>Pedagang-Pedagang Rempah Awal</h3>
+      <ul>
+        <li><strong>Pedagang India</strong> — membawa rempah ke India dan Timur Tengah.</li>
+        <li><strong>Pedagang Tiongkok</strong> — datang untuk membeli rempah dan menjual sutra serta keramik.</li>
+        <li><strong>Pedagang Arab</strong> — membawa rempah ke Timur Tengah dan Eropa melalui jalur darat.</li>
+        <li><strong>Pedagang Nusantara sendiri</strong> — Bugis, Jawa, Melayu, Makassar.</li>
+      </ul>
+
+      <h3>Jalur Rempah Sebelum Bangsa Eropa</h3>
+      <p>Sebelum Eropa datang, rempah Nusantara sudah menyebar melalui jalur darat dan laut:</p>
+      <ul>
+        <li>Nusantara → Selat Malaka → India → Arab → Konstantinopel → Eropa.</li>
+        <li>Jalur ini dikuasai pedagang Arab dan India.</li>
+        <li>Bangsa Eropa membeli rempah dengan harga sangat mahal karena melalui banyak perantara.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Pelajaran:</strong> Nusantara telah menjadi <strong>pusat perdagangan dunia</strong> jauh sebelum bangsa Eropa datang. Kita memiliki sejarah maritim yang panjang dan membanggakan.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Catatan Romawi kuno menyebut tentang rempah dari "Chersonesus Aurea" (Semenanjung Emas) yang diperkirakan adalah Nusantara. Ini menunjukkan bahwa rempah Nusantara sudah terkenal sejak ribuan tahun lalu.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 4: RUTE JALUR REMPAH ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 4 dari 17</div>
+      <h2 class="page-title">Rute <span>Jalur Rempah</span></h2>
+      <p class="page-subtitle">Peta perjalanan rempah dari Maluku hingga Eropa</p>
+
+      <h3>Rute Utama Jalur Rempah</h3>
+      <table>
+        <tr><th>No</th><th>Rute</th><th>Keterangan</th></tr>
+        <tr><td>1</td><td><strong>Maluku &amp; Banda</strong></td><td>Titik awal — cengkih dari Ternate–Tidore, pala dari Banda</td></tr>
+        <tr><td>2</td><td><strong>Pelabuhan Nusantara</strong></td><td>Gresik, Banten, Makassar, Demak, Banten</td></tr>
+        <tr><td>3</td><td><strong>Selat Malaka</strong></td><td>Gerbang niaga Asia Tenggara</td></tr>
+        <tr><td>4</td><td><strong>India</strong></td><td>Pasar utama rempah, penghubung ke Timur Tengah</td></tr>
+        <tr><td>5</td><td><strong>Tiongkok</strong></td><td>Pasar rempah terbesar di Asia</td></tr>
+        <tr><td>6</td><td><strong>Timur Tengah (Arab, Persia)</strong></td><td>Pedagang Arab menguasai jalur darat ke Eropa</td></tr>
+        <tr><td>7</td><td><strong>Konstantinopel</strong></td><td>Pintu masuk rempah ke Eropa</td></tr>
+        <tr><td>8</td><td><strong>Eropa (Venesia, Genoa)</strong></td><td>Pasar rempah termahal di dunia</td></tr>
+      </table>
+
+      <h3>Peta Rute Sederhana</h3>
+      <div class="peta-konsep" style="text-align:left;">
+        <p style="color:#7dd3fc; margin-bottom:8px;"><strong>Rute Nusantara → Eropa:</strong></p>
+        <p style="color:#cbd5e1; font-size:13px; line-height:1.8;">
+          Maluku/Banda → Makassar → Selat Malaka → India → Arab → Konstantinopel → Venesia → Seluruh Eropa
+        </p>
+        <p style="color:#7dd3fc; margin:15px 0 8px;"><strong>Rute Nusantara → Tiongkok:</strong></p>
+        <p style="color:#cbd5e1; font-size:13px; line-height:1.8;">
+          Maluku/Banda → Makassar → Banten → Palembang → Selat Malaka → Kanton (Tiongkok)
+        </p>
+      </div>
+
+      <h3>Faktor yang Memengaruhi Rute</h3>
+      <ul>
+        <li><strong>Angin muson</strong> — menentukan waktu berlayar (musim timur &amp; barat).</li>
+        <li><strong>Keamanan laut</strong> — perompak dan konflik antar kerajaan.</li>
+        <li><strong>Kebijakan pelabuhan</strong> — pajak dan aturan di setiap pelabuhan.</li>
+        <li><strong>Kondisi politik</strong> — perang atau persaingan antar kerajaan.</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Penting:</strong> Rute jalur rempah <strong>tidak satu jalur</strong>, melainkan jaringan luas yang berlapis-lapis. Ini karena setiap wilayah memiliki peran dan kepentingannya sendiri.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 5: PELABUHAN NUSANTARA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 5 dari 17</div>
+      <h2 class="page-title">Pelabuhan-Pelabuhan <span>Nusantara</span></h2>
+      <p class="page-subtitle">Simpul-simpul perdagangan yang menghubungkan Nusantara</p>
+
+      <p>Pelabuhan-pelabuhan di Nusantara memiliki peran penting sebagai <strong>simpul perdagangan rempah</strong>. Di sinilah rempah dari Maluku bertemu dengan pedagang dari berbagai negara.</p>
+
+      <h3>Pelabuhan-Pelabuhan Penting</h3>
+      <table>
+        <tr><th>Pelabuhan</th><th>Wilayah</th><th>Peran</th></tr>
+        <tr><td><strong>Malaka</strong></td><td>Semenanjung Malaya</td><td>Pusat perdagangan terbesar di Asia Tenggara (sebelum 1511)</td></tr>
+        <tr><td><strong>Banten</strong></td><td>Jawa Barat</td><td>Pelabuhan lada terbesar di Jawa</td></tr>
+        <tr><td><strong>Gresik</strong></td><td>Jawa Timur</td><td>Pelabuhan tua, penghubung Jawa–Maluku</td></tr>
+        <tr><td><strong>Demak</strong></td><td>Jawa Tengah</td><td>Pelabuhan kerajaan Islam pertama di Jawa</td></tr>
+        <tr><td><strong>Makassar</strong></td><td>Sulawesi Selatan</td><td>Pelabuhan bebas terbesar di Indonesia timur</td></tr>
+        <tr><td><strong>Ternate &amp; Tidore</strong></td><td>Maluku Utara</td><td>Pusat perdagangan cengkih</td></tr>
+        <tr><td><strong>Banda Neira</strong></td><td>Maluku</td><td>Pusat perdagangan pala</td></tr>
+        <tr><td><strong>Palembang</strong></td><td>Sumatra Selatan</td><td>Pelabuhan kerajaan Sriwijaya</td></tr>
+        <tr><td><strong>Aceh</strong></td><td>Sumatra Utara</td><td>Pelabuhan lada dan emas</td></tr>
+      </table>
+
+      <h3>Peran Pelabuhan</h3>
+      <ul>
+        <li><strong>Sebagai tempat pertukaran</strong> barang dari berbagai daerah.</li>
+        <li><strong>Sebagai pusat pertemuan</strong> berbagai budaya.</li>
+        <li><strong>Sebagai sumber pajak</strong> untuk kerajaan.</li>
+        <li><strong>Sebagai pintu masuk</strong> pengaruh budaya &amp; agama.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Pelajaran:</strong> Nusantara memiliki <strong>jaringan pelabuhan yang saling terhubung</strong>. Inilah kekuatan maritim bangsa Indonesia sejak zaman dahulu.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Makassar menjadi pelabuhan penting karena berperan sebagai <strong>pelabuhan bebas</strong> — siapa pun boleh berdagang, tanpa membedakan agama atau bangsa. Inilah yang membuat Makassar menjadi pusat niaga di Indonesia timur.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 6: MALUKU & BANDA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 6 dari 17</div>
+      <h2 class="page-title">Maluku &amp; <span>Kepulauan Banda</span></h2>
+      <p class="page-subtitle">Pusat rempah dunia yang menjadi perebutan bangsa-bangsa</p>
+
+      <h3>Maluku — Kepulauan Cengkih</h3>
+      <p><strong style="color:#38bdf8">Maluku</strong> dijuluki "<strong>Kepulauan Rempah</strong>" karena menjadi satu-satunya penghasil cengkih di dunia pada masa itu. Cengkih tumbuh subur di pulau-pulau kecil seperti:</p>
+      <ul>
+        <li><strong>Ternate</strong> — pusat Kesultanan Ternate.</li>
+        <li><strong>Tidore</strong> — pusat Kesultanan Tidore.</li>
+        <li><strong>Moti</strong> — pulau kecil penghasil cengkih.</li>
+        <li><strong>Makian</strong> — pulau vulkanik dengan cengkih berkualitas.</li>
+        <li><strong>Bacan</strong> — pulau di Maluku Utara.</li>
+      </ul>
+
+      <h3>Kepulauan Banda — Kepulauan Pala</h3>
+      <p><strong style="color:#38bdf8">Kepulauan Banda</strong> adalah satu-satunya wilayah di dunia yang menghasilkan <strong>pala</strong> pada abad ke-16. Terdiri dari beberapa pulau:</p>
+      <ul>
+        <li><strong>Banda Neira</strong> — pusat administrasi VOC.</li>
+        <li><strong>Banda Api</strong> — pulau vulkanik aktif.</li>
+        <li><strong>Banda Besar (Lonthor)</strong> — pulau terbesar.</li>
+        <li><strong>Pulau Run &amp; Ai</strong> — pulau kecil penghasil pala.</li>
+      </ul>
+
+      <h3>Mengapa Maluku &amp; Banda Begitu Istimewa?</h3>
+      <ul>
+        <li>Cengkih dan pala hanya tumbuh di wilayah ini pada masa itu.</li>
+        <li>Kualitas rempahnya sangat tinggi.</li>
+        <li>Menjadi rebutan bangsa-bangsa Eropa.</li>
+        <li>Menjadi titik awal perdagangan rempah dunia.</li>
+      </ul>
+
+      <div class="warning">
+        ⚠️ <strong>Pahit tapi nyata:</strong> Kekayaan rempah Maluku dan Banda justru membawa <strong>penderitaan</strong>. VOC melakukan penaklukan dan kekerasan untuk menguasai perdagangan pala. Pada 1621, penduduk Banda dibantai atau diusir oleh VOC.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Fakta:</strong> Kepulauan Banda pernah menjadi <strong>pusat perdagangan pala dunia</strong>. Kapal-kapal dari Eropa, India, Tiongkok, dan Arab datang ke Banda untuk membeli pala. Namun, kejayaan ini juga menjadi awal penderitaan rakyat Banda.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 7: KEDATANGAN BANGSA EROPA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 7 dari 17</div>
+      <h2 class="page-title">Kedatangan <span>Bangsa Eropa</span></h2>
+      <p class="page-subtitle">Perjalanan panjang mencari sumber rempah</p>
+
+      <p>Bangsa Eropa datang ke Nusantara dengan satu tujuan utama: <strong>mencari sumber rempah langsung</strong> tanpa melalui perantara Arab dan India yang menjual dengan harga sangat mahal.</p>
+
+      <h3>Latar Belakang Kedatangan</h3>
+      <ul>
+        <li><strong>Rempah sangat mahal</strong> di Eropa karena melewati banyak perantara.</li>
+        <li><strong>Jatuhnya Konstantinopel</strong> (1453) ke tangan Turki Utsmani memutus jalur darat.</li>
+        <li><strong>Semangat Reconquista</strong> — semangat penjelajahan bangsa Eropa.</li>
+        <li><strong>Semboyan 3G</strong>: Gold (kekayaan), Glory (kejayaan), Gospel (agama).</li>
+        <li><strong>Kemajuan teknologi pelayaran</strong> — kompas, peta, kapal layar.</li>
+      </ul>
+
+      <h3>Kedatangan Bangsa-Bangsa Eropa</h3>
+      <table>
+        <tr><th>Negara</th><th>Tokoh</th><th>Tahun</th><th>Peristiwa</th></tr>
+        <tr><td><strong>Portugis</strong></td><td>Vasco da Gama</td><td>1498</td><td>Mencapai India melalui jalur laut</td></tr>
+        <tr><td><strong>Portugis</strong></td><td>Alfonso de Albuquerque</td><td>1511</td><td>Menaklukkan Malaka</td></tr>
+        <tr><td><strong>Portugis</strong></td><td>Antonio de Abreu</td><td>1512</td><td>Tiba di Maluku</td></tr>
+        <tr><td><strong>Spanyol</strong></td><td>Magelhaens &amp; Elcano</td><td>1521</td><td>Tiba di Maluku (Tidore)</td></tr>
+        <tr><td><strong>Belanda</strong></td><td>Cornelis de Houtman</td><td>1596</td><td>Tiba di Banten</td></tr>
+        <tr><td><strong>Inggris</strong></td><td>Francis Drake</td><td>1579</td><td>Tiba di Ternate</td></tr>
+      </table>
+
+      <h3>Dampak Kedatangan Bangsa Eropa</h3>
+      <ul>
+        <li>Mulai terjadi <strong>persaingan</strong> antarnegara Eropa di Nusantara.</li>
+        <li>Kerajaan-kerajaan Nusantara mulai <strong>terlibat konflik</strong> dengan kekuatan asing.</li>
+        <li>Monopoli perdagangan mulai diterapkan.</li>
+        <li>Awal mula <strong>kolonialisme</strong> di Nusantara.</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Pelajaran:</strong> Kedatangan bangsa Eropa awalnya untuk <strong>berdagang</strong>. Namun, karena ambisi kekuasaan, perdagangan berubah menjadi <strong>penjajahan</strong>. Inilah pelajaran penting tentang bahaya keserakahan.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 8: VOC & MONOPOLI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 8 dari 17</div>
+      <h2 class="page-title">VOC &amp; <span>Monopoli Rempah</span></h2>
+      <p class="page-subtitle">Kongsi dagang Belanda yang mengubah wajah Nusantara</p>
+
+      <h3>Apa itu VOC?</h3>
+      <p><strong style="color:#38bdf8">VOC</strong> (<em>Vereenigde Oostindische Compagnie</em>) adalah perserikatan perusahaan dagang Belanda yang didirikan pada <strong>20 Maret 1602</strong>. VOC diberikan hak istimewa oleh pemerintah Belanda, termasuk hak berperang, membangun benteng, dan mengadakan perjanjian.</p>
+
+      <h3>Tujuan VOC</h3>
+      <ul>
+        <li><strong>Menguasai perdagangan rempah</strong> di Nusantara.</li>
+        <li><strong>Mencegah persaingan</strong> antar pedagang Belanda sendiri.</li>
+        <li><strong>Memperkuat posisi</strong> Belanda melawan Portugis dan Spanyol.</li>
+        <li><strong>Mendapatkan keuntungan</strong> sebesar-besarnya.</li>
+      </ul>
+
+      <h3>Praktik Monopoli VOC</h3>
+      <table>
+        <tr><th>Praktik</th><th>Penjelasan</th></tr>
+        <tr><td><strong>Monopoli dagang</strong></td><td>Rakyat hanya boleh berdagang dengan VOC</td></tr>
+        <tr><td><strong>Hongi tochten</strong></td><td>Pelayaran untuk menghancurkan kebun rempah rakyat</td></tr>
+        <tr><td><strong>Politik devide et impera</strong></td><td>Adu domba antar kerajaan Nusantara</td></tr>
+        <tr><td><strong>Kekerasan</strong></td><td>Penaklukan Banda 1621, pembantaian penduduk</td></tr>
+        <tr><td><strong>Pajak berat</strong></td><td>Rakyat dibebani pajak tinggi</td></tr>
+        <tr><td><strong>Kerja paksa</strong></td><td>Rakyat dipekerjakan untuk kepentingan VOC</td></tr>
+      </table>
+
+      <h3>Kronologi Penting VOC</h3>
+      <table>
+        <tr><th>Tahun</th><th>Peristiwa</th></tr>
+        <tr><td>1602</td><td>VOC didirikan</td></tr>
+        <tr><td>1610</td><td>Pieter Both menjadi Gubernur Jenderal pertama</td></tr>
+        <tr><td>1619</td><td>JP Coen membangun Batavia</td></tr>
+        <tr><td>1621</td><td>VOC menaklukkan Banda</td></tr>
+        <tr><td>1667</td><td>Perjanjian Bongaya dengan Gowa</td></tr>
+        <tr><td>1799</td><td>VOC dibubarkan karena korupsi &amp; bangkrut</td></tr>
+      </table>
+
+      <div class="warning">
+        ⚠️ <strong>Pelajaran pahit:</strong> Monopoli VOC menghancurkan kehidupan rakyat Nusantara. Rakyat dipaksa menjual rempah dengan harga rendah, sementara VOC menjualnya dengan harga sangat tinggi di Eropa.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Kekejaman Banda 1621:</strong> Gubernur Jenderal JP Coen memerintahkan pembantaian penduduk Banda. Ribuan orang tewas, dan sisanya diusir atau dijadikan budak. Banda yang dulunya makmur berubah menjadi wilayah kosong yang dikuasai VOC.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 9: DAMPAK PERDAGANGAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 9 dari 17</div>
+      <h2 class="page-title">Dampak <span>Perdagangan Rempah</span></h2>
+      <p class="page-subtitle">Sisi terang dan gelap dari jalur rempah</p>
+
+      <p>Perdagangan rempah membawa dampak positif dan negatif bagi Nusantara. Kita perlu memahaminya secara kritis.</p>
+
+      <h3>Dampak Positif</h3>
+      <ul>
+        <li><strong>Kemajuan pelabuhan</strong> — muncul kota-kota pelabuhan baru.</li>
+        <li><strong>Pertumbuhan ekonomi</strong> — perdagangan dan kerajinan berkembang.</li>
+        <li><strong>Akulturasi budaya</strong> — pertemuan budaya Nusantara dengan India, Tiongkok, Arab, Eropa.</li>
+        <li><strong>Masuknya agama baru</strong> — Hindu, Buddha, Islam, Kristen.</li>
+        <li><strong>Kemajuan teknologi</strong> — navigasi, pembuatan kapal, senjata.</li>
+        <li><strong>Kosmopolitanisme</strong> — masyarakat menjadi terbuka terhadap budaya asing.</li>
+      </ul>
+
+      <h3>Dampak Negatif</h3>
+      <ul>
+        <li><strong>Kolonialisme</strong> — Nusantara jatuh ke tangan bangsa Eropa.</li>
+        <li><strong>Monopoli</strong> — rakyat kehilangan kebebasan berdagang.</li>
+        <li><strong>Kekerasan</strong> — pembantaian Banda 1621, penindasan rakyat.</li>
+        <li><strong>Kerja paksa &amp; perbudakan</strong> — rakyat dieksploitasi.</li>
+        <li><strong>Peperangan antar kerajaan</strong> — politik devide et impera memecah belah.</li>
+        <li><strong>Penyusutan penduduk</strong> — banyak yang tewas akibat perang &amp; kerja paksa.</li>
+      </ul>
+
+      <h3>Dampak di Berbagai Skala</h3>
+      <table>
+        <tr><th>Skala</th><th>Dampak</th></tr>
+        <tr><td><strong>🏘️ Lokal</strong></td><td>Rakyat Maluku dan Banda mengalami penindasan, kehilangan tanah.</td></tr>
+        <tr><td><strong>🇮🇩 Nasional</strong></td><td>Nusantara masuk ke masa kolonialisme selama 350 tahun.</td></tr>
+        <tr><td><strong>🌍 Global</strong></td><td>Perdagangan rempah menjadi awal kapitalisme dan perdagangan dunia modern.</td></tr>
+      </table>
+
+      <div class="highlight">
+        💡 <strong>Renungan:</strong> Sejarah jalur rempah mengajarkan bahwa <strong>kekayaan alam</strong> bisa menjadi <strong>berkah</strong> atau <strong>bencana</strong>, tergantung bagaimana kita mengelolanya.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 10: AKULTURASI BUDAYA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 10 dari 17</div>
+      <h2 class="page-title">Akulturasi <span>Budaya Nusantara</span></h2>
+      <p class="page-subtitle">Jejak pertemuan budaya di jalur rempah</p>
+
+      <p><strong style="color:#38bdf8">Akulturasi</strong> adalah perpaduan dua budaya atau lebih yang melahirkan budaya baru, tanpa menghilangkan ciri khas masing-masing.</p>
+
+      <p>Jalur rempah menjadi <strong>jalur akulturasi budaya</strong> yang sangat penting. Berbagai budaya bertemu di pelabuhan-pelabuhan Nusantara, menghasilkan kekayaan budaya yang luar biasa.</p>
+
+      <h3>Bentuk-Bentuk Akulturasi</h3>
+      <table>
+        <tr><th>Aspek</th><th>Contoh Akulturasi</th></tr>
+        <tr><td><strong>Arsitektur</strong></td><td>Masjid dengan atap tumpang (perpaduan Islam–Hindu–Jawa)</td></tr>
+        <tr><td><strong>Seni</strong></td><td>Batik dengan motif pengaruh India, Tiongkok, Arab</td></tr>
+        <tr><td><strong>Musik</strong></td><td>Gamelan dengan nada pengaruh India &amp; Tiongkok</td></tr>
+        <tr><td><strong>Bahasa</strong></td><td>Kata serapan dari Sanskerta, Arab, Portugis, Belanda</td></tr>
+        <tr><td><strong>Kuliner</strong></td><td>Perpaduan rempah lokal dengan teknik memasak asing</td></tr>
+        <tr><td><strong>Tradisi</strong></td><td>Sekaten, Grebeg, dan tradisi Islam-Jawa lainnya</td></tr>
+      </table>
+
+      <h3>Contoh Akulturasi Nyata</h3>
+      <ul>
+        <li><strong>Masjid Agung Demak</strong> — perpaduan arsitektur Islam, Hindu, dan Jawa.</li>
+        <li><strong>Batik Pekalongan</strong> — motif dengan pengaruh Tiongkok dan Belanda.</li>
+        <li><strong>Rendang</strong> — perpaduan rempah Nusantara dengan teknik memasak India.</li>
+        <li><strong>Keroncong</strong> — musik Portugis yang berpadu dengan musik Nusantara.</li>
+        <li><strong>Bahasa Indonesia</strong> — banyak kata serapan dari Sanskerta, Arab, Portugis, Belanda.</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Fakta menarik:</strong> Kata "gereja" (Portugis), "bangku" (Portugis), "jendela" (Portugis), "kantor" (Belanda), dan "pasar" (Persia) — semua itu adalah jejak akulturasi budaya melalui jalur rempah!
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Kesimpulan:</strong> Jalur rempah bukan hanya jalur barang, tetapi juga <strong>jalur budaya</strong>. Kekayaan budaya Indonesia hari ini adalah hasil dari akulturasi berabad-abad.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 11: PERAN NUSANTARA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 11 dari 17</div>
+      <h2 class="page-title">Peran <span>Nusantara sebagai Poros Maritim</span></h2>
+      <p class="page-subtitle">Posisi strategis yang membentuk sejarah dunia</p>
+
+      <p>Nusantara memiliki posisi geografis yang sangat strategis — <strong>di antara dua samudra (Hindia &amp; Pasifik) dan dua benua (Asia &amp; Australia)</strong>. Posisi ini membuat Nusantara menjadi poros perdagangan dunia.</p>
+
+      <h3>Faktor Strategis Nusantara</h3>
+      <ul>
+        <li><strong>Letak geografis</strong> — di persimpangan jalur perdagangan Asia–Pasifik.</li>
+        <li><strong>Selat Malaka</strong> — jalur pelayaran tersibuk di dunia.</li>
+        <li><strong>Kekayaan rempah</strong> — cengkih &amp; pala yang hanya ada di Nusantara.</li>
+        <li><strong>Kemampuan bahari</strong> — pelaut Nusantara mahir mengarungi samudra.</li>
+        <li><strong>Pelabuhan-pelabuhan besar</strong> — Malaka, Banten, Makassar, Gresik.</li>
+      </ul>
+
+      <h3>Bukti Nusantara sebagai Poros Maritim</h3>
+      <table>
+        <tr><th>Kerajaan</th><th>Bukti Kejayaan Maritim</th></tr>
+        <tr><td><strong>Sriwijaya</strong> (abad 7–13)</td><td>Menguasai Selat Malaka, pusat perdagangan Asia Tenggara</td></tr>
+        <tr><td><strong>Majapahit</strong> (abad 13–15)</td><td>Menguasai Nusantara dengan armada laut yang kuat</td></tr>
+        <tr><td><strong>Demak</strong> (abad 15–16)</td><td>Pelabuhan Islam pertama di Jawa dengan armada dagang</td></tr>
+        <tr><td><strong>Makassar</strong> (abad 16–17)</td><td>Pelabuhan bebas terbesar di Indonesia timur</td></tr>
+        <tr><td><strong>Ternate &amp; Tidore</strong> (abad 15–17)</td><td>Pusat perdagangan cengkih dunia</td></tr>
+      </table>
+
+      <h3>Makna Poros Maritim Hari Ini</h3>
+      <p>Presiden Joko Widodo mencanangkan visi <strong>"Indonesia sebagai Poros Maritim Dunia"</strong> pada 2014. Visi ini merujuk kembali pada kejayaan maritim Nusantara pada masa lalu.</p>
+
+      <div class="highlight">
+        💡 <strong>Renungan:</strong> Nusantara <strong>sudah pernah menjadi poros maritim dunia</strong>. Tugas kita sekarang adalah mewujudkan kembali kejayaan itu dengan cara-cara modern.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Selat Malaka hingga hari ini masih menjadi jalur pelayaran tersibuk di dunia. Lebih dari 90.000 kapal melintas setiap tahunnya — membuktikan bahwa posisi Nusantara tetap strategis.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 12: WARISAN JALUR REMPAH ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 12 dari 17</div>
+      <h2 class="page-title">Warisan <span>Jalur Rempah</span></h2>
+      <p class="page-subtitle">Jejak sejarah yang masih hidup hingga kini</p>
+
+      <p>Jalur rempah meninggalkan banyak warisan yang masih hidup hingga hari ini — baik berupa bangunan, tradisi, maupun dalam kehidupan ekonomi.</p>
+
+      <h3>Warisan Fisik</h3>
+      <table>
+        <tr><th>Warisan</th><th>Lokasi</th><th>Keterangan</th></tr>
+        <tr><td><strong>Benteng Rotterdam</strong></td><td>Makassar</td><td>Benteng VOC abad ke-17</td></tr>
+        <tr><td><strong>Benteng Belgica</strong></td><td>Banda Neira</td><td>Benteng VOC abad ke-17</td></tr>
+        <tr><td><strong>Benteng Vastenburg</strong></td><td>Surakarta</td><td>Benteng kolonial abad ke-18</td></tr>
+        <tr><td><strong>Kota Tua Batavia</strong></td><td>Jakarta</td><td>Pusat perdagangan VOC abad ke-17</td></tr>
+        <tr><td><strong>Kedaton Ternate</strong></td><td>Ternate</td><td>Istana Sultan Ternate</td></tr>
+        <tr><td><strong>Gereja Tua Banda</strong></td><td>Banda Neira</td><td>Gereja kolonial abad ke-17</td></tr>
+      </table>
+
+      <h3>Warisan Budaya &amp; Tradisi</h3>
+      <ul>
+        <li><strong>Kuliner rempah</strong> — rendang, gulai, kari, soto, dan masakan khas Nusantara.</li>
+        <li><strong>Batik</strong> — diakui UNESCO sebagai Warisan Budaya Dunia.</li>
+        <li><strong>Jamu</strong> — minuman rempah tradisional yang masih populer.</li>
+        <li><strong>Upacara adat</strong> — seperti Sekaten dan Grebeg di Yogyakarta.</li>
+        <li><strong>Arsitektur masjid</strong> — perpaduan budaya Islam–lokal.</li>
+      </ul>
+
+      <h3>Warisan Ekonomi</h3>
+      <ul>
+        <li><strong>Rempah masih menjadi komoditas penting</strong> Indonesia.</li>
+        <li><strong>Indonesia menjadi salah satu produsen rempah terbesar dunia</strong>.</li>
+        <li><strong>Kuliner Indonesia mendunia</strong> — rendang pernah dinobatkan sebagai makanan terenak dunia.</li>
+      </ul>
+
+      <h3>Upaya Pelestarian</h3>
+      <ul>
+        <li><strong>Jalur Rempah sebagai Warisan Budaya</strong> — diajukan ke UNESCO.</li>
+        <li><strong>Museum rempah</strong> — dibangun di berbagai daerah.</li>
+        <li><strong>Festival rempah</strong> — diadakan setiap tahun di Maluku &amp; Banda.</li>
+        <li><strong>Wisata sejarah</strong> — mengunjungi situs-situs jalur rempah.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Kesimpulan:</strong> Jalur rempah bukan hanya sejarah masa lalu — ia adalah <strong>warisan yang masih hidup</strong> dan menjadi identitas bangsa Indonesia.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 13: PETA KONSEP ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 13 dari 17</div>
+      <h2 class="page-title">Peta <span>Konsep</span></h2>
+      <p class="page-subtitle">Ringkasan visual hubungan antar konsep</p>
+
+      <div class="peta-konsep">
+        <div class="node utama">JALUR REMPAH</div>
+        <span class="arrow">↓ bersumber dari</span>
+        <div>
+          <span class="node sub">Maluku (Cengkih)</span>
+          <span class="node sub">Banda (Pala)</span>
+          <span class="node sub">Sumatra &amp; Jawa (Lada)</span>
+        </div>
+        <span class="arrow">↓ melewati</span>
+        <div>
+          <span class="node detail">Pelabuhan Nusantara</span>
+          <span class="node detail">Selat Malaka</span>
+          <span class="node detail">India</span>
+          <span class="node detail">Tiongkok</span>
+        </div>
+        <span class="arrow">↓ melintasi</span>
+        <div>
+          <span class="node sub">Timur Tengah</span>
+          <span class="node sub">Eropa</span>
+        </div>
+        <span class="arrow">↓ mendorong</span>
+        <div>
+          <span class="node detail">Kedatangan Eropa</span>
+          <span class="node detail">Kolonialisme</span>
+        </div>
+        <span class="arrow">↓ meninggalkan</span>
+        <div class="node utama">WARISAN BUDAYA INDONESIA</div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 14: RINGKASAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 14 dari 17</div>
+      <h2 class="page-title">Ringkasan <span>Bab 5</span></h2>
+      <p class="page-subtitle">Poin-poin penting yang harus diingat</p>
+
+      <ul>
+        <li><strong>Jalur Rempah</strong> = jaringan perdagangan rempah yang menghubungkan Nusantara dengan Asia, Timur Tengah, dan Eropa.</li>
+        <li><strong>Rempah utama Nusantara</strong>: cengkih (Ternate, Tidore, Moti, Makian, Bacan), pala (Banda), lada, kayu manis, kemenyan.</li>
+        <li><strong>Sejarah awal</strong>: perdagangan rempah sudah berlangsung sejak awal Masehi melalui pedagang India, Tiongkok, dan Arab.</li>
+        <li><strong>Rute jalur rempah</strong>: Maluku/Banda → Pelabuhan Nusantara → Selat Malaka → India → Timur Tengah → Eropa.</li>
+        <li><strong>Pelabuhan penting</strong>: Malaka, Banten, Gresik, Demak, Makassar, Ternate, Tidore, Banda Neira, Palembang, Aceh.</li>
+        <li><strong>Maluku</strong> = Kepulauan Cengkih. <strong>Banda</strong> = Kepulauan Pala.</li>
+        <li><strong>Kedatangan bangsa Eropa</strong>: Portugis (1511 Malaka), Spanyol (1521 Maluku), Belanda (1596 Banten), Inggris (1579 Ternate).</li>
+        <li><strong>VOC</strong> (1602) = kongsi dagang Belanda yang memonopoli rempah Nusantara.</li>
+        <li><strong>Dampak positif</strong>: kemajuan pelabuhan, akulturasi budaya, masuknya agama.</li>
+        <li><strong>Dampak negatif</strong>: kolonialisme, monopoli, kekerasan, kerja paksa.</li>
+        <li><strong>Akulturasi budaya</strong>: masjid, batik, kuliner, musik, bahasa.</li>
+        <li><strong>Nusantara sebagai poros maritim</strong> — Sriwijaya, Majapahit, Demak, Makassar, Ternate.</li>
+        <li><strong>Warisan jalur rempah</strong>: benteng, gereja tua, kuliner, jamu, batik, dan tradisi.</li>
+      </ul>
+    </section>
+
+    <!-- ===== PAGE 15: GLOSARIUM ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 15 dari 17</div>
+      <h2 class="page-title">Glosarium <span>Istilah Penting</span></h2>
+      <p class="page-subtitle">Kumpulan istilah kunci dalam bab ini</p>
+
+      <div class="glosarium-item"><strong>Akulturasi</strong><br><span>Perpaduan dua budaya atau lebih yang melahirkan budaya baru.</span></div>
+      <div class="glosarium-item"><strong>Cengkih</strong><br><span>Rempah khas Maluku yang hanya tumbuh di wilayah tersebut.</span></div>
+      <div class="glosarium-item"><strong>Devide et Impera</strong><br><span>Politik adu domba untuk memecah belah kekuatan lawan.</span></div>
+      <div class="glosarium-item"><strong>Foeli</strong><br><span>Bunga pala (selain biji) yang juga diperdagangkan.</span></div>
+      <div class="glosarium-item"><strong>Hongi Tochten</strong><br><span>Pelayaran VOC untuk menghancurkan kebun rempah rakyat.</span></div>
+      <div class="glosarium-item"><strong>Jalur Rempah</strong><br><span>Jaringan perdagangan rempah yang menghubungkan Nusantara dengan Asia dan Eropa.</span></div>
+      <div class="glosarium-item"><strong>Kolonialisme</strong><br><span>Sistem penjajahan suatu negara terhadap negara lain.</span></div>
+      <div class="glosarium-item"><strong>Monopoli</strong><br><span>Penguasaan tunggal atas perdagangan suatu komoditas.</span></div>
+      <div class="glosarium-item"><strong>Nekara</strong><br><span>Gendang perunggu — sering dijadikan benda upacara &amp; simbol kekayaan.</span></div>
+      <div class="glosarium-item"><strong>Pala</strong><br><span>Rempah khas Kepulauan Banda yang menjadi komoditas termahal pada abad ke-16.</span></div>
+      <div class="glosarium-item"><strong>Poros Maritim</strong><br><span>Pusat jalur pelayaran dan perdagangan dunia.</span></div>
+        <div class="glosarium-item"><strong>Reconquista</strong><br><span>Semangat penaklukan kembali wilayah Spanyol dari kekuasaan Islam.</span></div>
+      <div class="glosarium-item"><strong>Selat Malaka</strong><br><span>Jalur pelayaran tersibuk di dunia yang menghubungkan Asia Timur dan Selatan.</span></div>
+      <div class="glosarium-item"><strong>3G (Gold, Glory, Gospel)</strong><br><span>Semboyan bangsa Eropa saat menjelajah: kekayaan, kejayaan, agama.</span></div>
+      <div class="glosarium-item"><strong>VOC</strong><br><span>Perserikatan perusahaan dagang Belanda (1602–1799).</span></div>
+    </section>
+
+    <!-- ===== PAGE 16: SOAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 16 dari 17</div>
+      <h2 class="page-title">Soal Latihan + <span>Pembahasan</span></h2>
+      <p class="page-subtitle">Klik tombol untuk memeriksa jawabanmu</p>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 1</div>
+        <div class="pertanyaan">Jalur Rempah adalah jaringan perdagangan...</div>
+        <div class="pilihan">A. Batu mulia dari Afrika<br>B. Rempah dari Nusantara ke Asia &amp; Eropa<br>C. Tekstil dari Tiongkok<br>D. Emas dari Sumatra</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Jalur Rempah adalah jaringan perdagangan rempah Nusantara ke Asia, Timur Tengah, dan Eropa.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 2</div>
+        <div class="pertanyaan">Rempah cengkih berasal dari pulau-pulau berikut, KECUALI...</div>
+        <div class="pilihan">A. Ternate<br>B. Tidore<br>C. Banda<br>D. Moti</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Banda adalah penghasil Pala, bukan cengkih. Cengkih dihasilkan oleh Ternate, Tidore, Moti, Makian, dan Bacan.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 3</div>
+        <div class="pertanyaan">Pala paling terkenal dihasilkan dari wilayah...</div>
+        <div class="pilihan">A. Ternate<br>B. Kepulauan Banda<br>C. Sulawesi<br>D. Jawa</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Kepulauan Banda adalah satu-satunya penghasil pala dunia pada abad ke-16.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 4</div>
+        <div class="pertanyaan">Pelabuhan terbesar di Asia Tenggara sebelum 1511 adalah...</div>
+        <div class="pilihan">A. Banten<br>B. Makassar<br>C. Malaka<br>D. Gresik</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Malaka adalah pelabuhan terbesar di Asia Tenggara sebelum ditaklukkan Portugis pada 1511.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 5</div>
+        <div class="pertanyaan">VOC didirikan pada tahun...</div>
+        <div class="pilihan">A. 1596<br>B. 1602<br>C. 1619<br>D. 1799</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> VOC didirikan pada 20 Maret 1602.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 6</div>
+        <div class="pertanyaan">Peristiwa pembantaian penduduk Banda oleh VOC terjadi pada tahun...</div>
+        <div class="pilihan">A. 1602<br>B. 1619<br>C. 1621<br>D. 1799</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Pembantaian Banda oleh VOC di bawah JP Coen terjadi pada 1621.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 7</div>
+        <div class="pertanyaan">Semboyan 3G bangsa Eropa berarti...</div>
+        <div class="pilihan">A. Gold, Glory, Gospel<br>B. Green, Gold, Great<br>C. God, Gold, Great<br>D. Glory, Great, Gospel</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: A.</strong> Semboyan 3G adalah Gold (kekayaan), Glory (kejayaan), dan Gospel (agama).</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 8</div>
+        <div class="pertanyaan">Bangsa Eropa pertama yang menaklukkan Malaka adalah...</div>
+        <div class="pilihan">A. Spanyol<br>B. Portugis<br>C. Belanda<br>D. Inggris</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Portugis di bawah Alfonso de Albuquerque menaklukkan Malaka pada 1511.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 9</div>
+        <div class="pertanyaan">Perpaduan dua budaya yang melahirkan budaya baru disebut...</div>
+        <div class="pilihan">A. Asimilasi<br>B. Akulturasi<br>C. Konsolidasi<br>D. Difusi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Akulturasi adalah perpaduan dua budaya atau lebih tanpa menghilangkan ciri khas masing-masing.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 10</div>
+        <div class="pertanyaan">Praktik VOC menghancurkan kebun rempah rakyat disebut...</div>
+        <div class="pilihan">A. Devide et Impera<br>B. Hongi Tochten<br>C. Monopoli<br>D. Ekstirpasi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Hongi Tochten adalah pelayaran VOC untuk menghancurkan kebun rempah rakyat agar harga tetap tinggi.</div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 17: PROYEK ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 17 dari 17</div>
+      <h2 class="page-title">Proyek / <span>Aktivitas Siswa</span></h2>
+      <p class="page-subtitle">Kerjakan salah satu proyek berikut untuk memperdalam pemahaman</p>
+
+      <div class="proyek">
+        <ol>
+          <li><strong>Buat peta jalur rempah.</strong> Gambar peta Asia. Tandai rute jalur rempah dari Maluku hingga Eropa. Beri warna berbeda untuk rute darat dan laut. Beri keterangan pelabuhan-pelabuhan penting.</li>
+          <li><strong>Buat koleksi rempah mini.</strong> Kumpulkan 5 rempah asli Indonesia (cengkih, pala, lada, kayu manis, jahe). Tempelkan pada kertas karton, beri keterangan: nama, daerah asal, dan kegunaan.</li>
+          <li><strong>Kunjungi museum atau situs bersejarah.</strong> Kunjungi museum rempah, benteng VOC, atau pelabuhan tua terdekat. Foto, catat, dan buat laporan 1–2 halaman.</li>
+          <li><strong>Buat infografis.</strong> Buat infografis tentang perjalanan rempah dari Maluku hingga ke cangkir teh orang Eropa. Sertakan data harga rempah di berbagai zaman.</li>
+          <li><strong>Wawancara keluarga.</strong> Tanyakan kepada orang tua atau kakek/nenek tentang masakan tradisional keluarga yang menggunakan rempah. Tuliskan resep dan ceritakan sejarah rempah tersebut dalam keluarga kalian.</li>
+        </ol>
+      </div>
+
+      <div class="highlight" style="text-align:center; margin-top:30px;">
+        🎉 <strong>Selamat!</strong> Kamu telah menyelesaikan seluruh materi Bab 5.
+        Sekarang saatnya uji pemahamanmu dengan kuis!
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="footer-nav">
+  <button class="nav-prev" id="prevBtn" onclick="prev()">← Sebelumnya</button>
+  <span class="page-counter"><span id="currentNum">1</span> / 17</span>
+  <button class="nav-next" id="nextBtn" onclick="next()">Selanjutnya →</button>
+</div>
+
+<script>
+const pages = document.querySelectorAll('.page');
+const navItems = document.querySelectorAll('.nav-item');
+const progressFill = document.getElementById('progressFill');
+const currentNum = document.getElementById('currentNum');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const mainArea = document.getElementById('main');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+let currentPage = 0;
+const totalPages = pages.length;
+
+function goTo(index) {
+  if (index < 0 || index >= totalPages) return;
+
+  pages[currentPage].classList.remove('active');
+  navItems[currentPage].classList.remove('active');
+  navItems[currentPage].classList.add('done');
+
+  currentPage = index;
+
+  pages[currentPage].classList.add('active');
+  navItems[currentPage].classList.add('active');
+
+  progressFill.style.width = ((currentPage + 1) / totalPages * 100) + '%';
+  currentNum.textContent = currentPage + 1;
+
+  prevBtn.disabled = currentPage === 0;
+  if (currentPage === totalPages - 1) {
+    nextBtn.textContent = '🎮 Mulai Kuis';
+  } else {
+    nextBtn.textContent = 'Selanjutnya →';
+  }
+
+  mainArea.scrollTop = 0;
+  if (window.innerWidth <= 800) {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+}
+
+function next() {
+  if (currentPage === totalPages - 1) {
+    window.location.href = 'sejarah-bab5-kuis.html';
+    return;
+  }
+  goTo(currentPage + 1);
+}
+
+function prev() {
+  goTo(currentPage - 1);
+}
+
+function toggleSidebar() {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+}
+
+function toggleJawaban(btn) {
+  const jawaban = btn.nextElementSibling;
+  if (jawaban.classList.contains('show')) {
+    jawaban.classList.remove('show');
+    btn.textContent = 'Lihat Jawaban';
+  } else {
+    jawaban.classList.add('show');
+    btn.textContent = 'Sembunyikan';
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+goTo(0);
+
+/* ========== LOADING SCREEN ========== */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }, 2200);
+});
+
+setTimeout(() => {
+  const loader = document.getElementById('loader');
+  if (loader && !loader.classList.contains('hide')) {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }
+}, 4500);
+</script>
+
+</body>
+</html>
