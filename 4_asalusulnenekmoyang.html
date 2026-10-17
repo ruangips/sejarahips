@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bab 4 — Asal-Usul Nenek Moyang Bangsa Indonesia | Pesawat Tempur IPS</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+  html, body { height:100%; }
+  body {
+    background:#07111f; color:white; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+
+  /* ========== LOADING SCREEN ========== */
+  #loader {
+    position:fixed; inset:0; z-index:9999;
+    background:#07111f;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:24px;
+    transition: opacity .7s ease, visibility .7s ease;
+  }
+  #loader.hide { opacity:0; visibility:hidden; pointer-events:none; }
+
+  #loader::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.06) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    animation:gridMove 12s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes gridMove {
+    from { background-position:0 0; }
+    to { background-position:44px 44px; }
+  }
+
+  #loader::after {
+    content:''; position:absolute;
+    width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(14,165,233,0.35), transparent 65%);
+    filter:blur(90px);
+    animation:orbPulse 3s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes orbPulse {
+    0%,100% { transform:scale(1); opacity:.6; }
+    50% { transform:scale(1.15); opacity:1; }
+  }
+
+  /* ========== LOGO MGE 3D ========== */
+  .mge-logo-wrap {
+    position:relative; z-index:1;
+    width:150px; height:150px;
+    display:flex; align-items:center; justify-content:center;
+    animation:logoFloat 3s ease-in-out infinite;
+  }
+  @keyframes logoFloat {
+    0%, 100% { transform:translateY(0); }
+    50% { transform:translateY(-8px); }
+  }
+  .mge-ring-outer {
+    position:absolute; inset:0;
+    border-radius:50%;
+    border:2px solid transparent;
+    border-top-color:#38bdf8;
+    border-right-color:#818cf8;
+    border-bottom-color:transparent;
+    border-left-color:#a78bfa;
+    animation:spinRing 1.6s linear infinite;
+    filter:drop-shadow(0 0 8px rgba(56,189,248,0.9));
+  }
+  .mge-ring-inner {
+    position:absolute; inset:12px;
+    border-radius:50%;
+    border:1.5px dashed rgba(56,189,248,0.5);
+    animation:spinRingReverse 4s linear infinite;
+  }
+  @keyframes spinRing { to { transform:rotate(360deg); } }
+  @keyframes spinRingReverse { to { transform:rotate(-360deg); } }
+
+  .mge-circle {
+    position:absolute; inset:20px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 25%, #1e3a5f 0%, #0b1b30 55%, #050d18 100%);
+    box-shadow:
+      0 0 0 1px rgba(56,189,248,0.35) inset,
+      0 0 24px rgba(14,165,233,0.55),
+      0 0 60px rgba(56,189,248,0.35),
+      inset 0 -8px 20px rgba(0,0,0,0.6);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .mge-circle::before {
+    content:'';
+    position:absolute;
+    top:-50%; left:-50%;
+    width:200%; height:200%;
+    background:conic-gradient(from 0deg, transparent 0%, rgba(56,189,248,0.25) 20%, transparent 40%);
+    animation:shimmer 3s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes shimmer { to { transform:rotate(360deg); } }
+
+  .mge-text {
+    position:relative;
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:44px; font-weight:900;
+    letter-spacing:2px; line-height:1;
+    background:linear-gradient(180deg, #e0f2fe 0%, #38bdf8 45%, #6366f1 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:
+      0 1px 0 rgba(56,189,248,0.4),
+      0 2px 0 rgba(56,189,248,0.3),
+      0 3px 0 rgba(99,102,241,0.3),
+      0 4px 8px rgba(0,0,0,0.6),
+      0 0 22px rgba(56,189,248,0.85);
+    filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+    animation:textPulse 2.4s ease-in-out infinite;
+    z-index:2;
+    transform:perspective(500px) rotateX(6deg);
+  }
+  @keyframes textPulse {
+    0%, 100% {
+      filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+      transform:perspective(500px) rotateX(6deg) scale(1);
+    }
+    50% {
+      filter:drop-shadow(0 0 22px rgba(56,189,248,1));
+      transform:perspective(500px) rotateX(6deg) scale(1.05);
+    }
+  }
+  .mge-text::after {
+    content:'MGE';
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(255,255,255,0.85) 0%, transparent 55%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    pointer-events:none; z-index:3;
+  }
+
+  .brand-text {
+    position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+    gap:10px; margin-top:4px;
+    animation:fadeInUp .9s ease .2s both;
+  }
+  .brand-text .brand-line {
+    width:26px; height:1px;
+    background:linear-gradient(90deg, transparent, #38bdf8, transparent);
+  }
+  .brand-text .brand-label {
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:13px; font-weight:700;
+    letter-spacing:5px; text-transform:uppercase;
+    background:linear-gradient(90deg, #38bdf8 0%, #a78bfa 50%, #38bdf8 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:brandShine 3.5s linear infinite;
+    white-space:nowrap;
+  }
+  @keyframes brandShine {
+    0% { background-position:0% 50%; }
+    100% { background-position:200% 50%; }
+  }
+
+  .loader-title {
+    position:relative; z-index:1;
+    font-size:15px; font-weight:bold;
+    letter-spacing:4px; text-transform:uppercase;
+    color:#cbd5e1;
+    animation:fadeInUp .8s ease .3s both;
+  }
+  .loader-sub {
+    position:relative; z-index:1;
+    color:#64748b; font-size:11px;
+    letter-spacing:2px; text-transform:uppercase;
+    animation:fadeInUp .8s ease .4s both;
+  }
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(10px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .loader-bar {
+    position:relative; z-index:1;
+    width:240px; height:4px;
+    background:#132941; border-radius:4px;
+    overflow:hidden; margin-top:4px;
+    animation:fadeInUp .8s ease .5s both;
+  }
+  .loader-bar-fill {
+    height:100%; width:0%;
+    background:linear-gradient(90deg,#0ea5e9,#38bdf8,#818cf8);
+    border-radius:4px;
+    box-shadow:0 0 12px rgba(56,189,248,0.7);
+    animation:loadFill 1.8s cubic-bezier(.65,.05,.36,1) forwards;
+  }
+  @keyframes loadFill {
+    0% { width:0%; }
+    40% { width:45%; }
+    70% { width:75%; }
+    100% { width:100%; }
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    padding:14px 5%; display:flex; justify-content:space-between; align-items:center;
+    background:#0b1b30; border-bottom:2px solid #0ea5e9;
+    flex-shrink:0; z-index:50;
+  }
+  .logo { font-size:16px; font-weight:bold; color:#38bdf8; display:flex; align-items:center; gap:8px; }
+  .back-btn {
+    color:white; text-decoration:none; background:#0ea5e9; padding:8px 18px;
+    border-radius:8px; font-weight:bold; font-size:13px; transition:.3s;
+  }
+  .back-btn:hover { background:#0284c7; }
+
+  /* ========== PROGRESS BAR ========== */
+  .progress-wrap {
+    height:4px; background:#132941; position:relative; flex-shrink:0;
+  }
+  .progress-fill {
+    height:100%; background:linear-gradient(90deg,#0ea5e9,#38bdf8);
+    width:0%; transition:width .5s ease;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout { flex:1; display:flex; overflow:hidden; }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar {
+    width:290px; background:#0b1b30; border-right:1px solid #1b3b5d;
+    overflow-y:auto; flex-shrink:0; padding:20px 0;
+  }
+  .sidebar::-webkit-scrollbar { width:6px; }
+  .sidebar::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:3px; }
+
+  .sidebar-title {
+    padding:0 20px 15px; font-size:12px; font-weight:bold;
+    color:#64748b; letter-spacing:1.5px; text-transform:uppercase;
+  }
+
+  .nav-item {
+    display:flex; align-items:center; gap:12px;
+    padding:12px 20px; cursor:pointer;
+    border-left:4px solid transparent;
+    transition:.25s; font-size:14px; color:#cbd5e1;
+  }
+  .nav-item:hover { background:#132941; color:#38bdf8; }
+  .nav-item.active {
+    background:#132941; color:#38bdf8;
+    border-left-color:#38bdf8; font-weight:bold;
+  }
+  .nav-item .num {
+    width:26px; height:26px; border-radius:50%;
+    background:#1b3b5d; color:#94a3b8;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:bold; flex-shrink:0;
+    transition:.25s;
+  }
+  .nav-item.active .num { background:#0ea5e9; color:white; }
+  .nav-item.done .num { background:#065f46; color:#10b981; }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex:1; overflow-y:auto; position:relative; scroll-behavior:smooth;
+  }
+  .main::-webkit-scrollbar { width:8px; }
+  .main::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:4px; }
+
+  .page {
+    display:none;
+    padding:40px 6% 120px;
+    max-width:900px; margin:0 auto;
+    animation: slideIn .4s ease;
+  }
+  .page.active { display:block; }
+  @keyframes slideIn {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .page-badge {
+    display:inline-block; padding:5px 14px;
+    background:#132941; color:#38bdf8;
+    border-radius:20px; font-size:12px;
+    font-weight:bold; margin-bottom:12px;
+    border:1px solid #2a4a6a;
+  }
+  .page-title { font-size:30px; margin-bottom:8px; line-height:1.3; }
+  .page-title span { color:#38bdf8; }
+  .page-subtitle {
+    color:#94a3b8; font-size:14px; margin-bottom:30px;
+    padding-bottom:20px; border-bottom:2px solid #1b3b5d;
+  }
+
+  .page h3 { color:#7dd3fc; font-size:17px; margin:22px 0 10px; }
+  .page h4 { color:#a5b4fc; font-size:15px; margin:18px 0 8px; }
+  .page p { color:#cbd5e1; margin-bottom:12px; text-align:justify; line-height:1.75; }
+  .page ul, .page ol { color:#cbd5e1; margin:10px 0 15px 25px; }
+  .page ul li, .page ol li { margin-bottom:8px; line-height:1.7; }
+
+  .highlight {
+    background:linear-gradient(135deg,#132941,#0f2337);
+    border-left:4px solid #38bdf8;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#e0f2fe; font-size:14px; line-height:1.7;
+  }
+  .highlight strong { color:#38bdf8; }
+
+  .contoh {
+    background:linear-gradient(135deg,#0f2a1a,#0a1f12);
+    border-left:4px solid #10b981;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#d1fae5; font-size:14px; line-height:1.7;
+  }
+  .contoh strong { color:#34d399; }
+
+  .warning {
+    background:linear-gradient(135deg,#2a1a0f,#1f1308);
+    border-left:4px solid #f59e0b;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#fef3c7; font-size:14px; line-height:1.7;
+  }
+  .warning strong { color:#fbbf24; }
+
+  table {
+    width:100%; border-collapse:collapse; margin:16px 0;
+    background:#132941; border-radius:10px; overflow:hidden; font-size:13px;
+  }
+  table th {
+    background:#0ea5e9; color:white; padding:12px;
+    text-align:left; font-size:13px;
+  }
+  table td {
+    padding:12px; color:#cbd5e1;
+    border-bottom:1px solid #1b3b5d;
+    vertical-align:top; line-height:1.6;
+  }
+  table tr:last-child td { border-bottom:none; }
+  table tr:nth-child(even) td { background:#0f2337; }
+
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:15px 0; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:15px; margin:15px 0; }
+  .mini-card {
+    background:#132941; border-radius:10px; padding:18px;
+    border:1px solid #2a4a6a; transition:.3s;
+  }
+  .mini-card:hover { border-color:#38bdf8; transform:translateY(-3px); }
+  .mini-card .icon { font-size:30px; margin-bottom:8px; }
+  .mini-card h4 { color:#38bdf8; font-size:15px; margin-bottom:6px; }
+  .mini-card p { font-size:13px; color:#94a3b8; margin:0; text-align:left; }
+
+  .peta-konsep {
+    background:#132941; border-radius:15px; padding:25px;
+    text-align:center; border:2px dashed #38bdf8; margin:15px 0;
+  }
+  .peta-konsep .node {
+    display:inline-block; padding:10px 20px; border-radius:10px;
+    font-weight:bold; font-size:13px; margin:5px;
+  }
+  .peta-konsep .node.utama { background:#0ea5e9; color:white; font-size:15px; padding:14px 28px; }
+  .peta-konsep .node.sub { background:#1b3b5d; color:#7dd3fc; }
+  .peta-konsep .node.detail { background:#132941; color:#94a3b8; border:1px solid #2a4a6a; }
+  .peta-konsep .arrow { color:#38bdf8; font-size:22px; display:block; margin:4px 0; }
+
+  .glosarium-item {
+    background:#132941; border-radius:10px; padding:14px 18px;
+    margin-bottom:10px; border-left:4px solid #a855f7;
+    transition:.3s;
+  }
+  .glosarium-item:hover { transform:translateX(5px); }
+  .glosarium-item strong { color:#c084fc; font-size:14px; }
+  .glosarium-item span { color:#cbd5e1; font-size:13px; }
+
+  .soal-item {
+    background:#132941; border-radius:10px; padding:18px 22px;
+    margin-bottom:15px; border-left:4px solid #f59e0b;
+  }
+  .soal-item .nomor { color:#fbbf24; font-weight:bold; font-size:13px; }
+  .soal-item .pertanyaan { color:#e0f2fe; font-size:14px; margin:8px 0; line-height:1.6; }
+  .soal-item .pilihan { color:#94a3b8; font-size:13px; margin-left:15px; line-height:1.8; }
+  .soal-item .jawaban {
+    margin-top:10px; padding:12px 15px; background:#0f2a1a;
+    border-radius:8px; color:#d1fae5; font-size:13px; display:none; line-height:1.6;
+  }
+  .soal-item .jawaban.show { display:block; animation:slideIn .3s ease; }
+  .toggle-btn {
+    margin-top:8px; padding:6px 14px; background:#1b3b5d; border:1px solid #2a4a6a;
+    border-radius:6px; color:#7dd3fc; font-size:12px; cursor:pointer;
+    transition:.2s;
+  }
+  .toggle-btn:hover { background:#2a4a6a; }
+
+  .proyek {
+    background:linear-gradient(135deg,#1a0f2a,#2a1a3a);
+    border-radius:15px; padding:25px; border:2px solid #a855f7;
+  }
+  .proyek ol { color:#e9d5ff; margin-left:20px; }
+  .proyek ol li { margin-bottom:10px; line-height:1.7; }
+
+  /* ========== FOOTER NAV ========== */
+  .footer-nav {
+    position:fixed; bottom:0; left:290px; right:0;
+    background:#0b1b30; border-top:1px solid #1b3b5d;
+    padding:14px 6%; display:flex; justify-content:space-between;
+    align-items:center; z-index:40;
+  }
+  .footer-nav button {
+    padding:12px 24px; border:none; border-radius:10px;
+    font-weight:bold; font-size:14px; cursor:pointer;
+    transition:.3s; display:flex; align-items:center; gap:8px;
+  }
+  .nav-prev { background:#1b3b5d; color:#94a3b8; }
+  .nav-prev:hover:not(:disabled) { background:#2a4a6a; color:white; }
+  .nav-prev:disabled { opacity:.3; cursor:not-allowed; }
+  .nav-next {
+    background:linear-gradient(135deg,#0ea5e9,#0284c7); color:white;
+    box-shadow:0 4px 15px rgba(14,165,233,0.3);
+  }
+  .nav-next:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(14,165,233,0.5); }
+  .nav-next:disabled { opacity:.3; cursor:not-allowed; }
+
+  .page-counter { color:#64748b; font-size:13px; font-weight:bold; }
+
+  .menu-toggle {
+    display:none; background:#0ea5e9; border:none; color:white;
+    padding:8px 12px; border-radius:8px; font-size:18px; cursor:pointer;
+  }
+
+  @media (max-width: 800px) {
+    .sidebar {
+      position:fixed; top:0; left:0; bottom:0; z-index:100;
+      transform:translateX(-100%); transition:.3s;
+      box-shadow:4px 0 20px rgba(0,0,0,0.5);
+    }
+    .sidebar.open { transform:translateX(0); }
+    .sidebar-overlay {
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6);
+      z-index:99;
+    }
+    .sidebar-overlay.show { display:block; }
+    .menu-toggle { display:block; }
+    .footer-nav { left:0; padding:12px 4%; }
+    .footer-nav button { padding:10px 16px; font-size:12px; }
+    .page { padding:25px 5% 100px; }
+    .page-title { font-size:22px; }
+    .grid-2, .grid-3 { grid-template-columns:1fr; }
+    .logo span.fulllogo { display:none; }
+    .loader-title { font-size:13px; letter-spacing:3px; }
+    .loader-bar { width:200px; }
+    .mge-logo-wrap { width:120px; height:120px; }
+    .mge-text { font-size:34px; }
+    .brand-text .brand-label { font-size:11px; letter-spacing:4px; }
+    .brand-text .brand-line { width:18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== LOADING SCREEN ========== -->
+<div id="loader">
+  <div class="mge-logo-wrap">
+    <div class="mge-ring-outer"></div>
+    <div class="mge-ring-inner"></div>
+    <div class="mge-circle">
+      <div class="mge-text">MGE</div>
+    </div>
+  </div>
+
+  <div class="brand-text">
+    <span class="brand-line"></span>
+    <span class="brand-label">MAEDA GAMES EDU</span>
+    <span class="brand-line"></span>
+  </div>
+
+  <div class="loader-title">Memuat Materi</div>
+
+  <div class="loader-bar">
+    <div class="loader-bar-fill"></div>
+  </div>
+
+  <div class="loader-sub">Bab 4 · Asal-Usul Nenek Moyang</div>
+</div>
+
+<header>
+  <div class="logo">
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    📜 <span class="fulllogo">SEJARAH — BAB 4</span>
+  </div>
+  <a href="sejarah.html" class="back-btn">← Menu Bab</a>
+</header>
+
+<div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+  <!-- SIDEBAR NAV -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">📑 Daftar Materi</div>
+    <div class="nav-item active" onclick="goTo(0)">
+      <span class="num">1</span> Pengertian Nenek Moyang
+    </div>
+    <div class="nav-item" onclick="goTo(1)">
+      <span class="num">2</span> Teori Asal-Usul
+    </div>
+    <div class="nav-item" onclick="goTo(2)">
+      <span class="num">3</span> Ras di Indonesia
+    </div>
+    <div class="nav-item" onclick="goTo(3)">
+      <span class="num">4</span> Proto Melayu
+    </div>
+    <div class="nav-item" onclick="goTo(4)">
+      <span class="num">5</span> Deutro Melayu
+    </div>
+    <div class="nav-item" onclick="goTo(5)">
+      <span class="num">6</span> Bangsa Austronesia
+    </div>
+    <div class="nav-item" onclick="goTo(6)">
+      <span class="num">7</span> Bangsa Melanesoid
+    </div>
+    <div class="nav-item" onclick="goTo(7)">
+      <span class="num">8</span> Jalur Migrasi
+    </div>
+    <div class="nav-item" onclick="goTo(8)">
+      <span class="num">9</span> Bukti Migrasi
+    </div>
+    <div class="nav-item" onclick="goTo(9)">
+      <span class="num">10</span> Kebudayaan Megalitikum
+    </div>
+    <div class="nav-item" onclick="goTo(10)">
+      <span class="num">11</span> Warisan Budaya
+    </div>
+    <div class="nav-item" onclick="goTo(11)">
+      <span class="num">12</span> Bahasa Austronesia
+    </div>
+    <div class="nav-item" onclick="goTo(12)">
+      <span class="num">13</span> Peta Konsep
+    </div>
+    <div class="nav-item" onclick="goTo(13)">
+      <span class="num">14</span> Ringkasan
+    </div>
+    <div class="nav-item" onclick="goTo(14)">
+      <span class="num">15</span> Glosarium
+    </div>
+    <div class="nav-item" onclick="goTo(15)">
+      <span class="num">16</span> Soal Latihan
+    </div>
+    <div class="nav-item" onclick="goTo(16)">
+      <span class="num">17</span> Proyek Siswa
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main" id="main">
+
+    <!-- ===== PAGE 1: PENGERTIAN NENEK MOYANG ===== -->
+    <section class="page active">
+      <div class="page-badge">📖 MATERI 1 dari 17</div>
+      <h2 class="page-title">Pengertian <span>Nenek Moyang</span></h2>
+      <p class="page-subtitle">Siapa sebenarnya nenek moyang bangsa Indonesia?</p>
+
+      <p><strong style="color:#38bdf8">Nenek moyang</strong> adalah orang-orang yang menjadi leluhur dari suatu bangsa — mereka yang hidup di masa lampau dan menurunkan generasi-generasi berikutnya, termasuk kita hari ini.</p>
+
+      <p>Pertanyaan tentang asal-usul nenek moyang bangsa Indonesia telah lama menjadi bahan penelitian para ahli — dari arkeolog, antropolog, sejarawan, hingga ahli bahasa.</p>
+
+      <h3>Mengapa Penting Dipelajari?</h3>
+      <ul>
+        <li><strong>Mengenal identitas</strong> — siapa kita dan dari mana kita berasal.</li>
+        <li><strong>Memahami keberagaman</strong> — Indonesia memiliki ratusan suku bangsa.</li>
+        <li><strong>Menghargai warisan budaya</strong> — adat, bahasa, dan tradisi kita.</li>
+        <li><strong>Melatih berpikir ilmiah</strong> — belajar dari berbagai bukti dan teori.</li>
+      </ul>
+
+      <h3>Dari Mana Bukti Asal-Usul Nenek Moyang?</h3>
+      <table>
+        <tr><th>Bidang Ilmu</th><th>Bukti yang Dipelajari</th></tr>
+        <tr><td><strong>Arkeologi</strong></td><td>Fosil manusia, alat batu, kapak, gerabah, situs purbakala</td></tr>
+        <tr><td><strong>Antropologi</strong></td><td>Ciri fisik manusia, ras, kebudayaan</td></tr>
+        <tr><td><strong>Linguistik</strong></td><td>Kesamaan bahasa Austronesia di seluruh Nusantara</td></tr>
+        <tr><td><strong>Genetika</strong></td><td>DNA manusia modern untuk melacak garis keturunan</td></tr>
+        <tr><td><strong>Etnologi</strong></td><td>Adat istiadat, kepercayaan, tradisi suku bangsa</td></tr>
+      </table>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Asal-usul nenek moyang bangsa Indonesia tidak ditentukan oleh satu bukti saja, melainkan <strong>gabungan dari banyak bukti</strong> di berbagai bidang ilmu.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Penemuan fosil <em>Homo erectus</em> di Sangiran (Jawa Tengah) dan <em>Homo floresiensis</em> di Flores (NTT) menunjukkan bahwa wilayah Nusantara telah dihuni sejak ratusan ribu tahun lalu.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 2: TEORI ASAL-USUL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 2 dari 17</div>
+      <h2 class="page-title">Teori <span>Asal-Usul Bangsa Indonesia</span></h2>
+      <p class="page-subtitle">Berbagai pandangan para ahli tentang asal nenek moyang</p>
+
+      <p>Ada beberapa teori utama yang menjelaskan asal-usul bangsa Indonesia. Setiap teori didukung bukti yang berbeda.</p>
+
+      <h3>1. 🌏 Teori Yunnan (Teori Migrasi dari Asia)</h3>
+      <p>Dikemukakan oleh <strong>J.H.C. Kern</strong> dan didukung <strong>R. von Heine Geldern</strong>. Teori ini menyatakan bahwa bangsa Indonesia berasal dari <strong>Yunnan (Tiongkok selatan)</strong> yang bermigrasi ke Nusantara.</p>
+      <ul>
+        <li>Mereka adalah bangsa Austronesia yang menyebar ke selatan melalui jalur darat dan laut.</li>
+        <li>Bukti: kesamaan budaya megalitikum (menhir, dolmen) antara Yunnan dan Nusantara.</li>
+      </ul>
+
+      <h3>2. 🏝️ Teori Out of Taiwan</h3>
+      <p>Teori yang paling banyak didukung saat ini. Menyatakan bahwa bangsa Austronesia berasal dari <strong>Taiwan</strong> sekitar 5.000–4.000 SM, lalu menyebar ke Filipina, Indonesia, hingga Pasifik.</p>
+      <ul>
+        <li>Bukti: kesamaan bahasa Austronesia yang luas.</li>
+        <li>Bukti: kesamaan teknologi pertanian dan bahari.</li>
+        <li>Didukung penelitian genetika modern.</li>
+      </ul>
+
+      <h3>3. 🌊 Teori Out of Sundaland</h3>
+      <p>Menyatakan bahwa sebagian nenek moyang Indonesia sudah ada di <strong>Paparan Sunda</strong> (kawasan Asia Tenggara termasuk Indonesia) sejak zaman es, lalu menyebar setelah air laut naik.</p>
+      <ul>
+        <li>Didukung oleh ahli genetika <strong>Stephen Oppenheimer</strong>.</li>
+        <li>Bukti: keberadaan situs-situs tua di wilayah Paparan Sunda.</li>
+      </ul>
+
+      <h3>4. 🇮🇩 Teori Nusantara</h3>
+      <p>Dikemukakan oleh <strong>Moh. Yamin</strong> dan <strong>Slamet Muljana</strong>. Menyatakan bahwa <strong>bangsa Indonesia berasal dari Nusantara sendiri</strong> — bukan dari luar.</p>
+      <ul>
+        <li>Bukti: penemuan fosil manusia purba di Sangiran dan Trinil.</li>
+        <li>Menekankan bahwa Nusantara adalah <em>titik awal</em> peradaban, bukan titik akhir migrasi.</li>
+      </ul>
+
+      <div class="warning">
+        ⚠️ <strong>Penting:</strong> Teori-teori ini tidak saling meniadakan. Banyak ahli meyakini bahwa asal-usul bangsa Indonesia adalah <strong>gabungan berbagai gelombang migrasi</strong> — dari utara, timur, dan dari Nusantara sendiri.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Pelajaran:</strong> Ilmu pengetahuan terus berkembang. Teori baru bisa muncul jika ada bukti baru. Inilah cara berpikir ilmiah — tidak fanatik pada satu teori, tetap terbuka terhadap bukti.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 3: RAS DI INDONESIA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 3 dari 17</div>
+      <h2 class="page-title">Ras di <span>Indonesia</span></h2>
+      <p class="page-subtitle">Keberagaman fisik sebagai jejak migrasi</p>
+
+      <p>Berdasarkan penelitian antropologi, penduduk Indonesia dapat dikelompokkan ke dalam beberapa ras utama. Namun, perlu ditekankan bahwa <strong>pengelompokan ras tidak menunjukkan tinggi-rendahnya suatu bangsa</strong> — hanya perbedaan ciri fisik.</p>
+
+      <h3>Kelompok Ras di Indonesia</h3>
+      <table>
+        <tr><th>Ras</th><th>Ciri Fisik</th><th>Wilayah</th></tr>
+        <tr><td><strong>Ras Mongoloid (Melayu)</strong></td><td>Kulit sawo matang, rambut lurus, mata sipit</td><td>Sebagian besar Indonesia</td></tr>
+        <tr><td><strong>Ras Melanesoid (Papua)</strong></td><td>Kulit gelap, rambut keriting, bibir tebal</td><td>Papua, Maluku, Nusa Tenggara Timur</td></tr>
+        <tr><td><strong>Ras Kaukasoid</strong></td><td>Kulit putih, hidung mancung</td><td>Keturunan Eropa, Arab, India</td></tr>
+        <tr><td><strong>Ras Weddoid</strong></td><td>Ciri antara Mongoloid &amp; Melanesoid</td><td>Suku Kubu (Sumatra), Toala (Sulawesi)</td></tr>
+      </table>
+
+      <h3>Ras Melayu sebagai Mayoritas</h3>
+      <p>Sebagian besar penduduk Indonesia termasuk dalam <strong>ras Melayu</strong>, yang terbagi dalam dua kelompok besar:</p>
+      <ul>
+        <li><strong>Melayu Tua (Proto Melayu)</strong> — datang lebih dulu, sekitar 1500 SM.</li>
+        <li><strong>Melayu Muda (Deutro Melayu)</strong> — datang kemudian, sekitar 500 SM.</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Suku Batak, Dayak, dan Toraja dianggap keturunan Proto Melayu. Suku Jawa, Bugis, dan Minangkabau dianggap keturunan Deutro Melayu. Perbedaan ini terlihat dari budaya dan ciri fisik.
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Renungan:</strong> Keberagaman ras bukan alasan perpecahan, tetapi <strong>kekayaan bangsa</strong>. Semboyan "Bhinneka Tunggal Ika" mengajarkan kita bersatu dalam perbedaan.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 4: PROTO MELAYU ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 4 dari 17</div>
+      <h2 class="page-title">Bangsa <span>Proto Melayu (Melayu Tua)</span></h2>
+      <p class="page-subtitle">Gelombang pertama bangsa Austronesia ke Nusantara</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Proto Melayu</strong> atau <strong>Melayu Tua</strong> adalah gelombang pertama bangsa Austronesia yang datang ke Nusantara, sekitar <strong>1500 SM</strong> (Zaman Batu Baru / Neolitikum).</p>
+
+      <h3>Ciri-Ciri Proto Melayu</h3>
+      <ul>
+        <li>Rambut lurus, kulit sawo matang.</li>
+        <li>Membawa kebudayaan <strong>Neolitikum</strong> (batu muda).</li>
+        <li>Alat khas: <strong>kapak persegi</strong> dan <strong>kapak lonjong</strong>.</li>
+        <li>Hidup dari bertani, berburu, dan menetap.</li>
+      </ul>
+
+      <h3>Jalur Migrasi Proto Melayu</h3>
+      <table>
+        <tr><th>Jalur</th><th>Rute</th></tr>
+        <tr><td><strong>Jalur Barat</strong></td><td>Dari Yunnan → Selat Malaka → Sumatra → Jawa</td></tr>
+        <tr><td><strong>Jalur Timur</strong></td><td>Dari Yunnan → Filipina → Sulawesi → Maluku</td></tr>
+      </table>
+
+      <h3>Keturunan Proto Melayu Hari Ini</h3>
+      <p>Beberapa suku di Indonesia yang dianggap keturunan Proto Melayu:</p>
+      <ul>
+        <li><strong>Suku Batak</strong> (Sumatra Utara)</li>
+        <li><strong>Suku Dayak</strong> (Kalimantan)</li>
+        <li><strong>Suku Toraja</strong> (Sulawesi Selatan)</li>
+        <li><strong>Suku Nias</strong> (Sumatra Utara)</li>
+        <li><strong>Suku Sasak</strong> (Lombok)</li>
+      </ul>
+
+      <h3>Kebudayaan Proto Melayu</h3>
+      <ul>
+        <li>Mengenal pertanian sederhana (ladang berpindah).</li>
+        <li>Mengenal kepercayaan animisme dan dinamisme.</li>
+        <li>Membuat gerabah, tenun, dan rumah panggung.</li>
+        <li>Membawa tradisi <strong>megalitikum</strong> (batu besar) — menhir, dolmen, sarkofagus.</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Contoh warisan:</strong> Rumah adat Batak (rumah bolon) dan rumah adat Toraja (tongkonan) memiliki kemiripan dengan rumah panggung masyarakat Austronesia — bukti nyata warisan Proto Melayu yang masih hidup hingga kini.
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Kesimpulan:</strong> Proto Melayu membawa kebudayaan pertanian dan batu muda, menjadi salah satu fondasi budaya Nusantara.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 5: DEUTRO MELAYU ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 5 dari 17</div>
+      <h2 class="page-title">Bangsa <span>Deutro Melayu (Melayu Muda)</span></h2>
+      <p class="page-subtitle">Gelombang kedua yang mendominasi Nusantara</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Deutro Melayu</strong> atau <strong>Melayu Muda</strong> adalah gelombang kedua bangsa Austronesia yang datang ke Nusantara, sekitar <strong>500 SM</strong> (Zaman Logam / Perundagian).</p>
+
+      <h3>Ciri-Ciri Deutro Melayu</h3>
+      <ul>
+        <li>Rambut lurus, kulit sawo matang, wajah lebih halus.</li>
+        <li>Membawa kebudayaan <strong>Zaman Logam</strong> (perunggu &amp; besi).</li>
+        <li>Alat khas: <strong>kapak corong</strong>, <strong>nekara</strong>, <strong>bejana perunggu</strong>.</li>
+        <li>Lebih maju dari Proto Melayu.</li>
+        <li>Mampu mengusir Proto Melayu ke pedalaman.</li>
+      </ul>
+
+      <h3>Jalur Migrasi Deutro Melayu</h3>
+      <p>Deutro Melayu umumnya menempuh <strong>jalur barat</strong>: dari Yunnan → Vietnam → Selat Malaka → Sumatra → Jawa → sebagian ke Nusa Tenggara.</p>
+
+      <h3>Keturunan Deutro Melayu Hari Ini</h3>
+      <ul>
+        <li><strong>Suku Jawa</strong></li>
+        <li><strong>Suku Bugis &amp; Makassar</strong></li>
+        <li><strong>Suku Minangkabau</strong></li>
+        <li><strong>Suku Bali</strong></li>
+        <li><strong>Suku Sunda</strong></li>
+      </ul>
+
+      <h3>Dampak Kedatangan Deutro Melayu</h3>
+      <ul>
+        <li>Proto Melayu <strong>terdorong ke pedalaman</strong> dan hutan.</li>
+        <li>Terjadi <strong>asimilasi</strong> budaya antara dua kelompok.</li>
+        <li>Membawa kemajuan teknologi logam.</li>
+        <li>Menjadi mayoritas penduduk Indonesia saat ini.</li>
+      </ul>
+
+      <h3>Perbandingan Proto &amp; Deutro Melayu</h3>
+      <table>
+        <tr><th>Aspek</th><th>Proto Melayu</th><th>Deutro Melayu</th></tr>
+        <tr><td>Waktu datang</td><td>± 1500 SM</td><td>± 500 SM</td></tr>
+        <tr><td>Zaman</td><td>Neolitikum (batu muda)</td><td>Logam (perunggu &amp; besi)</td></tr>
+        <tr><td>Alat khas</td><td>Kapak persegi &amp; lonjong</td><td>Kapak corong &amp; nekara</td></tr>
+        <tr><td>Jalur</td><td>Barat &amp; Timur</td><td>Barat</td></tr>
+        <tr><td>Keturunan</td><td>Batak, Dayak, Toraja, Nias</td><td>Jawa, Bugis, Minang, Bali, Sunda</td></tr>
+      </table>
+
+      <div class="contoh">
+        🌰 <strong>Penting diingat:</strong> Proto Melayu bukan berarti "lebih rendah" dari Deutro Melayu. Keduanya memiliki kontribusi besar dalam membentuk keanekaragaman budaya Indonesia.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 6: BANGSA AUSTRONESIA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 6 dari 17</div>
+      <h2 class="page-title">Bangsa <span>Austronesia</span></h2>
+      <p class="page-subtitle">Induk dari Proto &amp; Deutro Melayu</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Austronesia</strong> berasal dari bahasa Latin: <em>auster</em> (selatan) dan <em>nesos</em> (pulau). Jadi, Austronesia berarti "<strong>kepulauan selatan</strong>".</p>
+
+      <p>Bangsa Austronesia adalah rumpun bangsa yang mendiami wilayah luas — dari <strong>Taiwan, Filipina, Indonesia, Malaysia, hingga Selandia Baru (Polinesia)</strong>.</p>
+
+      <h3>Ciri-Ciri Bangsa Austronesia</h3>
+      <ul>
+        <li>Bahasa serumpun (rumpun Austronesia).</li>
+        <li>Budaya bahari — mahir berlayar.</li>
+        <li>Bertani (padi, talas, ubi).</li>
+        <li>Hidup menetap dan bercocok tanam.</li>
+        <li>Mengenal kepercayaan leluhur.</li>
+      </ul>
+
+      <h3>Wilayah Sebaran Austronesia</h3>
+      <table>
+        <tr><th>Kawasan</th><th>Negara/Wilayah</th></tr>
+        <tr><td><strong>Asia Tenggara</strong></td><td>Indonesia, Malaysia, Filipina, Vietnam, Thailand</td></tr>
+        <tr><td><strong>Oseania</strong></td><td>Papua Nugini, Fiji, Samoa, Tonga, Selandia Baru</td></tr>
+        <tr><td><strong>Asia Pasifik</strong></td><td>Madagaskar (Afrika), Taiwan, Mikronesia</td></tr>
+      </table>
+
+      <h3>Kemampuan Bahari Austronesia</h3>
+      <p>Bangsa Austronesia adalah <strong>pelaut ulung</strong> — mereka menjelajahi samudra luas menggunakan perahu bercadik dan memanfaatkan angin muson. Kemampuan inilah yang memungkinkan mereka menyebar ke hampir separuh dunia.</p>
+
+      <div class="contoh">
+        🌰 <strong>Fakta menarik:</strong> Bahasa Indonesia, bahasa Tagalog (Filipina), bahasa Maori (Selandia Baru), dan bahasa Madagaskar (Afrika) memiliki <strong>kesamaan kata</strong> karena berasal dari rumpun Austronesia — bukti nyata persebaran bangsa ini!
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Proto Melayu dan Deutro Melayu adalah <strong>dua gelombang</strong> dari bangsa Austronesia yang datang ke Nusantara. Mereka adalah leluhur mayoritas bangsa Indonesia hari ini.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 7: BANGSA MELANESOID ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 7 dari 17</div>
+      <h2 class="page-title">Bangsa <span>Melanesoid (Papua)</span></h2>
+      <p class="page-subtitle">Gelombang yang lebih tua di wilayah timur Nusantara</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Bangsa Melanesoid</strong> adalah ras yang mendiami wilayah timur Nusantara — terutama <strong>Papua, Maluku, dan Nusa Tenggara Timur</strong>. Kata <em>Melanesia</em> berarti "<strong>kepulauan orang kulit hitam</strong>".</p>
+
+      <h3>Ciri Fisik Melanesoid</h3>
+      <ul>
+        <li>Kulit gelap.</li>
+        <li>Rambut keriting.</li>
+        <li>Bibir tebal, hidung lebar.</li>
+        <li>Postur tubuh relatif besar.</li>
+      </ul>
+
+      <h3>Asal-Usul Melanesoid</h3>
+      <p>Bangsa Melanesoid diperkirakan datang ke Nusantara <strong>lebih awal</strong> dari Austronesia, sekitar <strong>70.000–50.000 tahun lalu</strong>, saat masih terjadi migrasi dari Afrika ke Asia.</p>
+
+      <p>Mereka menyebar melalui jalur selatan: dari Afrika → India → Asia Tenggara → Papua → Pasifik. Puncak persebaran terjadi pada zaman es terakhir.</p>
+
+      <h3>Keturunan Melanesoid Hari Ini</h3>
+      <ul>
+        <li><strong>Suku-suku di Papua</strong> (Dani, Asmat, Amungme, Mee, dll.)</li>
+        <li><strong>Suku Aru</strong> (Maluku)</li>
+        <li><strong>Suku-suku di NTT</strong> (sebagian)</li>
+        <li><strong>Bangsa Aborigin</strong> (Australia)</li>
+        <li><strong>Bangsa-bangsa di Pasifik</strong> (Fiji, Vanuatu)</li>
+      </ul>
+
+      <h3>Kebudayaan Melanesoid</h3>
+      <ul>
+        <li>Mengenal bercocok tanam ubi, talas, dan sagu.</li>
+        <li>Berburu dan menangkap ikan.</li>
+        <li>Kepercayaan animisme &amp; roh leluhur.</li>
+        <li>Seni ukir (patung Asmat).</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Ukiran patung Asmat di Papua dan tarian perang suku-suku Melanesia menunjukkan kekayaan budaya yang unik dan berbeda dari budaya Austronesia — bukti bahwa Indonesia adalah rumah bagi berbagai ras.
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Renungan:</strong> Keberagaman ras di Indonesia adalah <strong>warisan sejarah panjang</strong>. Setiap ras memiliki budaya yang indah dan berharga.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 8: JALUR MIGRASI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 8 dari 17</div>
+      <h2 class="page-title">Jalur <span>Migrasi ke Nusantara</span></h2>
+      <p class="page-subtitle">Peta perjalanan nenek moyang bangsa Indonesia</p>
+
+      <p>Migrasi ke Nusantara terjadi melalui dua jalur utama: <strong>jalur barat</strong> dan <strong>jalur timur</strong>. Selain itu, ada juga jalur dari selatan untuk bangsa Melanesoid.</p>
+
+      <h3>Jalur Migrasi Utama</h3>
+      <table>
+        <tr><th>Jalur</th><th>Rute</th><th>Bangsa</th></tr>
+        <tr><td><strong>Jalur Barat</strong></td><td>Yunnan → Vietnam → Selat Malaka → Sumatra → Jawa</td><td>Proto &amp; Deutro Melayu</td></tr>
+        <tr><td><strong>Jalur Timur</strong></td><td>Yunnan → Taiwan → Filipina → Sulawesi → Maluku</td><td>Proto Melayu</td></tr>
+        <tr><td><strong>Jalur Selatan</strong></td><td>Afrika → India → Asia Tenggara → Papua</td><td>Melanesoid</td></tr>
+      </table>
+
+      <h3>Alasan Migrasi</h3>
+      <ul>
+        <li><strong>Tekanan penduduk</strong> di daerah asal.</li>
+        <li><strong>Bencana alam</strong> (banjir, gempa, wabah).</li>
+        <li><strong>Mencari lahan subur</strong> untuk pertanian.</li>
+        <li><strong>Petualangan bahari</strong> — kemampuan berlayar.</li>
+        <li><strong>Perang dan konflik</strong> di daerah asal.</li>
+        <li><strong>Perubahan iklim</strong> — naiknya air laut setelah zaman es.</li>
+      </ul>
+
+      <h3>Proses Asimilasi</h3>
+      <p>Ketika bangsa pendatang bertemu dengan penduduk asli, terjadi <strong>asimilasi</strong> — perpaduan budaya yang melahirkan budaya baru. Inilah yang membuat Indonesia memiliki <strong>keanekaragaman budaya yang luar biasa</strong>.</p>
+
+      <div class="contoh">
+        🌰 <strong>Contoh asimilasi:</strong> Di Maluku, budaya Austronesia bertemu dengan budaya Melanesoid, menghasilkan budaya <strong>Ambon</strong> yang khas — perpaduan antara dua ras dengan tradisi maritim dan pertanian.
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Kesimpulan:</strong> Migrasi ke Nusantara bukan satu kali, tetapi <strong>berlapis-lapis</strong> sepanjang ribuan tahun. Inilah yang membuat bangsa Indonesia begitu beragam.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 9: BUKTI MIGRASI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 9 dari 17</div>
+      <h2 class="page-title">Bukti-Bukti <span>Migrasi Austronesia</span></h2>
+      <p class="page-subtitle">Data ilmiah yang mendukung teori migrasi</p>
+
+      <p>Teori migrasi bangsa Austronesia didukung oleh berbagai bukti ilmiah dari berbagai bidang ilmu:</p>
+
+      <h3>1. Bukti Arkeologis</h3>
+      <ul>
+        <li>Penemuan <strong>kapak persegi</strong> &amp; <strong>kapak lonjong</strong> di berbagai wilayah Nusantara.</li>
+        <li>Penemuan <strong>kapak corong</strong> &amp; <strong>nekara perunggu</strong> di Sumatra, Jawa, Bali.</li>
+        <li>Situs-situs megalitikum (menhir, dolmen, sarkofagus).</li>
+        <li>Kesamaan bentuk gerabah di Taiwan, Filipina, dan Indonesia.</li>
+      </ul>
+
+      <h3>2. Bukti Linguistik</h3>
+      <p>Bahasa-bahasa Austronesia memiliki banyak kesamaan kata dasar, seperti:</p>
+      <table>
+        <tr><th>Indonesia</th><th>Tagalog (Filipina)</th><th>Maori (Selandia Baru)</th><th>Madagaskar</th></tr>
+        <tr><td>mata</td><td>mata</td><td>mata</td><td>maso</td></tr>
+        <tr><td>telinga</td><td>tainga</td><td>taringa</td><td>tadiny</td></tr>
+        <tr><td>dua</td><td>dalawa</td><td>rua</td><td>roa</td></tr>
+      </table>
+      <p>Kesamaan ini menunjukkan bahwa bahasa-bahasa tersebut <strong>berasal dari satu induk yang sama</strong> — bahasa Proto-Austronesia.</p>
+
+      <h3>3. Bukti Genetika (DNA)</h3>
+      <p>Penelitian DNA modern menunjukkan bahwa mayoritas penduduk Indonesia memiliki <strong>kesamaan genetik</strong> dengan penduduk Taiwan, Filipina, dan Polinesia — mendukung teori <strong>Out of Taiwan</strong>.</p>
+
+      <h3>4. Bukti Budaya</h3>
+      <ul>
+        <li>Tradisi <strong>rumah panggung</strong> di seluruh Nusantara.</li>
+        <li>Tradisi bercocok tanam padi.</li>
+        <li>Kepercayaan pada roh leluhur.</li>
+        <li>Seni tenun dan batik.</li>
+        <li>Upacara adat yang mirip di berbagai daerah.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Kesimpulan:</strong> Bukti-bukti dari berbagai bidang ilmu <strong>saling menguatkan</strong>. Inilah cara kerja ilmu pengetahuan sejarah — menggunakan banyak sumber untuk menyimpulkan.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Kata "mata" hampir sama di berbagai bahasa Austronesia. Ini bukan kebetulan, melainkan bukti bahwa bangsa-bangsa tersebut pernah menjadi satu rumpun.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 10: KEBUDAYAAN MEGALITIKUM ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 10 dari 17</div>
+      <h2 class="page-title">Kebudayaan <span>Megalitikum</span></h2>
+      <p class="page-subtitle">Warisan budaya batu besar dari nenek moyang</p>
+
+      <p><strong style="color:#38bdf8">Megalitikum</strong> berasal dari bahasa Yunani: <em>megas</em> (besar) dan <em>lithos</em> (batu). Jadi, megalitikum berarti "<strong>zaman batu besar</strong>".</p>
+
+      <p>Kebudayaan ini dibawa oleh bangsa Austronesia (Proto Melayu) saat bermigrasi ke Nusantara sekitar 1500 SM.</p>
+
+      <h3>Bentuk-Bentuk Bangunan Megalitikum</h3>
+      <table>
+        <tr><th>Bentuk</th><th>Pengertian</th><th>Fungsi</th></tr>
+        <tr><td><strong>Menhir</strong></td><td>Tugu batu tegak</td><td>Pemujaan roh leluhur</td></tr>
+        <tr><td><strong>Dolmen</strong></td><td>Meja batu</td><td>Altar persembahan / kubur</td></tr>
+        <tr><td><strong>Sarkofagus</strong></td><td>Peti batu</td><td>Kubur orang penting</td></tr>
+        <tr><td><strong>Kubur batu</strong></td><td>Lubang batu panjang</td><td>Kubur keluarga</td></tr>
+        <tr><td><strong>Waruga</strong></td><td>Kubur batu berbentuk rumah</td><td>Kubur (Minahasa)</td></tr>
+        <tr><td><strong>Arca</strong></td><td>Patung batu</td><td>Pemujaan leluhur</td></tr>
+      </table>
+
+      <h3>Peninggalan Megalitikum di Indonesia</h3>
+      <ul>
+        <li><strong>Situs Gunung Padang</strong> (Cianjur, Jawa Barat) — situs megalitikum terbesar di Asia Tenggara.</li>
+        <li><strong>Bori Kalimbuang</strong> (Toraja, Sulawesi Selatan) — menhir raksasa.</li>
+        <li><strong>Waruga</strong> (Minahasa, Sulawesi Utara).</li>
+        <li><strong>Situs Pugung Raharjo</strong> (Lampung).</li>
+        <li><strong>Arca Dwarapala</strong> (berbagai daerah di Jawa).</li>
+      </ul>
+
+      <h3>Warisan Megalitikum yang Masih Hidup</h3>
+      <p>Beberapa tradisi megalitikum masih hidup di Indonesia hingga kini:</p>
+      <ul>
+        <li><strong>Upacara Rambu Solo</strong> (Toraja) — pemakaman adat dengan sesajen.</li>
+        <li><strong>Upacara Pasola</strong> (Sumba) — ritual perang di atas kuda.</li>
+        <li><strong>Tradisi Nillai</strong> (Nias) — tradisi batu lompat.</li>
+        <li><strong>Upacara Kasada</strong> (Tengger) — persembahan ke Gunung Bromo.</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Fakta menarik:</strong> Menhir di Bori Kalimbuang (Toraja) berdiri sejak ribuan tahun lalu dan masih menjadi bagian penting dari budaya masyarakat Toraja hingga hari ini.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 11: WARISAN BUDAYA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 11 dari 17</div>
+      <h2 class="page-title">Warisan <span>Budaya Nenek Moyang</span></h2>
+      <p class="page-subtitle">Jejak budaya yang masih hidup hingga kini</p>
+
+      <p>Bangsa Austronesia mewariskan banyak budaya yang masih hidup di Indonesia hingga hari ini. Warisan ini menjadi identitas bangsa.</p>
+
+      <h3>1. 🏠 Arsitektur Tradisional</h3>
+      <ul>
+        <li><strong>Rumah panggung</strong> — dijumpai di Sumatra (rumah gadang), Kalimantan (rumah betang), Sulawesi (tongkonan).</li>
+        <li><strong>Rumah adat</strong> dengan atap melengkung khas Austronesia.</li>
+        <li><strong>Arsitektur bait</strong> di NTT.</li>
+      </ul>
+
+      <h3>2. 🌾 Pertanian</h3>
+      <ul>
+        <li>Bercocok tanam <strong>padi</strong> dengan sistem irigasi.</li>
+        <li>Sistem <strong>subak</strong> di Bali (warisan dunia UNESCO).</li>
+        <li>Tradisi <strong>sasi</strong> di Maluku (perlindungan laut).</li>
+      </ul>
+
+      <h3>3. 🚢 Tradisi Bahari</h3>
+      <ul>
+        <li>Perahu <strong>cadik</strong> (phinisi dari Bugis).</li>
+        <li>Tradisi <strong>sail</strong> &amp; pelayaran antarpulau.</li>
+        <li>Upacara <strong>Lompat Batu</strong> Nias.</li>
+      </ul>
+
+      <h3>4. 🎨 Seni &amp; Budaya</h3>
+      <ul>
+        <li><strong>Batik</strong> &amp; tenun ikat.</li>
+        <li><strong>Wayang</strong> kulit &amp; golek.</li>
+        <li>Alat musik <strong>gamelan, angklung, sasando</strong>.</li>
+        <li>Tari-tarian daerah.</li>
+      </ul>
+
+      <h3>5. 🧿 Kepercayaan</h3>
+      <ul>
+        <li><strong>Animisme</strong> — percaya pada roh alam.</li>
+        <li><strong>Dinamisme</strong> — percaya pada kekuatan benda.</li>
+        <li>Penghormatan kepada <strong>leluhur</strong> (ngaben di Bali).</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Renungan:</strong> Warisan budaya nenek moyang tidak hanya milik masa lalu, tetapi <strong>milik masa kini dan masa depan</strong>. Kita wajib menjaganya!
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Angklung, wayang, batik, dan subak telah diakui UNESCO sebagai Warisan Budaya Dunia. Semua ini adalah warisan bangsa Austronesia yang kita jaga bersama.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 12: BAHASA AUSTRONESIA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 12 dari 17</div>
+      <h2 class="page-title">Bahasa <span>Austronesia</span></h2>
+      <p class="page-subtitle">Bukti linguistik persebaran nenek moyang</p>
+
+      <h3>Pengertian</h3>
+      <p><strong style="color:#38bdf8">Rumpun bahasa Austronesia</strong> adalah keluarga bahasa yang terdiri dari lebih dari <strong>1.200 bahasa</strong> yang tersebar dari Madagaskar hingga Selandia Baru.</p>
+
+      <p>Bahasa-bahasa ini <strong>berasal dari satu induk yang sama</strong> — bahasa Proto-Austronesia yang diperkirakan digunakan di Taiwan sekitar 5.000 tahun lalu.</p>
+
+      <h3>Persebaran Bahasa Austronesia</h3>
+      <table>
+        <tr><th>Kawasan</th><th>Contoh Bahasa</th></tr>
+        <tr><td><strong>Asia Tenggara</strong></td><td>Indonesia, Melayu, Jawa, Sunda, Tagalog, Cebuano, Vietnam</td></tr>
+        <tr><td><strong>Oseania</strong></td><td>Maori, Fijian, Samoa, Tonga, Hawaii</td></tr>
+        <tr><td><strong>Afrika</strong></td><td>Malagasi (Madagaskar)</td></tr>
+        <tr><td><strong>Taiwan</strong></td><td>Bahasa-bahasa Formosa (induk Austronesia)</td></tr>
+      </table>
+
+      <h3>Kesamaan Kata Austronesia</h3>
+      <p>Perhatikan kesamaan kata berikut — bukti bahwa semua bahasa ini berasal dari induk yang sama:</p>
+      <table>
+        <tr><th>Indonesia</th><th>Jawa</th><th>Tagalog</th><th>Maori</th><th>Malagasi</th></tr>
+        <tr><td>mata</td><td>mripat/mata</td><td>mata</td><td>mata</td><td>maso</td></tr>
+        <tr><td>air</td><td>banyu</td><td>tubig</td><td>wai</td><td>rano</td></tr>
+        <tr><td>rumah</td><td>omah</td><td>bahay</td><td>whare</td><td>trano</td></tr>
+        <tr><td>telinga</td><td>kuping</td><td>tainga</td><td>taringa</td><td>tadiny</td></tr>
+      </table>
+
+      <h3>Bahasa Indonesia sebagai Bahasa Persatuan</h3>
+      <p>Bahasa Indonesia yang kita gunakan sekarang adalah <strong>turunan dari bahasa Melayu</strong> — yang termasuk rumpun Austronesia. Sumpah Pemuda 1928 menetapkan bahasa Indonesia sebagai bahasa persatuan.</p>
+
+      <div class="contoh">
+        🌰 <strong>Fakta menarik:</strong> Orang Indonesia dan orang Madagaskar (Afrika) dapat menemukan beberapa kata yang mirip dalam bahasa mereka. Ini karena nenek moyang orang Madagaskar berasal dari Nusantara — menyeberangi Samudra Hindia ribuan tahun lalu!
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Pelajaran:</strong> Bahasa bukan hanya alat komunikasi — ia adalah <strong>jejak sejarah</strong> yang menyimpan memori persebaran nenek moyang kita.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 13: PETA KONSEP ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 13 dari 17</div>
+      <h2 class="page-title">Peta <span>Konsep</span></h2>
+      <p class="page-subtitle">Ringkasan visual hubungan antar konsep</p>
+
+      <div class="peta-konsep">
+        <div class="node utama">NENEK MOYANG INDONESIA</div>
+        <span class="arrow">↓ terdiri dari</span>
+        <div>
+          <span class="node sub">Bangsa Austronesia</span>
+          <span class="node sub">Bangsa Melanesoid</span>
+        </div>
+        <span class="arrow">↓ Austronesia terbagi</span>
+        <div>
+          <span class="node sub">Proto Melayu</span>
+          <span class="node sub">Deutro Melayu</span>
+        </div>
+        <span class="arrow">↓ bukti migrasi</span>
+        <div>
+          <span class="node detail">Arkeologi</span>
+          <span class="node detail">Linguistik</span>
+          <span class="node detail">Genetika</span>
+          <span class="node detail">Budaya</span>
+        </div>
+        <span class="arrow">↓ warisan budaya</span>
+        <div class="node utama">KEANEKARAGAMAN BUDAYA INDONESIA</div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 14: RINGKASAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 14 dari 17</div>
+      <h2 class="page-title">Ringkasan <span>Bab 4</span></h2>
+      <p class="page-subtitle">Poin-poin penting yang harus diingat</p>
+
+      <ul>
+        <li><strong>Nenek moyang</strong> = leluhur bangsa yang hidup di masa lampau.</li>
+        <li><strong>4 teori asal-usul</strong>: Yunnan, Out of Taiwan, Out of Sundaland, Nusantara.</li>
+        <li><strong>Ras di Indonesia</strong>: Mongoloid (Melayu), Melanesoid, Kaukasoid, Weddoid.</li>
+        <li><strong>Proto Melayu</strong> (1500 SM) — gelombang pertama, membawa budaya Neolitikum, alat kapak persegi &amp; lonjong, keturunan Batak, Dayak, Toraja.</li>
+        <li><strong>Deutro Melayu</strong> (500 SM) — gelombang kedua, membawa budaya logam, alat kapak corong &amp; nekara, keturunan Jawa, Bugis, Minang, Bali.</li>
+        <li><strong>Austronesia</strong> = rumpun bangsa induk Proto &amp; Deutro Melayu.</li>
+        <li><strong>Melanesoid</strong> = ras di Papua, Maluku, NTT; datang lebih awal dari Austronesia.</li>
+        <li><strong>Jalur migrasi</strong>: barat (via Selat Malaka), timur (via Filipina), selatan (jalur Melanesoid).</li>
+        <li><strong>Bukti migrasi</strong>: arkeologi (kapak, nekara), linguistik (bahasa), genetika (DNA), budaya (rumah panggung).</li>
+        <li><strong>Megalitikum</strong> = zaman batu besar — menhir, dolmen, sarkofagus.</li>
+        <li><strong>Warisan budaya</strong>: rumah panggung, batik, wayang, angklung, subak, upacara adat.</li>
+        <li><strong>Bahasa Austronesia</strong>: 1.200 bahasa, dari Madagaskar hingga Selandia Baru.</li>
+      </ul>
+    </section>
+
+    <!-- ===== PAGE 15: GLOSARIUM ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 15 dari 17</div>
+      <h2 class="page-title">Glosarium <span>Istilah Penting</span></h2>
+      <p class="page-subtitle">Kumpulan istilah kunci dalam bab ini</p>
+
+      <div class="glosarium-item"><strong>Animisme</strong><br><span>Kepercayaan pada roh-roh alam.</span></div>
+      <div class="glosarium-item"><strong>Asimilasi</strong><br><span>Perpaduan dua budaya atau lebih menjadi budaya baru.</span></div>
+      <div class="glosarium-item"><strong>Austronesia</strong><br><span>Rumpun bangsa kepulauan selatan yang mendiami dari Taiwan hingga Polinesia.</span></div>
+      <div class="glosarium-item"><strong>Deutro Melayu</strong><br><span>Melayu Muda, gelombang kedua Austronesia (±500 SM) yang membawa budaya logam.</span></div>
+      <div class="glosarium-item"><strong>Dinamisme</strong><br><span>Kepercayaan pada kekuatan gaib benda-benda tertentu.</span></div>
+      <div class="glosarium-item"><strong>Dolmen</strong><br><span>Meja batu megalitikum untuk altar persembahan.</span></div>
+      <div class="glosarium-item"><strong>Kapak Corong</strong><br><span>Kapak perunggu khas Deutro Melayu, berbentuk seperti corong.</span></div>
+      <div class="glosarium-item"><strong>Kapak Lonjong</strong><br><span>Kapak batu lonjong khas Proto Melayu jalur timur.</span></div>
+      <div class="glosarium-item"><strong>Kapak Persegi</strong><br><span>Kapak batu persegi khas Proto Melayu jalur barat.</span></div>
+      <div class="glosarium-item"><strong>Megalitikum</strong><br><span>Zaman batu besar — menhir, dolmen, sarkofagus.</span></div>
+      <div class="glosarium-item"><strong>Melanesoid</strong><br><span>Ras berkulit gelap berambut keriting di Papua, Maluku, dan NTT.</span></div>
+      <div class="glosarium-item"><strong>Menhir</strong><br><span>Tugu batu tegak peninggalan megalitikum.</span></div>
+      <div class="glosarium-item"><strong>Nekara</strong><br><span>Gendang perunggu khas zaman logam.</span></div>
+      <div class="glosarium-item"><strong>Neolitikum</strong><br><span>Zaman batu muda — ditandai dengan alat batu yang sudah dihaluskan.</span></div>
+      <div class="glosarium-item"><strong>Proto Melayu</strong><br><span>Melayu Tua, gelombang pertama Austronesia (±1500 SM) yang membawa budaya Neolitikum.</span></div>
+      <div class="glosarium-item"><strong>Sarkofagus</strong><br><span>Peti batu untuk mengubur orang penting pada zaman megalitikum.</span></div>
+    </section>
+
+    <!-- ===== PAGE 16: SOAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 16 dari 17</div>
+      <h2 class="page-title">Soal Latihan + <span>Pembahasan</span></h2>
+      <p class="page-subtitle">Klik tombol untuk memeriksa jawabanmu</p>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 1</div>
+        <div class="pertanyaan">Bangsa Proto Melayu datang ke Nusantara sekitar tahun...</div>
+        <div class="pilihan">A. 500 SM<br>B. 1500 SM<br>C. 5000 SM<br>D. 1000 M</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Proto Melayu datang sekitar 1500 SM pada zaman Neolitikum.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 2</div>
+        <div class="pertanyaan">Alat khas bangsa Proto Melayu adalah...</div>
+        <div class="pilihan">A. Kapak corong<br>B. Nekara<br>C. Kapak persegi &amp; lonjong<br>D. Bejana perunggu</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Proto Melayu membawa kapak persegi (jalur barat) dan kapak lonjong (jalur timur).</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 3</div>
+        <div class="pertanyaan">Suku Jawa, Bugis, dan Minangkabau dianggap keturunan...</div>
+        <div class="pilihan">A. Proto Melayu<br>B. Deutro Melayu<br>C. Melanesoid<br>D. Kaukasoid</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Suku Jawa, Bugis, Minangkabau, Bali, dan Sunda adalah keturunan Deutro Melayu.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 4</div>
+        <div class="pertanyaan">Rumpun bangsa induk Proto &amp; Deutro Melayu disebut...</div>
+        <div class="pilihan">A. Mongoloid<br>B. Austronesia<br>C. Melanesoid<br>D. Weddoid</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Austronesia adalah rumpun bangsa kepulauan selatan yang menjadi induk Proto &amp; Deutro Melayu.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 5</div>
+        <div class="pertanyaan">Bangsa Melanesoid banyak mendiami wilayah...</div>
+        <div class="pilihan">A. Jawa &amp; Sumatra<br>B. Papua, Maluku, &amp; NTT<br>C. Kalimantan &amp; Sulawesi<br>D. Bali &amp; Lombok</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Bangsa Melanesoid mendiami Papua, Maluku, dan Nusa Tenggara Timur.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 6</div>
+        <div class="pertanyaan">Zaman batu besar dalam kebudayaan nenek moyang disebut...</div>
+        <div class="pilihan">A. Paleolitikum<br>B. Mesolitikum<br>C. Neolitikum<br>D. Megalitikum</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: D.</strong> Megalitikum (megas = besar, lithos = batu) adalah zaman batu besar.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 7</div>
+        <div class="pertanyaan">Tugu batu tegak peninggalan megalitikum disebut...</div>
+        <div class="pilihan">A. Dolmen<br>B. Menhir<br>C. Sarkofagus<br>D. Waruga</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Menhir adalah tugu batu tegak untuk pemujaan roh leluhur.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 8</div>
+        <div class="pertanyaan">Salah satu bukti migrasi Austronesia dari bidang linguistik adalah...</div>
+        <div class="pilihan">A. Penemuan kapak persegi<br>B. Kesamaan kata "mata" di berbagai bahasa<br>C. Penemuan fosil di Sangiran<br>D. Adanya candi Borobudur</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Kesamaan kata "mata" (Indonesia), "mata" (Tagalog), "mata" (Maori) membuktikan rumpun bahasa Austronesia.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 9</div>
+        <div class="pertanyaan">Teori yang menyatakan bangsa Indonesia berasal dari Taiwan adalah...</div>
+        <div class="pilihan">A. Teori Yunnan<br>B. Teori Nusantara<br>C. Teori Out of Taiwan<br>D. Teori Out of Sundaland</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Teori Out of Taiwan menyatakan bangsa Austronesia berasal dari Taiwan lalu menyebar ke Nusantara dan Pasifik.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 10</div>
+        <div class="pertanyaan">Sistem irigasi tradisional Bali yang diakui UNESCO sebagai warisan dunia adalah...</div>
+        <div class="pilihan">A. Subak<br>B. Sasi<br>C. Ngaben<br>D. Rambu Solo</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: A.</strong> Subak adalah sistem irigasi tradisional Bali yang diakui UNESCO sebagai Warisan Budaya Dunia.</div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 17: PROYEK ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 17 dari 17</div>
+      <h2 class="page-title">Proyek / <span>Aktivitas Siswa</span></h2>
+      <p class="page-subtitle">Kerjakan salah satu proyek berikut untuk memperdalam pemahaman</p>
+
+      <div class="proyek">
+        <ol>
+          <li><strong>Buat peta migrasi Austronesia.</strong> Gambar peta Asia-Pasifik. Tandai jalur migrasi Proto Melayu (barat &amp; timur) dengan warna berbeda, dan Deutro Melayu dengan warna lain. Beri keterangan waktu kedatangan.</li>
+          <li><strong>Wawancarai keluarga.</strong> Tanyakan kepada orang tua atau kakek/nenek tentang asal-usul keluarga kalian. Apakah bisa dilacak ke salah satu suku di Indonesia? Presentasikan hasilnya di depan kelas.</li>
+          <li><strong>Kunjungi situs megalitikum.</strong> Cari situs megalitikum terdekat di daerahmu (menhir, dolmen, atau arca). Foto, catat, dan tuliskan deskripsi 200 kata tentang situs tersebut.</li>
+          <li><strong>Buat tabel perbandingan Proto vs Deutro Melayu.</strong> Bandingkan kedua bangsa tersebut dari aspek: waktu, jalur, alat, budaya, dan keturunan. Sajikan dalam bentuk tabel yang rapi.</li>
+          <li><strong>Teliti kesamaan bahasa.</strong> Cari 5 kata dalam bahasa daerahmu dan bandingkan dengan kata yang sama dalam bahasa Tagalog, Maori, atau Malagasi. Tuliskan kesamaan dan perbedaannya — inilah bukti rumpun Austronesia.</li>
+        </ol>
+      </div>
+
+      <div class="highlight" style="text-align:center; margin-top:30px;">
+        🎉 <strong>Selamat!</strong> Kamu telah menyelesaikan seluruh materi Bab 4.
+        Sekarang saatnya uji pemahamanmu dengan kuis!
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="footer-nav">
+  <button class="nav-prev" id="prevBtn" onclick="prev()">← Sebelumnya</button>
+  <span class="page-counter"><span id="currentNum">1</span> / 17</span>
+  <button class="nav-next" id="nextBtn" onclick="next()">Selanjutnya →</button>
+</div>
+
+<script>
+const pages = document.querySelectorAll('.page');
+const navItems = document.querySelectorAll('.nav-item');
+const progressFill = document.getElementById('progressFill');
+const currentNum = document.getElementById('currentNum');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const mainArea = document.getElementById('main');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+let currentPage = 0;
+const totalPages = pages.length;
+
+function goTo(index) {
+  if (index < 0 || index >= totalPages) return;
+
+  pages[currentPage].classList.remove('active');
+  navItems[currentPage].classList.remove('active');
+  navItems[currentPage].classList.add('done');
+
+  currentPage = index;
+
+  pages[currentPage].classList.add('active');
+  navItems[currentPage].classList.add('active');
+
+  progressFill.style.width = ((currentPage + 1) / totalPages * 100) + '%';
+  currentNum.textContent = currentPage + 1;
+
+  prevBtn.disabled = currentPage === 0;
+  if (currentPage === totalPages - 1) {
+    nextBtn.textContent = '🎮 Mulai Kuis';
+  } else {
+    nextBtn.textContent = 'Selanjutnya →';
+  }
+
+  mainArea.scrollTop = 0;
+  if (window.innerWidth <= 800) {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+}
+
+function next() {
+  if (currentPage === totalPages - 1) {
+    window.location.href = 'sejarah-bab4-kuis.html';
+    return;
+  }
+  goTo(currentPage + 1);
+}
+
+function prev() {
+  goTo(currentPage - 1);
+}
+
+function toggleSidebar() {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+}
+
+function toggleJawaban(btn) {
+  const jawaban = btn.nextElementSibling;
+  if (jawaban.classList.contains('show')) {
+    jawaban.classList.remove('show');
+    btn.textContent = 'Lihat Jawaban';
+  } else {
+    jawaban.classList.add('show');
+    btn.textContent = 'Sembunyikan';
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+goTo(0);
+
+/* ========== LOADING SCREEN ========== */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }, 2200);
+});
+
+setTimeout(() => {
+  const loader = document.getElementById('loader');
+  if (loader && !loader.classList.contains('hide')) {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }
+}, 4500);
+</script>
+
+</body>
+</html>
