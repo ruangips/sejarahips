@@ -580,6 +580,14 @@
             margin-bottom: 24px;
         }
 
+        .cta-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
         .btn-primary {
             display: inline-flex;
             align-items: center;
@@ -679,6 +687,8 @@
             .nav-badge { display: none; }
             .grid-wrap { padding: 0 20px 80px; }
             .cta { padding: 32px 24px; }
+            .cta-actions { flex-direction: column; }
+            .btn-primary { width: 100%; justify-content: center; }
             .footer-inner { flex-direction: column; text-align: center; }
             .bg-orb { filter: blur(90px); opacity: 0.35; }
         }
@@ -729,7 +739,7 @@
 
         <p class="hero-sub">
             Pilih bab di bawah ini untuk mulai belajar dan uji pengetahuanmu.
-            Materi disusun sesuai Kurikulum Merdeka Fase D, lengkap dengan latihan soal dan proyek siswa.
+            Materi disusun sesuai Kurikulum Merdeka Fase D, lengkap dengan latihan soal, soal literasi sejarah, dan proyek siswa.
         </p>
 
         <div class="hero-stats">
@@ -858,11 +868,13 @@
         <div class="cta">
             <div class="cta-content">
                 <h3>🎯 Siap Uji Pemahamanmu?</h3>
-                <p>Setiap bab dilengkapi soal latihan interaktif dan proyek siswa yang seru.</p>
-                <a href="https://ruangips.github.io/sejarahips/1_konsepdasarilmusejarah.html"
-                   target="_blank" rel="noopener noreferrer" class="btn-primary">
-                    🚀 Mulai dari Bab 1
-                </a>
+                <p>Kerjakan soal latihan literasi sejarah SMP — asah kemampuan membaca sumber, menganalisis, dan menafsirkan peristiwa sejarah.</p>
+                <div class="cta-actions">
+                    <a href="https://ruangips.github.io/sejarahips/soalliterasisejarah.html"
+                       target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        📖 Mulai Soal Literasi Sejarah
+                    </a>
+                </div>
             </div>
         </div>
     </div>
