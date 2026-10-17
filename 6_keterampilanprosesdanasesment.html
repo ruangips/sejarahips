@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bab 6 — Keterampilan Proses & Asesmen | Pesawat Tempur IPS</title>
+<title>Bab 6 — Keterampilan Proses Sejarah | Pesawat Tempur IPS</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
   html, body { height:100%; }
@@ -12,7 +12,6 @@
     display:flex; flex-direction:column;
   }
 
-  /* ========== LOADING SCREEN ========== */
   #loader {
     position:fixed; inset:0; z-index:9999;
     background:#07111f;
@@ -52,7 +51,6 @@
     50% { transform:scale(1.15); opacity:1; }
   }
 
-  /* ========== LOGO MGE 3D ========== */
   .mge-logo-wrap {
     position:relative; z-index:1;
     width:150px; height:150px;
@@ -209,7 +207,6 @@
     100% { width:100%; }
   }
 
-  /* ========== HEADER ========== */
   header {
     padding:14px 5%; display:flex; justify-content:space-between; align-items:center;
     background:#0b1b30; border-bottom:2px solid #0ea5e9;
@@ -222,7 +219,6 @@
   }
   .back-btn:hover { background:#0284c7; }
 
-  /* ========== PROGRESS BAR ========== */
   .progress-wrap {
     height:4px; background:#132941; position:relative; flex-shrink:0;
   }
@@ -231,10 +227,8 @@
     width:0%; transition:width .5s ease;
   }
 
-  /* ========== LAYOUT ========== */
   .layout { flex:1; display:flex; overflow:hidden; }
 
-  /* ========== SIDEBAR ========== */
   .sidebar {
     width:290px; background:#0b1b30; border-right:1px solid #1b3b5d;
     overflow-y:auto; flex-shrink:0; padding:20px 0;
@@ -268,7 +262,6 @@
   .nav-item.active .num { background:#0ea5e9; color:white; }
   .nav-item.done .num { background:#065f46; color:#10b981; }
 
-  /* ========== MAIN CONTENT ========== */
   .main {
     flex:1; overflow-y:auto; position:relative; scroll-behavior:smooth;
   }
@@ -406,7 +399,6 @@
   .proyek ol { color:#e9d5ff; margin-left:20px; }
   .proyek ol li { margin-bottom:10px; line-height:1.7; }
 
-  /* ========== FOOTER NAV ========== */
   .footer-nav {
     position:fixed; bottom:0; left:290px; right:0;
     background:#0b1b30; border-top:1px solid #1b3b5d;
@@ -465,7 +457,6 @@
 </head>
 <body>
 
-<!-- ========== LOADING SCREEN ========== -->
 <div id="loader">
   <div class="mge-logo-wrap">
     <div class="mge-ring-outer"></div>
@@ -474,20 +465,16 @@
       <div class="mge-text">MGE</div>
     </div>
   </div>
-
   <div class="brand-text">
     <span class="brand-line"></span>
     <span class="brand-label">MAEDA GAMES EDU</span>
     <span class="brand-line"></span>
   </div>
-
   <div class="loader-title">Memuat Materi</div>
-
   <div class="loader-bar">
     <div class="loader-bar-fill"></div>
   </div>
-
-  <div class="loader-sub">Bab 6 · Keterampilan Proses & Asesmen</div>
+  <div class="loader-sub">Bab 6 · Keterampilan Proses Sejarah</div>
 </div>
 
 <header>
@@ -499,79 +486,38 @@
 </header>
 
 <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
-
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 
 <div class="layout">
-
-  <!-- SIDEBAR NAV -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-title">📑 Daftar Materi</div>
-    <div class="nav-item active" onclick="goTo(0)">
-      <span class="num">1</span> Pengertian Keterampilan Proses
-    </div>
-    <div class="nav-item" onclick="goTo(1)">
-      <span class="num">2</span> Mengapa Penting?
-    </div>
-    <div class="nav-item" onclick="goTo(2)">
-      <span class="num">3</span> Enam Tahapan
-    </div>
-    <div class="nav-item" onclick="goTo(3)">
-      <span class="num">4</span> Mengamati
-    </div>
-    <div class="nav-item" onclick="goTo(4)">
-      <span class="num">5</span> Menanya
-    </div>
-    <div class="nav-item" onclick="goTo(5)">
-      <span class="num">6</span> Mengumpulkan Informasi
-    </div>
-    <div class="nav-item" onclick="goTo(6)">
-      <span class="num">7</span> Mengolah Informasi
-    </div>
-    <div class="nav-item" onclick="goTo(7)">
-      <span class="num">8</span> Merefleksi
-    </div>
-    <div class="nav-item" onclick="goTo(8)">
-      <span class="num">9</span> Mengomunikasikan
-    </div>
-    <div class="nav-item" onclick="goTo(9)">
-      <span class="num">10</span> Berpikir Kritis
-    </div>
-    <div class="nav-item" onclick="goTo(10)">
-      <span class="num">11</span> Berpikir Kreatif
-    </div>
-    <div class="nav-item" onclick="goTo(11)">
-      <span class="num">12</span> Asesmen Formatif & Sumatif
-    </div>
-    <div class="nav-item" onclick="goTo(12)">
-      <span class="num">13</span> Peta Konsep
-    </div>
-    <div class="nav-item" onclick="goTo(13)">
-      <span class="num">14</span> Ringkasan
-    </div>
-    <div class="nav-item" onclick="goTo(14)">
-      <span class="num">15</span> Glosarium
-    </div>
-    <div class="nav-item" onclick="goTo(15)">
-      <span class="num">16</span> Soal Latihan
-    </div>
-    <div class="nav-item" onclick="goTo(16)">
-      <span class="num">17</span> Proyek Siswa
-    </div>
+    <div class="nav-item active" onclick="goTo(0)"><span class="num">1</span> Pengertian Keterampilan Proses</div>
+    <div class="nav-item" onclick="goTo(1)"><span class="num">2</span> Mengapa Penting &amp; Profil Pancasila</div>
+    <div class="nav-item" onclick="goTo(2)"><span class="num">3</span> Alur 8 Tahapan</div>
+    <div class="nav-item" onclick="goTo(3)"><span class="num">4</span> Tahap 1–2: Mengamati &amp; Menanya</div>
+    <div class="nav-item" onclick="goTo(4)"><span class="num">5</span> Tahap 3–4: Kumpulkan &amp; Olah</div>
+    <div class="nav-item" onclick="goTo(5)"><span class="num">6</span> Tahap 5–6: Uji Konsep &amp; Evaluasi-Refleksi</div>
+    <div class="nav-item" onclick="goTo(6)"><span class="num">7</span> Tahap 7–8: Komunikasikan &amp; Rencana Lanjut</div>
+    <div class="nav-item" onclick="goTo(7)"><span class="num">8</span> Kolaborasi dalam Penelitian</div>
+    <div class="nav-item" onclick="goTo(8)"><span class="num">9</span> Contoh Penerapan</div>
+    <div class="nav-item" onclick="goTo(9)"><span class="num">10</span> Peta Konsep</div>
+    <div class="nav-item" onclick="goTo(10)"><span class="num">11</span> Ringkasan</div>
+    <div class="nav-item" onclick="goTo(11)"><span class="num">12</span> Glosarium</div>
+    <div class="nav-item" onclick="goTo(12)"><span class="num">13</span> Soal Latihan</div>
+    <div class="nav-item" onclick="goTo(13)"><span class="num">14</span> Proyek Siswa</div>
   </aside>
 
-  <!-- MAIN CONTENT -->
   <main class="main" id="main">
 
-    <!-- ===== PAGE 1: PENGERTIAN ===== -->
+    <!-- ===== PAGE 1 ===== -->
     <section class="page active">
-      <div class="page-badge">📖 MATERI 1 dari 17</div>
+      <div class="page-badge">📖 MATERI 1 dari 14</div>
       <h2 class="page-title">Pengertian <span>Keterampilan Proses Sejarah</span></h2>
-      <p class="page-subtitle">Belajar sejarah bukan hanya hafal, tetapi berpikir dan bertindak seperti sejarawan</p>
+      <p class="page-subtitle">Belajar sejarah bukan hanya hafal — tetapi meneliti dan berpikir seperti sejarawan</p>
 
-      <p><strong style="color:#38bdf8">Keterampilan proses sejarah</strong> adalah serangkaian kemampuan yang digunakan untuk <em>meneliti, memahami, dan menyimpulkan</em> peristiwa masa lalu seperti yang dilakukan oleh seorang sejarawan.</p>
+      <p><strong style="color:#38bdf8">Keterampilan proses sejarah</strong> adalah rangkaian kemampuan yang digunakan untuk <em>mengamati, meneliti, menganalisis, menyimpulkan, dan mengomunikasikan</em> peristiwa masa lalu seperti yang dilakukan seorang sejarawan.</p>
 
-      <p>Dalam Kurikulum Merdeka Fase D, keterampilan proses menjadi salah satu elemen inti pembelajaran sejarah — bukan sekadar pelengkap. Ini karena sejarah bukan hanya tentang <em>apa yang terjadi</em>, tetapi juga <em>bagaimana kita mengetahui dan memahami</em> apa yang terjadi.</p>
+      <p>Dalam Capaian Pembelajaran IPS Fase D, keterampilan proses bukan pelengkap — melainkan <strong>elemen inti</strong> yang menjiwai seluruh pembelajaran sejarah. Artinya, belajar sejarah bukan hanya mengetahui <em>apa yang terjadi</em>, tetapi juga <em>bagaimana kita mengetahui dan memaknai</em> peristiwa tersebut.</p>
 
       <h3>Bedanya Hafalan dan Berpikir Sejarah</h3>
       <table>
@@ -580,29 +526,32 @@
         <tr><td>Menerima informasi begitu saja</td><td>Memeriksa dan menguji kebenaran sumber</td></tr>
         <tr><td>Mengandalkan satu buku</td><td>Membandingkan berbagai sumber</td></tr>
         <tr><td>Berhenti pada "apa"</td><td>Bertanya "mengapa" dan "bagaimana"</td></tr>
+        <tr><td>Berhenti di dalam kelas</td><td>Menghasilkan karya dan tindak lanjut nyata</td></tr>
       </table>
 
       <h3>Contoh Sederhana</h3>
-      <p>Misalnya kamu membaca bahwa "Proklamasi dibacakan pada 17 Agustus 1945".<br>
-      <strong>Jika hanya hafalan</strong> — kamu akan mengingat tanggal itu saja.<br>
-      <strong>Jika menggunakan keterampilan proses</strong> — kamu akan bertanya: siapa yang menyusun teksnya? mengapa dipilih tanggal itu? bagaimana reaksi rakyat? apa dampak jangka panjangnya?</p>
+      <p>Misalnya kamu membaca "Proklamasi dibacakan pada 17 Agustus 1945".</p>
+      <ul>
+        <li><strong>Jika hanya hafalan</strong> — kamu mengingat tanggal itu saja.</li>
+        <li><strong>Jika menggunakan keterampilan proses</strong> — kamu akan bertanya: siapa yang menyusun teks? mengapa dipilih tanggal itu? bagaimana reaksi rakyat? apa dampaknya hari ini? lalu kamu meneliti dan menyimpulkannya, bahkan merancang aksi untuk memaknai kemerdekaan.</li>
+      </ul>
 
       <div class="highlight">
-        💡 <strong>Intinya:</strong> Sejarah bukan sekadar pelajaran hafalan. Sejarah adalah <strong>latihan berpikir</strong> — seperti detektif yang memeriksa bukti dan menyimpulkan fakta.
+        💡 <strong>Intinya:</strong> Sejarah adalah <strong>latihan berpikir</strong> — bukan sekadar hafalan tanggal. Inilah yang membuat belajar sejarah bermakna bagi kehidupan.
       </div>
 
       <div class="contoh">
-        🌰 <strong>Analogi:</strong> Sejarawan mirip detektif. Ia mengumpulkan petunjuk (sumber), memeriksanya (kritik), menyimpulkan (interpretasi), lalu menyusun laporan (historiografi).
+        🌰 <strong>Analogi:</strong> Sejarawan mirip detektif. Ia mengumpulkan petunjuk (sumber), memeriksanya (kritik), menyimpulkan (interpretasi), menyusun laporan (historiografi), lalu merancang tindak lanjut dari temuannya.
       </div>
     </section>
 
-    <!-- ===== PAGE 2: MENGAPA PENTING ===== -->
+    <!-- ===== PAGE 2 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 2 dari 17</div>
-      <h2 class="page-title">Mengapa <span>Keterampilan Proses Penting?</span></h2>
-      <p class="page-subtitle">Manfaat bagi pelajar, masyarakat, dan masa depan</p>
+      <div class="page-badge">📖 MATERI 2 dari 14</div>
+      <h2 class="page-title">Mengapa Penting &amp; <span>Kaitan Profil Pelajar Pancasila</span></h2>
+      <p class="page-subtitle">Manfaat keterampilan proses bagi pelajar dan warga negara</p>
 
-      <p>Di era informasi yang serba cepat, kemampuan <strong>menyaring, memeriksa, dan menafsirkan</strong> informasi menjadi sangat penting. Berita palsu (hoaks) mudah menyebar, termasuk berita sejarah yang tidak akurat.</p>
+      <p>Di era informasi yang serba cepat, kemampuan <strong>menyaring, memeriksa, dan menafsirkan</strong> informasi menjadi sangat penting. Berita palsu (hoaks) mudah menyebar, termasuk klaim sejarah yang tidak akurat.</p>
 
       <h3>Manfaat Keterampilan Proses</h3>
       <div class="grid-2">
@@ -624,28 +573,28 @@
         <div class="mini-card">
           <div class="icon">🤝</div>
           <h4>Kolaborasi</h4>
-          <p>Bekerja sama meneliti sejarah daerah bersama teman.</p>
+          <p>Bekerja sama meneliti dan menyusun sejarah daerah.</p>
         </div>
         <div class="mini-card">
-          <div class="icon">📚</div>
-          <h4>Kemandirian</h4>
-          <p>Mampu meneliti dan belajar sejarah secara mandiri.</p>
+          <div class="icon">🎯</div>
+          <h4>Tindak Lanjut</h4>
+          <p>Mengubah temuan sejarah menjadi aksi nyata yang bermanfaat.</p>
         </div>
         <div class="mini-card">
           <div class="icon">🇮🇩</div>
           <h4>Karakter Pancasila</h4>
-          <p>Menjadi warga negara yang bernalar kritis dan kreatif.</p>
+          <p>Menjadi warga negara yang bernalar kritis, kreatif, dan peduli.</p>
         </div>
       </div>
 
-      <h3>Kaitannya dengan Profil Pelajar Pancasila</h3>
+      <h3>Kaitan dengan Profil Pelajar Pancasila</h3>
       <table>
-        <tr><th>Dimensi</th><th>Wujud dalam Sejarah</th></tr>
+        <tr><th>Dimensi</th><th>Wujud dalam Pembelajaran Sejarah</th></tr>
         <tr><td><strong>Bernalar Kritis</strong></td><td>Menguji kebenaran sumber, menganalisis sebab-akibat</td></tr>
         <tr><td><strong>Kreatif</strong></td><td>Menyajikan hasil penelitian dengan cara inovatif</td></tr>
         <tr><td><strong>Berkebinekaan Global</strong></td><td>Menghargai perspektif budaya lain dalam sejarah</td></tr>
         <tr><td><strong>Mandiri</strong></td><td>Meneliti sendiri tanpa hanya bergantung pada buku</td></tr>
-        <tr><td><strong>Bergotong Royong</strong></td><td>Bekerja sama mengumpulkan sejarah lokal</td></tr>
+        <tr><td><strong>Bergotong Royong</strong></td><td>Bekerja sama mengumpulkan dan mengolah sejarah lokal</td></tr>
         <tr><td><strong>Berakhlak Mulia</strong></td><td>Jujur dalam menuliskan sumber dan temuan</td></tr>
       </table>
 
@@ -654,27 +603,29 @@
       </div>
 
       <div class="contoh">
-        🌰 <strong>Contoh nyata:</strong> Ketika membaca berita viral tentang sejarah yang belum tentu benar, pelajar yang terampil akan memeriksa sumbernya, membandingkan dengan sumber resmi, dan baru memutuskan untuk percaya.
+        🌰 <strong>Contoh nyata:</strong> Ketika membaca konten viral tentang "sejarah tersembunyi", pelajar yang terampil akan memeriksa sumbernya, membandingkan dengan sumber resmi, lalu memutuskan berdasarkan bukti.
       </div>
     </section>
 
-    <!-- ===== PAGE 3: ENAM TAHAPAN ===== -->
+    <!-- ===== PAGE 3 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 3 dari 17</div>
-      <h2 class="page-title">Enam <span>Tahapan Keterampilan Proses</span></h2>
-      <p class="page-subtitle">Alur kerja sejarawan dari awal hingga akhir</p>
+      <div class="page-badge">📖 MATERI 3 dari 14</div>
+      <h2 class="page-title">Alur <span>8 Tahapan Keterampilan Proses</span></h2>
+      <p class="page-subtitle">Rangkaian kerja sejarawan dari awal hingga tindak lanjut</p>
 
-      <p>Keterampilan proses sejarah terdiri dari <strong>enam tahapan utama</strong> yang saling berkaitan, seperti rantai kerja seorang detektif.</p>
+      <p>Berdasarkan Capaian Pembelajaran IPS Fase D, keterampilan proses sejarah terdiri dari <strong>delapan tahapan</strong> yang saling berkaitan — seperti rantai kerja seorang peneliti.</p>
 
-      <h3>Enam Tahapan</h3>
+      <h3>Delapan Tahapan</h3>
       <table>
-        <tr><th>No</th><th>Tahapan</th><th>Kegiatan</th></tr>
-        <tr><td>1</td><td><strong>Mengamati</strong></td><td>Melihat, mengamati, dan mencatat fakta atau sumber sejarah di sekitar kita</td></tr>
-        <tr><td>2</td><td><strong>Menanya</strong></td><td>Merumuskan pertanyaan-pertanyaan kritis tentang peristiwa sejarah</td></tr>
+        <tr><th>No</th><th>Tahapan</th><th>Kegiatan Utama</th></tr>
+        <tr><td>1</td><td><strong>Mengamati</strong></td><td>Menggunakan pancaindra untuk mencatat fenomena, benda, dan peristiwa sejarah di sekitar kita</td></tr>
+        <tr><td>2</td><td><strong>Menanya</strong></td><td>Merumuskan pertanyaan kritis dan relevan tentang objek yang diamati</td></tr>
         <tr><td>3</td><td><strong>Mengumpulkan Informasi</strong></td><td>Mencari sumber-sumber sejarah: buku, arsip, wawancara, situs</td></tr>
         <tr><td>4</td><td><strong>Mengolah Informasi</strong></td><td>Mengkritik, membandingkan, dan menafsirkan sumber</td></tr>
-        <tr><td>5</td><td><strong>Merefleksi</strong></td><td>Merenungkan makna peristiwa dan pelajarannya bagi masa kini</td></tr>
-        <tr><td>6</td><td><strong>Mengomunikasikan</strong></td><td>Menyajikan hasil penelitian: laporan, presentasi, infografis, video</td></tr>
+        <tr><td>5</td><td><strong>Menguji &amp; Menerapkan Konsep</strong></td><td>Menguji pemahaman melalui studi kasus, simulasi, atau eksperimen kecil</td></tr>
+        <tr><td>6</td><td><strong>Mengevaluasi &amp; Merefleksi</strong></td><td>Menilai hasil penelitian, merefleksikan makna dan pelajaran</td></tr>
+        <tr><td>7</td><td><strong>Mengomunikasikan</strong></td><td>Menyajikan hasil penelitian secara jelas dan menarik</td></tr>
+        <tr><td>8</td><td><strong>Menyusun Rencana Tindak Lanjut</strong></td><td>Merancang aksi nyata dari hasil penelitian secara kolaboratif</td></tr>
       </table>
 
       <h3>Alur Sederhana</h3>
@@ -687,30 +638,34 @@
         <span class="arrow">↓</span>
         <div class="node sub">MENGOLAH INFORMASI</div>
         <span class="arrow">↓</span>
-        <div class="node sub">MEREFLEKSI</div>
+        <div class="node sub">MENGUJI &amp; MENERAPKAN KONSEP</div>
         <span class="arrow">↓</span>
-        <div class="node utama">MENGOMUNIKASIKAN</div>
+        <div class="node sub">MENGEVALUASI &amp; MEREFLEKSI</div>
+        <span class="arrow">↓</span>
+        <div class="node sub">MENGOMUNIKASIKAN</div>
+        <span class="arrow">↓</span>
+        <div class="node utama">RENCANA TINDAK LANJUT</div>
       </div>
 
       <div class="highlight">
-        💡 <strong>Penting diingat:</strong> Enam tahapan ini bukan langkah kaku — kadang kita perlu kembali ke tahap sebelumnya jika menemukan hal baru. Tetapi secara umum, alur ini membantu kita meneliti secara sistematis.
+        💡 <strong>Benang merah:</strong> Semua tahapan dilakukan secara <strong>kolaboratif</strong> — bekerja sama dengan teman, guru, atau masyarakat. Sejarah bukan kerja sendirian!
       </div>
 
       <div class="contoh">
-        🌰 <strong>Contoh penerapan:</strong> Saat meneliti asal-usul nama kampungmu — kamu mulai dengan mengamati (melihat papan nama), menanya (mengapa namanya begitu?), mengumpulkan informasi (wawancara sesepuh), mengolah (bandingkan versi), merefleksi (apa maknanya?), dan mengomunikasikan (tulis laporan).
+        🌰 <strong>Catatan:</strong> Alur ini tidak selalu kaku. Kadang peneliti harus kembali ke tahap sebelumnya saat menemukan data baru. Tetapi secara umum, alur ini membantu kerja penelitian menjadi sistematis.
       </div>
     </section>
 
-    <!-- ===== PAGE 4: MENGAMATI ===== -->
+    <!-- ===== PAGE 4 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 4 dari 17</div>
-      <h2 class="page-title">Tahap 1: <span>Mengamati</span></h2>
-      <p class="page-subtitle">Langkah awal melihat jejak masa lalu di sekitar kita</p>
+      <div class="page-badge">📖 MATERI 4 dari 14</div>
+      <h2 class="page-title">Tahap 1–2: <span>Mengamati &amp; Menanya</span></h2>
+      <p class="page-subtitle">Langkah awal melihat jejak masa lalu dan merumuskan pertanyaan kritis</p>
 
-      <h3>Pengertian</h3>
+      <h3>1. 👁️ Mengamati</h3>
       <p><strong style="color:#38bdf8">Mengamati</strong> adalah kegiatan menggunakan pancaindra untuk memperhatikan benda, peristiwa, atau lingkungan sebagai sumber sejarah.</p>
 
-      <h3>Apa yang Bisa Diamati?</h3>
+      <p><strong>Apa yang bisa diamati?</strong></p>
       <ul>
         <li><strong>Benda bersejarah</strong> — prasasti, monumen, bangunan tua, keramik, senjata.</li>
         <li><strong>Lingkungan</strong> — nama tempat, tata kota, situs bersejarah.</li>
@@ -719,46 +674,17 @@
         <li><strong>Cerita masyarakat</strong> — legenda, mitos, cerita rakyat.</li>
       </ul>
 
-      <h3>Cara Mengamati yang Baik</h3>
-      <table>
-        <tr><th>Prinsip</th><th>Penjelasan</th></tr>
-        <tr><td><strong>Teliti</strong></td><td>Perhatikan detail kecil — tulisan, ukiran, warna, bentuk.</td></tr>
-        <tr><td><strong>Objektif</strong></td><td>Catat apa adanya, tanpa menambahkan dugaan.</td></tr>
-        <tr><td><strong>Menyeluruh</strong></td><td>Amati dari berbagai sudut pandang.</td></tr>
-        <tr><td><strong>Dokumentatif</strong></td><td>Foto, catat, dan simpan hasil pengamatan.</td></tr>
-      </table>
-
-      <h3>Contoh Pengamatan</h3>
-      <p>Jika kamu mengamati masjid tua di daerahmu, perhatikan:</p>
+      <p><strong>Prinsip mengamati yang baik:</strong></p>
       <ul>
-        <li>Tahun berdirinya (dari prasasti atau catatan).</li>
-        <li>Bentuk arsitekturnya (atap tumpang, ukiran, tiang).</li>
-        <li>Ornamen &amp; kaligrafi.</li>
-        <li>Cerita masyarakat tentang masjid tersebut.</li>
-        <li>Foto lama jika ada.</li>
+        <li><strong>Teliti</strong> — perhatikan detail kecil: tulisan, ukiran, warna, bentuk.</li>
+        <li><strong>Objektif</strong> — catat apa adanya, tanpa menambahkan dugaan.</li>
+        <li><strong>Menyeluruh</strong> — amati dari berbagai sudut pandang.</li>
+        <li><strong>Dokumentatif</strong> — foto, catat, dan simpan hasil pengamatan.</li>
       </ul>
 
-      <div class="contoh">
-        🌰 <strong>Latihan:</strong> Coba amati satu benda bersejarah di sekolahmu — piala, foto, prasasti, atau bangunan. Catat apa yang kamu lihat: bentuk, warna, tulisan, kondisi, dan usia perkiraan. Itulah awal kerja seorang sejarawan!
-      </div>
-
-      <div class="highlight">
-        💡 <strong>Tips:</strong> Bawa buku catatan kecil dan kamera (HP) ke mana pun. Banyak penemuan sejarah dimulai dari pengamatan sederhana.
-      </div>
-    </section>
-
-    <!-- ===== PAGE 5: MENANYA ===== -->
-    <section class="page">
-      <div class="page-badge">📖 MATERI 5 dari 17</div>
-      <h2 class="page-title">Tahap 2: <span>Menanya</span></h2>
-      <p class="page-subtitle">Merumuskan pertanyaan kritis seperti sejarawan</p>
-
-      <h3>Pengertian</h3>
+      <h3>2. ❓ Menanya</h3>
       <p><strong style="color:#38bdf8">Menanya</strong> adalah kegiatan merumuskan pertanyaan yang <em>relevan, spesifik, dan dapat dijawab</em> tentang objek yang diamati.</p>
 
-      <p>Pertanyaan yang baik adalah <strong>awal dari penelitian yang baik</strong>. Tanpa pertanyaan, pengamatan hanya akan jadi tumpukan data tanpa makna.</p>
-
-      <h3>Jenis-Jenis Pertanyaan Sejarah</h3>
       <table>
         <tr><th>Kata Tanya</th><th>Fokus</th><th>Contoh</th></tr>
         <tr><td><strong>Apa</strong></td><td>Fakta / peristiwa</td><td>Apa yang terjadi pada 17 Agustus 1945?</td></tr>
@@ -769,7 +695,7 @@
         <tr><td><strong>Bagaimana</strong></td><td>Proses</td><td>Bagaimana reaksi rakyat setelah proklamasi?</td></tr>
       </table>
 
-      <h3>Pertanyaan Tingkat Tinggi (HOTS)</h3>
+      <h3>Pertanyaan Berkualitas (HOTS)</h3>
       <p>Pertanyaan yang baik bukan hanya yang bisa dijawab "ya" atau "tidak". Ciri pertanyaan berkualitas:</p>
       <ul>
         <li>Membutuhkan <strong>analisis</strong>, bukan hanya hafalan.</li>
@@ -779,37 +705,34 @@
       </ul>
 
       <div class="contoh">
-        🌰 <strong>Contoh pertanyaan HOTS:</strong><br>
-        ❌ <em>"Kapan VOC didirikan?"</em> (hafalan)<br>
-        ✅ <em>"Mengapa VOC didirikan, dan bagaimana pengaruhnya terhadap rakyat Nusantara?"</em> (analisis)<br>
-        ✅ <em>"Jika VOC tidak dibubarkan, bagaimana nasib Nusantara?"</em> (spekulasi kritis)
+        🌰 <strong>Contoh HOTS:</strong><br>
+        ❌ "Kapan VOC didirikan?" (hafalan)<br>
+        ✅ "Mengapa VOC didirikan, dan bagaimana pengaruhnya bagi rakyat Nusantara?" (analisis)<br>
+        ✅ "Jika VOC tidak dibubarkan, bagaimana nasib Nusantara?" (spekulasi kritis)
       </div>
 
       <div class="highlight">
-        💡 <strong>Tips:</strong> Mulai dengan pertanyaan sederhana (apa, siapa, kapan), lalu naik ke pertanyaan mendalam (mengapa, bagaimana). Ini melatih berpikir bertingkat.
+        💡 <strong>Tips kolaborasi:</strong> Diskusikan hasil pengamatan dengan teman. Pertanyaan yang lahir dari diskusi biasanya lebih kaya daripada pertanyaan yang dipikirkan sendirian.
       </div>
     </section>
 
-    <!-- ===== PAGE 6: MENGUMPULKAN INFORMASI ===== -->
+    <!-- ===== PAGE 5 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 6 dari 17</div>
-      <h2 class="page-title">Tahap 3: <span>Mengumpulkan Informasi</span></h2>
-      <p class="page-subtitle">Mencari sumber-sumber sejarah untuk menjawab pertanyaan</p>
+      <div class="page-badge">📖 MATERI 5 dari 14</div>
+      <h2 class="page-title">Tahap 3–4: <span>Mengumpulkan &amp; Mengolah Informasi</span></h2>
+      <p class="page-subtitle">Mencari sumber dan mengkritisi kebenarannya</p>
 
-      <h3>Pengertian</h3>
-      <p><strong style="color:#38bdf8">Mengumpulkan informasi</strong> adalah kegiatan mencari dan menghimpun sumber-sumber sejarah yang relevan dengan pertanyaan penelitian.</p>
+      <h3>3. 📚 Mengumpulkan Informasi</h3>
+      <p><strong style="color:#38bdf8">Mengumpulkan informasi</strong> adalah kegiatan mencari dan menghimpun sumber-sumber sejarah yang relevan dengan pertanyaan penelitian. Dalam metode sejarah, tahap ini disebut <strong>heuristik</strong> (dari bahasa Yunani <em>heuriskein</em> — "menemukan").</p>
 
-      <p>Dalam metode sejarah, tahap ini disebut <strong>heuristik</strong> — dari bahasa Yunani <em>heuriskein</em> yang berarti "menemukan".</p>
-
-      <h3>Jenis-Jenis Sumber</h3>
       <table>
-        <tr><th>Jenis</th><th>Contoh</th></tr>
+        <tr><th>Jenis Sumber</th><th>Contoh</th></tr>
         <tr><td><strong>Primer</strong></td><td>Prasasti, naskah asli, foto zaman peristiwa, wawancara saksi</td></tr>
         <tr><td><strong>Sekunder</strong></td><td>Buku sejarah, artikel, dokumenter, ensiklopedia</td></tr>
         <tr><td><strong>Tersier</strong></td><td>Ringkasan atau kompilasi dari sumber sekunder</td></tr>
       </table>
 
-      <h3>Teknik Mengumpulkan Informasi</h3>
+      <p><strong>Teknik mengumpulkan informasi:</strong></p>
       <ol>
         <li><strong>Studi pustaka</strong> — membaca buku, jurnal, artikel di perpustakaan.</li>
         <li><strong>Wawancara</strong> — bertanya kepada sesepuh, tokoh, atau saksi sejarah.</li>
@@ -819,136 +742,88 @@
         <li><strong>Survei arsip</strong> — mencari dokumen di kantor desa, gereja, masjid, atau perpustakaan.</li>
       </ol>
 
-      <h3>Panduan Wawancara</h3>
-      <ul>
-        <li>Siapkan daftar pertanyaan sebelum wawancara.</li>
-        <li>Minta izin untuk merekam atau mencatat.</li>
-        <li>Bertanya dengan sopan dan terbuka.</li>
-        <li>Catat nama, usia, dan tanggal wawancara narasumber.</li>
-        <li>Ucapkan terima kasih setelah wawancara.</li>
-      </ul>
+      <h3>4. 🔬 Mengolah Informasi</h3>
+      <p><strong style="color:#38bdf8">Mengolah informasi</strong> adalah kegiatan memeriksa, membandingkan, dan menafsirkan sumber-sumber yang telah dikumpulkan — hingga diperoleh kesimpulan yang kredibel.</p>
+
+      <p><strong>Dua proses penting dalam mengolah informasi:</strong></p>
+      <table>
+        <tr><th>Proses</th><th>Fokus</th><th>Contoh Pertanyaan</th></tr>
+        <tr><td><strong>Kritik Ekstern</strong></td><td>Keaslian sumber</td><td>Apakah prasasti ini asli dari abad ke-8? Bahannya sesuai zaman?</td></tr>
+        <tr><td><strong>Kritik Intern</strong></td><td>Isi sumber</td><td>Apakah isi kesaksian ini masuk akal dan konsisten?</td></tr>
+        <tr><td><strong>Interpretasi</strong></td><td>Penafsiran makna</td><td>Apa makna dari fakta-fakta yang ditemukan?</td></tr>
+      </table>
 
       <div class="warning">
         ⚠️ <strong>Hati-hati:</strong> Tidak semua informasi di internet benar! Periksa situsnya — apakah resmi, dari lembaga pendidikan, atau blog pribadi. Bandingkan dengan sumber lain.
       </div>
 
       <div class="contoh">
-        🌰 <strong>Contoh:</strong> Untuk meneliti asal-usul desamu, kamu bisa:
-        <ul>
-          <li>Wawancara 3 sesepuh.</li>
-          <li>Membaca buku "Sejarah Kabupaten X".</li>
-          <li>Melihat arsip desa.</li>
-          <li>Memfoto prasasti atau bangunan tua.</li>
-        </ul>
-        Semua itu adalah sumber informasi!
+        🌰 <strong>Contoh kritik sumber:</strong> Kamu mewawancarai dua sesepuh tentang asal-usul nama desa. Satu bilang dari nama pohon, satu bilang dari nama raja. Kamu perlu memeriksa: mana yang didukung bukti arsip atau peninggalan fisik? Itulah kritik sumber.
       </div>
     </section>
 
-    <!-- ===== PAGE 7: MENGOLAH INFORMASI ===== -->
+    <!-- ===== PAGE 6 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 7 dari 17</div>
-      <h2 class="page-title">Tahap 4: <span>Mengolah Informasi</span></h2>
-      <p class="page-subtitle">Mengkritik dan menafsirkan sumber sejarah</p>
+      <div class="page-badge">📖 MATERI 6 dari 14</div>
+      <h2 class="page-title">Tahap 5–6: <span>Menguji Konsep &amp; Mengevaluasi-Refleksi</span></h2>
+      <p class="page-subtitle">Menguji pemahaman dan merenungkan makna temuan</p>
 
-      <h3>Pengertian</h3>
-      <p><strong style="color:#38bdf8">Mengolah informasi</strong> adalah kegiatan memeriksa, membandingkan, dan menafsirkan sumber-sumber yang telah dikumpulkan — hingga diperoleh kesimpulan yang kredibel.</p>
+      <h3>5. 🧪 Menguji &amp; Menerapkan Konsep</h3>
+      <p><strong style="color:#38bdf8">Menguji dan menerapkan konsep</strong> adalah kegiatan mempraktikkan konsep-konsep sejarah yang telah dipelajari pada situasi nyata, melalui <strong>studi kasus, simulasi, atau eksperimen kecil</strong>.</p>
 
-      <p>Tahap ini terdiri dari dua proses penting: <strong>kritik sumber</strong> dan <strong>interpretasi</strong>.</p>
+      <p>Tahap ini penting karena membuktikan bahwa kita tidak hanya <em>tahu</em> konsep, tetapi juga <em>bisa menggunakannya</em>.</p>
 
-      <h3>1. Kritik Sumber</h3>
+      <h3>Bentuk-Bentuk Penerapan Konsep</h3>
       <table>
-        <tr><th>Jenis Kritik</th><th>Fokus</th><th>Contoh Pertanyaan</th></tr>
-        <tr><td><strong>Kritik Ekstern</strong></td><td>Keaslian sumber</td><td>Apakah prasasti ini asli dari abad ke-8? Bahannya sesuai zaman?</td></tr>
-        <tr><td><strong>Kritik Intern</strong></td><td>Isi sumber</td><td>Apakah isi kesaksian ini masuk akal dan konsisten?</td></tr>
+        <tr><th>Bentuk</th><th>Contoh Penerapan</th></tr>
+        <tr><td><strong>Studi kasus</strong></td><td>Menerapkan konsep kronologi pada peristiwa 1945 di daerahmu</td></tr>
+        <tr><td><strong>Simulasi</strong></td><td>Bermain peran sebagai sejarawan yang meneliti situs</td></tr>
+        <tr><td><strong>Eksperimen kecil</strong></td><td>Menguji keaslian fotokopi dokumen dengan membandingkan versi digital</td></tr>
+        <tr><td><strong>Proyek mini</strong></td><td>Membuat kronologi peristiwa lokal dalam bentuk timeline</td></tr>
       </table>
 
-      <h3>2. Interpretasi (Penafsiran)</h3>
-      <p>Setelah sumber diperiksa, sejarawan menafsirkan maknanya. Interpretasi bisa berbeda antar sejarawan — dan itu wajar, selama berdasarkan bukti.</p>
+      <h3>Contoh Penerapan Konsep Sejarah</h3>
+      <p>Misalnya kamu baru belajar konsep <strong>diakronik</strong> (memanjang dalam waktu). Untuk mengujinya:</p>
       <ul>
-        <li><strong>Interpretasi tunggal</strong> — disimpulkan dengan satu sudut pandang.</li>
-        <li><strong>Interpretasi multi-perspektif</strong> — dilihat dari berbagai sudut pandang.</li>
+        <li>Pilih satu peristiwa lokal, misalnya "sejarah berdirinya sekolahmu".</li>
+        <li>Susun kronologi dari tahun ke tahun.</li>
+        <li>Analisis: apa yang berubah dan kapan?</li>
+        <li>Simpulkan: apakah pola diakronik terlihat dalam peristiwa tersebut?</li>
       </ul>
 
-      <h3>Contoh Kritik Sumber</h3>
-      <p>Kamu mewawancarai dua sesepuh tentang asal-usul nama desa:</p>
+      <h3>6. 🪞 Mengevaluasi &amp; Merefleksi</h3>
+      <p><strong style="color:#38bdf8">Mengevaluasi dan merefleksi</strong> adalah kegiatan menilai hasil penelitian, merenungkan maknanya, dan menghubungkannya dengan kehidupan masa kini dan masa depan.</p>
+
       <table>
-        <tr><th>Versi</th><th>Isi</th><th>Kritik</th></tr>
-        <tr><td>Sesepuh A</td><td>Nama desa berasal dari nama pohon besar</td><td>Masuk akal, banyak nama desa dari nama tumbuhan</td></tr>
-        <tr><td>Sesepuh B</td><td>Nama desa berasal dari nama raja sakti</td><td>Perlu diperiksa: ada bukti arsip atau tidak?</td></tr>
+        <tr><th>Aspek</th><th>Pertanyaan Panduan</th></tr>
+        <tr><td><strong>Evaluasi</strong></td><td>Apakah penelitian sudah menjawab pertanyaan? Apakah sumbernya cukup kuat?</td></tr>
+        <tr><td><strong>Refleksi</strong></td><td>Apa pelajaran yang bisa diambil? Bagaimana ini memengaruhi saya?</td></tr>
+        <tr><td><strong>Relevansi</strong></td><td>Bagaimana temuan ini berkaitan dengan kehidupan hari ini?</td></tr>
+        <tr><td><strong>Komitmen</strong></td><td>Apa yang akan saya lakukan dengan pengetahuan ini?</td></tr>
       </table>
 
-      <div class="highlight">
-        💡 <strong>Intinya:</strong> Mengolah informasi berarti <strong>tidak langsung percaya</strong>. Bandingkan, periksa, dan simpulkan berdasarkan bukti terkuat.
+      <div class="contoh">
+        🌰 <strong>Contoh refleksi:</strong> Setelah mempelajari pembantaian Banda 1621, kamu merefleksikan: "Keserakahan dapat menghancurkan kehidupan. Saya berkomitmen menolak ketidakadilan dalam bentuk apa pun di lingkungan saya."
       </div>
 
-      <div class="contoh">
-        🌰 <strong>Contoh:</strong> Kalau dua sumber bertentangan, sejarawan memeriksa: mana yang lebih tua? mana yang lebih dekat dengan peristiwa? mana yang didukung bukti fisik? Itulah kritik sumber.
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Menguji konsep membuat kita <strong>terampil</strong>; merefleksi membuat kita <strong>bijak</strong>. Keduanya harus berjalan bersama.
       </div>
     </section>
 
-    <!-- ===== PAGE 8: MEREFLEKSI ===== -->
+    <!-- ===== PAGE 7 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 8 dari 17</div>
-      <h2 class="page-title">Tahap 5: <span>Merefleksi</span></h2>
-      <p class="page-subtitle">Merenungkan makna dan pelajaran dari peristiwa sejarah</p>
+      <div class="page-badge">📖 MATERI 7 dari 14</div>
+      <h2 class="page-title">Tahap 7–8: <span>Mengomunikasikan &amp; Rencana Tindak Lanjut</span></h2>
+      <p class="page-subtitle">Menyajikan temuan dan merancang aksi nyata</p>
 
-      <h3>Pengertian</h3>
-      <p><strong style="color:#38bdf8">Merefleksi</strong> adalah kegiatan merenungkan makna, nilai, dan pelajaran yang dapat diambil dari peristiwa sejarah — kemudian menghubungkannya dengan kehidupan masa kini dan masa depan.</p>
+      <h3>7. 🗣️ Mengomunikasikan</h3>
+      <p><strong style="color:#38bdf8">Mengomunikasikan</strong> adalah kegiatan menyampaikan hasil penelitian sejarah dalam bentuk yang jelas, menarik, dan dapat dipahami orang lain. Dalam metode sejarah, tahap ini disebut <strong>historiografi</strong>.</p>
 
-      <p>Tanpa refleksi, sejarah hanya menjadi tumpukan cerita masa lalu. Dengan refleksi, sejarah menjadi <strong>cermin</strong> bagi kehidupan kita.</p>
-
-      <h3>Pertanyaan Reflektif</h3>
-      <ul>
-        <li>Apa pelajaran yang bisa diambil dari peristiwa ini?</li>
-        <li>Bagaimana peristiwa ini memengaruhi kehidupan kita hari ini?</li>
-        <li>Apakah ada kesalahan masa lalu yang perlu dihindari?</li>
-        <li>Apakah ada nilai baik yang perlu dilanjutkan?</li>
-        <li>Jika saya berada di zaman itu, apa yang akan saya lakukan?</li>
-      </ul>
-
-      <h3>Contoh Refleksi</h3>
-      <p><strong>Peristiwa:</strong> Pembantaian Banda oleh VOC tahun 1621.</p>
       <table>
-        <tr><th>Aspek</th><th>Refleksi</th></tr>
-        <tr><td><strong>Pelajaran</strong></td><td>Keserakahan dan monopoli dapat menghancurkan kehidupan rakyat.</td></tr>
-        <tr><td><strong>Relevansi kini</strong></td><td>Sampai hari ini, keadilan ekonomi masih harus diperjuangkan.</td></tr>
-        <tr><td><strong>Nilai baik</strong></td><td>Rakyat Banda berani mempertahankan hak dan tanahnya.</td></tr>
-        <tr><td><strong>Komitmen pribadi</strong></td><td>Menolak ketidakadilan dan menghargai hak asasi manusia.</td></tr>
-      </table>
-
-      <h3>Refleksi vs Kesimpulan</h3>
-      <table>
-        <tr><th>Kesimpulan</th><th>Refleksi</th></tr>
-        <tr><td>Berfokus pada fakta</td><td>Berfokus pada makna</td></tr>
-        <tr><td>"VOC membubarkan diri tahun 1799."</td><td>"Keserakahan dapat menghancurkan diri sendiri."</td></tr>
-        <tr><td>Menjawab "apa"</td><td>Menjawab "apa maknanya bagi saya"</td></tr>
-      </table>
-
-      <div class="highlight">
-        💡 <strong>Intinya:</strong> Refleksi adalah jembatan antara <strong>masa lalu</strong> dan <strong>diri kita</strong>. Tanpa refleksi, sejarah tidak berdampak pada kehidupan.
-      </div>
-
-      <div class="contoh">
-        🌰 <strong>Contoh:</strong> Setelah mempelajari perjuangan para pahlawan, siswa merefleksikan: "Bagaimana saya bisa mengisi kemerdekaan hari ini?" — dari situlah tumbuh kesadaran untuk belajar, berkarya, dan menjadi warga negara yang baik.
-      </div>
-    </section>
-
-    <!-- ===== PAGE 9: MENGOMUNIKASIKAN ===== -->
-    <section class="page">
-      <div class="page-badge">📖 MATERI 9 dari 17</div>
-      <h2 class="page-title">Tahap 6: <span>Mengomunikasikan</span></h2>
-      <p class="page-subtitle">Menyajikan hasil penelitian kepada orang lain</p>
-
-      <h3>Pengertian</h3>
-      <p><strong style="color:#38bdf8">Mengomunikasikan</strong> adalah kegiatan menyampaikan hasil penelitian sejarah dalam bentuk yang jelas, menarik, dan dapat dipahami orang lain.</p>
-
-      <p>Dalam metode sejarah, tahap ini disebut <strong>historiografi</strong> — penulisan sejarah berdasarkan hasil penelitian.</p>
-
-      <h3>Bentuk-Bentuk Penyajian</h3>
-      <table>
-        <tr><th>Bentuk</th><th>Keterangan</th></tr>
-        <tr><td><strong>Laporan tertulis</strong></td><td>Artikel, makalah, esai, buku kecil</td></tr>
-        <tr><td><strong>Presentasi</strong></td><td>Diskusi di depan kelas dengan slide</td></tr>
+        <tr><th>Bentuk Penyajian</th><th>Keterangan</th></tr>
+        <tr><td><strong>Laporan tertulis</strong></td><td>Artikel, makalah, esai</td></tr>
+        <tr><td><strong>Presentasi</strong></td><td>Paparan di depan kelas dengan slide</td></tr>
         <tr><td><strong>Infografis</strong></td><td>Poster visual yang menarik</td></tr>
         <tr><td><strong>Garis waktu</strong></td><td>Timeline visual peristiwa sejarah</td></tr>
         <tr><td><strong>Video pendek</strong></td><td>Dokumenter mini, vlog sejarah</td></tr>
@@ -956,7 +831,7 @@
         <tr><td><strong>Pameran mini</strong></td><td>Display karya di kelas atau sekolah</td></tr>
       </table>
 
-      <h3>Prinsip Penyajian yang Baik</h3>
+      <p><strong>Prinsip penyajian yang baik:</strong></p>
       <ul>
         <li><strong>Jelas</strong> — mudah dipahami audiens.</li>
         <li><strong>Menarik</strong> — menggunakan visual atau cerita.</li>
@@ -965,249 +840,208 @@
         <li><strong>Kreatif</strong> — memilih cara penyajian yang sesuai audiens.</li>
       </ul>
 
-      <h3>Struktur Laporan Sejarah</h3>
-      <ol>
-        <li><strong>Pendahuluan</strong> — latar belakang &amp; tujuan penelitian.</li>
-        <li><strong>Isi</strong> — hasil penelitian dan analisis.</li>
-        <li><strong>Penutup</strong> — kesimpulan &amp; refleksi.</li>
-        <li><strong>Daftar sumber</strong> — menyebutkan sumber yang digunakan.</li>
-      </ol>
+      <h3>8. 🎯 Menyusun Rencana Tindak Lanjut</h3>
+      <p><strong style="color:#38bdf8">Menyusun rencana tindak lanjut</strong> adalah kegiatan merancang aksi nyata yang dapat dilakukan setelah penelitian selesai — <strong>secara kolaboratif</strong> dengan teman, sekolah, atau masyarakat.</p>
 
-      <div class="contoh">
-        🌰 <strong>Contoh:</strong> Setelah meneliti asal-usul nama desamu, kamu bisa membuat video pendek 3 menit yang menceritakan hasil penelitianmu — lengkap dengan gambar dan narasi. Ini adalah bentuk historiografi modern!
-      </div>
+      <p>Tahap inilah yang membedakan pembelajaran sejarah yang <em>bermakna</em> dari sekadar tugas sekolah. Sejarah harus menghasilkan manfaat!</p>
+
+      <h3>Contoh Rencana Tindak Lanjut</h3>
+      <table>
+        <tr><th>Hasil Penelitian</th><th>Rencana Tindak Lanjut</th></tr>
+        <tr><td>Menemukan situs megalitikum yang terabaikan</td><td>Mengusulkan perawatan situs kepada pemerintah desa</td></tr>
+        <tr><td>Mengumpulkan cerita rakyat yang hampir punah</td><td>Membuat buku kumpulan cerita &amp; membagikannya ke perpustakaan sekolah</td></tr>
+        <tr><td>Meneliti asal-usul nama desa</td><td>Membuat papan informasi sejarah di balai desa</td></tr>
+        <tr><td>Mewawancarai veteran setempat</td><td>Mengunggah video wawancara ke kanal sekolah</td></tr>
+      </table>
 
       <div class="highlight">
-        💡 <strong>Tips:</strong> Pilih bentuk penyajian yang <strong>kamu kuasai</strong> dan <strong>sesuai audiens</strong>. Kalau suka menulis — buat artikel. Kalau suka desain — buat infografis. Kalau suka bicara — buat podcast atau presentasi.
-      </div>
-    </section>
-
-    <!-- ===== PAGE 10: BERPIKIR KRITIS ===== -->
-    <section class="page">
-      <div class="page-badge">📖 MATERI 10 dari 17</div>
-      <h2 class="page-title">Berpikir <span>Kritis dalam Sejarah</span></h2>
-      <p class="page-subtitle">Sikap dasar sejarawan sejati</p>
-
-      <h3>Pengertian</h3>
-      <p><strong style="color:#38bdf8">Berpikir kritis</strong> adalah kemampuan menganalisis informasi secara mendalam, memeriksa bukti, dan menyimpulkan secara objektif — tidak menerima sesuatu begitu saja.</p>
-
-      <h3>Ciri-Ciri Berpikir Kritis</h3>
-      <ul>
-        <li>Selalu <strong>bertanya "mengapa"</strong> dan "bagaimana".</li>
-        <li><strong>Memeriksa sumber</strong> sebelum percaya.</li>
-        <li><strong>Membandingkan</strong> berbagai sudut pandang.</li>
-        <li><strong>Membedakan fakta dan opini</strong>.</li>
-        <li><strong>Menghindari prasangka</strong> pribadi.</li>
-        <li><strong>Berani mengubah pendapat</strong> jika ada bukti baru.</li>
-      </ul>
-
-      <h3>Pertanyaan Kritis Wajib</h3>
-      <table>
-        <tr><th>Pertanyaan</th><th>Tujuan</th></tr>
-        <tr><td>Siapa yang menulis/membuat sumber ini?</td><td>Menguji kredibilitas penulis</td></tr>
-        <tr><td>Kapan sumber ini dibuat?</td><td>Menguji kedekatan dengan peristiwa</td></tr>
-        <tr><td>Apa kepentingan penulis?</td><td>Menguji bias atau kepentingan</td></tr>
-        <tr><td>Apakah ada sumber lain yang mendukung?</td><td>Menguji konsistensi</td></tr>
-        <tr><td>Apakah informasinya masuk akal?</td><td>Menguji logika</td></tr>
-      </table>
-
-      <h3>Contoh Berpikir Kritis</h3>
-      <p><strong>Klaim:</strong> "Raden Wijaya memakai kacamata saat upacara."</p>
-      <table>
-        <tr><th>Analisis Kritis</th><th>Hasil</th></tr>
-        <tr><td>Kapan kacamata ditemukan?</td><td>Abad ke-13 di Eropa — mungkin sezaman, tapi belum lazim di Nusantara</td></tr>
-        <tr><td>Apakah ada bukti?</td><td>Tidak ada prasasti atau catatan yang mendukung</td></tr>
-        <tr><td>Kesimpulan</td><td>Kemungkinan anakronisme</td></tr>
-      </table>
-
-      <div class="warning">
-        ⚠️ <strong>Hati-hati hoaks sejarah!</strong> Banyak konten viral berisi klaim sejarah palsu. Biasakan memeriksa: siapa penulisnya, sumbernya apa, dan apakah didukung sumber resmi.
+        💡 <strong>Intinya:</strong> Mengomunikasikan membuat temuan kita <strong>diketahui</strong>; rencana tindak lanjut membuat temuan kita <strong>berdampak</strong>.
       </div>
 
       <div class="contoh">
-        🌰 <strong>Latihan kritis:</strong> Jika kamu melihat video viral "fakta sejarah tersembunyi", tanyakan: siapa pembuatnya? Apa sumbernya? Apakah ada sejarawan yang mendukung? Jangan langsung share sebelum memverifikasi!
+        🌰 <strong>Contoh kolaboratif:</strong> Setelah kelasmu meneliti sejarah lokal, sepakati satu aksi bersama — misalnya membuat pameran mini di hari jadi sekolah, mengundang sesepuh untuk berbagi cerita, atau membuat konten media sosial bersama.
       </div>
     </section>
 
-    <!-- ===== PAGE 11: BERPIKIR KREATIF ===== -->
+    <!-- ===== PAGE 8 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 11 dari 17</div>
-      <h2 class="page-title">Berpikir <span>Kreatif dalam Sejarah</span></h2>
-      <p class="page-subtitle">Menyajikan sejarah dengan cara baru dan menarik</p>
+      <div class="page-badge">📖 MATERI 8 dari 14</div>
+      <h2 class="page-title">Kolaborasi dalam <span>Penelitian Sejarah</span></h2>
+      <p class="page-subtitle">Benang merah yang menjiwai semua tahapan</p>
 
-      <h3>Pengertian</h3>
-      <p><strong style="color:#38bdf8">Berpikir kreatif</strong> adalah kemampuan menghasilkan ide, cara, atau karya baru dalam mempelajari dan menyajikan sejarah — tanpa mengorbankan kebenaran fakta.</p>
+      <p><strong style="color:#38bdf8">Kolaborasi</strong> adalah bekerja bersama-sama untuk mencapai tujuan bersama. Dalam CP IPS Fase D, kolaborasi disebut sebagai prinsip yang menjiwai seluruh proses penyelidikan sejarah.</p>
 
-      <p>Kreativitas bukan berarti mengarang cerita. Kreativitas berarti <strong>menyajikan fakta dengan cara yang menarik</strong>.</p>
-
-      <h3>Contoh Kreativitas dalam Sejarah</h3>
+      <h3>Bentuk Kolaborasi di Setiap Tahap</h3>
       <table>
-        <tr><th>Bidang</th><th>Contoh Kreasi</th></tr>
-        <tr><td><strong>Menulis</strong></td><td>Cerpen sejarah, komik sejarah, puisi bertema sejarah</td></tr>
-        <tr><td><strong>Visual</strong></td><td>Infografis, poster, ilustrasi digital, timeline kreatif</td></tr>
-        <tr><td><strong>Audio-Visual</strong></td><td>Vlog sejarah, film pendek, animasi, podcast</td></tr>
-        <tr><td><strong>Pertunjukan</strong></td><td>Drama sejarah, teater mini, tari bertema sejarah</td></tr>
-        <tr><td><strong>Digital</strong></td><td>Website sejarah, game edukasi, tur virtual</td></tr>
-        <tr><td><strong>Kriya</strong></td><td>Maket candi, miniatur kapal, replika artefak</td></tr>
+        <tr><th>Tahap</th><th>Contoh Kolaborasi</th></tr>
+        <tr><td><strong>Mengamati</strong></td><td>Mengamati situs bersama kelompok, berbagi catatan hasil pengamatan</td></tr>
+        <tr><td><strong>Menanya</strong></td><td>Diskusi kelompok untuk merumuskan pertanyaan yang paling penting</td></tr>
+        <tr><td><strong>Mengumpulkan</strong></td><td>Membagi tugas: satu wawancara, satu mencari buku, satu dokumentasi</td></tr>
+        <tr><td><strong>Mengolah</strong></td><td>Berbagi temuan dan saling mengkritik hasil analisis</td></tr>
+        <tr><td><strong>Menguji Konsep</strong></td><td>Simulasi peran: satu jadi sejarawan, satu jadi saksi, satu jadi pengkritik</td></tr>
+        <tr><td><strong>Mengevaluasi</strong></td><td>Refleksi bersama: apa yang sudah baik, apa yang perlu diperbaiki</td></tr>
+        <tr><td><strong>Mengomunikasikan</strong></td><td>Presentasi kelompok, pameran bersama, video kolaboratif</td></tr>
+        <tr><td><strong>Tindak Lanjut</strong></td><td>Merancang aksi bersama untuk melestarikan sejarah lokal</td></tr>
       </table>
 
-      <h3>Prinsip Kreativitas Sejarah</h3>
+      <h3>Manfaat Kolaborasi</h3>
       <ul>
-        <li><strong>Setia pada fakta</strong> — tidak memutarbalikkan sejarah.</li>
-        <li><strong>Menarik &amp; komunikatif</strong> — mudah dipahami audiens.</li>
-        <li><strong>Orisinal</strong> — bukan menjiplak karya orang lain.</li>
-        <li><strong>Bertanggung jawab</strong> — mencantumkan sumber.</li>
+        <li><strong>Pekerjaan lebih ringan</strong> — tugas besar dibagi bersama.</li>
+        <li><strong>Perspektif lebih kaya</strong> — setiap orang punya sudut pandang berbeda.</li>
+        <li><strong>Hasil lebih baik</strong> — kritik antar teman memperbaiki kualitas penelitian.</li>
+        <li><strong>Melatih keterampilan sosial</strong> — komunikasi, kompromi, tanggung jawab.</li>
+        <li><strong>Membangun komunitas peduli sejarah</strong> — tidak sendirian menjaga warisan.</li>
       </ul>
 
-      <h3>Contoh Proyek Kreatif</h3>
+      <h3>Etika Kolaborasi</h3>
       <ul>
-        <li>Membuat <strong>komik strip</strong> tentang Sumpah Pemuda.</li>
-        <li>Membuat <strong>video pendek</strong> tentang asal-usul nama desa.</li>
-        <li>Membuat <strong>podcast</strong> wawancara dengan sesepuh kampung.</li>
-        <li>Membuat <strong>game kartu</strong> dengan tokoh-tokoh sejarah.</li>
-        <li>Membuat <strong>pameran mini</strong> di kelas tentang sejarah lokal.</li>
+        <li><strong>Adil dalam pembagian tugas</strong> — setiap anggota punya peran.</li>
+        <li><strong>Menghargai pendapat</strong> — semua ide didengar.</li>
+        <li><strong>Jujur menyebut kontribusi</strong> — tidak mengklaim hasil kerja orang lain.</li>
+        <li><strong>Bertanggung jawab</strong> — menyelesaikan bagian yang menjadi tanggung jawab kita.</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Contoh nyata:</strong> Kelompokmu meneliti sejarah desa. Satu siswa mewawancarai sesepuh, satu mencari arsip desa, satu memfoto bangunan tua, satu menyusun laporan. Semua hasil digabung dan didiskusikan bersama — itulah kolaborasi sejati.
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Pesan penting:</strong> Sejarah bukan kerja sendirian. Sejarawan profesional pun bekerja dalam tim — dengan arkeolog, antropolog, ahli bahasa, dan lainnya.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 9 ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 9 dari 14</div>
+      <h2 class="page-title">Contoh <span>Penerapan Lengkap</span></h2>
+      <p class="page-subtitle">Studi kasus 8 tahapan dalam satu proyek nyata</p>
+
+      <h3>Proyek: Meneliti Asal-Usul Nama Desa</h3>
+      <p>Mari kita lihat bagaimana delapan tahapan diterapkan pada satu penelitian nyata — misalnya meneliti asal-usul nama desamu.</p>
+
+      <table>
+        <tr><th>No</th><th>Tahap</th><th>Kegiatan dalam Proyek</th></tr>
+        <tr><td>1</td><td><strong>Mengamati</strong></td><td>Melihat papan nama desa, gapura, prasasti, dan bangunan tua di desa. Mencatat nama-nama jalan, sungai, pasar.</td></tr>
+        <tr><td>2</td><td><strong>Menanya</strong></td><td>Mengapa desa ini bernama demikian? Sejak kapan nama ini dipakai? Siapa yang memberi nama?</td></tr>
+        <tr><td>3</td><td><strong>Mengumpulkan</strong></td><td>Wawancara 3 sesepuh, membaca arsip desa, mencari buku sejarah kabupaten di perpustakaan.</td></tr>
+        <tr><td>4</td><td><strong>Mengolah</strong></td><td>Membandingkan versi cerita sesepuh. Memeriksa mana yang didukung arsip atau bukti fisik. Menyimpulkan versi terkuat.</td></tr>
+        <tr><td>5</td><td><strong>Menguji Konsep</strong></td><td>Menerapkan konsep <em>toponimi</em> (asal nama tempat). Mengelompokkan nama desa berdasarkan bahasa (Sunda, Jawa, Sanskerta) dan sumbernya (alam, tokoh, harapan).</td></tr>
+        <tr><td>6</td><td><strong>Mengevaluasi &amp; Merefleksi</strong></td><td>Menilai: apakah semua pertanyaan sudah dijawab? Merefleksikan: apa makna nama desa bagi identitas warga?</td></tr>
+        <tr><td>7</td><td><strong>Mengomunikasikan</strong></td><td>Membuat laporan tertulis dan video pendek 3 menit tentang asal-usul nama desa. Mempresentasikan di kelas.</td></tr>
+        <tr><td>8</td><td><strong>Rencana Tindak Lanjut</strong></td><td>Bersama kelompok mengusulkan pembuatan papan informasi sejarah di balai desa, atau mengunggah video ke kanal sekolah.</td></tr>
+      </table>
+
+      <h3>Hasil yang Dicapai</h3>
+      <ul>
+        <li>Siswa <strong>memahami</strong> asal-usul nama desanya.</li>
+        <li>Siswa <strong>terampil</strong> meneliti: wawancara, kritik sumber, analisis bahasa.</li>
+        <li>Siswa <strong>merefleksikan</strong> makna identitas lokal.</li>
+        <li>Siswa <strong>berkontribusi</strong> pada pelestarian sejarah daerah.</li>
       </ul>
 
       <div class="highlight">
-        💡 <strong>Intinya:</strong> Kreativitas adalah cara kita <strong>membuat sejarah hidup kembali</strong>. Sejarah tidak harus membosankan — bisa seru dan menarik jika disajikan dengan kreatif!
+        💡 <strong>Pelajaran:</strong> Dari satu pertanyaan sederhana ("mengapa desaku bernama begini?"), lahir penelitian lengkap yang bermanfaat bagi masyarakat. Inilah kekuatan keterampilan proses sejarah!
       </div>
 
       <div class="contoh">
-        🌰 <strong>Contoh nyata:</strong> Banyak kreator muda membuat konten sejarah di TikTok atau YouTube — mengemas sejarah dalam durasi singkat, dengan visual menarik, dan bahasa yang mudah dipahami. Ini adalah bentuk kreativitas sejarah yang efektif!
+        🌰 <strong>Variasi proyek lain:</strong> Bisa juga meneliti sejarah berdirinya sekolahmu, sejarah pasar di kampungmu, atau tokoh penting setempat — dengan 8 tahapan yang sama.
       </div>
     </section>
 
-    <!-- ===== PAGE 12: ASESMEN ===== -->
+    <!-- ===== PAGE 10 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 12 dari 17</div>
-      <h2 class="page-title">Asesmen <span>Formatif &amp; Sumatif</span></h2>
-      <p class="page-subtitle">Bagaimana kemampuan sejarah dinilai dalam Kurikulum Merdeka</p>
-
-      <h3>Pengertian Asesmen</h3>
-      <p><strong style="color:#38bdf8">Asesmen</strong> adalah proses pengumpulan dan pengolahan informasi untuk mengukur capaian belajar siswa.</p>
-
-      <p>Dalam Kurikulum Merdeka, ada dua jenis asesmen utama: <strong>formatif</strong> dan <strong>sumatif</strong>.</p>
-
-      <h3>Perbandingan Asesmen</h3>
-      <table>
-        <tr><th>Aspek</th><th>Formatif</th><th>Sumatif</th></tr>
-        <tr><td><strong>Tujuan</strong></td><td>Memantau perkembangan belajar</td><td>Mengukur capaian akhir</td></tr>
-        <tr><td><strong>Waktu</strong></td><td>Selama proses belajar</td><td>Akhir satu lingkup materi / semester</td></tr>
-        <tr><td><strong>Sifat</strong></td><td>Diagnostik &amp; perbaikan</td><td>Penilaian hasil</td></tr>
-        <tr><td><strong>Contoh</strong></td><td>Kuis singkat, tugas harian, refleksi, diskusi kelas</td><td>Ujian akhir, proyek akhir, portofolio</td></tr>
-        <tr><td><strong>Bagi siswa</strong></td><td>Mengetahui kekurangan untuk diperbaiki</td><td>Mengetahui hasil akhir capaian</td></tr>
-        <tr><td><strong>Bagi guru</strong></td><td>Menyesuaikan metode mengajar</td><td>Menentukan nilai rapor</td></tr>
-      </table>
-
-      <h3>Bentuk-Bentuk Asesmen Sejarah</h3>
-      <table>
-        <tr><th>Bentuk</th><th>Contoh</th></tr>
-        <tr><td><strong>Tes tertulis</strong></td><td>Pilihan ganda, esai, uraian</td></tr>
-        <tr><td><strong>Tugas proyek</strong></td><td>Penelitian sejarah lokal, pameran mini</td></tr>
-        <tr><td><strong>Portofolio</strong></td><td>Kumpulan karya siswa sepanjang semester</td></tr>
-        <tr><td><strong>Presentasi</strong></td><td>Diskusi kelompok atau paparan hasil penelitian</td></tr>
-        <tr><td><strong>Praktik</strong></td><td>Wawancara, kunjungan situs, pengamatan langsung</td></tr>
-        <tr><td><strong>Refleksi tertulis</strong></td><td>Jurnal belajar, catatan refleksi</td></tr>
-      </table>
-
-      <h3>Asesmen Berbasis Keterampilan</h3>
-      <p>Asesmen sejarah modern tidak hanya mengukur hafalan, tetapi juga:</p>
-      <ul>
-        <li>Kemampuan <strong>menganalisis sumber</strong>.</li>
-        <li>Kemampuan <strong>menyusun kronologi</strong>.</li>
-        <li>Kemampuan <strong>membandingkan perspektif</strong>.</li>
-        <li>Kemampuan <strong>merefleksikan</strong> makna sejarah.</li>
-        <li>Kemampuan <strong>berkomunikasi</strong> hasil penelitian.</li>
-      </ul>
-
-      <div class="highlight">
-        💡 <strong>Intinya:</strong> Asesmen bukan hanya soal nilai. Asesmen formatif membantu kita memperbaiki diri, sedangkan sumatif mengukur capaian akhir. Keduanya <strong>sama pentingnya</strong>.
-      </div>
-    </section>
-
-    <!-- ===== PAGE 13: PETA KONSEP ===== -->
-    <section class="page">
-      <div class="page-badge">📖 MATERI 13 dari 17</div>
+      <div class="page-badge">📖 MATERI 10 dari 14</div>
       <h2 class="page-title">Peta <span>Konsep</span></h2>
       <p class="page-subtitle">Ringkasan visual hubungan antar konsep</p>
 
       <div class="peta-konsep">
         <div class="node utama">KETERAMPILAN PROSES SEJARAH</div>
-        <span class="arrow">↓ terdiri dari 6 tahapan</span>
+        <span class="arrow">↓ 8 tahapan kolaboratif</span>
         <div>
-          <span class="node sub">Mengamati</span>
-          <span class="node sub">Menanya</span>
-          <span class="node sub">Mengumpulkan</span>
+          <span class="node sub">1. Mengamati</span>
+          <span class="node sub">2. Menanya</span>
         </div>
+        <span class="arrow">↓</span>
         <div>
-          <span class="node sub">Mengolah</span>
-          <span class="node sub">Merefleksi</span>
-          <span class="node sub">Mengomunikasikan</span>
+          <span class="node sub">3. Mengumpulkan Informasi</span>
+          <span class="node sub">4. Mengolah Informasi</span>
         </div>
-        <span class="arrow">↓ diperkuat dengan</span>
+        <span class="arrow">↓</span>
         <div>
-          <span class="node detail">Berpikir Kritis</span>
-          <span class="node detail">Berpikir Kreatif</span>
+          <span class="node sub">5. Menguji &amp; Menerapkan Konsep</span>
+          <span class="node sub">6. Mengevaluasi &amp; Merefleksi</span>
         </div>
-        <span class="arrow">↓ diukur melalui</span>
+        <span class="arrow">↓</span>
         <div>
-          <span class="node sub">Asesmen Formatif</span>
-          <span class="node sub">Asesmen Sumatif</span>
+          <span class="node sub">7. Mengomunikasikan</span>
+          <span class="node sub">8. Rencana Tindak Lanjut</span>
         </div>
         <span class="arrow">↓ membentuk</span>
         <div class="node utama">PROFIL PELAJAR PANCASILA</div>
       </div>
+
+      <h3>Kaitan dengan Konsep Sejarah Lain</h3>
+      <table>
+        <tr><th>Konsep</th><th>Tahap yang Berkaitan</th></tr>
+        <tr><td><strong>Kronologi</strong></td><td>Mengolah informasi (menyusun urutan)</td></tr>
+        <tr><td><strong>Kausalitas</strong></td><td>Menanya &amp; mengolah (sebab-akibat)</td></tr>
+        <tr><td><strong>Diakronik &amp; Sinkronik</strong></td><td>Menguji konsep (menerapkan cara berpikir)</td></tr>
+        <tr><td><strong>Historiografi</strong></td><td>Mengomunikasikan (menuliskan hasil)</td></tr>
+        <tr><td><strong>Sumber Sejarah</strong></td><td>Mengumpulkan &amp; mengolah informasi</td></tr>
+      </table>
     </section>
 
-    <!-- ===== PAGE 14: RINGKASAN ===== -->
+    <!-- ===== PAGE 11 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 14 dari 17</div>
+      <div class="page-badge">📖 MATERI 11 dari 14</div>
       <h2 class="page-title">Ringkasan <span>Bab 6</span></h2>
       <p class="page-subtitle">Poin-poin penting yang harus diingat</p>
 
       <ul>
         <li><strong>Keterampilan proses sejarah</strong> = kemampuan meneliti dan memahami masa lalu seperti sejarawan.</li>
-        <li><strong>6 tahapan</strong>: mengamati → menanya → mengumpulkan informasi → mengolah → merefleksi → mengomunikasikan.</li>
-        <li><strong>Mengamati</strong> — menggunakan pancaindra untuk mencatat fakta &amp; sumber sejarah.</li>
-        <li><strong>Menanya</strong> — merumuskan pertanyaan kritis (HOTS), bukan hanya hafalan.</li>
-        <li><strong>Mengumpulkan informasi</strong> — heuristik: studi pustaka, wawancara, observasi, dokumentasi.</li>
-        <li><strong>Mengolah informasi</strong> — kritik ekstern &amp; intern + interpretasi.</li>
-        <li><strong>Merefleksi</strong> — merenungkan makna dan pelajaran sejarah.</li>
+        <li><strong>8 tahapan</strong>: mengamati → menanya → mengumpulkan → mengolah → menguji &amp; menerapkan konsep → mengevaluasi &amp; merefleksi → mengomunikasikan → menyusun rencana tindak lanjut.</li>
+        <li><strong>Mengamati</strong> — teliti, objektif, menyeluruh, dokumentatif.</li>
+        <li><strong>Menanya</strong> — pertanyaan HOTS (mengapa, bagaimana), bukan hafalan.</li>
+        <li><strong>Mengumpulkan</strong> — heuristik: pustaka, wawancara, observasi, dokumentasi, arsip.</li>
+        <li><strong>Mengolah</strong> — kritik ekstern, kritik intern, dan interpretasi.</li>
+        <li><strong>Menguji &amp; menerapkan konsep</strong> — studi kasus, simulasi, eksperimen kecil.</li>
+        <li><strong>Mengevaluasi &amp; merefleksi</strong> — menilai hasil dan merenungkan makna.</li>
         <li><strong>Mengomunikasikan</strong> — historiografi: laporan, presentasi, infografis, video, podcast.</li>
-        <li><strong>Berpikir kritis</strong> — memeriksa sumber, membandingkan, menyimpulkan objektif.</li>
-        <li><strong>Berpikir kreatif</strong> — menyajikan fakta dengan cara baru tanpa mengorbankan kebenaran.</li>
-        <li><strong>Asesmen formatif</strong> — selama proses (kuis, tugas, refleksi).</li>
-        <li><strong>Asesmen sumatif</strong> — akhir lingkup materi (ujian, proyek akhir, portofolio).</li>
-        <li><strong>Profil Pelajar Pancasila</strong> — bernalar kritis, kreatif, mandiri, bergotong royong.</li>
+        <li><strong>Menyusun rencana tindak lanjut</strong> — aksi nyata kolaboratif dari hasil penelitian.</li>
+        <li><strong>Kolaborasi</strong> — prinsip yang menjiwai semua tahap.</li>
+        <li><strong>Kaitan Profil Pelajar Pancasila</strong> — bernalar kritis, kreatif, mandiri, bergotong royong, berkebinekaan global, berakhlak mulia.</li>
       </ul>
+
+      <div class="highlight">
+        💡 <strong>Pesan akhir:</strong> Sejarah bukan hanya pelajaran — ia adalah <strong>cara berpikir dan bertindak</strong> yang berguna sepanjang hidup.
+      </div>
     </section>
 
-    <!-- ===== PAGE 15: GLOSARIUM ===== -->
+    <!-- ===== PAGE 12 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 15 dari 17</div>
+      <div class="page-badge">📖 MATERI 12 dari 14</div>
       <h2 class="page-title">Glosarium <span>Istilah Penting</span></h2>
       <p class="page-subtitle">Kumpulan istilah kunci dalam bab ini</p>
 
-      <div class="glosarium-item"><strong>Asesmen</strong><br><span>Proses pengumpulan dan pengolahan informasi untuk mengukur capaian belajar.</span></div>
-      <div class="glosarium-item"><strong>Asesmen Formatif</strong><br><span>Asesmen yang dilakukan selama proses belajar untuk memantau perkembangan.</span></div>
-      <div class="glosarium-item"><strong>Asesmen Sumatif</strong><br><span>Asesmen di akhir lingkup materi untuk mengukur capaian hasil belajar.</span></div>
-      <div class="glosarium-item"><strong>Heuristik</strong><br><span>Tahap mengumpulkan sumber-sumber sejarah.</span></div>
+      <div class="glosarium-item"><strong>Heuristik</strong><br><span>Tahap mengumpulkan sumber-sumber sejarah dalam metode sejarah.</span></div>
       <div class="glosarium-item"><strong>Historiografi</strong><br><span>Penulisan sejarah berdasarkan hasil penelitian.</span></div>
       <div class="glosarium-item"><strong>Hoaks</strong><br><span>Informasi palsu yang disebarkan seolah-olah benar.</span></div>
-      <div class="glosarium-item"><strong>HOTS</strong><br><span>Higher Order Thinking Skills — keterampilan berpikir tingkat tinggi.</span></div>
+      <div class="glosarium-item"><strong>HOTS</strong><br><span>Higher Order Thinking Skills — keterampilan berpikir tingkat tinggi (analisis, evaluasi, kreasi).</span></div>
       <div class="glosarium-item"><strong>Interpretasi</strong><br><span>Penafsiran terhadap makna sumber atau fakta sejarah.</span></div>
       <div class="glosarium-item"><strong>Keterampilan Proses</strong><br><span>Rangkaian kemampuan untuk meneliti dan memahami peristiwa sejarah.</span></div>
-      <div class="glosarium-item"><strong>Kritik Ekstern</strong><br><span>Kritik terhadap keaslian sumber sejarah.</span></div>
-      <div class="glosarium-item"><strong>Kritik Intern</strong><br><span>Kritik terhadap isi/kredibilitas sumber sejarah.</span></div>
-      <div class="glosarium-item"><strong>Portofolio</strong><br><span>Kumpulan karya siswa sepanjang periode belajar.</span></div>
+      <div class="glosarium-item"><strong>Kolaborasi</strong><br><span>Kerja sama antarindividu untuk mencapai tujuan bersama.</span></div>
+      <div class="glosarium-item"><strong>Kritik Ekstern</strong><br><span>Kritik terhadap keaslian fisik sumber sejarah (bahan, usia, bentuk).</span></div>
+      <div class="glosarium-item"><strong>Kritik Intern</strong><br><span>Kritik terhadap isi dan kredibilitas kesaksian dalam sumber sejarah.</span></div>
       <div class="glosarium-item"><strong>Profil Pelajar Pancasila</strong><br><span>Enam dimensi karakter pelajar Indonesia: beriman, berkebinekaan, gotong royong, mandiri, bernalar kritis, kreatif.</span></div>
       <div class="glosarium-item"><strong>Refleksi</strong><br><span>Kegiatan merenungkan makna dan pelajaran dari peristiwa.</span></div>
+      <div class="glosarium-item"><strong>Rencana Tindak Lanjut</strong><br><span>Rancangan aksi nyata setelah penelitian selesai, dilakukan secara kolaboratif.</span></div>
+      <div class="glosarium-item"><strong>Studi Kasus</strong><br><span>Pendekatan mempelajari kasus nyata untuk menerapkan konsep.</span></div>
       <div class="glosarium-item"><strong>Wawancara</strong><br><span>Teknik mengumpulkan informasi melalui tanya-jawab dengan narasumber.</span></div>
     </section>
 
-    <!-- ===== PAGE 16: SOAL ===== -->
+    <!-- ===== PAGE 13 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 16 dari 17</div>
+      <div class="page-badge">📖 MATERI 13 dari 14</div>
       <h2 class="page-title">Soal Latihan + <span>Pembahasan</span></h2>
       <p class="page-subtitle">Klik tombol untuk memeriksa jawabanmu</p>
 
@@ -1216,7 +1050,7 @@
         <div class="pertanyaan">Tahapan pertama dalam keterampilan proses sejarah adalah...</div>
         <div class="pilihan">A. Menanya<br>B. Mengamati<br>C. Mengomunikasikan<br>D. Merefleksi</div>
         <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
-        <div class="jawaban"><strong>Jawaban: B.</strong> Urutan keterampilan proses: mengamati → menanya → mengumpulkan → mengolah → merefleksi → mengomunikasikan.</div>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Urutan dimulai dari mengamati → menanya → mengumpulkan → mengolah → menguji → mengevaluasi &amp; merefleksi → mengomunikasikan → rencana tindak lanjut.</div>
       </div>
 
       <div class="soal-item">
@@ -1229,15 +1063,15 @@
 
       <div class="soal-item">
         <div class="nomor">Soal 3</div>
-        <div class="pertanyaan">Pertanyaan "Mengapa VOC didirikan?" termasuk pertanyaan...</div>
-        <div class="pilihan">A. Hafalan<br>B. HOTS (berpikir tingkat tinggi)<br>C. Retoris<br>D. Tertutup</div>
+        <div class="pertanyaan">Tahap di mana siswa mempraktikkan konsep sejarah pada situasi nyata (studi kasus/simulasi) disebut...</div>
+        <div class="pilihan">A. Mengamati<br>B. Menguji &amp; menerapkan konsep<br>C. Merefleksi<br>D. Mengomunikasikan</div>
         <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
-        <div class="jawaban"><strong>Jawaban: B.</strong> Pertanyaan "mengapa" menuntut analisis dan pemahaman mendalam — termasuk HOTS.</div>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Tahap ini menekankan penerapan konsep melalui studi kasus, simulasi, atau eksperimen kecil.</div>
       </div>
 
       <div class="soal-item">
         <div class="nomor">Soal 4</div>
-        <div class="pertanyaan">Kritik terhadap keaslian sumber sejarah disebut kritik...</div>
+        <div class="pertanyaan">Kritik terhadap keaslian fisik sumber sejarah disebut kritik...</div>
         <div class="pilihan">A. Intern<br>B. Ekstern<br>C. Filologi<br>D. Hermeneutik</div>
         <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
         <div class="jawaban"><strong>Jawaban: B.</strong> Kritik ekstern menguji keaslian fisik sumber (bahan, usia, bentuk).</div>
@@ -1245,10 +1079,10 @@
 
       <div class="soal-item">
         <div class="nomor">Soal 5</div>
-        <div class="pertanyaan">Kegiatan merenungkan makna dan pelajaran dari peristiwa sejarah disebut...</div>
-        <div class="pilihan">A. Mengamati<br>B. Merefleksi<br>C. Mengumpulkan<br>D. Mengomunikasikan</div>
+        <div class="pertanyaan">Tahap terakhir dalam keterampilan proses sejarah menurut CP Fase D adalah...</div>
+        <div class="pilihan">A. Mengomunikasikan<br>B. Merefleksi<br>C. Menyusun rencana tindak lanjut<br>D. Mengamati</div>
         <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
-        <div class="jawaban"><strong>Jawaban: B.</strong> Refleksi adalah merenungkan makna sejarah untuk kehidupan.</div>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Setelah mengomunikasikan, tahap terakhir adalah menyusun rencana tindak lanjut secara kolaboratif.</div>
       </div>
 
       <div class="soal-item">
@@ -1256,7 +1090,7 @@
         <div class="pertanyaan">Penulisan sejarah berdasarkan hasil penelitian disebut...</div>
         <div class="pilihan">A. Heuristik<br>B. Kritik<br>C. Historiografi<br>D. Interpretasi</div>
         <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
-        <div class="jawaban"><strong>Jawaban: C.</strong> Historiografi adalah tahap akhir — penulisan hasil penelitian sejarah.</div>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Historiografi adalah tahap penulisan hasil penelitian sejarah (bagian dari mengomunikasikan).</div>
       </div>
 
       <div class="soal-item">
@@ -1269,16 +1103,16 @@
 
       <div class="soal-item">
         <div class="nomor">Soal 8</div>
-        <div class="pertanyaan">Asesmen yang dilakukan selama proses belajar disebut asesmen...</div>
-        <div class="pilihan">A. Sumatif<br>B. Formatif<br>C. Diagnostik<br>D. Nasional</div>
+        <div class="pertanyaan">Prinsip yang menjiwai seluruh tahapan keterampilan proses sejarah adalah...</div>
+        <div class="pilihan">A. Kompetisi<br>B. Individualisme<br>C. Kolaborasi<br>D. Hafalan</div>
         <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
-        <div class="jawaban"><strong>Jawaban: B.</strong> Asesmen formatif dilakukan selama proses belajar untuk memantau perkembangan siswa.</div>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Kolaborasi disebut dalam CP sebagai prinsip yang menjiwai seluruh proses penyelidikan.</div>
       </div>
 
       <div class="soal-item">
         <div class="nomor">Soal 9</div>
-        <div class="pertanyaan">Membuat video pendek tentang asal-usul nama desa termasuk keterampilan...</div>
-        <div class="pilihan">A. Mengamati<br>B. Mengomunikasikan (kreatif)<br>C. Merefleksi<br>D. Kritik sumber</div>
+        <div class="pertanyaan">Membuat video pendek tentang asal-usul nama desa termasuk tahap...</div>
+        <div class="pilihan">A. Mengamati<br>B. Mengomunikasikan<br>C. Merefleksi<br>D. Kritik sumber</div>
         <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
         <div class="jawaban"><strong>Jawaban: B.</strong> Membuat video adalah bentuk penyajian (mengomunikasikan) hasil penelitian dengan kreatif.</div>
       </div>
@@ -1292,24 +1126,25 @@
       </div>
     </section>
 
-    <!-- ===== PAGE 17: PROYEK ===== -->
+    <!-- ===== PAGE 14 ===== -->
     <section class="page">
-      <div class="page-badge">📖 MATERI 17 dari 17</div>
+      <div class="page-badge">📖 MATERI 14 dari 14</div>
       <h2 class="page-title">Proyek / <span>Aktivitas Siswa</span></h2>
       <p class="page-subtitle">Kerjakan salah satu proyek berikut untuk memperdalam pemahaman</p>
 
       <div class="proyek">
         <ol>
-          <li><strong>Proyek mini penelitian.</strong> Pilih satu topik sejarah lokal (nama desa, bangunan tua, tokoh daerah). Lakukan 6 tahapan keterampilan proses: amati, tanya, kumpulkan, olah, refleksi, komunikasikan. Presentasikan hasilnya.</li>
-          <li><strong>Buat portofolio sejarah.</strong> Kumpulkan semua tugas sejarahmu selama satu semester (catatan, foto, laporan). Susun jadi portofolio rapi dengan cover dan refleksi di akhir.</li>
-          <li><strong>Analisis hoaks sejarah.</strong> Cari satu konten viral (TikTok/YouTube/Instagram) yang membahas sejarah. Analisis kritis: apakah sumbernya kredibel? Apakah ada kekeliruan? Tuliskan hasil analisismu.</li>
-          <li><strong>Wawancara + video.</strong> Wawancarai sesepuh kampung tentang peristiwa penting di desamu. Rekam dan edit menjadi video 3–5 menit. Ini adalah bentuk historiografi kreatif.</li>
-          <li><strong>Jurnal refleksi harian.</strong> Selama 2 minggu, catat setiap hari satu hal bersejarah yang kamu amati di sekitarmu (benda, bangunan, tradisi). Refleksikan maknanya untuk kehidupanmu.</li>
+          <li><strong>Proyek mini penelitian (wajib).</strong> Pilih satu topik sejarah lokal (nama desa, bangunan tua, tokoh daerah). Lakukan <strong>8 tahapan keterampilan proses</strong>: amati, tanya, kumpulkan, olah, uji konsep, evaluasi &amp; refleksi, komunikasikan, rencana tindak lanjut. Presentasikan hasilnya.</li>
+          <li><strong>Kolaborasi lintas kelas.</strong> Bersama kelompok, teliti satu situs bersejarah di sekitar sekolah. Bagi peran (wawancara, dokumentasi, analisis, penulisan). Buat laporan bersama + rencana aksi.</li>
+          <li><strong>Analisis hoaks sejarah.</strong> Cari satu konten viral tentang sejarah (TikTok/YouTube/Instagram). Analisis kritis: apakah sumbernya kredibel? Apakah ada kekeliruan? Tuliskan hasil analisismu dan saran verifikasi.</li>
+          <li><strong>Video kolaboratif.</strong> Wawancarai sesepuh kampung tentang peristiwa penting di desamu. Rekam, edit, dan unggah ke kanal sekolah. Sertakan rencana tindak lanjut dari temuan.</li>
+          <li><strong>Jurnal refleksi harian.</strong> Selama 2 minggu, catat satu hal bersejarah yang kamu amati di sekitarmu (benda, bangunan, tradisi). Refleksikan maknanya untuk kehidupanmu.</li>
+          <li><strong>Pameran mini sejarah lokal.</strong> Bersama kelas, gelar pameran kecil: timeline, infografis, foto, dan hasil wawancara. Undang siswa lain dan orang tua. Sertakan rencana tindak lanjut kolektif.</li>
         </ol>
       </div>
 
       <div class="highlight" style="text-align:center; margin-top:30px;">
-        🎉 <strong>Selamat!</strong> Kamu telah menyelesaikan seluruh materi Bab 6 — dan seluruh rangkaian materi Sejarah Fase D dari Jejak Nusantara!
+        🎉 <strong>Selamat!</strong> Kamu telah menyelesaikan seluruh materi Sejarah Fase D — dari Jejak Nusantara!
         Sekarang saatnya uji pemahamanmu dengan kuis akhir!
       </div>
     </section>
@@ -1317,10 +1152,9 @@
   </main>
 </div>
 
-<!-- FOOTER NAV -->
 <div class="footer-nav">
   <button class="nav-prev" id="prevBtn" onclick="prev()">← Sebelumnya</button>
-  <span class="page-counter"><span id="currentNum">1</span> / 17</span>
+  <span class="page-counter"><span id="currentNum">1</span> / 14</span>
   <button class="nav-next" id="nextBtn" onclick="next()">Selanjutnya →</button>
 </div>
 
@@ -1340,26 +1174,20 @@ const totalPages = pages.length;
 
 function goTo(index) {
   if (index < 0 || index >= totalPages) return;
-
   pages[currentPage].classList.remove('active');
   navItems[currentPage].classList.remove('active');
   navItems[currentPage].classList.add('done');
-
   currentPage = index;
-
   pages[currentPage].classList.add('active');
   navItems[currentPage].classList.add('active');
-
   progressFill.style.width = ((currentPage + 1) / totalPages * 100) + '%';
   currentNum.textContent = currentPage + 1;
-
   prevBtn.disabled = currentPage === 0;
   if (currentPage === totalPages - 1) {
     nextBtn.textContent = '🎮 Mulai Kuis';
   } else {
     nextBtn.textContent = 'Selanjutnya →';
   }
-
   mainArea.scrollTop = 0;
   if (window.innerWidth <= 800) {
     sidebar.classList.remove('open');
@@ -1375,9 +1203,7 @@ function next() {
   goTo(currentPage + 1);
 }
 
-function prev() {
-  goTo(currentPage - 1);
-}
+function prev() { goTo(currentPage - 1); }
 
 function toggleSidebar() {
   sidebar.classList.toggle('open');
@@ -1402,7 +1228,6 @@ document.addEventListener('keydown', (e) => {
 
 goTo(0);
 
-/* ========== LOADING SCREEN ========== */
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
   setTimeout(() => {
