@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bab 3 — Peristiwa Lokal, Nasional, Global | Pesawat Tempur IPS</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+  html, body { height:100%; }
+  body {
+    background:#07111f; color:white; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+
+  /* ========== LOADING SCREEN ========== */
+  #loader {
+    position:fixed; inset:0; z-index:9999;
+    background:#07111f;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:24px;
+    transition: opacity .7s ease, visibility .7s ease;
+  }
+  #loader.hide { opacity:0; visibility:hidden; pointer-events:none; }
+
+  #loader::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.06) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    animation:gridMove 12s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes gridMove {
+    from { background-position:0 0; }
+    to { background-position:44px 44px; }
+  }
+
+  #loader::after {
+    content:''; position:absolute;
+    width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(14,165,233,0.35), transparent 65%);
+    filter:blur(90px);
+    animation:orbPulse 3s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes orbPulse {
+    0%,100% { transform:scale(1); opacity:.6; }
+    50% { transform:scale(1.15); opacity:1; }
+  }
+
+  /* ========== LOGO MGE 3D ========== */
+  .mge-logo-wrap {
+    position:relative; z-index:1;
+    width:150px; height:150px;
+    display:flex; align-items:center; justify-content:center;
+    animation:logoFloat 3s ease-in-out infinite;
+  }
+  @keyframes logoFloat {
+    0%, 100% { transform:translateY(0); }
+    50% { transform:translateY(-8px); }
+  }
+  .mge-ring-outer {
+    position:absolute; inset:0;
+    border-radius:50%;
+    border:2px solid transparent;
+    border-top-color:#38bdf8;
+    border-right-color:#818cf8;
+    border-bottom-color:transparent;
+    border-left-color:#a78bfa;
+    animation:spinRing 1.6s linear infinite;
+    filter:drop-shadow(0 0 8px rgba(56,189,248,0.9));
+  }
+  .mge-ring-inner {
+    position:absolute; inset:12px;
+    border-radius:50%;
+    border:1.5px dashed rgba(56,189,248,0.5);
+    animation:spinRingReverse 4s linear infinite;
+  }
+  @keyframes spinRing { to { transform:rotate(360deg); } }
+  @keyframes spinRingReverse { to { transform:rotate(-360deg); } }
+
+  .mge-circle {
+    position:absolute; inset:20px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 25%, #1e3a5f 0%, #0b1b30 55%, #050d18 100%);
+    box-shadow:
+      0 0 0 1px rgba(56,189,248,0.35) inset,
+      0 0 24px rgba(14,165,233,0.55),
+      0 0 60px rgba(56,189,248,0.35),
+      inset 0 -8px 20px rgba(0,0,0,0.6);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .mge-circle::before {
+    content:'';
+    position:absolute;
+    top:-50%; left:-50%;
+    width:200%; height:200%;
+    background:conic-gradient(from 0deg, transparent 0%, rgba(56,189,248,0.25) 20%, transparent 40%);
+    animation:shimmer 3s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes shimmer { to { transform:rotate(360deg); } }
+
+  .mge-text {
+    position:relative;
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:44px; font-weight:900;
+    letter-spacing:2px; line-height:1;
+    background:linear-gradient(180deg, #e0f2fe 0%, #38bdf8 45%, #6366f1 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:
+      0 1px 0 rgba(56,189,248,0.4),
+      0 2px 0 rgba(56,189,248,0.3),
+      0 3px 0 rgba(99,102,241,0.3),
+      0 4px 8px rgba(0,0,0,0.6),
+      0 0 22px rgba(56,189,248,0.85);
+    filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+    animation:textPulse 2.4s ease-in-out infinite;
+    z-index:2;
+    transform:perspective(500px) rotateX(6deg);
+  }
+  @keyframes textPulse {
+    0%, 100% {
+      filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+      transform:perspective(500px) rotateX(6deg) scale(1);
+    }
+    50% {
+      filter:drop-shadow(0 0 22px rgba(56,189,248,1));
+      transform:perspective(500px) rotateX(6deg) scale(1.05);
+    }
+  }
+  .mge-text::after {
+    content:'MGE';
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(255,255,255,0.85) 0%, transparent 55%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    pointer-events:none; z-index:3;
+  }
+
+  .brand-text {
+    position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+    gap:10px; margin-top:4px;
+    animation:fadeInUp .9s ease .2s both;
+  }
+  .brand-text .brand-line {
+    width:26px; height:1px;
+    background:linear-gradient(90deg, transparent, #38bdf8, transparent);
+  }
+  .brand-text .brand-label {
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:13px; font-weight:700;
+    letter-spacing:5px; text-transform:uppercase;
+    background:linear-gradient(90deg, #38bdf8 0%, #a78bfa 50%, #38bdf8 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:brandShine 3.5s linear infinite;
+    white-space:nowrap;
+  }
+  @keyframes brandShine {
+    0% { background-position:0% 50%; }
+    100% { background-position:200% 50%; }
+  }
+
+  .loader-title {
+    position:relative; z-index:1;
+    font-size:15px; font-weight:bold;
+    letter-spacing:4px; text-transform:uppercase;
+    color:#cbd5e1;
+    animation:fadeInUp .8s ease .3s both;
+  }
+  .loader-sub {
+    position:relative; z-index:1;
+    color:#64748b; font-size:11px;
+    letter-spacing:2px; text-transform:uppercase;
+    animation:fadeInUp .8s ease .4s both;
+  }
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(10px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .loader-bar {
+    position:relative; z-index:1;
+    width:240px; height:4px;
+    background:#132941; border-radius:4px;
+    overflow:hidden; margin-top:4px;
+    animation:fadeInUp .8s ease .5s both;
+  }
+  .loader-bar-fill {
+    height:100%; width:0%;
+    background:linear-gradient(90deg,#0ea5e9,#38bdf8,#818cf8);
+    border-radius:4px;
+    box-shadow:0 0 12px rgba(56,189,248,0.7);
+    animation:loadFill 1.8s cubic-bezier(.65,.05,.36,1) forwards;
+  }
+  @keyframes loadFill {
+    0% { width:0%; }
+    40% { width:45%; }
+    70% { width:75%; }
+    100% { width:100%; }
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    padding:14px 5%; display:flex; justify-content:space-between; align-items:center;
+    background:#0b1b30; border-bottom:2px solid #0ea5e9;
+    flex-shrink:0; z-index:50;
+  }
+  .logo { font-size:16px; font-weight:bold; color:#38bdf8; display:flex; align-items:center; gap:8px; }
+  .back-btn {
+    color:white; text-decoration:none; background:#0ea5e9; padding:8px 18px;
+    border-radius:8px; font-weight:bold; font-size:13px; transition:.3s;
+  }
+  .back-btn:hover { background:#0284c7; }
+
+  /* ========== PROGRESS BAR ========== */
+  .progress-wrap {
+    height:4px; background:#132941; position:relative; flex-shrink:0;
+  }
+  .progress-fill {
+    height:100%; background:linear-gradient(90deg,#0ea5e9,#38bdf8);
+    width:0%; transition:width .5s ease;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout { flex:1; display:flex; overflow:hidden; }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar {
+    width:290px; background:#0b1b30; border-right:1px solid #1b3b5d;
+    overflow-y:auto; flex-shrink:0; padding:20px 0;
+  }
+  .sidebar::-webkit-scrollbar { width:6px; }
+  .sidebar::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:3px; }
+
+  .sidebar-title {
+    padding:0 20px 15px; font-size:12px; font-weight:bold;
+    color:#64748b; letter-spacing:1.5px; text-transform:uppercase;
+  }
+
+  .nav-item {
+    display:flex; align-items:center; gap:12px;
+    padding:12px 20px; cursor:pointer;
+    border-left:4px solid transparent;
+    transition:.25s; font-size:14px; color:#cbd5e1;
+  }
+  .nav-item:hover { background:#132941; color:#38bdf8; }
+  .nav-item.active {
+    background:#132941; color:#38bdf8;
+    border-left-color:#38bdf8; font-weight:bold;
+  }
+  .nav-item .num {
+    width:26px; height:26px; border-radius:50%;
+    background:#1b3b5d; color:#94a3b8;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:bold; flex-shrink:0;
+    transition:.25s;
+  }
+  .nav-item.active .num { background:#0ea5e9; color:white; }
+  .nav-item.done .num { background:#065f46; color:#10b981; }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex:1; overflow-y:auto; position:relative; scroll-behavior:smooth;
+  }
+  .main::-webkit-scrollbar { width:8px; }
+  .main::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:4px; }
+
+  .page {
+    display:none;
+    padding:40px 6% 120px;
+    max-width:900px; margin:0 auto;
+    animation: slideIn .4s ease;
+  }
+  .page.active { display:block; }
+  @keyframes slideIn {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .page-badge {
+    display:inline-block; padding:5px 14px;
+    background:#132941; color:#38bdf8;
+    border-radius:20px; font-size:12px;
+    font-weight:bold; margin-bottom:12px;
+    border:1px solid #2a4a6a;
+  }
+  .page-title { font-size:30px; margin-bottom:8px; line-height:1.3; }
+  .page-title span { color:#38bdf8; }
+  .page-subtitle {
+    color:#94a3b8; font-size:14px; margin-bottom:30px;
+    padding-bottom:20px; border-bottom:2px solid #1b3b5d;
+  }
+
+  .page h3 { color:#7dd3fc; font-size:17px; margin:22px 0 10px; }
+  .page h4 { color:#a5b4fc; font-size:15px; margin:18px 0 8px; }
+  .page p { color:#cbd5e1; margin-bottom:12px; text-align:justify; line-height:1.75; }
+  .page ul, .page ol { color:#cbd5e1; margin:10px 0 15px 25px; }
+  .page ul li, .page ol li { margin-bottom:8px; line-height:1.7; }
+
+  .highlight {
+    background:linear-gradient(135deg,#132941,#0f2337);
+    border-left:4px solid #38bdf8;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#e0f2fe; font-size:14px; line-height:1.7;
+  }
+  .highlight strong { color:#38bdf8; }
+
+  .contoh {
+    background:linear-gradient(135deg,#0f2a1a,#0a1f12);
+    border-left:4px solid #10b981;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#d1fae5; font-size:14px; line-height:1.7;
+  }
+  .contoh strong { color:#34d399; }
+
+  .warning {
+    background:linear-gradient(135deg,#2a1a0f,#1f1308);
+    border-left:4px solid #f59e0b;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#fef3c7; font-size:14px; line-height:1.7;
+  }
+  .warning strong { color:#fbbf24; }
+
+  table {
+    width:100%; border-collapse:collapse; margin:16px 0;
+    background:#132941; border-radius:10px; overflow:hidden; font-size:13px;
+  }
+  table th {
+    background:#0ea5e9; color:white; padding:12px;
+    text-align:left; font-size:13px;
+  }
+  table td {
+    padding:12px; color:#cbd5e1;
+    border-bottom:1px solid #1b3b5d;
+    vertical-align:top; line-height:1.6;
+  }
+  table tr:last-child td { border-bottom:none; }
+  table tr:nth-child(even) td { background:#0f2337; }
+
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:15px 0; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:15px; margin:15px 0; }
+  .mini-card {
+    background:#132941; border-radius:10px; padding:18px;
+    border:1px solid #2a4a6a; transition:.3s;
+  }
+  .mini-card:hover { border-color:#38bdf8; transform:translateY(-3px); }
+  .mini-card .icon { font-size:30px; margin-bottom:8px; }
+  .mini-card h4 { color:#38bdf8; font-size:15px; margin-bottom:6px; }
+  .mini-card p { font-size:13px; color:#94a3b8; margin:0; text-align:left; }
+
+  .peta-konsep {
+    background:#132941; border-radius:15px; padding:25px;
+    text-align:center; border:2px dashed #38bdf8; margin:15px 0;
+  }
+  .peta-konsep .node {
+    display:inline-block; padding:10px 20px; border-radius:10px;
+    font-weight:bold; font-size:13px; margin:5px;
+  }
+  .peta-konsep .node.utama { background:#0ea5e9; color:white; font-size:15px; padding:14px 28px; }
+  .peta-konsep .node.sub { background:#1b3b5d; color:#7dd3fc; }
+  .peta-konsep .node.detail { background:#132941; color:#94a3b8; border:1px solid #2a4a6a; }
+  .peta-konsep .arrow { color:#38bdf8; font-size:22px; display:block; margin:4px 0; }
+
+  .glosarium-item {
+    background:#132941; border-radius:10px; padding:14px 18px;
+    margin-bottom:10px; border-left:4px solid #a855f7;
+    transition:.3s;
+  }
+  .glosarium-item:hover { transform:translateX(5px); }
+  .glosarium-item strong { color:#c084fc; font-size:14px; }
+  .glosarium-item span { color:#cbd5e1; font-size:13px; }
+
+  .soal-item {
+    background:#132941; border-radius:10px; padding:18px 22px;
+    margin-bottom:15px; border-left:4px solid #f59e0b;
+  }
+  .soal-item .nomor { color:#fbbf24; font-weight:bold; font-size:13px; }
+  .soal-item .pertanyaan { color:#e0f2fe; font-size:14px; margin:8px 0; line-height:1.6; }
+  .soal-item .pilihan { color:#94a3b8; font-size:13px; margin-left:15px; line-height:1.8; }
+  .soal-item .jawaban {
+    margin-top:10px; padding:12px 15px; background:#0f2a1a;
+    border-radius:8px; color:#d1fae5; font-size:13px; display:none; line-height:1.6;
+  }
+  .soal-item .jawaban.show { display:block; animation:slideIn .3s ease; }
+  .toggle-btn {
+    margin-top:8px; padding:6px 14px; background:#1b3b5d; border:1px solid #2a4a6a;
+    border-radius:6px; color:#7dd3fc; font-size:12px; cursor:pointer;
+    transition:.2s;
+  }
+  .toggle-btn:hover { background:#2a4a6a; }
+
+  .proyek {
+    background:linear-gradient(135deg,#1a0f2a,#2a1a3a);
+    border-radius:15px; padding:25px; border:2px solid #a855f7;
+  }
+  .proyek ol { color:#e9d5ff; margin-left:20px; }
+  .proyek ol li { margin-bottom:10px; line-height:1.7; }
+
+  /* ========== FOOTER NAV ========== */
+  .footer-nav {
+    position:fixed; bottom:0; left:290px; right:0;
+    background:#0b1b30; border-top:1px solid #1b3b5d;
+    padding:14px 6%; display:flex; justify-content:space-between;
+    align-items:center; z-index:40;
+  }
+  .footer-nav button {
+    padding:12px 24px; border:none; border-radius:10px;
+    font-weight:bold; font-size:14px; cursor:pointer;
+    transition:.3s; display:flex; align-items:center; gap:8px;
+  }
+  .nav-prev { background:#1b3b5d; color:#94a3b8; }
+  .nav-prev:hover:not(:disabled) { background:#2a4a6a; color:white; }
+  .nav-prev:disabled { opacity:.3; cursor:not-allowed; }
+  .nav-next {
+    background:linear-gradient(135deg,#0ea5e9,#0284c7); color:white;
+    box-shadow:0 4px 15px rgba(14,165,233,0.3);
+  }
+  .nav-next:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(14,165,233,0.5); }
+  .nav-next:disabled { opacity:.3; cursor:not-allowed; }
+
+  .page-counter { color:#64748b; font-size:13px; font-weight:bold; }
+
+  .menu-toggle {
+    display:none; background:#0ea5e9; border:none; color:white;
+    padding:8px 12px; border-radius:8px; font-size:18px; cursor:pointer;
+  }
+
+  @media (max-width: 800px) {
+    .sidebar {
+      position:fixed; top:0; left:0; bottom:0; z-index:100;
+      transform:translateX(-100%); transition:.3s;
+      box-shadow:4px 0 20px rgba(0,0,0,0.5);
+    }
+    .sidebar.open { transform:translateX(0); }
+    .sidebar-overlay {
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6);
+      z-index:99;
+    }
+    .sidebar-overlay.show { display:block; }
+    .menu-toggle { display:block; }
+    .footer-nav { left:0; padding:12px 4%; }
+    .footer-nav button { padding:10px 16px; font-size:12px; }
+    .page { padding:25px 5% 100px; }
+    .page-title { font-size:22px; }
+    .grid-2, .grid-3 { grid-template-columns:1fr; }
+    .logo span.fulllogo { display:none; }
+    .loader-title { font-size:13px; letter-spacing:3px; }
+    .loader-bar { width:200px; }
+    .mge-logo-wrap { width:120px; height:120px; }
+    .mge-text { font-size:34px; }
+    .brand-text .brand-label { font-size:11px; letter-spacing:4px; }
+    .brand-text .brand-line { width:18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== LOADING SCREEN ========== -->
+<div id="loader">
+  <div class="mge-logo-wrap">
+    <div class="mge-ring-outer"></div>
+    <div class="mge-ring-inner"></div>
+    <div class="mge-circle">
+      <div class="mge-text">MGE</div>
+    </div>
+  </div>
+
+  <div class="brand-text">
+    <span class="brand-line"></span>
+    <span class="brand-label">MAEDA GAMES EDU</span>
+    <span class="brand-line"></span>
+  </div>
+
+  <div class="loader-title">Memuat Materi</div>
+
+  <div class="loader-bar">
+    <div class="loader-bar-fill"></div>
+  </div>
+
+  <div class="loader-sub">Bab 3 · Peristiwa Lokal, Nasional, Global</div>
+</div>
+
+<header>
+  <div class="logo">
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    📜 <span class="fulllogo">SEJARAH — BAB 3</span>
+  </div>
+  <a href="sejarah.html" class="back-btn">← Menu Bab</a>
+</header>
+
+<div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+  <!-- SIDEBAR NAV -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">📑 Daftar Materi</div>
+    <div class="nav-item active" onclick="goTo(0)">
+      <span class="num">1</span> Pengertian Tiga Skala
+    </div>
+    <div class="nav-item" onclick="goTo(1)">
+      <span class="num">2</span> Perbedaan Ruang Lingkup
+    </div>
+    <div class="nav-item" onclick="goTo(2)">
+      <span class="num">3</span> Hubungan Sebab-Akibat
+    </div>
+    <div class="nav-item" onclick="goTo(3)">
+      <span class="num">4</span> Contoh Peristiwa Lokal
+    </div>
+    <div class="nav-item" onclick="goTo(4)">
+      <span class="num">5</span> Contoh Peristiwa Nasional
+    </div>
+    <div class="nav-item" onclick="goTo(5)">
+      <span class="num">6</span> Contoh Peristiwa Global
+    </div>
+    <div class="nav-item" onclick="goTo(6)">
+      <span class="num">7</span> Studi Kasus: Surabaya 1945
+    </div>
+    <div class="nav-item" onclick="goTo(7)">
+      <span class="num">8</span> Studi Kasus: Jalur Rempah
+    </div>
+    <div class="nav-item" onclick="goTo(8)">
+      <span class="num">9</span> Studi Kasus: VOC
+    </div>
+    <div class="nav-item" onclick="goTo(9)">
+      <span class="num">10</span> Kronologi Lintas Skala
+    </div>
+    <div class="nav-item" onclick="goTo(10)">
+      <span class="num">11</span> Keterhubungan Masa
+    </div>
+    <div class="nav-item" onclick="goTo(11)">
+      <span class="num">12</span> Berpikir Kritis
+    </div>
+    <div class="nav-item" onclick="goTo(12)">
+      <span class="num">13</span> Peta Konsep
+    </div>
+    <div class="nav-item" onclick="goTo(13)">
+      <span class="num">14</span> Ringkasan
+    </div>
+    <div class="nav-item" onclick="goTo(14)">
+      <span class="num">15</span> Glosarium
+    </div>
+    <div class="nav-item" onclick="goTo(15)">
+      <span class="num">16</span> Soal Latihan
+    </div>
+    <div class="nav-item" onclick="goTo(16)">
+      <span class="num">17</span> Proyek Siswa
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main" id="main">
+
+    <!-- ===== PAGE 1: PENGERTIAN TIGA SKALA ===== -->
+    <section class="page active">
+      <div class="page-badge">📖 MATERI 1 dari 17</div>
+      <h2 class="page-title">Pengertian <span>Peristiwa Lokal, Nasional, Global</span></h2>
+      <p class="page-subtitle">Memahami tiga skala peristiwa dalam ilmu sejarah</p>
+
+      <p>Dalam mempelajari sejarah, kita tidak bisa hanya melihat satu peristiwa secara terpisah. Setiap peristiwa selalu berada dalam <strong style="color:#38bdf8">tiga skala ruang</strong> yang saling terhubung: lokal, nasional, dan global.</p>
+
+      <p>Memahami ketiga skala ini penting agar kita dapat menganalisis <strong>keterhubungan antara masa lampau, masa kini, dan masa yang akan datang</strong> — sesuai dengan Capaian Pembelajaran Fase D[reference:1].</p>
+
+      <h3>1. 🏘️ Peristiwa Lokal</h3>
+      <p>Peristiwa yang terjadi di <strong>lingkup daerah tertentu</strong> — kampung, desa, kota, atau wilayah — dan berdampak langsung pada masyarakat setempat.</p>
+      <ul>
+        <li>Contoh: Pertempuran di suatu daerah, berdirinya sekolah pertama di desa, banjir besar yang melanda kecamatan.</li>
+        <li>Pelaku: masyarakat setempat, tokoh daerah, atau kelompok kecil.</li>
+      </ul>
+
+      <h3>2. 🇮🇩 Peristiwa Nasional</h3>
+      <p>Peristiwa yang terjadi di <strong>lingkup negara</strong> dan berdampak pada seluruh bangsa Indonesia.</p>
+      <ul>
+        <li>Contoh: Sumpah Pemuda 1928, Proklamasi Kemerdekaan 1945, Reformasi 1998.</li>
+        <li>Pelaku: tokoh nasional, organisasi bangsa, atau rakyat Indonesia secara keseluruhan.</li>
+      </ul>
+
+      <h3>3. 🌍 Peristiwa Global</h3>
+      <p>Peristiwa yang terjadi di <strong>lingkup dunia</strong> dan memengaruhi banyak negara, termasuk Indonesia.</p>
+      <ul>
+        <li>Contoh: Perang Dunia I & II, Perang Dingin, Revolusi Industri, pandemi COVID-19.</li>
+        <li>Pelaku: negara-negara besar, organisasi internasional, atau kekuatan global.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong><br>
+        🏘️ Lokal = <strong>daerah</strong><br>
+        🇮🇩 Nasional = <strong>negara</strong><br>
+        🌍 Global = <strong>dunia</strong><br>
+        Ketiganya <strong>saling terhubung</strong>, bukan terpisah!
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh sederhana:</strong><br>
+        Sebuah pasar tradisional di kampung (lokal) menjadi bagian dari sistem ekonomi Indonesia (nasional), yang juga terhubung dengan perdagangan dunia (global).
+      </div>
+    </section>
+
+    <!-- ===== PAGE 2: PERBEDAAN RUANG LINGKUP ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 2 dari 17</div>
+      <h2 class="page-title">Perbedaan <span>Ruang Lingkup</span></h2>
+      <p class="page-subtitle">Membedakan tiga skala peristiwa secara jelas</p>
+
+      <p>Ketiga skala peristiwa memiliki perbedaan mendasar dalam hal <strong>ruang, pelaku, dampak, dan sumber</strong>.</p>
+
+      <h3>Tabel Perbandingan</h3>
+      <table>
+        <tr><th>Aspek</th><th>Lokal</th><th>Nasional</th><th>Global</th></tr>
+        <tr><td><strong>Ruang</strong></td><td>Kampung, desa, kota</td><td>Seluruh Indonesia</td><td>Dunia / banyak negara</td></tr>
+        <tr><td><strong>Pelaku</strong></td><td>Masyarakat &amp; tokoh daerah</td><td>Tokoh &amp; rakyat Indonesia</td><td>Negara &amp; organisasi dunia</td></tr>
+        <tr><td><strong>Dampak</strong></td><td>Masyarakat setempat</td><td>Seluruh bangsa</td><td>Banyak bangsa &amp; negara</td></tr>
+        <tr><td><strong>Sumber</strong></td><td>Cerita rakyat, arsip desa</td><td>Dokumen nasional, buku sejarah</td><td>Arsip internasional, berita dunia</td></tr>
+        <tr><td><strong>Contoh</strong></td><td>Bandung Lautan Api</td><td>Proklamasi 1945</td><td>Perang Dunia II</td></tr>
+      </table>
+
+      <h3>Bukan Berarti Terpisah</h3>
+      <p>Perbedaan ini <strong>bukan pemisahan</strong>. Justru sebaliknya — peristiwa lokal sering menjadi <em>akar</em> peristiwa nasional, dan peristiwa global sering menjadi <em>latar belakang</em> peristiwa nasional.</p>
+
+      <div class="peta-konsep">
+        <div class="node utama">GLOBAL</div>
+        <span class="arrow">↓ memengaruhi</span>
+        <div class="node sub">NASIONAL</div>
+        <span class="arrow">↓ tersusun dari</span>
+        <div class="node detail">LOKAL</div>
+      </div>
+
+      <div class="warning">
+        ⚠️ <strong>Ingat:</strong> Jangan pernah menganggap sejarah lokal itu "kecil" dan tidak penting. Tanpa peristiwa lokal, sejarah nasional tidak akan pernah ada!
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Analogi:</strong><br>
+        🧱 Lokal = batu bata<br>
+        🏠 Nasional = rumah<br>
+        🌆 Global = kota<br>
+        Rumah tidak bisa berdiri tanpa batu bata. Bangsa tidak bisa berdiri tanpa sejarah lokal.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 3: HUBUNGAN SEBAB-AKIBAT ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 3 dari 17</div>
+      <h2 class="page-title">Hubungan <span>Sebab-Akibat Antar Skala</span></h2>
+      <p class="page-subtitle">Bagaimana peristiwa di satu skala memengaruhi skala lainnya</p>
+
+      <p>Peristiwa sejarah tidak terjadi secara acak. Ada <strong style="color:#38bdf8">hubungan sebab-akibat</strong> (kausalitas) yang menghubungkan peristiwa lokal, nasional, dan global.</p>
+
+      <h3>Pola Hubungan Antar Skala</h3>
+      <table>
+        <tr><th>Pola</th><th>Contoh</th></tr>
+        <tr><td><strong>Global → Nasional</strong></td><td>Perang Dunia II → pendudukan Jepang di Indonesia → Proklamasi 1945</td></tr>
+        <tr><td><strong>Nasional → Lokal</strong></td><td>Proklamasi Kemerdekaan → rakyat di berbagai daerah mengambil alih kekuasaan</td></tr>
+        <tr><td><strong>Lokal → Nasional</strong></td><td>Perlawanan rakyat Banda → inspirasi perlawanan nasional terhadap VOC</td></tr>
+        <tr><td><strong>Lokal → Global</strong></td><td>Pertempuran Surabaya → perhatian dunia internasional terhadap kemerdekaan Indonesia[reference:2]</td></tr>
+      </table>
+
+      <h3>Contoh Rantai Sebab-Akibat</h3>
+      <div class="peta-konsep" style="text-align:left;">
+        <p style="color:#7dd3fc; margin-bottom:8px;"><strong>Rantai 1: Global → Nasional → Lokal</strong></p>
+        <p style="color:#cbd5e1; font-size:13px; line-height:1.8;">
+          Perang Dunia II (global) → Jepang menduduki Indonesia (nasional) → rakyat di berbagai daerah mengalami romusha &amp; penindasan (lokal).
+        </p>
+        <p style="color:#7dd3fc; margin:15px 0 8px;"><strong>Rantai 2: Lokal → Nasional</strong></p>
+        <p style="color:#cbd5e1; font-size:13px; line-height:1.8;">
+          Pertempuran 10 November 1945 di Surabaya (lokal) → menumbuhkan semangat nasionalisme seluruh Indonesia (nasional)[reference:3].
+        </p>
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Peristiwa sejarah bagaikan <strong>domino</strong> — satu peristiwa menjatuhkan peristiwa lainnya, melintasi batas lokal, nasional, dan global.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh nyata:</strong> Ketika Belanda mendirikan VOC (global/nasional), rakyat Banda melakukan perlawanan (lokal), yang kemudian menginspirasi perlawanan di daerah lain (nasional) — dan dikenang dunia sebagai bagian sejarah kolonialisme (global).
+      </div>
+    </section>
+
+    <!-- ===== PAGE 4: CONTOH PERISTIWA LOKAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 4 dari 17</div>
+      <h2 class="page-title">Contoh <span>Peristiwa Lokal</span></h2>
+      <p class="page-subtitle">Peristiwa heroik dari berbagai daerah di Indonesia</p>
+
+      <p>Indonesia memiliki banyak peristiwa lokal yang menjadi bagian penting dari sejarah nasional. Berikut beberapa di antaranya:</p>
+
+      <h3>1. 🔥 Bandung Lautan Api (23 Maret 1946)</h3>
+      <p>Peristiwa pengosongan dan pembakaran kota Bandung oleh rakyat dan tentara agar tidak dijadikan markas pasukan Sekutu dan Belanda (NICA)[reference:4]. Meskipun kota dibakar, semangat perlawanan tetap menyala.</p>
+
+      <h3>2. ⚔️ Palagan Ambarawa (1945)</h3>
+      <p>Pertempuran sengit antara pasukan Indonesia melawan Sekutu di Ambarawa, Jawa Tengah. Peristiwa ini melahirkan tokoh besar Jenderal Soedirman.</p>
+
+      <h3>3. 🩸 Pertempuran 10 November 1945 di Surabaya</h3>
+      <p>Perlawanan rakyat Surabaya terhadap ultimatum Inggris. Peristiwa ini kemudian diperingati sebagai <strong>Hari Pahlawan Nasional</strong>[reference:5].</p>
+
+      <h3>4. 🌺 Peristiwa Merah Putih di Sulawesi (1946)</h3>
+      <p>Perlawanan rakyat Sulawesi terhadap kekuasaan Belanda, ditandai dengan pengibaran bendera Merah Putih.</p>
+
+      <h3>5. 🔫 Pertempuran Lima Hari di Semarang (1945)</h3>
+      <p>Pertempuran antara pemuda Semarang melawan tentara Jepang yang masih bertahan setelah proklamasi.</p>
+
+      <h3>6. 🏙️ Pertempuran Medan Area (1945)</h3>
+      <p>Perlawanan rakyat Medan terhadap pasukan Sekutu dan NICA yang berusaha menguasai kembali Indonesia.</p>
+
+      <div class="highlight">
+        💡 <strong>Pola umum:</strong> Peristiwa lokal di berbagai daerah pada 1945–1946 menunjukkan bahwa <strong>semangat kemerdekaan menyebar cepat</strong> ke seluruh Nusantara setelah Proklamasi 17 Agustus 1945[reference:6].
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Renungan:</strong> Peristiwa lokal bukan hanya "cerita daerah". Bandung Lautan Api, Palagan Ambarawa, dan Pertempuran Surabaya adalah <strong>kepingan-kepingan sejarah nasional</strong> yang disatukan oleh semangat yang sama: mempertahankan kemerdekaan.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 5: CONTOH PERISTIWA NASIONAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 5 dari 17</div>
+      <h2 class="page-title">Contoh <span>Peristiwa Nasional</span></h2>
+      <p class="page-subtitle">Tonggak-tonggak penting dalam sejarah bangsa Indonesia</p>
+
+      <h3>1. 🤝 Sumpah Pemuda (28 Oktober 1928)</h3>
+      <p>Ikrar satu tanah air, satu bangsa, satu bahasa. Peristiwa ini menjadi <strong>fondasi persatuan</strong> Indonesia yang majemuk.</p>
+
+      <h3>2. 🎉 Proklamasi Kemerdekaan (17 Agustus 1945)</h3>
+      <p>Puncak perjuangan panjang bangsa Indonesia. Dibacakan oleh Soekarno-Hatta di Jalan Pegangsaan Timur No. 56, Jakarta. Peristiwa ini menandai <strong>lahirnya negara Indonesia</strong>.</p>
+
+      <h3>3. 🏛️ Kebangkitan Nasional (20 Mei 1908)</h3>
+      <p>Berdirinya Budi Utomo — organisasi modern pertama yang menandai tumbuhnya kesadaran nasional.</p>
+
+      <h3>4. 🔄 Reformasi 1998</h3>
+      <p>Gerakan mahasiswa dan rakyat yang menuntut perubahan politik dan demokrasi. Peristiwa ini mengakhiri Orde Baru dan membuka era reformasi.</p>
+
+      <h3>5. 🕊️ Konferensi Asia-Afrika (1955)</h3>
+      <p>Pertemuan negara-negara Asia-Afrika di Bandung yang menolak kolonialisme dan memperjuangkan perdamaian dunia.</p>
+
+      <div class="highlight">
+        💡 <strong>Ciri peristiwa nasional:</strong><br>
+        📌 Melibatkan <strong>seluruh bangsa</strong><br>
+        📌 Berdampak pada <strong>seluruh wilayah Indonesia</strong><br>
+        📌 Menjadi <strong>tonggak sejarah</strong> yang dikenang bersama<br>
+        📌 Sering menjadi <strong>pemicu</strong> peristiwa lokal di berbagai daerah
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh keterhubungan:</strong> Proklamasi 17 Agustus 1945 (nasional) memicu rakyat di berbagai daerah untuk mengambil alih kekuasaan dari Jepang (lokal) — seperti yang terjadi di Surabaya, Bandung, Ambarawa, dan Medan.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 6: CONTOH PERISTIWA GLOBAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 6 dari 17</div>
+      <h2 class="page-title">Contoh <span>Peristiwa Global</span></h2>
+      <p class="page-subtitle">Peristiwa dunia yang memengaruhi Indonesia</p>
+
+      <h3>1. 💥 Perang Dunia I (1914–1918)</h3>
+      <p>Perang besar di Eropa yang mengubah tatanan dunia. Dampaknya terasa hingga Indonesia melalui perubahan politik kolonial dan ekonomi.</p>
+
+      <h3>2. 🌍 Perang Dunia II (1939–1945)</h3>
+      <p>Perang global yang melibatkan banyak negara. Jepang masuk ke Indonesia, mengalahkan Belanda, dan menduduki Nusantara selama 1942–1945. Peristiwa ini <strong>mempercepat kemerdekaan Indonesia</strong>[reference:7].</p>
+
+      <h3>3. 🧊 Perang Dingin (1947–1991)</h3>
+      <p>Persaingan antara Amerika Serikat dan Uni Soviet. Indonesia berusaha <strong>tidak memihak</strong> (politik bebas aktif), yang kemudian melahirkan Gerakan Non-Blok.</p>
+
+      <h3>4. 🏭 Revolusi Industri (abad ke-18–19)</h3>
+      <p>Perubahan besar dalam produksi yang mengubah ekonomi dunia. Revolusi Industri mendorong bangsa Eropa mencari sumber daya dan pasar baru — termasuk ke Nusantara.</p>
+
+      <h3>5. 🦠 Pandemi COVID-19 (2020–2022)</h3>
+      <p>Pandemi global yang mengubah kehidupan sosial, ekonomi, dan pendidikan di seluruh dunia, termasuk Indonesia.</p>
+
+      <h3>6. 🚢 Penjelajahan Samudra (abad ke-15–16)</h3>
+      <p>Bangsa Eropa mencari jalur laut menuju Asia untuk mendapatkan rempah. Peristiwa global ini mengubah nasib Nusantara secara drastis.</p>
+
+      <div class="warning">
+        ⚠️ <strong>Penting:</strong> Peristiwa global tidak selalu "jauh" dari kita. Perang Dunia II, misalnya, adalah peristiwa global yang <strong>langsung mengubah kehidupan</strong> rakyat Indonesia melalui pendudukan Jepang dan romusha[reference:8].
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh analisis:</strong><br>
+        Perang Dunia II (global) → Jepang menduduki Indonesia (nasional) → rakyat di berbagai daerah mengalami kerja paksa (lokal) → memicu perlawanan (lokal) → mempercepat proklamasi (nasional) → dikenang dunia (global).
+      </div>
+    </section>
+
+    <!-- ===== PAGE 7: STUDI KASUS SURABAYA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 7 dari 17</div>
+      <h2 class="page-title">Studi Kasus: <span>Pertempuran Surabaya 1945</span></h2>
+      <p class="page-subtitle">Satu peristiwa, tiga skala analisis</p>
+
+      <h3>Latar Belakang</h3>
+      <p>Setelah Proklamasi 17 Agustus 1945, pasukan Sekutu (Inggris) datang ke Surabaya untuk melucuti senjata Jepang. Namun, mereka juga membawa <strong>NICA</strong> (pemerintahan sipil Belanda) yang ingin mengembalikan kekuasaan kolonial.</p>
+
+      <h3>Kronologi Singkat</h3>
+      <table>
+        <tr><th>Tanggal</th><th>Peristiwa</th></tr>
+        <tr><td>25 Oktober 1945</td><td>Pasukan Inggris (AFNEI) mendarat di Surabaya[reference:9]</td></tr>
+        <tr><td>27–30 Oktober 1945</td><td>Ketegangan memuncak; Brigadir Mallaby tewas[reference:10]</td></tr>
+        <tr><td>9 November 1945</td><td>Ultimatum Inggris: rakyat Surabaya harus menyerah</td></tr>
+        <tr><td>10 November 1945</td><td>Pertempuran besar pecah; Bung Tomo membakar semangat rakyat[reference:11]</td></tr>
+      </table>
+
+      <h3>Analisis Tiga Skala</h3>
+      <table>
+        <tr><th>Skala</th><th>Analisis</th></tr>
+        <tr><td><strong>🏘️ Lokal</strong></td><td>Pertempuran terjadi di kota Surabaya. Rakyat, pemuda, dan laskar berjuang mempertahankan kota mereka.</td></tr>
+        <tr><td><strong>🇮🇩 Nasional</strong></td><td>Peristiwa ini menjadi simbol perlawanan bangsa Indonesia terhadap penjajahan. Diperingati sebagai Hari Pahlawan Nasional[reference:12].</td></tr>
+        <tr><td><strong>🌍 Global</strong></td><td>Peristiwa ini menarik perhatian dunia. Dunia melihat bahwa kemerdekaan Indonesia direbut dengan pengorbanan, bukan hadiah dari Jepang[reference:13][reference:14].</td></tr>
+      </table>
+
+      <h3>Mengapa Penting?</h3>
+      <ul>
+        <li>Meskipun secara militer Indonesia kalah, perlawanan ini <strong>memperkuat semangat nasionalisme</strong>[reference:15].</li>
+        <li>Meningkatkan <strong>dukungan internasional</strong> terhadap kemerdekaan Indonesia[reference:16].</li>
+        <li>Menjadi <strong>inspirasi</strong> bagi perjuangan di daerah lain.</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Pelajaran:</strong> Satu peristiwa lokal (Surabaya) bisa memiliki <strong>makna nasional</strong> (Hari Pahlawan) dan <strong>dampak global</strong> (dukungan internasional). Inilah kekuatan sejarah!
+      </div>
+    </section>
+
+    <!-- ===== PAGE 8: STUDI KASUS JALUR REMPAH ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 8 dari 17</div>
+      <h2 class="page-title">Studi Kasus: <span>Jalur Rempah Nusantara</span></h2>
+      <p class="page-subtitle">Ketika rempah lokal mengubah sejarah dunia</p>
+
+      <h3>Apa itu Jalur Rempah?</h3>
+      <p><strong style="color:#38bdf8">Jalur Rempah</strong> adalah jaringan perdagangan rempah yang menghubungkan Nusantara dengan India, Tiongkok, Arab, dan Eropa. Rempah seperti cengkih dan pala hanya tumbuh di Maluku dan Banda, menjadikan Nusantara <strong>pusat perdagangan rempah dunia</strong>[reference:17].</p>
+
+      <h3>Analisis Tiga Skala</h3>
+      <table>
+        <tr><th>Skala</th><th>Analisis</th></tr>
+        <tr><td><strong>🏘️ Lokal</strong></td><td>Petani di Maluku dan Banda menanam cengkih dan pala. Kehidupan mereka bergantung pada rempah.</td></tr>
+        <tr><td><strong>🇮🇩 Nasional</strong></td><td>Jalur rempah menghubungkan berbagai kerajaan Nusantara: Sriwijaya, Majapahit, Demak, Ternate, Tidore[reference:18]. Rempah menjadi identitas maritim bangsa.</td></tr>
+        <tr><td><strong>🌍 Global</strong></td><td>Rempah Nusantara menjadi komoditas paling dicari di dunia. Bangsa Eropa berlomba mencari jalur laut ke Nusantara, memicu kolonialisme dan perdagangan global[reference:19].</td></tr>
+      </table>
+
+      <h3>Dampak Berbagai Skala</h3>
+      <ul>
+        <li><strong>Lokal:</strong> Muncul kota-kota pelabuhan baru, perubahan sosial di Maluku[reference:20].</li>
+        <li><strong>Nasional:</strong> Terbentuknya jaringan kerajaan maritim dan identitas bangsa bahari.</li>
+        <li><strong>Global:</strong> Persaingan antarnegara Eropa, lahirnya VOC, dan kolonialisme di Asia[reference:21].</li>
+      </ul>
+
+      <div class="highlight">
+        💡 <strong>Renungan:</strong> Rempah yang tumbuh di kepulauan kecil (lokal) mampu <strong>mengubah arah sejarah dunia</strong> (global). Inilah bukti bahwa peristiwa lokal tidak pernah benar-benar "kecil".
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh nyata:</strong> Banda Neira, pulau kecil di Maluku, pernah menjadi <strong>pusat perdagangan pala dunia</strong>. Bangsa-bangsa Eropa rela berlayar ribuan kilometer hanya untuk mendapatkan rempah dari pulau ini.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 9: STUDI KASUS VOC ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 9 dari 17</div>
+      <h2 class="page-title">Studi Kasus: <span>VOC & Kolonialisme</span></h2>
+      <p class="page-subtitle">Perusahaan dagang global yang mengubah Nusantara</p>
+
+      <h3>Apa itu VOC?</h3>
+      <p><strong style="color:#38bdf8">VOC</strong> (<em>Vereenigde Oostindische Compagnie</em>) adalah perserikatan perusahaan dagang Belanda yang didirikan pada <strong>20 Maret 1602</strong>[reference:22]. Tujuannya: mencegah persaingan tidak sehat antar pedagang Belanda dan menguasai perdagangan rempah[reference:23].</p>
+
+      <h3>Kronologi Penting</h3>
+      <table>
+        <tr><th>Tahun</th><th>Peristiwa</th></tr>
+        <tr><td>1596</td><td>Cornelis de Houtman tiba di Banten[reference:24]</td></tr>
+        <tr><td>1602</td><td>VOC didirikan[reference:25]</td></tr>
+        <tr><td>1610</td><td>Pieter Both menjadi Gubernur Jenderal pertama[reference:26]</td></tr>
+        <tr><td>1619</td><td>JP Coen menyerbu Jayakarta, membangun Batavia[reference:27]</td></tr>
+        <tr><td>1621</td><td>VOC menaklukkan Banda, memaksakan monopoli pala</td></tr>
+        <tr><td>1799</td><td>VOC dibubarkan karena korupsi &amp; bangkrut[reference:28]</td></tr>
+      </table>
+
+      <h3>Praktik Kolonialisme VOC</h3>
+      <ul>
+        <li><strong>Monopoli perdagangan</strong> — rakyat hanya boleh berdagang dengan VOC.</li>
+        <li><strong>Politik devide et impera</strong> — adu domba antar kerajaan[reference:29].</li>
+        <li><strong>Kekerasan</strong> — penaklukan Banda (1621), kerja paksa.</li>
+        <li><strong>Intervensi politik</strong> — ikut campur konflik internal kerajaan[reference:30].</li>
+      </ul>
+
+      <h3>Analisis Tiga Skala</h3>
+      <table>
+        <tr><th>Skala</th><th>Dampak</th></tr>
+        <tr><td><strong>🏘️ Lokal</strong></td><td>Rakyat Maluku dan Banda mengalami penindasan, kehilangan kebebasan berdagang.</td></tr>
+        <tr><td><strong>🇮🇩 Nasional</strong></td><td>VOC menguasai banyak wilayah Nusantara, meletakkan dasar kolonialisme Belanda.</td></tr>
+        <tr><td><strong>🌍 Global</strong></td><td>VOC menjadi perusahaan multinasional pertama di dunia, menguasai perdagangan rempah global.</td></tr>
+      </table>
+
+      <div class="warning">
+        ⚠️ <strong>Pelajaran:</strong> VOC adalah contoh bagaimana <strong>kepentingan ekonomi global</strong> dapat menyebabkan <strong>penderitaan lokal</strong>. Sejarah ini mengajarkan kita untuk kritis terhadap kekuasaan ekonomi.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 10: KRONOLOGI LINTAS SKALA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 10 dari 17</div>
+      <h2 class="page-title">Kronologi <span>Lintas Skala</span></h2>
+      <p class="page-subtitle">Menyusun peristiwa dari tiga skala dalam satu garis waktu</p>
+
+      <p>Untuk memahami keterhubungan antar skala, kita perlu menyusun peristiwa secara <strong>kronologis</strong> — dari yang paling awal hingga paling akhir — sambil menandai skalanya.</p>
+
+      <h3>Contoh Kronologi 1600–1945</h3>
+      <table>
+        <tr><th>Tahun</th><th>Peristiwa</th><th>Skala</th></tr>
+        <tr><td>1602</td><td>VOC didirikan[reference:31]</td><td>🌍 Global / 🇮🇩 Nasional</td></tr>
+        <tr><td>1619</td><td>JP Coen membangun Batavia[reference:32]</td><td>🏘️ Lokal / 🇮🇩 Nasional</td></tr>
+        <tr><td>1621</td><td>VOC menaklukkan Banda</td><td>🏘️ Lokal / 🌍 Global</td></tr>
+        <tr><td>1908</td><td>Budi Utomo berdiri</td><td>🇮🇩 Nasional</td></tr>
+        <tr><td>1928</td><td>Sumpah Pemuda</td><td>🇮🇩 Nasional</td></tr>
+        <tr><td>1942</td><td>Jepang menduduki Indonesia</td><td>🌍 Global / 🇮🇩 Nasional</td></tr>
+        <tr><td>1945</td><td>Proklamasi Kemerdekaan</td><td>🇮🇩 Nasional</td></tr>
+        <tr><td>1945</td><td>Pertempuran Surabaya</td><td>🏘️ Lokal / 🇮🇩 Nasional</td></tr>
+        <tr><td>1946</td><td>Bandung Lautan Api</td><td>🏘️ Lokal</td></tr>
+      </table>
+
+      <h3>Cara Membaca Kronologi Lintas Skala</h3>
+      <ol>
+        <li>Perhatikan <strong>urutan waktu</strong> — peristiwa mana yang lebih dulu terjadi.</li>
+        <li>Perhatikan <strong>skala</strong> — apakah peristiwa itu lokal, nasional, atau global.</li>
+        <li>Cari <strong>hubungan sebab-akibat</strong> — apakah peristiwa sebelumnya menyebabkan peristiwa berikutnya.</li>
+        <li>Lihat <strong>pola</strong> — apakah ada peristiwa global yang memicu peristiwa nasional, lalu peristiwa lokal.</li>
+      </ol>
+
+      <div class="highlight">
+        💡 <strong>Latihan:</strong> Coba buat kronologi serupa untuk periode 1945–1965. Tandai mana yang lokal, nasional, dan global. Diskusikan dengan temanmu!
+      </div>
+    </section>
+
+    <!-- ===== PAGE 11: KETERHUBUNGAN MASA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 11 dari 17</div>
+      <h2 class="page-title">Keterhubungan <span>Masa Lampau, Kini, Depan</span></h2>
+      <p class="page-subtitle">Belajar dari masa lalu untuk membangun masa depan</p>
+
+      <p>Salah satu inti Capaian Pembelajaran Fase D adalah kemampuan <strong>menganalisis keterhubungan antara masa lampau, masa kini, dan masa yang akan datang</strong>[reference:33].</p>
+
+      <h3>Mengapa Penting?</h3>
+      <ul>
+        <li><strong>Masa lampau</strong> memberi kita <em>pelajaran</em> dan <em>pengalaman</em>.</li>
+        <li><strong>Masa kini</strong> adalah <em>hasil</em> dari keputusan masa lalu.</li>
+        <li><strong>Masa depan</strong> adalah <em>akibat</em> dari keputusan kita hari ini.</li>
+      </ul>
+
+      <h3>Contoh Keterhubungan</h3>
+      <table>
+        <tr><th>Masa Lampau</th><th>Masa Kini</th><th>Masa Depan</th></tr>
+        <tr><td>VOC memonopoli rempah (1602–1799)</td><td>Indonesia memiliki pelabuhan modern &amp; jalur perdagangan global</td><td>Indonesia dapat menjadi poros maritim dunia</td></tr>
+        <tr><td>Perjuangan kemerdekaan (1945)</td><td>Kemerdekaan dinikmati generasi sekarang</td><td>Generasi muda wajib mengisi kemerdekaan</td></tr>
+        <tr><td>Pertempuran Surabaya (1945)</td><td>Diperingati sebagai Hari Pahlawan[reference:34]</td><td>Semangat kepahlawanan menjadi inspirasi menghadapi tantangan</td></tr>
+      </table>
+
+      <h3>Pertanyaan Reflektif</h3>
+      <ul>
+        <li>Apa yang bisa kita pelajari dari peristiwa lokal di daerah kita?</li>
+        <li>Bagaimana peristiwa nasional memengaruhi kehidupan kita hari ini?</li>
+        <li>Bagaimana peristiwa global membentuk dunia yang kita tinggali sekarang?</li>
+        <li>Apa yang bisa kita lakukan hari ini untuk masa depan yang lebih baik?</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> VOC dulu memonopoli rempah Nusantara. Kini, Indonesia merdeka dan bebas berdagang. Di masa depan, Indonesia bisa menjadi <strong>poros maritim dunia</strong> — jika kita belajar dari sejarah dan mengelola sumber daya dengan bijak.
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Kata kunci:</strong> Sejarah bukan hanya tentang <strong>menghafal masa lalu</strong>, tetapi tentang <strong>menggunakannya untuk membangun masa depan</strong>.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 12: BERPIKIR KRITIS ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 12 dari 17</div>
+      <h2 class="page-title">Berpikir <span>Kritis tentang Skala Peristiwa</span></h2>
+      <p class="page-subtitle">Melatih keterampilan analisis sejarah</p>
+
+      <p>Untuk menganalisis peristiwa dalam tiga skala, kita perlu <strong>berpikir kritis</strong> — tidak menerima informasi mentah-mentah, tetapi memeriksa, membandingkan, dan menyimpulkan.</p>
+
+      <h3>Pertanyaan Kritis yang Perlu Diajukan</h3>
+      <table>
+        <tr><th>Pertanyaan</th><th>Tujuan</th></tr>
+        <tr><td><strong>Siapa pelakunya?</strong></td><td>Menentukan skala (individu/kelompok/masyarakat/negara)</td></tr>
+        <tr><td><strong>Di mana terjadinya?</strong></td><td>Menentukan ruang lingkup (lokal/nasional/global)</td></tr>
+        <tr><td><strong>Kapan terjadinya?</strong></td><td>Menempatkan dalam kronologi</td></tr>
+        <tr><td><strong>Mengapa terjadi?</strong></td><td>Mencari sebab-sebab</td></tr>
+        <tr><td><strong>Apa dampaknya?</strong></td><td>Menganalisis akibat pada berbagai skala</td></tr>
+        <tr><td><strong>Apakah sumbernya kredibel?</strong></td><td>Menguji kebenaran informasi</td></tr>
+      </table>
+
+      <h3>Contoh Analisis Kritis</h3>
+      <p>Misalkan kamu membaca berita: <em>"Pemerintah membangun jalan tol baru di daerah X."</em></p>
+      <ul>
+        <li><strong>Lokal:</strong> Warga desa X terdampak pembangunan (pindah rumah, kehilangan lahan).</li>
+        <li><strong>Nasional:</strong> Jalan tol mempercepat distribusi barang antarprovinsi.</li>
+        <li><strong>Global:</strong> Konektivitas yang lebih baik meningkatkan daya saing Indonesia di pasar internasional.</li>
+      </ul>
+
+      <div class="warning">
+        ⚠️ <strong>Hati-hati:</strong> Jangan mudah percaya pada satu sumber. Bandingkan berita dari beberapa media, periksa tanggal, dan cari sumber resmi. Inilah inti dari <strong>berpikir kritis</strong>.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Latihan:</strong> Pilih satu berita hari ini. Analisis berita itu dalam tiga skala: lokal, nasional, dan global. Tuliskan hasilnya dalam tabel!
+      </div>
+    </section>
+
+    <!-- ===== PAGE 13: PETA KONSEP ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 13 dari 17</div>
+      <h2 class="page-title">Peta <span>Konsep</span></h2>
+      <p class="page-subtitle">Ringkasan visual hubungan antar konsep</p>
+
+      <div class="peta-konsep">
+        <div class="node utama">PERISTIWA SEJARAH</div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node sub">🏘️ LOKAL</span>
+          <span class="node sub">🇮🇩 NASIONAL</span>
+          <span class="node sub">🌍 GLOBAL</span>
+        </div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node detail">Bandung Lautan Api</span>
+          <span class="node detail">Proklamasi 1945</span>
+          <span class="node detail">Perang Dunia II</span>
+        </div>
+        <span class="arrow">↓</span>
+        <div class="node utama">HUBUNGAN SEBAB-AKIBAT</div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node sub">Keterhubungan Masa Lampau</span>
+          <span class="node sub">Masa Kini</span>
+          <span class="node sub">Masa Depan</span>
+        </div>
+        <span class="arrow">↓</span>
+        <div class="node utama">BERPIKIR KRITIS SEJARAH</div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 14: RINGKASAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 14 dari 17</div>
+      <h2 class="page-title">Ringkasan <span>Bab 3</span></h2>
+      <p class="page-subtitle">Poin-poin penting yang harus diingat</p>
+
+      <ul>
+        <li><strong>Peristiwa lokal</strong> = terjadi di daerah tertentu, berdampak pada masyarakat setempat.</li>
+        <li><strong>Peristiwa nasional</strong> = terjadi di lingkup negara, berdampak pada seluruh bangsa.</li>
+        <li><strong>Peristiwa global</strong> = terjadi di lingkup dunia, memengaruhi banyak negara.</li>
+        <li><strong>Ketiga skala saling terhubung</strong> — lokal menjadi akar nasional, nasional dipengaruhi global.</li>
+        <li><strong>Hubungan sebab-akibat</strong> menghubungkan peristiwa lintas skala.</li>
+        <li><strong>Contoh peristiwa lokal</strong>: Bandung Lautan Api, Palagan Ambarawa, Pertempuran Surabaya, Medan Area[reference:35].</li>
+        <li><strong>Contoh peristiwa nasional</strong>: Sumpah Pemuda 1928, Proklamasi 1945, Reformasi 1998.</li>
+        <li><strong>Contoh peristiwa global</strong>: Perang Dunia I & II, Perang Dingin, Revolusi Industri, pandemi COVID-19.</li>
+        <li><strong>Studi kasus Surabaya</strong>: satu peristiwa lokal dengan makna nasional dan dampak global[reference:36].</li>
+        <li><strong>Studi kasus jalur rempah</strong>: rempah lokal mengubah sejarah dunia[reference:37].</li>
+        <li><strong>Studi kasus VOC</strong>: perusahaan dagang global yang mengubah Nusantara[reference:38].</li>
+        <li><strong>Keterhubungan masa lampau–kini–depan</strong>: belajar sejarah untuk membangun masa depan[reference:39].</li>
+      </ul>
+    </section>
+
+    <!-- ===== PAGE 15: GLOSARIUM ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 15 dari 17</div>
+      <h2 class="page-title">Glosarium <span>Istilah Penting</span></h2>
+      <p class="page-subtitle">Kumpulan istilah kunci dalam bab ini</p>
+
+      <div class="glosarium-item"><strong>Kausalitas</strong><br><span>Hubungan sebab-akibat antar peristiwa.</span></div>
+      <div class="glosarium-item"><strong>Global</strong><br><span>Berkaitan dengan seluruh dunia atau banyak negara.</span></div>
+      <div class="glosarium-item"><strong>Kolonialisme</strong><br><span>Sistem penjajahan suatu negara terhadap negara lain.</span></div>
+      <div class="glosarium-item"><strong>Kronologi</strong><br><span>Urutan peristiwa berdasarkan waktu terjadinya.</span></div>
+      <div class="glosarium-item"><strong>Lokal</strong><br><span>Berkaitan dengan daerah tertentu; ruang lingkup terbatas.</span></div>
+      <div class="glosarium-item"><strong>Monopoli</strong><br><span>Penguasaan tunggal atas perdagangan suatu komoditas.</span></div>
+      <div class="glosarium-item"><strong>Nasional</strong><br><span>Berkaitan dengan seluruh bangsa dan negara.</span></div>
+      <div class="glosarium-item"><strong>NICA</strong><br><span>Pemerintahan sipil Hindia Belanda yang ingin mengembalikan kekuasaan kolonial.</span></div>
+      <div class="glosarium-item"><strong>Peristiwa</strong><br><span>Kejadian penting yang terjadi pada waktu dan tempat tertentu.</span></div>
+      <div class="glosarium-item"><strong>Skala</strong><br><span>Tingkat luas ruang lingkup (lokal, nasional, global).</span></div>
+      <div class="glosarium-item"><strong>VOC</strong><br><span>Perserikatan perusahaan dagang Belanda (1602–1799).</span></div>
+      <div class="glosarium-item"><strong>Devide et Impera</strong><br><span>Politik adu domba untuk memecah belah kekuatan lawan.</span></div>
+    </section>
+
+    <!-- ===== PAGE 16: SOAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 16 dari 17</div>
+      <h2 class="page-title">Soal Latihan + <span>Pembahasan</span></h2>
+      <p class="page-subtitle">Klik tombol untuk memeriksa jawabanmu</p>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 1</div>
+        <div class="pertanyaan">Peristiwa yang terjadi di lingkup daerah tertentu dan berdampak pada masyarakat setempat disebut peristiwa...</div>
+        <div class="pilihan">A. Nasional<br>B. Global<br>C. Lokal<br>D. Internasional</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Peristiwa lokal terjadi di daerah tertentu dan berdampak pada masyarakat setempat.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 2</div>
+        <div class="pertanyaan">Proklamasi Kemerdekaan 17 Agustus 1945 termasuk peristiwa...</div>
+        <div class="pilihan">A. Lokal<br>B. Nasional<br>C. Global<br>D. Regional</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Proklamasi adalah peristiwa nasional yang berdampak pada seluruh bangsa Indonesia.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 3</div>
+        <div class="pertanyaan">Perang Dunia II termasuk peristiwa...</div>
+        <div class="pilihan">A. Lokal<br>B. Nasional<br>C. Global<br>D. Daerah</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Perang Dunia II melibatkan banyak negara dan berdampak global.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 4</div>
+        <div class="pertanyaan">Hubungan sebab-akibat antar peristiwa disebut...</div>
+        <div class="pilihan">A. Kronologi<br>B. Kausalitas<br>C. Skala<br>D. Periodisasi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Kausalitas adalah hubungan sebab-akibat antar peristiwa.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 5</div>
+        <div class="pertanyaan">Bandung Lautan Api terjadi pada tanggal...</div>
+        <div class="pilihan">A. 17 Agustus 1945<br>B. 10 November 1945<br>C. 23 Maret 1946<br>D. 28 Oktober 1928</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Bandung Lautan Api terjadi pada 23 Maret 1946[reference:40].</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 6</div>
+        <div class="pertanyaan">Pertempuran 10 November 1945 di Surabaya diperingati sebagai...</div>
+        <div class="pilihan">A. Hari Kemerdekaan<br>B. Hari Pahlawan<br>C. Hari Sumpah Pemuda<br>D. Hari Kebangkitan Nasional</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> 10 November diperingati sebagai Hari Pahlawan Nasional[reference:41].</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 7</div>
+        <div class="pertanyaan">VOC didirikan pada tahun...</div>
+        <div class="pilihan">A. 1596<br>B. 1602<br>C. 1619<br>D. 1799</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> VOC didirikan pada 20 Maret 1602[reference:42].</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 8</div>
+        <div class="pertanyaan">Peristiwa global yang mempercepat kemerdekaan Indonesia adalah...</div>
+        <div class="pilihan">A. Perang Dunia I<br>B. Perang Dunia II<br>C. Perang Dingin<br>D. Revolusi Industri</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Perang Dunia II menyebabkan Jepang menduduki Indonesia, yang kemudian mempercepat proklamasi kemerdekaan[reference:43].</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 9</div>
+        <div class="pertanyaan">Jalur rempah Nusantara menghubungkan Nusantara dengan...</div>
+        <div class="pilihan">A. Hanya India<br>B. India, Tiongkok, Arab, dan Eropa<br>C. Hanya Tiongkok<br>D. Hanya Eropa</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Jalur rempah menghubungkan Nusantara dengan India, Tiongkok, Arab, dan Eropa[reference:44].</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 10</div>
+        <div class="pertanyaan">Menganalisis keterhubungan masa lampau, kini, dan depan termasuk kemampuan...</div>
+        <div class="pilihan">A. Menghafal tahun<br>B. Berpikir kritis sejarah<br>C. Menggambar peta<br>D. Menulis puisi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Kemampuan menganalisis keterhubungan masa lampau, kini, dan depan adalah inti dari berpikir kritis sejarah[reference:45].</div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 17: PROYEK ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 17 dari 17</div>
+      <h2 class="page-title">Proyek / <span>Aktivitas Siswa</span></h2>
+      <p class="page-subtitle">Kerjakan salah satu proyek berikut untuk memperdalam pemahaman</p>
+
+      <div class="proyek">
+        <ol>
+          <li><strong>Buat tabel tiga skala.</strong> Pilih satu peristiwa sejarah Indonesia. Analisis peristiwa tersebut dalam tiga skala: lokal, nasional, dan global. Tuliskan pelaku, ruang, waktu, dan dampaknya di setiap skala.</li>
+          <li><strong>Buat garis waktu lintas skala.</strong> Susun kronologi peristiwa 1900–1945. Tandai setiap peristiwa dengan warna berbeda: biru untuk lokal, merah untuk nasional, hijau untuk global. Jelaskan hubungan sebab-akibatnya.</li>
+          <li><strong>Wawancara saksi/keluarga.</strong> Tanyakan kepada orang tua atau kakek/nenek tentang peristiwa lokal yang mereka ingat (misalnya banjir, pembangunan jalan, atau peristiwa penting di kampung). Analisis peristiwa itu dalam tiga skala.</li>
+          <li><strong>Analisis berita hari ini.</strong> Pilih satu berita dari surat kabar atau media online. Analisis berita tersebut dalam tiga skala: lokal, nasional, dan global. Tuliskan hasilnya dalam bentuk laporan singkat.</li>
+          <li><strong>Buat peta konsep.</strong> Gambar peta konsep yang menunjukkan hubungan antara peristiwa lokal, nasional, dan global. Gunakan contoh nyata dari materi ini.</li>
+        </ol>
+      </div>
+
+      <div class="highlight" style="text-align:center; margin-top:30px;">
+        🎉 <strong>Selamat!</strong> Kamu telah menyelesaikan seluruh materi Bab 3.
+        Sekarang saatnya uji pemahamanmu dengan kuis!
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="footer-nav">
+  <button class="nav-prev" id="prevBtn" onclick="prev()">← Sebelumnya</button>
+  <span class="page-counter"><span id="currentNum">1</span> / 17</span>
+  <button class="nav-next" id="nextBtn" onclick="next()">Selanjutnya →</button>
+</div>
+
+<script>
+const pages = document.querySelectorAll('.page');
+const navItems = document.querySelectorAll('.nav-item');
+const progressFill = document.getElementById('progressFill');
+const currentNum = document.getElementById('currentNum');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const mainArea = document.getElementById('main');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+let currentPage = 0;
+const totalPages = pages.length;
+
+function goTo(index) {
+  if (index < 0 || index >= totalPages) return;
+
+  pages[currentPage].classList.remove('active');
+  navItems[currentPage].classList.remove('active');
+  navItems[currentPage].classList.add('done');
+
+  currentPage = index;
+
+  pages[currentPage].classList.add('active');
+  navItems[currentPage].classList.add('active');
+
+  progressFill.style.width = ((currentPage + 1) / totalPages * 100) + '%';
+  currentNum.textContent = currentPage + 1;
+
+  prevBtn.disabled = currentPage === 0;
+  if (currentPage === totalPages - 1) {
+    nextBtn.textContent = '🎮 Mulai Kuis';
+  } else {
+    nextBtn.textContent = 'Selanjutnya →';
+  }
+
+  mainArea.scrollTop = 0;
+  if (window.innerWidth <= 800) {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+}
+
+function next() {
+  if (currentPage === totalPages - 1) {
+    window.location.href = 'sejarah-bab3-kuis.html';
+    return;
+  }
+  goTo(currentPage + 1);
+}
+
+function prev() {
+  goTo(currentPage - 1);
+}
+
+function toggleSidebar() {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+}
+
+function toggleJawaban(btn) {
+  const jawaban = btn.nextElementSibling;
+  if (jawaban.classList.contains('show')) {
+    jawaban.classList.remove('show');
+    btn.textContent = 'Lihat Jawaban';
+  } else {
+    jawaban.classList.add('show');
+    btn.textContent = 'Sembunyikan';
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+goTo(0);
+
+/* ========== LOADING SCREEN ========== */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }, 2200);
+});
+
+setTimeout(() => {
+  const loader = document.getElementById('loader');
+  if (loader && !loader.classList.contains('hide')) {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }
+}, 4500);
+</script>
+
+</body>
+</html>
