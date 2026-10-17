@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bab 2 — Sejarah Lokal & Toponimi Wilayah | Pesawat Tempur IPS</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+  html, body { height:100%; }
+  body {
+    background:#07111f; color:white; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+
+  /* ========== LOADING SCREEN ========== */
+  #loader {
+    position:fixed; inset:0; z-index:9999;
+    background:#07111f;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:24px;
+    transition: opacity .7s ease, visibility .7s ease;
+  }
+  #loader.hide { opacity:0; visibility:hidden; pointer-events:none; }
+
+  #loader::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.06) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+    animation:gridMove 12s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes gridMove {
+    from { background-position:0 0; }
+    to { background-position:44px 44px; }
+  }
+
+  #loader::after {
+    content:''; position:absolute;
+    width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(14,165,233,0.35), transparent 65%);
+    filter:blur(90px);
+    animation:orbPulse 3s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes orbPulse {
+    0%,100% { transform:scale(1); opacity:.6; }
+    50% { transform:scale(1.15); opacity:1; }
+  }
+
+  /* ========== LOGO MGE 3D ========== */
+  .mge-logo-wrap {
+    position:relative; z-index:1;
+    width:150px; height:150px;
+    display:flex; align-items:center; justify-content:center;
+    animation:logoFloat 3s ease-in-out infinite;
+  }
+  @keyframes logoFloat {
+    0%, 100% { transform:translateY(0); }
+    50% { transform:translateY(-8px); }
+  }
+  .mge-ring-outer {
+    position:absolute; inset:0;
+    border-radius:50%;
+    border:2px solid transparent;
+    border-top-color:#38bdf8;
+    border-right-color:#818cf8;
+    border-bottom-color:transparent;
+    border-left-color:#a78bfa;
+    animation:spinRing 1.6s linear infinite;
+    filter:drop-shadow(0 0 8px rgba(56,189,248,0.9));
+  }
+  .mge-ring-inner {
+    position:absolute; inset:12px;
+    border-radius:50%;
+    border:1.5px dashed rgba(56,189,248,0.5);
+    animation:spinRingReverse 4s linear infinite;
+  }
+  @keyframes spinRing { to { transform:rotate(360deg); } }
+  @keyframes spinRingReverse { to { transform:rotate(-360deg); } }
+
+  .mge-circle {
+    position:absolute; inset:20px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 25%, #1e3a5f 0%, #0b1b30 55%, #050d18 100%);
+    box-shadow:
+      0 0 0 1px rgba(56,189,248,0.35) inset,
+      0 0 24px rgba(14,165,233,0.55),
+      0 0 60px rgba(56,189,248,0.35),
+      inset 0 -8px 20px rgba(0,0,0,0.6);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .mge-circle::before {
+    content:'';
+    position:absolute;
+    top:-50%; left:-50%;
+    width:200%; height:200%;
+    background:conic-gradient(from 0deg, transparent 0%, rgba(56,189,248,0.25) 20%, transparent 40%);
+    animation:shimmer 3s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes shimmer { to { transform:rotate(360deg); } }
+
+  .mge-text {
+    position:relative;
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:44px; font-weight:900;
+    letter-spacing:2px; line-height:1;
+    background:linear-gradient(180deg, #e0f2fe 0%, #38bdf8 45%, #6366f1 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:
+      0 1px 0 rgba(56,189,248,0.4),
+      0 2px 0 rgba(56,189,248,0.3),
+      0 3px 0 rgba(99,102,241,0.3),
+      0 4px 8px rgba(0,0,0,0.6),
+      0 0 22px rgba(56,189,248,0.85);
+    filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+    animation:textPulse 2.4s ease-in-out infinite;
+    z-index:2;
+    transform:perspective(500px) rotateX(6deg);
+  }
+  @keyframes textPulse {
+    0%, 100% {
+      filter:drop-shadow(0 0 12px rgba(56,189,248,0.9));
+      transform:perspective(500px) rotateX(6deg) scale(1);
+    }
+    50% {
+      filter:drop-shadow(0 0 22px rgba(56,189,248,1));
+      transform:perspective(500px) rotateX(6deg) scale(1.05);
+    }
+  }
+  .mge-text::after {
+    content:'MGE';
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(255,255,255,0.85) 0%, transparent 55%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    pointer-events:none; z-index:3;
+  }
+
+  .brand-text {
+    position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+    gap:10px; margin-top:4px;
+    animation:fadeInUp .9s ease .2s both;
+  }
+  .brand-text .brand-line {
+    width:26px; height:1px;
+    background:linear-gradient(90deg, transparent, #38bdf8, transparent);
+  }
+  .brand-text .brand-label {
+    font-family:'Space Grotesk', Arial, sans-serif;
+    font-size:13px; font-weight:700;
+    letter-spacing:5px; text-transform:uppercase;
+    background:linear-gradient(90deg, #38bdf8 0%, #a78bfa 50%, #38bdf8 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:brandShine 3.5s linear infinite;
+    white-space:nowrap;
+  }
+  @keyframes brandShine {
+    0% { background-position:0% 50%; }
+    100% { background-position:200% 50%; }
+  }
+
+  .loader-title {
+    position:relative; z-index:1;
+    font-size:15px; font-weight:bold;
+    letter-spacing:4px; text-transform:uppercase;
+    color:#cbd5e1;
+    animation:fadeInUp .8s ease .3s both;
+  }
+  .loader-sub {
+    position:relative; z-index:1;
+    color:#64748b; font-size:11px;
+    letter-spacing:2px; text-transform:uppercase;
+    animation:fadeInUp .8s ease .4s both;
+  }
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(10px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .loader-bar {
+    position:relative; z-index:1;
+    width:240px; height:4px;
+    background:#132941; border-radius:4px;
+    overflow:hidden; margin-top:4px;
+    animation:fadeInUp .8s ease .5s both;
+  }
+  .loader-bar-fill {
+    height:100%; width:0%;
+    background:linear-gradient(90deg,#0ea5e9,#38bdf8,#818cf8);
+    border-radius:4px;
+    box-shadow:0 0 12px rgba(56,189,248,0.7);
+    animation:loadFill 1.8s cubic-bezier(.65,.05,.36,1) forwards;
+  }
+  @keyframes loadFill {
+    0% { width:0%; }
+    40% { width:45%; }
+    70% { width:75%; }
+    100% { width:100%; }
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    padding:14px 5%; display:flex; justify-content:space-between; align-items:center;
+    background:#0b1b30; border-bottom:2px solid #0ea5e9;
+    flex-shrink:0; z-index:50;
+  }
+  .logo { font-size:16px; font-weight:bold; color:#38bdf8; display:flex; align-items:center; gap:8px; }
+  .back-btn {
+    color:white; text-decoration:none; background:#0ea5e9; padding:8px 18px;
+    border-radius:8px; font-weight:bold; font-size:13px; transition:.3s;
+  }
+  .back-btn:hover { background:#0284c7; }
+
+  /* ========== PROGRESS BAR ========== */
+  .progress-wrap {
+    height:4px; background:#132941; position:relative; flex-shrink:0;
+  }
+  .progress-fill {
+    height:100%; background:linear-gradient(90deg,#0ea5e9,#38bdf8);
+    width:0%; transition:width .5s ease;
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout { flex:1; display:flex; overflow:hidden; }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar {
+    width:290px; background:#0b1b30; border-right:1px solid #1b3b5d;
+    overflow-y:auto; flex-shrink:0; padding:20px 0;
+  }
+  .sidebar::-webkit-scrollbar { width:6px; }
+  .sidebar::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:3px; }
+
+  .sidebar-title {
+    padding:0 20px 15px; font-size:12px; font-weight:bold;
+    color:#64748b; letter-spacing:1.5px; text-transform:uppercase;
+  }
+
+  .nav-item {
+    display:flex; align-items:center; gap:12px;
+    padding:12px 20px; cursor:pointer;
+    border-left:4px solid transparent;
+    transition:.25s; font-size:14px; color:#cbd5e1;
+  }
+  .nav-item:hover { background:#132941; color:#38bdf8; }
+  .nav-item.active {
+    background:#132941; color:#38bdf8;
+    border-left-color:#38bdf8; font-weight:bold;
+  }
+  .nav-item .num {
+    width:26px; height:26px; border-radius:50%;
+    background:#1b3b5d; color:#94a3b8;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:bold; flex-shrink:0;
+    transition:.25s;
+  }
+  .nav-item.active .num { background:#0ea5e9; color:white; }
+  .nav-item.done .num { background:#065f46; color:#10b981; }
+
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex:1; overflow-y:auto; position:relative; scroll-behavior:smooth;
+  }
+  .main::-webkit-scrollbar { width:8px; }
+  .main::-webkit-scrollbar-thumb { background:#1b3b5d; border-radius:4px; }
+
+  .page {
+    display:none;
+    padding:40px 6% 120px;
+    max-width:900px; margin:0 auto;
+    animation: slideIn .4s ease;
+  }
+  .page.active { display:block; }
+  @keyframes slideIn {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .page-badge {
+    display:inline-block; padding:5px 14px;
+    background:#132941; color:#38bdf8;
+    border-radius:20px; font-size:12px;
+    font-weight:bold; margin-bottom:12px;
+    border:1px solid #2a4a6a;
+  }
+  .page-title { font-size:30px; margin-bottom:8px; line-height:1.3; }
+  .page-title span { color:#38bdf8; }
+  .page-subtitle {
+    color:#94a3b8; font-size:14px; margin-bottom:30px;
+    padding-bottom:20px; border-bottom:2px solid #1b3b5d;
+  }
+
+  .page h3 { color:#7dd3fc; font-size:17px; margin:22px 0 10px; }
+  .page h4 { color:#a5b4fc; font-size:15px; margin:18px 0 8px; }
+  .page p { color:#cbd5e1; margin-bottom:12px; text-align:justify; line-height:1.75; }
+  .page ul, .page ol { color:#cbd5e1; margin:10px 0 15px 25px; }
+  .page ul li, .page ol li { margin-bottom:8px; line-height:1.7; }
+
+  .highlight {
+    background:linear-gradient(135deg,#132941,#0f2337);
+    border-left:4px solid #38bdf8;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#e0f2fe; font-size:14px; line-height:1.7;
+  }
+  .highlight strong { color:#38bdf8; }
+
+  .contoh {
+    background:linear-gradient(135deg,#0f2a1a,#0a1f12);
+    border-left:4px solid #10b981;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#d1fae5; font-size:14px; line-height:1.7;
+  }
+  .contoh strong { color:#34d399; }
+
+  .warning {
+    background:linear-gradient(135deg,#2a1a0f,#1f1308);
+    border-left:4px solid #f59e0b;
+    padding:16px 20px; border-radius:10px; margin:18px 0;
+    color:#fef3c7; font-size:14px; line-height:1.7;
+  }
+  .warning strong { color:#fbbf24; }
+
+  table {
+    width:100%; border-collapse:collapse; margin:16px 0;
+    background:#132941; border-radius:10px; overflow:hidden; font-size:13px;
+  }
+  table th {
+    background:#0ea5e9; color:white; padding:12px;
+    text-align:left; font-size:13px;
+  }
+  table td {
+    padding:12px; color:#cbd5e1;
+    border-bottom:1px solid #1b3b5d;
+    vertical-align:top; line-height:1.6;
+  }
+  table tr:last-child td { border-bottom:none; }
+  table tr:nth-child(even) td { background:#0f2337; }
+
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:15px 0; }
+  .mini-card {
+    background:#132941; border-radius:10px; padding:18px;
+    border:1px solid #2a4a6a; transition:.3s;
+  }
+  .mini-card:hover { border-color:#38bdf8; transform:translateY(-3px); }
+  .mini-card .icon { font-size:30px; margin-bottom:8px; }
+  .mini-card h4 { color:#38bdf8; font-size:15px; margin-bottom:6px; }
+  .mini-card p { font-size:13px; color:#94a3b8; margin:0; text-align:left; }
+
+  .peta-konsep {
+    background:#132941; border-radius:15px; padding:25px;
+    text-align:center; border:2px dashed #38bdf8; margin:15px 0;
+  }
+  .peta-konsep .node {
+    display:inline-block; padding:10px 20px; border-radius:10px;
+    font-weight:bold; font-size:13px; margin:5px;
+  }
+  .peta-konsep .node.utama { background:#0ea5e9; color:white; font-size:15px; padding:14px 28px; }
+  .peta-konsep .node.sub { background:#1b3b5d; color:#7dd3fc; }
+  .peta-konsep .node.detail { background:#132941; color:#94a3b8; border:1px solid #2a4a6a; }
+  .peta-konsep .arrow { color:#38bdf8; font-size:22px; display:block; margin:4px 0; }
+
+  .glosarium-item {
+    background:#132941; border-radius:10px; padding:14px 18px;
+    margin-bottom:10px; border-left:4px solid #a855f7;
+    transition:.3s;
+  }
+  .glosarium-item:hover { transform:translateX(5px); }
+  .glosarium-item strong { color:#c084fc; font-size:14px; }
+  .glosarium-item span { color:#cbd5e1; font-size:13px; }
+
+  .soal-item {
+    background:#132941; border-radius:10px; padding:18px 22px;
+    margin-bottom:15px; border-left:4px solid #f59e0b;
+  }
+  .soal-item .nomor { color:#fbbf24; font-weight:bold; font-size:13px; }
+  .soal-item .pertanyaan { color:#e0f2fe; font-size:14px; margin:8px 0; line-height:1.6; }
+  .soal-item .pilihan { color:#94a3b8; font-size:13px; margin-left:15px; line-height:1.8; }
+  .soal-item .jawaban {
+    margin-top:10px; padding:12px 15px; background:#0f2a1a;
+    border-radius:8px; color:#d1fae5; font-size:13px; display:none; line-height:1.6;
+  }
+  .soal-item .jawaban.show { display:block; animation:slideIn .3s ease; }
+  .toggle-btn {
+    margin-top:8px; padding:6px 14px; background:#1b3b5d; border:1px solid #2a4a6a;
+    border-radius:6px; color:#7dd3fc; font-size:12px; cursor:pointer;
+    transition:.2s;
+  }
+  .toggle-btn:hover { background:#2a4a6a; }
+
+  .proyek {
+    background:linear-gradient(135deg,#1a0f2a,#2a1a3a);
+    border-radius:15px; padding:25px; border:2px solid #a855f7;
+  }
+  .proyek ol { color:#e9d5ff; margin-left:20px; }
+  .proyek ol li { margin-bottom:10px; line-height:1.7; }
+
+  /* ========== FOOTER NAV ========== */
+  .footer-nav {
+    position:fixed; bottom:0; left:290px; right:0;
+    background:#0b1b30; border-top:1px solid #1b3b5d;
+    padding:14px 6%; display:flex; justify-content:space-between;
+    align-items:center; z-index:40;
+  }
+  .footer-nav button {
+    padding:12px 24px; border:none; border-radius:10px;
+    font-weight:bold; font-size:14px; cursor:pointer;
+    transition:.3s; display:flex; align-items:center; gap:8px;
+  }
+  .nav-prev { background:#1b3b5d; color:#94a3b8; }
+  .nav-prev:hover:not(:disabled) { background:#2a4a6a; color:white; }
+  .nav-prev:disabled { opacity:.3; cursor:not-allowed; }
+  .nav-next {
+    background:linear-gradient(135deg,#0ea5e9,#0284c7); color:white;
+    box-shadow:0 4px 15px rgba(14,165,233,0.3);
+  }
+  .nav-next:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(14,165,233,0.5); }
+  .nav-next:disabled { opacity:.3; cursor:not-allowed; }
+
+  .page-counter { color:#64748b; font-size:13px; font-weight:bold; }
+
+  .menu-toggle {
+    display:none; background:#0ea5e9; border:none; color:white;
+    padding:8px 12px; border-radius:8px; font-size:18px; cursor:pointer;
+  }
+
+  @media (max-width: 800px) {
+    .sidebar {
+      position:fixed; top:0; left:0; bottom:0; z-index:100;
+      transform:translateX(-100%); transition:.3s;
+      box-shadow:4px 0 20px rgba(0,0,0,0.5);
+    }
+    .sidebar.open { transform:translateX(0); }
+    .sidebar-overlay {
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6);
+      z-index:99;
+    }
+    .sidebar-overlay.show { display:block; }
+    .menu-toggle { display:block; }
+    .footer-nav { left:0; padding:12px 4%; }
+    .footer-nav button { padding:10px 16px; font-size:12px; }
+    .page { padding:25px 5% 100px; }
+    .page-title { font-size:22px; }
+    .grid-2 { grid-template-columns:1fr; }
+    .logo span.fulllogo { display:none; }
+    .loader-title { font-size:13px; letter-spacing:3px; }
+    .loader-bar { width:200px; }
+    .mge-logo-wrap { width:120px; height:120px; }
+    .mge-text { font-size:34px; }
+    .brand-text .brand-label { font-size:11px; letter-spacing:4px; }
+    .brand-text .brand-line { width:18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== LOADING SCREEN ========== -->
+<div id="loader">
+  <div class="mge-logo-wrap">
+    <div class="mge-ring-outer"></div>
+    <div class="mge-ring-inner"></div>
+    <div class="mge-circle">
+      <div class="mge-text">MGE</div>
+    </div>
+  </div>
+
+  <div class="brand-text">
+    <span class="brand-line"></span>
+    <span class="brand-label">MAEDA GAMES EDU</span>
+    <span class="brand-line"></span>
+  </div>
+
+  <div class="loader-title">Memuat Materi</div>
+
+  <div class="loader-bar">
+    <div class="loader-bar-fill"></div>
+  </div>
+
+  <div class="loader-sub">Bab 2 · Sejarah Lokal & Toponimi</div>
+</div>
+
+<header>
+  <div class="logo">
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    📜 <span class="fulllogo">SEJARAH — BAB 2</span>
+  </div>
+  <a href="sejarah.html" class="back-btn">← Menu Bab</a>
+</header>
+
+<div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+  <!-- SIDEBAR NAV -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">📑 Daftar Materi</div>
+    <div class="nav-item active" onclick="goTo(0)">
+      <span class="num">1</span> Pengertian Sejarah Lokal
+    </div>
+    <div class="nav-item" onclick="goTo(1)">
+      <span class="num">2</span> Pentingnya Sejarah Lokal
+    </div>
+    <div class="nav-item" onclick="goTo(2)">
+      <span class="num">3</span> Sumber Sejarah Lokal
+    </div>
+    <div class="nav-item" onclick="goTo(3)">
+      <span class="num">4</span> Pengertian Toponimi
+    </div>
+    <div class="nav-item" onclick="goTo(4)">
+      <span class="num">5</span> Asal-Usul Nama Tempat
+    </div>
+    <div class="nav-item" onclick="goTo(5)">
+      <span class="num">6</span> Jenis-Jenis Toponimi
+    </div>
+    <div class="nav-item" onclick="goTo(6)">
+      <span class="num">7</span> Contoh Toponimi Nusantara
+    </div>
+    <div class="nav-item" onclick="goTo(7)">
+      <span class="num">8</span> Metode Penelitian Toponimi
+    </div>
+    <div class="nav-item" onclick="goTo(8)">
+      <span class="num">9</span> Kearifan Lokal
+    </div>
+    <div class="nav-item" onclick="goTo(9)">
+      <span class="num">10</span> Tradisi Lisan
+    </div>
+    <div class="nav-item" onclick="goTo(10)">
+      <span class="num">11</span> Tokoh Sejarah Lokal
+    </div>
+    <div class="nav-item" onclick="goTo(11)">
+      <span class="num">12</span> Melestarikan Sejarah Lokal
+    </div>
+    <div class="nav-item" onclick="goTo(12)">
+      <span class="num">13</span> Peta Konsep
+    </div>
+    <div class="nav-item" onclick="goTo(13)">
+      <span class="num">14</span> Ringkasan
+    </div>
+    <div class="nav-item" onclick="goTo(14)">
+      <span class="num">15</span> Glosarium
+    </div>
+    <div class="nav-item" onclick="goTo(15)">
+      <span class="num">16</span> Soal Latihan
+    </div>
+    <div class="nav-item" onclick="goTo(16)">
+      <span class="num">17</span> Proyek Siswa
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main" id="main">
+
+    <!-- ===== PAGE 1: PENGERTIAN SEJARAH LOKAL ===== -->
+    <section class="page active">
+      <div class="page-badge">📖 MATERI 1 dari 17</div>
+      <h2 class="page-title">Pengertian <span>Sejarah Lokal</span></h2>
+      <p class="page-subtitle">Memahami sejarah di sekitar tempat tinggal kita</p>
+
+      <p><strong style="color:#38bdf8">Sejarah lokal</strong> adalah sejarah yang membahas peristiwa-peristiwa yang terjadi di suatu daerah tertentu — kampung, desa, kelurahan, kecamatan, atau kota — yang berkaitan dengan kehidupan masyarakat setempat.</p>
+
+      <p>Sejarah lokal sering disebut juga <em>sejarah daerah</em> atau <em>local history</em>. Cakupannya lebih sempit dari sejarah nasional, tetapi menjadi <strong>batu bata penyusun</strong> sejarah bangsa secara keseluruhan.</p>
+
+      <h3>Ciri-Ciri Sejarah Lokal</h3>
+      <ul>
+        <li><strong>Ruang lingkup terbatas</strong> — hanya satu daerah/kawasan.</li>
+        <li><strong>Berbasis masyarakat setempat</strong> — tokoh, budaya, dan peristiwa khas daerah tersebut.</li>
+        <li><strong>Sumbernya dekat</strong> — bisa dari cerita rakyat, tokoh lokal, atau situs setempat.</li>
+        <li><strong>Menghubungkan lokal dengan nasional</strong> — peristiwa kecil bisa berdampak luas.</li>
+      </ul>
+
+      <h3>Contoh Sejarah Lokal</h3>
+      <table>
+        <tr><th>Daerah</th><th>Sejarah Lokal</th></tr>
+        <tr><td>Yogyakarta</td><td>Sejarah berdirinya Keraton Yogyakarta (1755)</td></tr>
+        <tr><td>Surabaya</td><td>Asal-usul nama "Surabaya" dari legenda Sura dan Baya</td></tr>
+        <tr><td>Banda Neira</td><td>Sejarah perkebunan pala & kekejaman VOC pada 1621</td></tr>
+        <tr><td>Bukittinggi</td><td>Situs benteng Fort de Kock dari masa kolonial</td></tr>
+        <tr><td>Aceh</td><td>Sejarah Kesultanan Aceh Darussalam abad ke-16</td></tr>
+      </table>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Sejarah lokal adalah <strong>jendela pertama</strong> untuk memahami sejarah yang lebih besar. Sebelum mengenal sejarah nasional, kita perlu mengenal sejarah kampung kita sendiri.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Kamu tinggal di desa yang memiliki situs makam tokoh zaman dahulu. Menelusuri siapa tokoh itu, kapan hidupnya, dan apa perannya adalah bentuk penelitian sejarah lokal.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 2: PENTINGNYA SEJARAH LOKAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 2 dari 17</div>
+      <h2 class="page-title">Pentingnya <span>Sejarah Lokal</span></h2>
+      <p class="page-subtitle">Mengapa kita perlu mempelajari sejarah di sekitar kita</p>
+
+      <p>Sejarah lokal bukan sekadar pelengkap, tetapi memiliki peran penting dalam membangun pemahaman sejarah yang utuh.</p>
+
+      <h3>Manfaat Mempelajari Sejarah Lokal</h3>
+      <div class="grid-2">
+        <div class="mini-card">
+          <div class="icon">🧠</div>
+          <h4>Identitas Diri</h4>
+          <p>Mengenal akar budaya dan asal-usul daerah sendiri.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🌱</div>
+          <h4>Rasa Bangga</h4>
+          <p>Menumbuhkan kebanggaan terhadap warisan leluhur.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🔗</div>
+          <h4>Menghubungkan Skala</h4>
+          <p>Peristiwa lokal sering menjadi bagian peristiwa nasional.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">💾</div>
+          <h4>Pelestarian Budaya</h4>
+          <p>Mencegah budaya dan cerita daerah hilang ditelan zaman.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🔍</div>
+          <h4>Melatih Keterampilan</h4>
+          <p>Berlatih meneliti sumber, wawancara, dan menyusun cerita sejarah.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">📚</div>
+          <h4>Memperkaya Nasional</h4>
+          <p>Sejarah nasional tersusun dari kepingan sejarah lokal.</p>
+        </div>
+      </div>
+
+      <h3>Hubungan Lokal–Nasional–Global</h3>
+      <p>Peristiwa kecil di daerah dapat berdampak besar. Sebaliknya, peristiwa global juga sampai ke daerah.</p>
+
+      <table>
+        <tr><th>Skala</th><th>Contoh</th></tr>
+        <tr><td><strong>Lokal</strong></td><td>Rakyat Banda melawan monopoli VOC</td></tr>
+        <tr><td><strong>Nasional</strong></td><td>Menjadi bagian dari perlawanan bangsa Indonesia terhadap kolonialisme</td></tr>
+        <tr><td><strong>Global</strong></td><td>Peristiwa Banda dikenang sebagai bagian sejarah perdagangan rempah dunia</td></tr>
+      </table>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Rakyat Aceh yang menolak penjajahan Belanda (lokal) adalah bagian dari perjuangan kemerdekaan Indonesia (nasional), yang juga terjadi di tengah pergolakan kolonialisme dunia (global).
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Kesimpulan:</strong> Sejarah lokal melatih kita memahami <strong>keterhubungan</strong> — bahwa peristiwa di kampung kita bukan hal kecil, tetapi bagian dari kisah besar bangsa dan dunia.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 3: SUMBER SEJARAH LOKAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 3 dari 17</div>
+      <h2 class="page-title">Sumber <span>Sejarah Lokal</span></h2>
+      <p class="page-subtitle">Dari mana kita bisa mendapatkan informasi sejarah daerah</p>
+
+      <p><strong style="color:#38bdf8">Sumber sejarah lokal</strong> adalah segala sesuatu yang dapat memberikan informasi tentang masa lampau suatu daerah.</p>
+
+      <h3>Jenis-Jenis Sumber Sejarah Lokal</h3>
+      <table>
+        <tr><th>Jenis</th><th>Contoh</th><th>Keterangan</th></tr>
+        <tr><td><strong>Lisan</strong></td><td>Cerita rakyat, legenda, dongeng, wawancara sesepuh</td><td>Diwariskan dari mulut ke mulut</td></tr>
+        <tr><td><strong>Tertulis</strong></td><td>Prasasti, naskah kuno, catatan Belanda, buku desa, arsip gereja/masjid</td><td>Berupa tulisan lama atau dokumen resmi</td></tr>
+        <tr><td><strong>Benda (artefak)</strong></td><td>Batu bersejarah, candi, masjid tua, meriam kuno, keris pusaka</td><td>Peninggalan fisik</td></tr>
+        <tr><td><strong>Tradisi &amp; adat</strong></td><td>Upacara adat, tarian, pakaian tradisional</td><td>Mengandung nilai sejarah &amp; budaya</td></tr>
+        <tr><td><strong>Audio-visual</strong></td><td>Foto lama, rekaman suara, film dokumenter daerah</td><td>Sumber modern</td></tr>
+      </table>
+
+      <h3>Mengumpulkan Sumber Sejarah Lokal</h3>
+      <ol>
+        <li><strong>Wawancara</strong> dengan sesepuh, tokoh masyarakat, atau warga senior.</li>
+        <li><strong>Mengunjungi situs</strong> bersejarah di sekitar tempat tinggal.</li>
+        <li><strong>Mengunjungi museum</strong> daerah atau perpustakaan lokal.</li>
+        <li><strong>Mencari dokumen</strong> desa, arsip keluarga, atau buku sejarah daerah.</li>
+        <li><strong>Mengumpulkan foto</strong> dan cerita yang tersimpan di masyarakat.</li>
+      </ol>
+
+      <div class="warning">
+        ⚠️ <strong>Penting:</strong> Cerita lisan bisa saja berubah karena diwariskan secara turun-temurun. Karena itu, sumber lisan perlu <strong>dikritik</strong> dengan membandingkan cerita dari beberapa orang dan sumber tertulis jika ada.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Kamu ingin meneliti asal-usul nama desamu. Kamu bisa wawancara 3–4 sesepuh, mencari catatan di kantor desa, dan memeriksa prasasti atau situs setempat. Ini adalah langkah awal penelitian sejarah lokal.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 4: PENGERTIAN TOPONIMI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 4 dari 17</div>
+      <h2 class="page-title">Pengertian <span>Toponimi</span></h2>
+      <p class="page-subtitle">Ilmu yang mempelajari asal-usul nama tempat</p>
+
+      <p><strong style="color:#38bdf8">Toponimi</strong> berasal dari bahasa Yunani: <em>topos</em> (tempat) dan <em>onoma</em> (nama). Jadi, toponimi adalah ilmu yang mempelajari asal-usul, arti, dan makna dari nama-nama tempat.</p>
+
+      <h3>Mengapa Toponimi Penting?</h3>
+      <ul>
+        <li><strong>Menyimpan jejak sejarah</strong> — nama tempat menyimpan cerita masa lalu.</li>
+        <li><strong>Mengungkap makna bahasa</strong> — menunjukkan pengaruh bahasa daerah atau asing.</li>
+        <li><strong>Menggambarkan kondisi alam</strong> — banyak nama tempat berdasarkan bentang alam.</li>
+        <li><strong>Membantu memahami budaya</strong> — nama tempat mencerminkan kepercayaan &amp; kebiasaan.</li>
+      </ul>
+
+      <h3>Objek Kajian Toponimi</h3>
+      <table>
+        <tr><th>Objek</th><th>Contoh</th></tr>
+        <tr><td>Nama desa</td><td>Desa Sukamaju, Desa Cibodas</td></tr>
+        <tr><td>Nama kota</td><td>Bandung, Surabaya, Makassar</td></tr>
+        <tr><td>Nama sungai</td><td>Kali Mas, Sungai Musi, Sungai Kapuas</td></tr>
+        <tr><td>Nama gunung</td><td>Gunung Merapi, Gunung Slamet, Gunung Rinjani</td></tr>
+        <tr><td>Nama jalan</td><td>Jl. Malioboro, Jl. Braga, Jl. Ahmad Yani</td></tr>
+      </table>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Toponimi bukan sekadar "nama tempat". Nama tempat adalah <strong>dokumen sejarah tanpa tulisan</strong> — menyimpan cerita bahasa, budaya, dan peristiwa masa lalu.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Nama "Cibodas" berasal dari bahasa Sunda: "ci" (air) + "bodas" (putih). Nama ini menunjukkan bahwa di daerah itu dulu ada sumber mata air berwarna putih. Ini adalah salah satu cara toponimi mengungkap masa lalu.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 5: ASAL-USUL NAMA TEMPAT ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 5 dari 17</div>
+      <h2 class="page-title">Asal-Usul <span>Nama Tempat</span></h2>
+      <p class="page-subtitle">Berbagai sumber pembentuk nama tempat di Nusantara</p>
+
+      <p>Nama tempat di Indonesia dapat berasal dari berbagai sumber. Berikut beberapa di antaranya:</p>
+
+      <h3>Sumber-Sumber Nama Tempat</h3>
+      <table>
+        <tr><th>Sumber</th><th>Penjelasan</th><th>Contoh</th></tr>
+        <tr><td><strong>Alam & geografi</strong></td><td>Berdasarkan bentang alam (sungai, gunung, laut)</td><td>Surabaya, Citarum, Bukittinggi</td></tr>
+        <tr><td><strong>Tumbuhan</strong></td><td>Berdasarkan tanaman yang banyak tumbuh di situ</td><td>Banyuwangi (banyu=air, wangi=harum)</td></tr>
+        <tr><td><strong>Hewan</strong></td><td>Berdasarkan hewan khas daerah</td><td>Merapi (meru=gunung, api=api)</td></tr>
+        <tr><td><strong>Tokoh / legenda</strong></td><td>Berdasarkan nama tokoh atau legenda setempat</td><td>Yogyakarta (Ngayogyakarta Hadiningrat)</td></tr>
+        <tr><td><strong>Peristiwa</strong></td><td>Berdasarkan peristiwa penting yang pernah terjadi</td><td>Palembang (dari "limbang" = mencuci)</td></tr>
+        <tr><td><strong>Bahasa asing</strong></td><td>Berdasarkan bahasa asing (Sanskerta, Portugis, Belanda)</td><td>Batavia (Belanda), Ambon (bahasa Arab)</td></tr>
+        <tr><td><strong>Harapan / doa</strong></td><td>Berdasarkan harapan baik masyarakat</td><td>Desa Sukamaju, Sukaasih</td></tr>
+      </table>
+
+      <h3>Pengaruh Bahasa dalam Toponimi</h3>
+      <p>Bahasa daerah sangat memengaruhi toponimi Indonesia:</p>
+      <ul>
+        <li><strong>Bahasa Sunda</strong> — kata "ci" berarti air: Cimahi, Cianjur, Cilegon.</li>
+        <li><strong>Bahasa Jawa</strong> — kata "sura" berarti keberanian: Surabaya, Surakarta.</li>
+        <li><strong>Bahasa Sansekerta</strong> — kata "jaya" berarti kemenangan: Jayapura, Dharmasraya.</li>
+        <li><strong>Bahasa Melayu</strong> — kata "tanjung" berarti ujung daratan: Tanjungpinang, Tanjungkarang.</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> "Yogyakarta" berasal dari bahasa Sanskerta: "Ngayogyakarta Hadiningrat" — Ngayogyakarta berarti "kota yang aman dan makmur", Hadiningrat berarti "negeri yang indah". Nama ini mencerminkan harapan masyarakat terhadap kotanya.
+      </div>
+
+      <div class="warning">
+        ⚠️ <strong>Hati-hati:</strong> Tidak semua nama tempat bersifat historis. Ada nama yang dibuat baru (misalnya nama desa hasil program transmigrasi). Karena itu, perlu ditelusuri sumber-sumbernya dengan teliti.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 6: JENIS-JENIS TOPONIMI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 6 dari 17</div>
+      <h2 class="page-title">Jenis-Jenis <span>Toponimi</span></h2>
+      <p class="page-subtitle">Klasifikasi nama tempat berdasarkan karakteristiknya</p>
+
+      <p>Ahli toponimi mengklasifikasikan nama tempat berdasarkan berbagai karakteristik berikut:</p>
+
+      <h3>A. Berdasarkan Asal Bahasanya</h3>
+      <table>
+        <tr><th>Jenis</th><th>Contoh</th></tr>
+        <tr><td><strong>Asli Nusantara</strong></td><td>Kampung Melayu, Nagari Koto, Cibodas</td></tr>
+        <tr><td><strong>Sanskerta</strong></td><td>Jayapura, Dharmasraya, Sriwijaya</td></tr>
+        <tr><td><strong>Arab</strong></td><td>Ambon, Kairo, Madinah</td></tr>
+        <tr><td><strong>Portugis</strong></td><td>Flores, Bacan, Ternate</td></tr>
+        <tr><td><strong>Belanda</strong></td><td>Batavia, Buitenzorg, Tjimahi</td></tr>
+      </table>
+
+      <h3>B. Berdasarkan Sifat Penamaan</h3>
+      <table>
+        <tr><th>Jenis</th><th>Pengertian</th><th>Contoh</th></tr>
+        <tr><td><strong>Deskriptif</strong></td><td>Menggambarkan ciri alam</td><td>Sungai Panjang, Gunung Berapi, Air Putih</td></tr>
+        <tr><td><strong>Simbolik</strong></td><td>Mengandung harapan / doa</td><td>Sukamaju, Sidoarjo, Harapan Baru</td></tr>
+        <tr><td><strong>Asosiatif</strong></td><td>Dikaitkan peristiwa / tokoh</td><td>Yogyakarta, Diponegoro, Kartini</td></tr>
+        <tr><td><strong>Topografis</strong></td><td>Berdasarkan bentuk lahan</td><td>Bukittinggi, Padang Sidempuan, Palabuhanratu</td></tr>
+      </table>
+
+      <h3>C. Berdasarkan Pembentukan Kata</h3>
+      <table>
+        <tr><th>Jenis</th><th>Contoh</th></tr>
+        <tr><td><strong>Satu kata</strong></td><td>Bandung, Surabaya, Malang</td></tr>
+        <tr><td><strong>Gabungan</strong></td><td>Sukabumi, Cibodas, Tanjungpinang</td></tr>
+        <tr><td><strong>Frasa</strong></td><td>Bukit Tinggi, Bandar Lampung, Kota Baru</td></tr>
+      </table>
+
+      <div class="contoh">
+        🌰 <strong>Contoh analisis toponimi:</strong><br>
+        "Sukabumi" = suka + bumi (bahasa Sansekerta untuk tanah).<br>
+        → Bersifat <strong>simbolik</strong>: harapan tanah yang menyenangkan.<br>
+        → Berbahasa <strong>campuran</strong>: Sansekerta + Sunda.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 7: CONTOH TOPONIMI NUSANTARA ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 7 dari 17</div>
+      <h2 class="page-title">Contoh Toponimi <span>Nusantara</span></h2>
+      <p class="page-subtitle">Studi kasus nama tempat di berbagai daerah</p>
+
+      <h3>Beberapa Contoh Terkenal</h3>
+      <table>
+        <tr><th>Nama Tempat</th><th>Asal-Usul</th><th>Makna</th></tr>
+        <tr><td><strong>Surabaya</strong></td><td>Dari legenda Sura (ikan hiu) dan Baya (buaya)</td><td>Pertarungan dua hewan sakti di muara Kali Mas</td></tr>
+        <tr><td><strong>Bandung</strong></td><td>Dari kata "bendung" (Sungai Citarum)</td><td>Kawasan yang dahulu dibendung sungainya</td></tr>
+        <tr><td><strong>Yogyakarta</strong></td><td>Dari Sanskerta: Ngayogyakarta Hadiningrat</td><td>Kota yang aman, makmur, dan indah</td></tr>
+        <tr><td><strong>Palembang</strong></td><td>Dari kata "limbang" (mencuci)</td><td>Daerah yang dahulu tempat mencuci</td></tr>
+        <tr><td><strong>Jayapura</strong></td><td>Dari Sanskerta: jaya (kemenangan) + pura (kota)</td><td>Kota kemenangan — nama pemberian Presiden Soekarno (1962)</td></tr>
+        <tr><td><strong>Makassar</strong></td><td>Dari bahasa Makassar: "Mangkasara"</td><td>Orang yang bersifat terbuka / berani</td></tr>
+        <tr><td><strong>Banjarmasin</strong></td><td>Dari kata "masin" (rasa asin)</td><td>Kawasan pesisir yang airnya asin</td></tr>
+        <tr><td><strong>Cimahi</strong></td><td>Dari Sunda: ci (air) + mahi (cukup)</td><td>Daerah dengan sumber air yang melimpah</td></tr>
+      </table>
+
+      <h3>Pola Menarik</h3>
+      <ul>
+        <li><strong>Nama pesisir</strong> sering mengandung kata "air", "laut", atau "sungai".</li>
+        <li><strong>Nama pegunungan</strong> sering mengandung kata "bukit", "gunung", atau "tinggi".</li>
+        <li><strong>Nama kota tua</strong> sering mengandung kata "jaya", "sari", atau "negara".</li>
+      </ul>
+
+      <div class="contoh">
+        🌰 <strong>Latihan toponimi daerah sendiri:</strong><br>
+        Coba pikirkan asal-usul nama desamu atau kecamatanmu. Adakah unsur alam, tokoh, atau bahasa tertentu di dalamnya? Tanyakan pada sesepuh kampung untuk memverifikasi.
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Intinya:</strong> Setiap nama tempat adalah <strong>tanda tangan budaya</strong> yang menyimpan cerita geografis, mitologis, atau historis — terkadang lebih tua dari catatan resmi.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 8: METODE PENELITIAN TOPONIMI ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 8 dari 17</div>
+      <h2 class="page-title">Metode Penelitian <span>Toponimi</span></h2>
+      <p class="page-subtitle">Langkah-langkah meneliti nama tempat secara ilmiah</p>
+
+      <p>Untuk meneliti asal-usul nama tempat secara ilmiah, kita bisa mengikuti langkah-langkah berikut — mirip metode sejarah pada umumnya.</p>
+
+      <h3>Langkah Penelitian Toponimi</h3>
+      <table>
+        <tr><th>No</th><th>Langkah</th><th>Kegiatan</th></tr>
+        <tr><td>1</td><td><strong>Menentukan objek</strong></td><td>Pilih satu nama tempat yang ingin diteliti (desa, jalan, sungai).</td></tr>
+        <tr><td>2</td><td><strong>Heuristik (mengumpulkan sumber)</strong></td><td>Wawancara sesepuh, cari dokumen desa, telusuri arsip, baca buku sejarah lokal.</td></tr>
+        <tr><td>3</td><td><strong>Kritik sumber</strong></td><td>Bandingkan versi cerita. Sumber tertulis biasanya lebih kuat dari cerita lisan.</td></tr>
+        <tr><td>4</td><td><strong>Analisis bahasa</strong></td><td>Telusuri arti kata dari bahasa daerah atau bahasa asing.</td></tr>
+        <tr><td>5</td><td><strong>Interpretasi</strong></td><td>Hubungkan hasil analisis menjadi sebuah penjelasan.</td></tr>
+        <tr><td>6</td><td><strong>Historiografi (menuliskan)</strong></td><td>Tuliskan hasil penelitian secara sistematis dan jelas.</td></tr>
+      </table>
+
+      <h3>Contoh Praktis</h3>
+      <p>Misalkan kamu ingin meneliti asal-usul nama <strong>Desa Sukamaju</strong>:</p>
+      <ol>
+        <li>Tanyakan pada sesepuh desa: mengapa bernama Sukamaju?</li>
+        <li>Cek arsip desa: sejak kapan nama ini digunakan?</li>
+        <li>Bandingkan dengan desa lain: apakah nama serupa ada di sekitar?</li>
+        <li>Analisis bahasa: "suka" + "maju" = harapan untuk kemajuan.</li>
+        <li>Simpulkan: nama ini kemungkinan merupakan nama baru yang diberikan pemerintah dengan makna harapan.</li>
+      </ol>
+
+      <div class="highlight">
+        💡 <strong>Keterampilan yang dilatih:</strong> Observasi, wawancara, kritik sumber, analisis bahasa, interpretasi, dan penulisan — semua keterampilan berpikir sejarah!
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Latihan:</strong> Coba teliti satu nama tempat di sekitar rumahmu. Bisa nama gang, nama sungai kecil, atau nama pasar. Ikuti langkah-langkah di atas!
+      </div>
+    </section>
+
+    <!-- ===== PAGE 9: KEARIFAN LOKAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 9 dari 17</div>
+      <h2 class="page-title">Kearifan <span>Lokal</span></h2>
+      <p class="page-subtitle">Nilai-nilai luhur warisan leluhur di setiap daerah</p>
+
+      <p><strong style="color:#38bdf8">Kearifan lokal</strong> (local wisdom) adalah nilai, pengetahuan, dan kebiasaan masyarakat setempat yang diwariskan dari generasi ke generasi dan menjadi pedoman hidup mereka.</p>
+
+      <h3>Ciri-Ciri Kearifan Lokal</h3>
+      <ul>
+        <li>Bersumber dari pengalaman panjang masyarakat.</li>
+        <li>Diwariskan secara turun-temurun.</li>
+        <li>Berkaitan erat dengan alam dan lingkungan.</li>
+        <li>Mengandung nilai moral, spiritual, dan sosial.</li>
+        <li>Menjadi identitas budaya daerah.</li>
+      </ul>
+
+      <h3>Contoh Kearifan Lokal Nusantara</h3>
+      <table>
+        <tr><th>Daerah</th><th>Kearifan Lokal</th><th>Nilai</th></tr>
+        <tr><td><strong>Jawa</strong></td><td>Gotong royong, "sambatan"</td><td>Kebersamaan &amp; solidaritas</td></tr>
+        <tr><td><strong>Bali</strong></td><td>Subak (sistem irigasi tradisional)</td><td>Keseimbangan alam &amp; pertanian</td></tr>
+        <tr><td><strong>Minangkabau</strong></td><td>Adat "Alam Takambang Jadi Guru"</td><td>Belajar dari alam</td></tr>
+        <tr><td><strong>Baduy</strong></td><td>Larangan menebang pohon sembarangan</td><td>Pelestarian hutan</td></tr>
+        <tr><td><strong>Dayak</strong></td><td>Tana' Ulen (hutan adat)</td><td>Perlindungan hutan bersama</td></tr>
+        <tr><td><strong>Bugis-Makassar</strong></td><td>"Siri' na Pacce"</td><td>Kehormatan &amp; kepedulian</td></tr>
+      </table>
+
+      <h3>Manfaat Kearifan Lokal</h3>
+      <ul>
+        <li>Menjaga keseimbangan alam.</li>
+        <li>Menguatkan solidaritas masyarakat.</li>
+        <li>Menjadi pedoman hidup yang bijak.</li>
+        <li>Menjadi daya tarik wisata budaya.</li>
+      </ul>
+
+      <div class="warning">
+        ⚠️ <strong>Tantangan:</strong> Modernisasi dapat menggerus kearifan lokal. Generasi muda perlu mengenal dan melestarikannya agar tidak hilang ditelan zaman.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Sistem <strong>Subak</strong> di Bali bukan hanya teknik irigasi, tetapi juga mengandung nilai kerja sama dan spiritualitas. UNESCO bahkan mengakuinya sebagai Warisan Budaya Dunia pada 2012.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 10: TRADISI LISAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 10 dari 17</div>
+      <h2 class="page-title">Tradisi <span>Lisan</span></h2>
+      <p class="page-subtitle">Cerita yang diwariskan dari mulut ke mulut</p>
+
+      <p><strong style="color:#38bdf8">Tradisi lisan</strong> adalah warisan budaya yang disampaikan dari mulut ke mulut, dari generasi ke generasi, tanpa menggunakan tulisan.</p>
+
+      <h3>Bentuk-Bentuk Tradisi Lisan</h3>
+      <table>
+        <tr><th>Bentuk</th><th>Pengertian</th><th>Contoh</th></tr>
+        <tr><td><strong>Mitos</strong></td><td>Cerita suci tentang dewa / asal-usul alam</td><td>Nyai Roro Kidul, Aji Saka</td></tr>
+        <tr><td><strong>Legenda</strong></td><td>Cerita rakyat yang dianggap benar-benar terjadi</td><td>Tangkuban Perahu, Danau Toba, Roro Jonggrang</td></tr>
+        <tr><td><strong>Dongeng</strong></td><td>Cerita fiktif untuk hiburan / pendidikan</td><td>Timun Mas, Malin Kundang, Bawang Merah Bawang Putih</td></tr>
+        <tr><td><strong>Fabel</strong></td><td>Cerita hewan berperilaku manusia</td><td>Kancil dan Buaya, Semut dan Belalang</td></tr>
+        <tr><td><strong>Pantun &amp; peribahasa</strong></td><td>Ungkapan tradisional</td><td>"Ada udang di balik batu"</td></tr>
+        <tr><td><strong>Nyanyian rakyat</strong></td><td>Lagu daerah</td><td>Rasa Sayange, Ampar-Ampar Pisang</td></tr>
+      </table>
+
+      <h3>Nilai Tradisi Lisan dalam Sejarah</h3>
+      <ul>
+        <li><strong>Menyimpan memori kolektif</strong> — mengingat peristiwa masa lalu.</li>
+        <li><strong>Mengajarkan nilai moral</strong> — baik-buruk, benar-salah.</li>
+        <li><strong>Menjadi identitas budaya</strong> — pembeda satu daerah dengan daerah lain.</li>
+        <li><strong>Menjadi sumber sejarah</strong> — dapat dijadikan sumber sekunder dalam penelitian.</li>
+      </ul>
+
+      <h3>Kelebihan &amp; Kelemahan Tradisi Lisan</h3>
+      <table>
+        <tr><th>Kelebihan</th><th>Kelemahan</th></tr>
+        <tr><td>Mudah diingat &amp; disampaikan</td><td>Bisa berubah karena diwariskan dari mulut ke mulut</td></tr>
+        <tr><td>Hidup di masyarakat</td><td>Detail bisa hilang atau ditambah</td></tr>
+        <tr><td>Tidak butuh alat tulis</td><td>Rentan punah jika tidak dilestarikan</td></tr>
+      </table>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Legenda Tangkuban Perahu menceritakan Sangkuriang yang menendang perahu hingga terbalik dan menjadi gunung. Meskipun tidak sepenuhnya ilmiah, cerita ini menyimpan jejak memori masyarakat Sunda tentang keberadaan gunung tersebut.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 11: TOKOH SEJARAH LOKAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 11 dari 17</div>
+      <h2 class="page-title">Tokoh <span>Sejarah Lokal</span></h2>
+      <p class="page-subtitle">Pahlawan dan figur penting dari daerah</p>
+
+      <p>Setiap daerah memiliki tokoh penting yang berperan dalam sejarah setempat. Mereka bisa pahlawan perjuangan, ulama, seniman, atau pelopor pembangunan.</p>
+
+      <h3>Kategori Tokoh Sejarah Lokal</h3>
+      <table>
+        <tr><th>Kategori</th><th>Peran</th><th>Contoh</th></tr>
+        <tr><td><strong>Pahlawan Perjuangan</strong></td><td>Melawan penjajah atau mempertahankan daerah</td><td>Cut Nyak Dhien (Aceh), Pangeran Diponegoro (Jawa), Pattimura (Maluku)</td></tr>
+        <tr><td><strong>Ulama / Tokoh Agama</strong></td><td>Menyebarkan agama &amp; pendidikan</td><td>Sunan Kalijaga, Syekh Yusuf (Makassar)</td></tr>
+        <tr><td><strong>Raja / Sultan</strong></td><td>Memimpin kerajaan lokal</td><td>Sultan Hasanuddin (Gowa), Sultan Iskandar Muda (Aceh)</td></tr>
+        <tr><td><strong>Seniman / Budayawan</strong></td><td>Menciptakan karya budaya</td><td>Raden Saleh (pelukis), WR Supratman (komposer)</td></tr>
+        <tr><td><strong>Pelopor Pembangunan</strong></td><td>Memajukan daerah</td><td>Douwes Dekker (pendidikan), Ki Hajar Dewantara</td></tr>
+      </table>
+
+      <h3>Cara Menelusuri Tokoh Lokal</h3>
+      <ol>
+        <li>Wawancara sesepuh atau ahli waris tokoh.</li>
+        <li>Cari makam, monumen, atau prasasti terkait tokoh.</li>
+        <li>Telusuri buku sejarah daerah &amp; arsip pemerintah.</li>
+        <li>Cari foto, dokumen, atau peninggalan pribadi.</li>
+        <li>Telusuri jejak nama pada nama jalan, gedung, atau lembaga.</li>
+      </ol>
+
+      <div class="contoh">
+        🌰 <strong>Contoh:</strong> Nama "Pangeran Antasari" (Banjarmasin), "Teuku Umar" (Aceh), dan "Sisingamangaraja XII" (Batak) sering dijadikan nama jalan atau gedung — tanda bahwa tokoh tersebut memiliki peran besar dalam sejarah daerahnya.
+      </div>
+
+      <div class="highlight">
+        💡 <strong>Renungan:</strong> Tokoh sejarah lokal bukan hanya orang terkenal. Bisa juga sesepuh desa yang berjasa membangun sekolah, atau bidan yang menyelamatkan ratusan bayi — mereka juga bagian dari sejarah.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 12: MELESTARIKAN SEJARAH LOKAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 12 dari 17</div>
+      <h2 class="page-title">Melestarikan <span>Sejarah Lokal</span></h2>
+      <p class="page-subtitle">Upaya menjaga warisan sejarah agar tidak hilang</p>
+
+      <p>Sejarah lokal dapat hilang jika tidak dijaga. Peran generasi muda sangat penting dalam pelestariannya.</p>
+
+      <h3>Upaya Pelestarian Sejarah Lokal</h3>
+      <table>
+        <tr><th>Upaya</th><th>Penjelasan</th></tr>
+        <tr><td><strong>Dokumentasi</strong></td><td>Merekam cerita lisan, memotret situs, menyimpan dokumen.</td></tr>
+        <tr><td><strong>Penulisan</strong></td><td>Menulis buku, artikel, atau blog tentang sejarah daerah.</td></tr>
+        <tr><td><strong>Digitalisasi</strong></td><td>Mengarsipkan foto &amp; dokumen ke bentuk digital.</td></tr>
+        <tr><td><strong>Wisata sejarah</strong></td><td>Mengunjungi situs &amp; museum untuk mengenal warisan.</td></tr>
+        <tr><td><strong>Festival budaya</strong></td><td>Menyelenggarakan acara yang menampilkan tradisi lokal.</td></tr>
+        <tr><td><strong>Pendidikan</strong></td><td>Mempelajari sejarah daerah di sekolah &amp; keluarga.</td></tr>
+        <tr><td><strong>Perawatan situs</strong></td><td>Menjaga kebersihan &amp; kelestarian situs bersejarah.</td></tr>
+      </table>
+
+      <h3>Peran Generasi Muda</h3>
+      <div class="grid-2">
+        <div class="mini-card">
+          <div class="icon">📱</div>
+          <h4>Dokumentasi Digital</h4>
+          <p>Buat konten media sosial tentang situs &amp; cerita sejarah daerah.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🎥</div>
+          <h4>Video Kreatif</h4>
+          <p>Buat vlog atau film pendek tentang tokoh &amp; legenda lokal.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">✍️</div>
+          <h4>Menulis Kreatif</h4>
+          <p>Tulis cerpen, puisi, atau esai berdasarkan sejarah lokal.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🤝</div>
+          <h4>Komunitas</h4>
+          <p>Ikut komunitas peduli sejarah &amp; cagar budaya.</p>
+        </div>
+      </div>
+
+      <div class="warning">
+        ⚠️ <strong>Perhatian:</strong> Jangan hanya menjadi penonton! Setiap pelajar bisa berkontribusi — bahkan dengan cara sederhana seperti menulis cerita tentang asal-usul kampung di media sosial.
+      </div>
+
+      <div class="contoh">
+        🌰 <strong>Contoh nyata:</strong> Banyak pelajar di berbagai daerah membuat konten TikTok atau YouTube tentang situs bersejarah di kampungnya. Hasilnya, informasi tentang sejarah lokal jadi tersebar luas dan menarik minat generasi muda.
+      </div>
+    </section>
+
+    <!-- ===== PAGE 13: PETA KONSEP ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 13 dari 17</div>
+      <h2 class="page-title">Peta <span>Konsep</span></h2>
+      <p class="page-subtitle">Ringkasan visual hubungan antar konsep</p>
+
+      <div class="peta-konsep">
+        <div class="node utama">SEJARAH LOKAL</div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node sub">Sumber Lisan</span>
+          <span class="node sub">Sumber Tertulis</span>
+          <span class="node sub">Artefak</span>
+        </div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node sub">Toponimi</span>
+          <span class="node sub">Kearifan Lokal</span>
+          <span class="node sub">Tradisi Lisan</span>
+        </div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node detail">Tokoh Lokal</span>
+          <span class="node detail">Situs Bersejarah</span>
+          <span class="node detail">Budaya Daerah</span>
+        </div>
+        <span class="arrow">↓</span>
+        <div>
+          <span class="node sub">Dokumentasi</span>
+          <span class="node sub">Pelestarian</span>
+        </div>
+        <span class="arrow">↓</span>
+        <div class="node utama">IDENTITAS BANGSA</div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 14: RINGKASAN ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 14 dari 17</div>
+      <h2 class="page-title">Ringkasan <span>Bab 2</span></h2>
+      <p class="page-subtitle">Poin-poin penting yang harus diingat</p>
+
+      <ul>
+        <li><strong>Sejarah lokal</strong> = sejarah yang membahas peristiwa di suatu daerah tertentu.</li>
+        <li><strong>Ciri sejarah lokal</strong> = ruang lingkup terbatas, berbasis masyarakat setempat, sumbernya dekat, menghubungkan lokal dengan nasional.</li>
+        <li><strong>Manfaat sejarah lokal</strong> = membangun identitas, rasa bangga, menghubungkan skala, melestarikan budaya, melatih keterampilan.</li>
+        <li><strong>Sumber sejarah lokal</strong> = lisan, tertulis, benda, tradisi, dan audio-visual.</li>
+        <li><strong>Toponimi</strong> = ilmu tentang asal-usul nama tempat, dari bahasa Yunani <em>topos</em> (tempat) + <em>onoma</em> (nama).</li>
+        <li><strong>Sumber nama tempat</strong> = alam, tumbuhan, hewan, tokoh, peristiwa, bahasa asing, dan harapan.</li>
+        <li><strong>Jenis toponimi</strong> = berdasarkan bahasa, sifat penamaan, dan pembentukan kata.</li>
+        <li><strong>Penelitian toponimi</strong> = mengikuti metode sejarah: objek → heuristik → kritik → analisis → interpretasi → historiografi.</li>
+        <li><strong>Kearifan lokal</strong> = nilai &amp; pengetahuan masyarakat yang diwariskan turun-temurun (subak, sambatan, tana' ulen).</li>
+        <li><strong>Tradisi lisan</strong> = warisan budaya lisan: mitos, legenda, dongeng, fabel, pantun, nyanyian rakyat.</li>
+        <li><strong>Tokoh lokal</strong> = pahlawan perjuangan, ulama, raja, seniman, pelopor pembangunan.</li>
+        <li><strong>Pelestarian</strong> = dokumentasi, penulisan, digitalisasi, festival budaya, pendidikan, dan perawatan situs.</li>
+      </ul>
+    </section>
+
+    <!-- ===== PAGE 15: GLOSARIUM ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 15 dari 17</div>
+      <h2 class="page-title">Glosarium <span>Istilah Penting</span></h2>
+      <p class="page-subtitle">Kumpulan istilah kunci dalam bab ini</p>
+
+      <div class="glosarium-item"><strong>Artefak</strong><br><span>Benda buatan manusia dari masa lalu (keramik, prasasti, senjata).</span></div>
+      <div class="glosarium-item"><strong>Fabel</strong><br><span>Cerita rakyat dengan tokoh hewan yang berperilaku seperti manusia.</span></div>
+      <div class="glosarium-item"><strong>Heuristik</strong><br><span>Tahap pertama metode sejarah: mengumpulkan sumber.</span></div>
+      <div class="glosarium-item"><strong>Historiografi</strong><br><span>Penulisan sejarah berdasarkan hasil penelitian.</span></div>
+      <div class="glosarium-item"><strong>Kearifan Lokal</strong><br><span>Nilai dan pengetahuan masyarakat yang diwariskan turun-temurun.</span></div>
+      <div class="glosarium-item"><strong>Legenda</strong><br><span>Cerita rakyat yang dianggap benar-benar terjadi oleh masyarakat pendukungnya.</span></div>
+      <div class="glosarium-item"><strong>Mitos</strong><br><span>Cerita suci tentang dewa, alam semesta, atau asal-usul.</span></div>
+      <div class="glosarium-item"><strong>Sejarah Lokal</strong><br><span>Sejarah yang membahas peristiwa pada lingkup daerah tertentu.</span></div>
+      <div class="glosarium-item"><strong>Subak</strong><br><span>Sistem irigasi tradisional Bali yang diakui UNESCO sebagai warisan dunia.</span></div>
+      <div class="glosarium-item"><strong>Tokoh Lokal</strong><br><span>Figur penting yang berperan dalam sejarah daerahnya.</span></div>
+      <div class="glosarium-item"><strong>Toponimi</strong><br><span>Ilmu yang mempelajari asal-usul dan makna nama tempat.</span></div>
+      <div class="glosarium-item"><strong>Tradisi Lisan</strong><br><span>Warisan budaya yang disampaikan dari mulut ke mulut antar generasi.</span></div>
+      <div class="glosarium-item"><strong>Tana' Ulen</strong><br><span>Hutan adat masyarakat Dayak yang dilindungi secara tradisional.</span></div>
+      <div class="glosarium-item"><strong>Sambatan</strong><br><span>Tradisi gotong royong masyarakat Jawa dalam membangun rumah atau acara.</span></div>
+    </section>
+
+    <!-- ===== PAGE 16: SOAL ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 16 dari 17</div>
+      <h2 class="page-title">Soal Latihan + <span>Pembahasan</span></h2>
+      <p class="page-subtitle">Klik tombol untuk memeriksa jawabanmu</p>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 1</div>
+        <div class="pertanyaan">Sejarah lokal adalah sejarah yang membahas peristiwa...</div>
+        <div class="pilihan">A. Di seluruh dunia<br>B. Di daerah tertentu<br>C. Di masa prasejarah<br>D. Di masa depan</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Sejarah lokal membahas peristiwa yang terjadi di suatu daerah tertentu, dengan ruang lingkup yang lebih sempit dari sejarah nasional.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 2</div>
+        <div class="pertanyaan">Ilmu yang mempelajari asal-usul nama tempat disebut...</div>
+        <div class="pilihan">A. Geografi<br>B. Kronologi<br>C. Toponimi<br>D. Historiografi</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Toponimi berasal dari bahasa Yunani: topos (tempat) + onoma (nama).</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 3</div>
+        <div class="pertanyaan">Kata "Cibodas" berasal dari bahasa Sunda. "Ci" berarti...</div>
+        <div class="pilihan">A. Tanah<br>B. Air<br>C. Batu<br>D. Api</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> "Ci" dalam bahasa Sunda berarti air. "Cibodas" = air putih.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 4</div>
+        <div class="pertanyaan">Cerita rakyat yang dianggap benar-benar terjadi oleh masyarakat disebut...</div>
+        <div class="pilihan">A. Mitos<br>B. Fabel<br>C. Legenda<br>D. Dongeng</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Legenda dianggap benar-benar terjadi oleh masyarakat pendukungnya (contoh: Tangkuban Perahu, Danau Toba).</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 5</div>
+        <div class="pertanyaan">Sistem irigasi tradisional Bali yang diakui UNESCO adalah...</div>
+        <div class="pilihan">A. Sambatan<br>B. Tana' Ulen<br>C. Subak<br>D. Siri' na Pacce</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Subak adalah sistem irigasi tradisional Bali yang diakui sebagai Warisan Budaya Dunia UNESCO pada 2012.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 6</div>
+        <div class="pertanyaan">Nama "Jayapura" berasal dari bahasa...</div>
+        <div class="pilihan">A. Jawa<br>B. Melayu<br>C. Sanskerta<br>D. Belanda</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Jayapura berasal dari Sanskerta: jaya (kemenangan) + pura (kota). Nama ini diberikan Presiden Soekarno pada 1962.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 7</div>
+        <div class="pertanyaan">Manfaat utama mempelajari sejarah lokal adalah...</div>
+        <div class="pilihan">A. Menghafal tahun kejadian<br>B. Membangun identitas & rasa bangga<br>C. Mendapat nilai bagus<br>D. Mengumpulkan foto</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> Manfaat utama sejarah lokal adalah membangun identitas diri, rasa bangga, dan melestarikan budaya daerah.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 8</div>
+        <div class="pertanyaan">Tradisi gotong royong masyarakat Jawa disebut...</div>
+        <div class="pilihan">A. Subak<br>B. Sambatan<br>C. Tana' Ulen<br>D. Siri' na Pacce</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: B.</strong> "Sambatan" adalah tradisi gotong royong masyarakat Jawa untuk membangun rumah atau menggelar acara.</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 9</div>
+        <div class="pertanyaan">Sumber sejarah lokal yang berupa cerita dari mulut ke mulut termasuk sumber...</div>
+        <div class="pilihan">A. Tertulis<br>B. Benda<br>C. Lisan<br>D. Audio-visual</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Sumber lisan adalah sumber sejarah yang disampaikan dari mulut ke mulut (cerita rakyat, legenda, dongeng).</div>
+      </div>
+
+      <div class="soal-item">
+        <div class="nomor">Soal 10</div>
+        <div class="pertanyaan">Berikut yang BUKAN termasuk cara melestarikan sejarah lokal adalah...</div>
+        <div class="pilihan">A. Dokumentasi situs<br>B. Penulisan buku sejarah<br>C. Membiarkan situs rusak<br>D. Digitalisasi arsip</div>
+        <button class="toggle-btn" onclick="toggleJawaban(this)">Lihat Jawaban</button>
+        <div class="jawaban"><strong>Jawaban: C.</strong> Membiarkan situs bersejarah rusak adalah tindakan yang salah. Seharusnya situs dijaga dan dirawat agar tetap lestari.</div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 17: PROYEK ===== -->
+    <section class="page">
+      <div class="page-badge">📖 MATERI 17 dari 17</div>
+      <h2 class="page-title">Proyek / <span>Aktivitas Siswa</span></h2>
+      <p class="page-subtitle">Kerjakan salah satu proyek berikut untuk memperdalam pemahaman</p>
+
+      <div class="proyek">
+        <ol>
+          <li><strong>Teliti asal-usul nama desamu.</strong> Wawancarai minimal 3 sesepuh atau tokoh masyarakat. Bandingkan versi cerita mereka. Susun hasilnya dalam bentuk laporan 1–2 halaman.</li>
+          <li><strong>Buat peta toponimi lingkunganmu.</strong> Gambar peta sederhana lingkungan sekitar (RT/RW atau kelurahan), lalu tuliskan asal-usul nama setiap tempat: jalan, gang, pasar, atau sungai. Gunakan warna berbeda untuk nama berbahasa daerah, Sanskerta, dan bahasa asing.</li>
+          <li><strong>Dokumentasikan situs bersejarah.</strong> Kunjungi satu situs (makam tokoh, masjid tua, monumen, prasasti) di sekitar tempat tinggalmu. Foto, catat informasinya, dan tuliskan cerita singkat tentang situs tersebut.</li>
+          <li><strong>Kumpulkan 5 cerita rakyat</strong> dari daerahmu. Klasifikasikan masing-masing ke dalam mitos, legenda, dongeng, atau fabel. Jelaskan alasan klasifikasinya.</li>
+          <li><strong>Wawancara tokoh lokal.</strong> Pilih satu tokoh (guru senior, sesepuh, veteran, atau pelaku sejarah lokal). Tanyakan tentang peristiwa penting di kampung pada masa mudanya. Tuliskan hasilnya dalam bentuk narasi sejarah 200–300 kata.</li>
+        </ol>
+      </div>
+
+      <div class="highlight" style="text-align:center; margin-top:30px;">
+        🎉 <strong>Selamat!</strong> Kamu telah menyelesaikan seluruh materi Bab 2.
+        Sekarang saatnya uji pemahamanmu dengan kuis!
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER NAV -->
+<div class="footer-nav">
+  <button class="nav-prev" id="prevBtn" onclick="prev()">← Sebelumnya</button>
+  <span class="page-counter"><span id="currentNum">1</span> / 17</span>
+  <button class="nav-next" id="nextBtn" onclick="next()">Selanjutnya →</button>
+</div>
+
+<script>
+const pages = document.querySelectorAll('.page');
+const navItems = document.querySelectorAll('.nav-item');
+const progressFill = document.getElementById('progressFill');
+const currentNum = document.getElementById('currentNum');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const mainArea = document.getElementById('main');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+let currentPage = 0;
+const totalPages = pages.length;
+
+function goTo(index) {
+  if (index < 0 || index >= totalPages) return;
+
+  pages[currentPage].classList.remove('active');
+  navItems[currentPage].classList.remove('active');
+  navItems[currentPage].classList.add('done');
+
+  currentPage = index;
+
+  pages[currentPage].classList.add('active');
+  navItems[currentPage].classList.add('active');
+
+  progressFill.style.width = ((currentPage + 1) / totalPages * 100) + '%';
+  currentNum.textContent = currentPage + 1;
+
+  prevBtn.disabled = currentPage === 0;
+  if (currentPage === totalPages - 1) {
+    nextBtn.textContent = '🎮 Mulai Kuis';
+  } else {
+    nextBtn.textContent = 'Selanjutnya →';
+  }
+
+  mainArea.scrollTop = 0;
+  if (window.innerWidth <= 800) {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+}
+
+function next() {
+  if (currentPage === totalPages - 1) {
+    window.location.href = 'sejarah-bab2-kuis.html';
+    return;
+  }
+  goTo(currentPage + 1);
+}
+
+function prev() {
+  goTo(currentPage - 1);
+}
+
+function toggleSidebar() {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+}
+
+function toggleJawaban(btn) {
+  const jawaban = btn.nextElementSibling;
+  if (jawaban.classList.contains('show')) {
+    jawaban.classList.remove('show');
+    btn.textContent = 'Lihat Jawaban';
+  } else {
+    jawaban.classList.add('show');
+    btn.textContent = 'Sembunyikan';
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+goTo(0);
+
+/* ========== LOADING SCREEN ========== */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }, 2200);
+});
+
+setTimeout(() => {
+  const loader = document.getElementById('loader');
+  if (loader && !loader.classList.contains('hide')) {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 800);
+  }
+}, 4500);
+</script>
+
+</body>
+</html>
