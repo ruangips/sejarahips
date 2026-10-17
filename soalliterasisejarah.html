@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latihan Literasi Sejarah — Model TKA SMP</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:wght@400;500;600&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; }
+  :root {
+    --bg:#060b14; --surface:#0c1421; --surface-2:#111d2e; --surface-3:#16263c;
+    --text:#e6edf5; --text-muted:#8a9bb2; --border:#1a2d44;
+    --radius:14px; --accent:#3b82f6;
+    --transition:0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+  body {
+    background:var(--bg); color:var(--text); min-height:100vh;
+    display:flex; flex-direction:column;
+    background-image:
+      radial-gradient(ellipse at 15% 0%, rgba(59,130,246,0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 100%, rgba(168,85,247,0.04) 0%, transparent 55%);
+  }
+  header {
+    background:linear-gradient(90deg, #0a1628 0%, #0f2038 100%);
+    border-bottom:2px solid var(--accent);
+    padding:12px 6%; display:flex; justify-content:space-between;
+    align-items:center; position:sticky; top:0; z-index:100;
+    box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  }
+  .logo { display:flex; align-items:center; gap:12px; }
+  .logo-mark {
+    width:38px; height:38px; border-radius:10px;
+    background:linear-gradient(135deg,#3b82f6,#1e40af);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:13px; color:#fff;
+    box-shadow:0 4px 14px rgba(59,130,246,0.4);
+    letter-spacing:0.5px;
+  }
+  .logo-text { display:flex; flex-direction:column; }
+  .logo-title { font-weight:800; font-size:15px; letter-spacing:-0.2px; line-height:1.2; }
+  .logo-sub { font-size:10px; color:var(--text-muted); font-weight:600; letter-spacing:1.5px; text-transform:uppercase; margin-top:2px; }
+  .header-tag {
+    font-size:10px; font-weight:700; letter-spacing:1.5px;
+    text-transform:uppercase; color:#93c5fd;
+    padding:6px 14px; border:1px solid rgba(59,130,246,0.3);
+    border-radius:6px; background:rgba(59,130,246,0.08);
+  }
+  .screen { display:none; flex:1; padding:28px 6% 56px; max-width:1180px; margin:0 auto; width:100%; }
+  .screen.active { display:block; animation:fadeUp 0.4s ease; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .home-hero { text-align:center; margin-bottom:36px; padding-top:18px; }
+  .home-badge {
+    display:inline-block; padding:6px 16px; border-radius:6px;
+    font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    background:rgba(59,130,246,0.1); color:#93c5fd;
+    border:1px solid rgba(59,130,246,0.25); margin-bottom:16px;
+  }
+  .home-hero h1 {
+    font-size:clamp(26px,3.5vw,40px); font-weight:800;
+    line-height:1.2; letter-spacing:-1px; margin-bottom:12px;
+  }
+  .home-hero h1 em {
+    font-style:normal;
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6,#ec4899);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .home-hero p {
+    color:var(--text-muted); font-size:14px; max-width:620px;
+    margin:0 auto; line-height:1.7;
+  }
+  .info-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:12px; margin:28px auto 40px; max-width:780px;
+  }
+  .info-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:10px; padding:16px; text-align:center;
+  }
+  .info-card .num { font-size:22px; font-weight:800; color:#3b82f6; letter-spacing:-0.5px; }
+  .info-card .lbl { font-size:10px; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
+
+  .chapter-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px; }
+  .chapter-card {
+    position:relative; border-radius:var(--radius);
+    padding:2px; cursor:pointer; transition:transform var(--transition);
+    background:linear-gradient(135deg, var(--ch-accent), color-mix(in srgb, var(--ch-accent) 30%, transparent));
+  }
+  .chapter-card:hover { transform:translateY(-5px); }
+  .chapter-card-inner {
+    background:var(--surface); border-radius:calc(var(--radius) - 2px);
+    padding:24px; position:relative; overflow:hidden; height:100%;
+  }
+  .chapter-card-inner::after {
+    content:''; position:absolute; top:-60px; right:-60px;
+    width:140px; height:140px; border-radius:50%;
+    background:var(--ch-accent); opacity:0.05;
+    filter:blur(30px); pointer-events:none;
+  }
+  .chapter-num {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:40px; height:40px; border-radius:10px;
+    font-weight:800; font-size:16px; margin-bottom:14px;
+    background:color-mix(in srgb, var(--ch-accent) 15%, transparent);
+    color:var(--ch-accent);
+    border:1px solid color-mix(in srgb, var(--ch-accent) 30%, transparent);
+  }
+  .chapter-title { font-size:16px; font-weight:700; margin-bottom:6px; line-height:1.4; letter-spacing:-0.2px; }
+  .chapter-desc { font-size:12px; color:var(--text-muted); line-height:1.6; margin-bottom:16px; }
+  .chapter-tags { display:flex; gap:8px; flex-wrap:wrap; padding-top:12px; border-top:1px solid var(--border); }
+  .chapter-tags span {
+    font-size:10px; font-weight:600; padding:4px 8px; border-radius:4px;
+    background:var(--surface-2); color:var(--text-muted);
+    border:1px solid var(--border);
+  }
+
+  .quiz-topbar {
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:12px; margin-bottom:16px;
+  }
+  .quiz-meta { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .quiz-badge {
+    padding:6px 14px; border-radius:6px; font-size:11px; font-weight:700;
+    background:color-mix(in srgb, var(--accent) 12%, transparent);
+    color:var(--accent);
+    border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    letter-spacing:0.5px;
+  }
+  .quiz-progress-text { font-size:12px; color:var(--text-muted); font-weight:600; }
+  .timer-box {
+    display:flex; align-items:center; gap:8px;
+    padding:8px 16px; border-radius:8px;
+    background:var(--surface); border:1.5px solid var(--border);
+    font-weight:800; font-size:15px; font-variant-numeric:tabular-nums;
+    color:var(--text); letter-spacing:0.5px;
+  }
+  .timer-box.warning { border-color:#f59e0b; color:#f59e0b; }
+  .timer-box.danger { border-color:#ef4444; color:#ef4444; animation:pulse 1s infinite; }
+  @keyframes pulse { 50% { opacity:0.65; } }
+  .timer-icon { font-size:14px; }
+
+  .progress-track {
+    height:4px; background:var(--surface-2); border-radius:999px;
+    overflow:hidden; margin-bottom:22px;
+  }
+  .progress-track-fill {
+    height:100%; width:0%; border-radius:999px;
+    background:linear-gradient(90deg,var(--accent), color-mix(in srgb,var(--accent) 60%, white));
+    transition:width 0.4s ease;
+  }
+  .stimulus-box {
+    background:linear-gradient(135deg, var(--surface-2), var(--surface-3));
+    border:1px solid var(--border); border-left:4px solid var(--accent);
+    border-radius:var(--radius); padding:20px 24px; margin-bottom:20px;
+    display:none;
+  }
+  .stimulus-box.show { display:block; }
+  .stimulus-header {
+    display:flex; align-items:center; gap:8px;
+    font-size:11px; font-weight:700; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--accent);
+    margin-bottom:12px;
+  }
+  .stimulus-header::before {
+    content:''; width:6px; height:6px; border-radius:50%;
+    background:var(--accent);
+  }
+  .stimulus-title {
+    font-size:14px; font-weight:700; color:var(--text);
+    margin-bottom:10px; letter-spacing:-0.2px;
+  }
+  .stimulus-text {
+    font-family:'Lora', Georgia, serif;
+    font-size:14px; line-height:1.8; color:#c9d6e5;
+    text-align:justify; margin-bottom:10px;
+  }
+  .stimulus-source {
+    font-size:11px; color:var(--text-muted); font-style:italic;
+    text-align:right; margin-top:8px;
+  }
+  .question-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:24px 28px; margin-bottom:16px;
+    position:relative;
+  }
+  .q-header {
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:8px; margin-bottom:14px;
+  }
+  .q-number {
+    font-size:11px; font-weight:800; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--accent);
+  }
+  .q-type {
+    font-size:10px; font-weight:700; padding:3px 9px; border-radius:4px;
+    background:var(--surface-2); color:var(--text-muted);
+    letter-spacing:0.5px; text-transform:uppercase;
+    border:1px solid var(--border);
+  }
+  .q-text {
+    font-size:15px; font-weight:600; line-height:1.7;
+    margin-bottom:18px; letter-spacing:-0.1px;
+  }
+  .options { display:flex; flex-direction:column; gap:9px; }
+  .option {
+    display:flex; align-items:flex-start; gap:12px;
+    padding:14px 16px; border-radius:10px;
+    background:var(--surface-2); border:1.5px solid var(--border);
+    cursor:pointer; transition:all var(--transition);
+    font-size:13.5px; line-height:1.55; color:var(--text);
+  }
+  .option:hover:not(.disabled) {
+    border-color:color-mix(in srgb, var(--accent) 50%, var(--border));
+    background:color-mix(in srgb, var(--accent) 4%, var(--surface-2));
+  }
+  .option.selected {
+    border-color:var(--accent);
+    background:color-mix(in srgb, var(--accent) 10%, var(--surface-2));
+  }
+  .option.correct {
+    border-color:#10b981;
+    background:rgba(16,185,129,0.08);
+  }
+  .option.wrong {
+    border-color:#ef4444;
+    background:rgba(239,68,68,0.08);
+  }
+  .option.disabled { cursor:default; pointer-events:none; }
+  .opt-marker {
+    flex-shrink:0; width:26px; height:26px; border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:12px;
+    background:var(--border); color:var(--text-muted);
+    transition:all var(--transition);
+  }
+  .option.selected .opt-marker { background:var(--accent); color:#fff; }
+  .option.correct .opt-marker { background:#10b981; color:#fff; }
+  .option.wrong .opt-marker { background:#ef4444; color:#fff; }
+  .opt-marker.checkbox {
+    border-radius:5px;
+    border:1.5px solid var(--border);
+    background:transparent;
+  }
+  .option.selected .opt-marker.checkbox {
+    background:var(--accent); border-color:var(--accent); color:#fff;
+  }
+  .confirm-btn {
+    margin-top:14px; padding:11px 22px; border:none;
+    border-radius:8px; font-family:inherit; font-weight:700;
+    font-size:13px; cursor:pointer;
+    background:linear-gradient(135deg, var(--accent), color-mix(in srgb,var(--accent) 75%, #000));
+    color:#fff; transition:all var(--transition);
+    box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 30%, transparent);
+  }
+  .confirm-btn:hover:not(:disabled) { transform:translateY(-1px); box-shadow:0 6px 20px color-mix(in srgb,var(--accent) 40%, transparent); }
+  .confirm-btn:disabled { opacity:0.4; cursor:not-allowed; }
+
+  .bs-statements { display:flex; flex-direction:column; gap:10px; }
+  .bs-statement {
+    display:flex; align-items:center; gap:14px;
+    padding:14px 16px; border-radius:10px;
+    background:var(--surface-2); border:1.5px solid var(--border);
+    transition:all var(--transition);
+  }
+  .bs-statement.correct { border-color:#10b981; background:rgba(16,185,129,0.08); }
+  .bs-statement.wrong { border-color:#ef4444; background:rgba(239,68,68,0.08); }
+  .bs-text { flex:1; font-size:13.5px; line-height:1.55; color:var(--text); }
+  .bs-buttons { display:flex; gap:6px; flex-shrink:0; }
+  .bs-btn {
+    padding:7px 14px; border-radius:6px;
+    background:var(--surface-3); color:var(--text-muted);
+    border:1.5px solid var(--border);
+    font-family:inherit; font-weight:700; font-size:11px;
+    cursor:pointer; transition:all var(--transition);
+    letter-spacing:0.5px;
+  }
+  .bs-btn:hover:not(.disabled) { border-color:var(--text-muted); color:var(--text); }
+  .bs-btn.selected { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .bs-btn.correct-answer { background:#10b981; color:#fff; border-color:#10b981; }
+  .bs-btn.wrong-answer { background:#ef4444; color:#fff; border-color:#ef4444; }
+  .bs-btn.disabled { cursor:default; pointer-events:none; }
+  .explanation {
+    margin-top:16px; padding:14px 18px; border-radius:10px;
+    background:var(--surface-2); border:1px solid var(--border);
+    border-left:3px solid var(--accent);
+    font-size:12.5px; line-height:1.7; color:var(--text-muted);
+    display:none;
+  }
+  .explanation.show { display:block; animation:fadeUp 0.3s ease; }
+  .explanation strong { color:var(--accent); }
+  .quiz-nav { display:flex; justify-content:space-between; gap:12px; margin-top:8px; }
+  .btn { padding:12px 26px; border-radius:9px; border:none; font-family:inherit;
+    font-weight:700; font-size:13px; cursor:pointer;
+    transition:all var(--transition); display:inline-flex; align-items:center; gap:8px; }
+  .btn:disabled { opacity:0.35; cursor:not-allowed; }
+  .btn-ghost { background:var(--surface); color:var(--text-muted); border:1.5px solid var(--border); }
+  .btn-ghost:hover:not(:disabled) { color:var(--text); border-color:var(--text-muted); }
+  .btn-primary {
+    background:linear-gradient(135deg, var(--accent), color-mix(in srgb,var(--accent) 70%, #000));
+    color:#fff; box-shadow:0 4px 16px color-mix(in srgb,var(--accent) 30%, transparent);
+  }
+  .btn-primary:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 24px color-mix(in srgb,var(--accent) 40%, transparent); }
+
+  .result-hero { text-align:center; padding:36px 0 24px; }
+  .score-ring {
+    width:170px; height:170px; border-radius:50%; margin:0 auto 20px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    position:relative;
+    background:conic-gradient(var(--accent) calc(var(--pct) * 1%), var(--surface-2) 0);
+  }
+  .score-ring::before {
+    content:''; position:absolute; inset:8px; border-radius:50%; background:var(--bg);
+  }
+  .score-value { position:relative; font-size:48px; font-weight:800; letter-spacing:-2px; color:var(--accent); line-height:1; }
+  .score-label { position:relative; font-size:11px; font-weight:700; color:var(--text-muted); margin-top:6px; letter-spacing:1.5px; text-transform:uppercase; }
+  .result-hero h2 { font-size:24px; font-weight:800; letter-spacing:-0.5px; margin-bottom:6px; }
+  .result-hero p { color:var(--text-muted); font-size:13px; }
+  .result-stats {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:12px; max-width:520px; margin:28px auto 8px;
+  }
+  .stat-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center; }
+  .stat-num { font-size:24px; font-weight:800; letter-spacing:-1px; line-height:1; margin-bottom:6px; }
+  .stat-num.green { color:#10b981; }
+  .stat-num.red { color:#ef4444; }
+  .stat-lbl { font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; }
+  .breakdown-card {
+    max-width:520px; margin:20px auto 0; background:var(--surface);
+    border:1px solid var(--border); border-radius:10px; padding:16px 20px;
+  }
+  .breakdown-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px; }
+  .breakdown-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:12.5px; }
+  .breakdown-row:last-child { border-bottom:none; }
+  .breakdown-row .lbl { color:var(--text-muted); }
+  .breakdown-row .val { font-weight:700; color:var(--text); }
+  .review-section { max-width:760px; margin:28px auto 0; }
+  .review-title { font-size:13px; font-weight:800; margin-bottom:12px; color:var(--text-muted); letter-spacing:1px; text-transform:uppercase; }
+  .review-item {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:10px; padding:14px 18px; margin-bottom:8px;
+    border-left:3px solid var(--border);
+  }
+  .review-item.correct { border-left-color:#10b981; }
+  .review-item.wrong { border-left-color:#ef4444; }
+  .review-q { font-size:12.5px; font-weight:600; margin-bottom:5px; line-height:1.5; display:flex; gap:8px; }
+  .review-num { color:var(--text-muted); flex-shrink:0; }
+  .review-a { font-size:11.5px; color:var(--text-muted); line-height:1.6; }
+  .review-tag { display:inline-block; font-weight:700; padding:1px 6px; border-radius:3px; font-size:10px; margin-right:4px; }
+  .review-tag.green { background:rgba(16,185,129,0.15); color:#10b981; }
+  .review-tag.red { background:rgba(239,68,68,0.15); color:#ef4444; }
+  .result-actions { display:flex; justify-content:center; gap:12px; margin-top:32px; flex-wrap:wrap; }
+
+  @media (max-width: 640px) {
+    .chapter-grid { grid-template-columns:1fr; }
+    .result-stats { grid-template-columns:1fr; }
+    .quiz-topbar { flex-direction:column; align-items:flex-start; }
+    .quiz-nav { flex-direction:column-reverse; }
+    .quiz-nav .btn { width:100%; justify-content:center; }
+    .stimulus-text { font-size:13px; }
+    .bs-statement { flex-direction:column; align-items:stretch; }
+    .bs-buttons { justify-content:flex-end; }
+    .header-tag { display:none; }
+    .info-grid { grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">TKA</div>
+    <div class="logo-text">
+      <div class="logo-title">Latihan Literasi Sejarah</div>
+      <div class="logo-sub">Model TKA · SMP</div>
+    </div>
+  </div>
+  <div class="header-tag">30 Soal · 75 Menit · 3 Tipe</div>
+</header>
+
+<div id="screen-home" class="screen active">
+  <div class="home-hero">
+    <div class="home-badge">Simulasi Tes Kemampuan Akademik</div>
+    <h1>Latihan <em>Literasi Sejarah</em><br>Model TKA SMP</h1>
+    <p>Kerjakan 30 soal dengan tiga tipe — Pilihan Ganda, Pilihan Ganda Kompleks, dan Benar/Salah — dilengkapi stimulus teks sejarah. Waktu 75 menit, nilai akhir muncul otomatis.</p>
+  </div>
+  <div class="info-grid">
+    <div class="info-card"><div class="num">30</div><div class="lbl">Soal per Sesi</div></div>
+    <div class="info-card"><div class="num">75</div><div class="lbl">Menit</div></div>
+    <div class="info-card"><div class="num">3</div><div class="lbl">Tipe Soal</div></div>
+    <div class="info-card"><div class="num">6</div><div class="lbl">Bab Materi</div></div>
+  </div>
+  <div class="chapter-grid" id="chapterGrid"></div>
+</div>
+
+<div id="screen-quiz" class="screen">
+  <div class="quiz-topbar">
+    <div class="quiz-meta">
+      <div class="quiz-badge" id="quizChapterBadge">Bab 1</div>
+      <div class="quiz-progress-text" id="quizProgressText">Soal 1 dari 30</div>
+    </div>
+    <div class="timer-box" id="timerBox"><span class="timer-icon">⏱</span><span id="timerText">75:00</span></div>
+  </div>
+  <div class="progress-track"><div class="progress-track-fill" id="progressTrackFill"></div></div>
+  <div class="stimulus-box" id="stimulusBox">
+    <div class="stimulus-header">Bacaan</div>
+    <div class="stimulus-title" id="stimulusTitle"></div>
+    <div class="stimulus-text" id="stimulusText"></div>
+    <div class="stimulus-source" id="stimulusSource"></div>
+  </div>
+  <div class="question-card">
+    <div class="q-header">
+      <div class="q-number" id="qNumber">SOAL 01</div>
+      <div class="q-type" id="qType">Pilihan Ganda</div>
+    </div>
+    <div class="q-text" id="qText"></div>
+    <div id="answerArea"></div>
+    <div class="explanation" id="explanationBox"></div>
+  </div>
+  <div class="quiz-nav">
+    <button class="btn btn-ghost" id="prevBtn" onclick="prevQuestion()">← Sebelumnya</button>
+    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Selanjutnya →</button>
+  </div>
+</div>
+
+<div id="screen-result" class="screen">
+  <div class="result-hero">
+    <div class="score-ring" id="scoreRing" style="--pct:0;">
+      <div class="score-value" id="scoreValue">0</div>
+      <div class="score-label">Nilai Akhir</div>
+    </div>
+    <h2 id="resultTitle">Selesai!</h2>
+    <p id="resultSubtitle">Berikut hasil pengerjaanmu.</p>
+  </div>
+  <div class="result-stats">
+    <div class="stat-card"><div class="stat-num green" id="correctCount">0</div><div class="stat-lbl">Benar</div></div>
+    <div class="stat-card"><div class="stat-num red" id="wrongCount">0</div><div class="stat-lbl">Salah</div></div>
+    <div class="stat-card"><div class="stat-num" id="accuracyPct" style="color:var(--accent)">0%</div><div class="stat-lbl">Akurasi</div></div>
+  </div>
+  <div class="breakdown-card">
+    <div class="breakdown-title">Rincian per Tipe Soal</div>
+    <div id="typeBreakdown"></div>
+  </div>
+  <div class="review-section">
+    <div class="review-title">Rincian Jawaban</div>
+    <div id="reviewSection"></div>
+  </div>
+  <div class="result-actions">
+    <button class="btn btn-ghost" onclick="goHome()">← Kembali ke Beranda</button>
+    <button class="btn btn-primary" onclick="retryQuiz()">Ulangi Sesi Ini</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   KONFIGURASI BAB
+   ============================================================ */
+const CHAPTERS = [
+  { id:1, title:"Konsep Dasar Ilmu Sejarah", accent:"#3b82f6",
+    desc:"Etimologi sejarah, definisi para ahli, unsur sejarah, kronologi, periodisasi, diakronik–sinkronik, anakronisme, sumber & fakta, historiografi." },
+  { id:2, title:"Sejarah Lokal & Toponimi", accent:"#10b981",
+    desc:"Sejarah lokal, sumber lokal, toponimi, asal-usul nama tempat, kearifan lokal, tradisi lisan, tokoh lokal, dan pelestarian warisan." },
+  { id:3, title:"Peristiwa Lokal, Nasional, Global", accent:"#f59e0b",
+    desc:"Tiga skala peristiwa, hubungan sebab-akibat lintas skala, studi kasus Surabaya 1945, jalur rempah, VOC, dan keterhubungan masa." },
+  { id:4, title:"Asal-Usul Nenek Moyang", accent:"#8b5cf6",
+    desc:"Teori Yunnan, Out of Taiwan, Out of Sundaland, Nusantara, Proto–Deutro Melayu, Austronesia, Melanesoid, megalitikum, dan warisan budaya." },
+  { id:5, title:"Jalur Rempah Nusantara", accent:"#ef4444",
+    desc:"Rempah khas, sejarah awal perdagangan, rute jalur rempah, pelabuhan Nusantara, Maluku–Banda, kedatangan Eropa, VOC, dampak & warisan." },
+  { id:6, title:"Keterampilan Proses Sejarah", accent:"#ec4899",
+    desc:"8 tahapan keterampilan proses: mengamati, menanya, mengumpulkan, mengolah, menguji konsep, evaluasi–refleksi, mengomunikasikan, rencana tindak lanjut." }
+];
+
+/* ============================================================
+   BANK SOAL — 6 BAB × 30 SOAL
+   ============================================================ */
+const BANK = {
+
+  1: {
+    stimuli: {
+      s1: {
+        title: "Herodotus dan Bapak Sejarah",
+        text: "Herodotus (sekitar 484–425 SM) dikenal sebagai \"Bapak Sejarah\". Karyanya, Historia, mencatat peristiwa Perang Persia–Yunani dengan cara yang belum pernah dilakukan sebelumnya: ia mengumpulkan keterangan dari berbagai sumber, membandingkannya, lalu menyusunnya menjadi satu narasi. Meski sebagian isinya bercampur mitos, metode Herodotus meletakkan dasar penyelidikan sejarah sebagai upaya memahami masa lalu secara sistematis.",
+        source: "Sumber: Sejarah Dunia Kuno (adaptasi)"
+      },
+      s2: {
+        title: "Sumber Primer dan Sekunder",
+        text: "Dalam penelitian sejarah, sumber dibedakan berdasarkan kedekatannya dengan peristiwa. Sumber primer adalah sumber yang dibuat atau dihasilkan pada masa peristiwa berlangsung, misalnya prasasti, naskah asli, foto, dan kesaksian pelaku. Sumber sekunder adalah sumber yang dibuat setelah peristiwa terjadi oleh pihak yang tidak terlibat langsung, seperti buku sejarah, artikel, dan dokumenter. Semakin dekat sumber dengan peristiwa, semakin tinggi nilai kesaksiannya, meski tetap perlu dikritik.",
+        source: "Sumber: Buku Metode Sejarah (adaptasi)"
+      },
+      s3: {
+        title: "Kronologi dan Periodisasi",
+        text: "Kronologi adalah urutan peristiwa berdasarkan waktu terjadinya. Periodisasi adalah pembabakan waktu berdasarkan ciri khas tertentu. Keduanya membantu sejarawan menyusun peristiwa secara sistematis sehingga hubungan sebab-akibat dapat dilihat dengan jelas. Sejarah Indonesia, misalnya, lazim dibagi menjadi masa Praaksara, Hindu–Buddha, Islam, Kolonial, dan Kemerdekaan. Tanpa kronologi dan periodisasi, peristiwa sejarah akan tampak acak dan sulit dipahami.",
+        source: "Sumber: Pengantar Ilmu Sejarah (adaptasi)"
+      },
+      s4: {
+        title: "Diakronik dan Sinkronik",
+        text: "Berpikir diakronik berarti melihat peristiwa secara memanjang dalam waktu — dari satu peristiwa ke peristiwa berikutnya. Berpikir sinkronik berarti melihat peristiwa pada satu titik waktu secara meluas, mencakup berbagai aspek seperti politik, ekonomi, sosial, dan budaya. Sejarawan menggunakan keduanya secara bergantian: diakronik untuk melihat perubahan, sinkronik untuk memahami keadaan pada suatu masa.",
+        source: "Sumber: Berpikir Sejarah (adaptasi)"
+      }
+    },
+    questions: [
+      { t:'PG', stim:'s1', q:"Berdasarkan teks, mengapa Herodotus dijuluki \"Bapak Sejarah\"?", o:["Karena ia menulis buku paling tebal","Karena ia mengumpulkan, membandingkan, dan menyusun sumber menjadi narasi","Karena ia seorang raja Yunani","Karena ia menciptakan sistem kalender"], a:1, e:"Herodotus dijuluki Bapak Sejarah karena metode penyelidikannya: mengumpulkan, membandingkan, dan menyusun sumber." },
+      { t:'MMA', stim:'s1', q:"Pilih semua pernyataan yang sesuai dengan isi teks!", o:["Herodotus hidup sekitar abad ke-5 SM","Karya Herodotus berjudul Historia","Karya Herodotus mencatat Perang Persia–Yunani","Herodotus sama sekali tidak bercampur mitos"], a:[0,1,2], e:"Teks menyebut sebagian isi Historia bercampur mitos, jadi opsi D salah." },
+      { t:'BS', stim:'s1', q:"Tentukan Benar atau Salah setiap pernyataan berikut!", st:[
+        { s:"Herodotus mencatat Perang Persia–Yunani dalam karyanya.", v:true },
+        { s:"Metode Herodotus sepenuhnya bebas dari mitos.", v:false },
+        { s:"Herodotus mengumpulkan keterangan dari berbagai sumber.", v:true }
+      ], e:"Herodotus mencatat Perang Persia–Yunani, tetapi sebagian isinya masih bercampur mitos." },
+      { t:'PG', stim:'s2', q:"Berdasarkan teks, yang membedakan sumber primer dan sekunder adalah ...", o:["Tebal atau tipisnya sumber","Bahasa yang digunakan","Kedekatannya dengan peristiwa","Harga sumber"], a:2, e:"Sumber primer dan sekunder dibedakan berdasarkan kedekatannya dengan peristiwa." },
+      { t:'MMA', stim:'s2', q:"Pilih semua yang termasuk sumber primer menurut teks!", o:["Prasasti","Naskah asli","Buku sejarah","Foto zaman peristiwa"], a:[0,1,3], e:"Buku sejarah adalah sumber sekunder karena dibuat setelah peristiwa." },
+      { t:'BS', stim:'s2', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Sumber sekunder dibuat setelah peristiwa terjadi.", v:true },
+        { s:"Semakin dekat sumber dengan peristiwa, semakin tinggi nilai kesaksiannya.", v:true },
+        { s:"Sumber primer tidak perlu dikritik lagi.", v:false }
+      ], e:"Semua sumber, termasuk primer, tetap perlu dikritik." },
+      { t:'PG', stim:'s3', q:"Menurut teks, tujuan kronologi dan periodisasi adalah ...", o:["Menambah jumlah tokoh","Menyusun peristiwa secara sistematis","Menghias narasi sejarah","Memperpendek cerita"], a:1, e:"Kronologi dan periodisasi membantu menyusun peristiwa secara sistematis." },
+      { t:'BS', stim:'s3', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Kronologi adalah urutan peristiwa berdasarkan waktu.", v:true },
+        { s:"Periodisasi adalah pembabakan waktu berdasarkan ciri khas.", v:true },
+        { s:"Tanpa kronologi, peristiwa sejarah tetap mudah dipahami.", v:false }
+      ], e:"Tanpa kronologi, peristiwa sejarah tampak acak dan sulit dipahami." },
+      { t:'PG', stim:'s3', q:"Contoh periodisasi sejarah Indonesia yang benar secara kronologis adalah ...", o:["Kolonial → Islam → Hindu-Buddha → Praaksara","Praaksara → Hindu-Buddha → Islam → Kolonial","Islam → Praaksara → Kolonial → Hindu-Buddha","Kemerdekaan → Kolonial → Islam → Praaksara"], a:1, e:"Urutan periodisasi: Praaksara, Hindu-Buddha, Islam, Kolonial." },
+      { t:'PG', stim:'s4', q:"Berpikir sinkronik berarti ...", o:["Melihat peristiwa secara memanjang dalam waktu","Melihat peristiwa secara meluas pada satu titik waktu","Menghafal tanggal peristiwa","Mengabaikan aspek sosial"], a:1, e:"Sinkronik = meluas pada satu titik waktu." },
+      { t:'MMA', stim:'s4', q:"Pilih semua ciri berpikir diakronik menurut teks!", o:["Memanjang dalam waktu","Bersifat kronologis","Berfokus pada satu titik waktu","Melihat perubahan dari peristiwa ke peristiwa"], a:[0,1,3], e:"Berfokus pada satu titik waktu adalah ciri sinkronik, bukan diakronik." },
+      { t:'BS', stim:'s4', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Diakronik melihat perubahan dari waktu ke waktu.", v:true },
+        { s:"Sinkronik hanya membahas satu aspek saja.", v:false },
+        { s:"Sejarawan dapat menggunakan diakronik dan sinkronik secara bergantian.", v:true }
+      ], e:"Sinkronik justru membahas banyak aspek pada satu titik waktu." },
+      { t:'PG', q:"Kata \"sejarah\" dari bahasa Arab \"syajaratun\" berarti ...", o:["Batu","Pohon","Tulisan","Waktu"], a:1, e:"Syajaratun berarti pohon, melambangkan pertumbuhan dan silsilah." },
+      { t:'PG', q:"Tiga unsur pokok peristiwa sejarah adalah ...", o:["Manusia, ruang, waktu","Tokoh, tanggal, tempat","Sumber, bukti, fakta","Raja, rakyat, wilayah"], a:0, e:"Peristiwa sejarah memerlukan manusia, ruang, dan waktu." },
+      { t:'PG', q:"Kesalahan menempatkan peristiwa atau benda di luar zamannya disebut ...", o:["Anakronisme","Periodisasi","Kronologi","Interpretasi"], a:0, e:"Anakronisme adalah kesalahan penempatan waktu." },
+      { t:'MMA', q:"Pilih semua yang termasuk ciri sejarah sebagai ilmu!", o:["Empiris","Sistematis","Subjektif tanpa dasar","Verifikatif"], a:[0,1,3], e:"Sejarah sebagai ilmu harus objektif dan dapat diverifikasi, bukan subjektif tanpa dasar." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan berikut!", st:[
+        { s:"Sejarah memiliki objek kajian manusia dan kejadian masa lampau.", v:true },
+        { s:"Dongeng dan sejarah sama-sama dapat diverifikasi kebenarannya.", v:false },
+        { s:"Sejarah sebagai seni memerlukan intuisi dan gaya bahasa.", v:true }
+      ], e:"Dongeng tidak dapat diverifikasi, sedangkan sejarah dapat." },
+      { t:'PG', q:"Tahap pertama dalam metode sejarah adalah ...", o:["Kritik","Interpretasi","Heuristik","Historiografi"], a:2, e:"Heuristik adalah tahap mengumpulkan sumber." },
+      { t:'PG', q:"Penulisan sejarah berdasarkan hasil penelitian disebut ...", o:["Heuristik","Kritik","Interpretasi","Historiografi"], a:3, e:"Historiografi adalah penulisan sejarah." },
+      { t:'PG', q:"Prasasti Yupa dari Kutai termasuk sumber ...", o:["Sekunder","Tersier","Primer","Lisan"], a:2, e:"Prasasti Yupa dibuat pada masa peristiwa terjadi." },
+      { t:'MMA', q:"Pilih semua tahap dalam metode sejarah!", o:["Heuristik","Kritik","Interpretasi","Historiografi"], a:[0,1,2,3], e:"Keempatnya adalah tahap metode sejarah." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Historiografi kolonial cenderung mengagungkan penjajah.", v:true },
+        { s:"Babad Tanah Jawi termasuk historiografi modern.", v:false },
+        { s:"Historiografi nasional berpusat pada sudut pandang Indonesia.", v:true }
+      ], e:"Babad Tanah Jawi termasuk historiografi tradisional, bukan modern." },
+      { t:'PG', q:"Ilmu bantu sejarah yang mempelajari prasasti disebut ...", o:["Arkeologi","Epigrafi","Numismatik","Filologi"], a:1, e:"Epigrafi mempelajari prasasti." },
+      { t:'PG', q:"Ilmu bantu sejarah yang mempelajari mata uang kuno disebut ...", o:["Numismatik","Epigrafi","Filologi","Paleontologi"], a:0, e:"Numismatik mempelajari mata uang kuno." },
+      { t:'PG', q:"Kritik terhadap keaslian fisik sumber sejarah disebut kritik ...", o:["Intern","Ekstern","Filologi","Hermeneutik"], a:1, e:"Kritik ekstern menguji keaslian fisik sumber." },
+      { t:'PG', q:"Contoh anakronisme dalam film sejarah adalah ...", o:["Tokoh memakai pakaian sesuai zaman","Raden Wijaya memakai kacamata modern","Peristiwa terjadi di lokasi asli","Dialog menggunakan bahasa daerah"], a:1, e:"Kacamata modern belum ada pada zaman Raden Wijaya." },
+      { t:'PG', q:"Fakta yang masih diperdebatkan dan memerlukan interpretasi disebut fakta ...", o:["Keras","Lunak","Absolut","Primer"], a:1, e:"Fakta lunak masih diperdebatkan." },
+      { t:'PG', q:"Zaman sebelum manusia mengenal tulisan disebut zaman ...", o:["Praaksara","Sejarah","Hindu-Buddha","Kolonial"], a:0, e:"Praaksara adalah zaman sebelum mengenal tulisan." },
+      { t:'MMA', q:"Pilih semua jenis sumber berdasarkan sifat!", o:["Primer","Sekunder","Tersier","Fiktif"], a:[0,1,2], e:"Fiktif bukan jenis sumber berdasarkan sifat; sumber dibagi menjadi primer, sekunder, dan tersier." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Ilmu bantu sejarah yang mempelajari naskah kuno disebut filologi.", v:true },
+        { s:"Interpretasi berarti menafsirkan makna fakta sejarah.", v:true },
+        { s:"Verifikasi sejarah berarti mengarang cerita baru.", v:false }
+      ], e:"Verifikasi berarti menguji kebenaran, bukan mengarang cerita." }
+    ]
+  },
+
+  2: {
+    stimuli: {
+      s1: {
+        title: "Asal-Usul Nama Tempat di Nusantara",
+        text: "Toponimi adalah ilmu yang mempelajari asal-usul dan makna nama tempat. Banyak nama tempat di Indonesia berasal dari bahasa daerah atau bahasa asing. Nama \"Cibodas\" berasal dari bahasa Sunda: ci (air) + bodas (putih). Nama \"Surabaya\" dikaitkan dengan legenda pertarungan Sura (hiu) dan Baya (buaya). Nama \"Jayapura\" berasal dari bahasa Sanskerta: jaya (kemenangan) + pura (kota). Pola penamaan tempat dapat bersifat deskriptif (menggambarkan alam), simbolik (mengandung harapan), atau asosiatif (dikaitkan tokoh atau peristiwa).",
+        source: "Sumber: Pengantar Toponimi Nusantara (adaptasi)"
+      },
+      s2: {
+        title: "Kearifan Lokal Nusantara",
+        text: "Kearifan lokal adalah nilai, pengetahuan, dan kebiasaan masyarakat setempat yang diwariskan dari generasi ke generasi. Contohnya, Subak di Bali adalah sistem irigasi tradisional yang diakui UNESCO sebagai Warisan Budaya Dunia pada 2012. Tana' Ulen di Kalimantan adalah hutan adat masyarakat Dayak yang dilindungi secara tradisional. Sasi di Maluku adalah tradisi menjaga kelestarian laut. Sambatan di Jawa adalah tradisi gotong royong membangun rumah. Semua kearifan lokal ini mengandung nilai kerja sama, keseimbangan alam, dan spiritualitas.",
+        source: "Sumber: Kearifan Lokal Nusantara (adaptasi)"
+      },
+      s3: {
+        title: "Tradisi Lisan sebagai Sumber Sejarah",
+        text: "Tradisi lisan adalah warisan budaya yang disampaikan dari mulut ke mulut. Bentuknya beragam: mitos, legenda, dongeng, fabel, pantun, dan nyanyian rakyat. Legenda adalah cerita rakyat yang dianggap benar-benar terjadi, seperti Tangkuban Perahu. Mitos adalah cerita suci, seperti Nyai Roro Kidul. Tradisi lisan dapat menjadi sumber sejarah, tetapi perlu dikritik karena mudah berubah saat diwariskan.",
+        source: "Sumber: Tradisi Lisan Nusantara (adaptasi)"
+      },
+      s4: {
+        title: "Tokoh Lokal dalam Sejarah Daerah",
+        text: "Setiap daerah memiliki tokoh penting yang berperan dalam sejarah setempat. Cut Nyak Dhien dari Aceh, Pangeran Diponegoro dari Jawa, Pattimura dari Maluku, dan Sultan Hasanuddin dari Makassar adalah contoh pahlawan perjuangan yang namanya dikenang hingga kini. Selain pahlawan perjuangan, tokoh lokal juga bisa berupa ulama, raja, seniman, atau pelopor pembangunan. Peran mereka dapat ditelusuri melalui wawancara sesepuh, arsip desa, situs bersejarah, atau nama jalan dan gedung.",
+        source: "Sumber: Tokoh-Tokoh Lokal Nusantara (adaptasi)"
+      }
+    },
+    questions: [
+      { t:'PG', stim:'s1', q:"Berdasarkan teks, kata \"toponimi\" mempelajari ...", o:["Asal-usul nama tempat","Sistem irigasi","Cerita rakyat","Adat istiadat"], a:0, e:"Toponimi mempelajari asal-usul dan makna nama tempat." },
+      { t:'MMA', stim:'s1', q:"Pilih semua contoh toponimi yang disebut dalam teks!", o:["Cibodas","Surabaya","Jayapura","Borobudur"], a:[0,1,2], e:"Borobudur adalah nama candi, bukan dibahas sebagai contoh toponimi dalam teks." },
+      { t:'BS', stim:'s1', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"\"Ci\" dalam bahasa Sunda berarti air.", v:true },
+        { s:"Nama \"Sukamaju\" termasuk jenis toponimi simbolik.", v:true },
+        { s:"Nama \"Bukittinggi\" termasuk toponimi deskriptif.", v:false }
+      ], e:"Bukittinggi termasuk toponimi topografis (berdasarkan bentuk lahan), bukan deskriptif." },
+      { t:'PG', stim:'s2', q:"Berdasarkan teks, Subak di Bali adalah ...", o:["Tarian tradisional","Sistem irigasi tradisional","Rumah adat","Upacara pemakaman"], a:1, e:"Subak adalah sistem irigasi tradisional Bali." },
+      { t:'MMA', stim:'s2', q:"Pilih semua kearifan lokal yang disebut dalam teks!", o:["Subak","Tana' Ulen","Sasi","Ngaben"], a:[0,1,2], e:"Ngaben adalah upacara adat, bukan kearifan lokal yang dibahas dalam teks." },
+      { t:'BS', stim:'s2', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Tana' Ulen adalah hutan adat masyarakat Dayak.", v:true },
+        { s:"Sasi adalah tradisi menjaga kelestarian laut di Maluku.", v:true },
+        { s:"Subak diakui UNESCO pada 2012.", v:true }
+      ], e:"Ketiga pernyataan benar sesuai teks." },
+      { t:'PG', stim:'s3', q:"Cerita rakyat yang dianggap benar-benar terjadi disebut ...", o:["Mitos","Legenda","Dongeng","Fabel"], a:1, e:"Legenda dianggap benar-benar terjadi." },
+      { t:'BS', stim:'s3', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Tangkuban Perahu adalah contoh legenda.", v:true },
+        { s:"Tradisi lisan tidak perlu dikritik.", v:false },
+        { s:"Tradisi lisan dapat menjadi sumber sejarah.", v:true }
+      ], e:"Tradisi lisan justru perlu dikritik karena mudah berubah." },
+      { t:'MMA', stim:'s3', q:"Pilih semua bentuk tradisi lisan yang disebut dalam teks!", o:["Mitos","Legenda","Dongeng","Prasasti"], a:[0,1,2], e:"Prasasti adalah sumber tertulis, bukan tradisi lisan." },
+      { t:'PG', stim:'s4', q:"Pahlawan dari Maluku yang disebut dalam teks adalah ...", o:["Cut Nyak Dhien","Pangeran Diponegoro","Pattimura","Sultan Hasanuddin"], a:2, e:"Pattimura adalah pahlawan dari Maluku." },
+      { t:'MMA', stim:'s4', q:"Pilih semua tokoh yang disebut dalam teks!", o:["Cut Nyak Dhien","Pangeran Diponegoro","Pattimura","Sultan Hasanuddin"], a:[0,1,2,3], e:"Keempat tokoh tersebut disebut dalam teks." },
+      { t:'BS', stim:'s4', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Tokoh lokal hanya bisa berupa pahlawan perjuangan.", v:false },
+        { s:"Peran tokoh lokal dapat ditelusuri melalui arsip desa.", v:true },
+        { s:"Sultan Hasanuddin berasal dari Makassar.", v:true }
+      ], e:"Tokoh lokal bisa juga ulama, raja, seniman, atau pelopor pembangunan." },
+      { t:'PG', q:"Nama \"Jayapura\" berasal dari bahasa Sanskerta, \"pura\" berarti ...", o:["Kota","Gunung","Sungai","Laut"], a:0, e:"Pura berarti kota." },
+      { t:'PG', q:"Tradisi gotong royong masyarakat Jawa untuk membangun rumah disebut ...", o:["Subak","Sambatan","Tana' Ulen","Sasi"], a:1, e:"Sambatan adalah gotong royong masyarakat Jawa." },
+      { t:'MMA', q:"Pilih semua ciri sejarah lokal!", o:["Ruang lingkup terbatas","Berbasis masyarakat setempat","Mencakup seluruh dunia","Sumbernya dekat"], a:[0,1,3], e:"Sejarah lokal tidak mencakup seluruh dunia." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Sumber lisan sejarah lokal disampaikan dari mulut ke mulut.", v:true },
+        { s:"Mitos adalah cerita yang dianggap benar-benar terjadi.", v:false },
+        { s:"Fabel adalah cerita hewan berperilaku manusia.", v:true }
+      ], e:"Mitos adalah cerita suci, sedangkan yang dianggap benar-benar terjadi adalah legenda." },
+      { t:'PG', q:"Sumber sejarah lokal yang berupa cerita rakyat termasuk sumber ...", o:["Tertulis","Benda","Lisan","Audio-visual"], a:2, e:"Cerita rakyat adalah sumber lisan." },
+      { t:'PG', q:"Contoh sumber benda dalam sejarah lokal adalah ...", o:["Prasasti","Buku","Artikel","Rekaman"], a:0, e:"Prasasti adalah sumber benda." },
+      { t:'MMA', q:"Pilih semua langkah penelitian toponimi!", o:["Menentukan objek","Mengumpulkan sumber","Menganalisis bahasa","Menulis laporan"], a:[0,1,2,3], e:"Keempatnya adalah langkah penelitian toponimi." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Sejarah lokal membangun identitas diri.", v:true },
+        { s:"Melestarikan sejarah lokal hanya tugas pemerintah.", v:false },
+        { s:"Digitalisasi arsip adalah upaya pelestarian.", v:true }
+      ], e:"Melestarikan sejarah lokal adalah tanggung jawab bersama, termasuk generasi muda." },
+      { t:'PG', q:"Upacara Rambu Solo berasal dari ...", o:["Toraja","Bali","Nias","Sumba"], a:0, e:"Rambu Solo dari Toraja." },
+      { t:'PG', q:"Tradisi lompat batu berasal dari ...", o:["Nias","Sumba","Toraja","Bali"], a:0, e:"Lompat batu dari Nias." },
+      { t:'PG', q:"Situs megalitikum terbesar di Asia Tenggara adalah ...", o:["Gunung Padang","Bori Kalimbuang","Pugung Raharjo","Waruga"], a:0, e:"Gunung Padang adalah situs megalitikum terbesar di Asia Tenggara." },
+      { t:'MMA', q:"Pilih semua yang termasuk sumber sejarah lokal!", o:["Cerita rakyat","Arsip desa","Bangunan tua","Rekaman suara"], a:[0,1,2,3], e:"Keempatnya adalah sumber sejarah lokal." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Nama \"Cimahi\" berasal dari bahasa Sunda.", v:true },
+        { s:"Nama \"Flores\" berasal dari bahasa Portugis.", v:true },
+        { s:"Nama \"Batavia\" adalah nama asli Indonesia.", v:false }
+      ], e:"Batavia adalah nama pemberian Belanda untuk Jakarta." },
+      { t:'PG', q:"Nilai \"Siri' na Pacce\" mengajarkan tentang ...", o:["Kehormatan dan kepedulian","Kekayaan","Kekuasaan","Kekerasan"], a:0, e:"Siri' na Pacce mengajarkan kehormatan dan kepedulian." },
+      { t:'PG', q:"Contoh upaya pelestarian sejarah lokal adalah ...", o:["Membiarkan situs rusak","Dokumentasi dan penulisan","Menjual artefak","Mengabaikan tradisi"], a:1, e:"Dokumentasi dan penulisan adalah upaya pelestarian." },
+      { t:'PG', q:"Kata \"bodas\" dalam nama \"Cibodas\" berasal dari bahasa Sunda yang berarti ...", o:["Putih","Hitam","Merah","Biru"], a:0, e:"Bodas dalam bahasa Sunda berarti putih." },
+      { t:'MMA', q:"Pilih semua kearifan lokal yang berkaitan dengan pelestarian alam!", o:["Subak","Tana' Ulen","Sasi","Sambatan"], a:[0,1,2], e:"Sambatan adalah gotong royong sosial, bukan pelestarian alam." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Toponimi membantu memahami asal-usul budaya dan bahasa.", v:true },
+        { s:"Nama tempat tidak pernah berubah sepanjang sejarah.", v:false },
+        { s:"Nama tempat bisa berasal dari bahasa asing seperti Sanskerta.", v:true }
+      ], e:"Nama tempat dapat berubah seiring waktu dan pengaruh budaya." }
+    ]
+  },
+
+  3: {
+    stimuli: {
+      s1: {
+        title: "Pertempuran Surabaya 1945",
+        text: "Setelah Proklamasi 17 Agustus 1945, pasukan Sekutu (Inggris) datang ke Surabaya untuk melucuti senjata Jepang. Namun, mereka juga membawa NICA — pemerintahan sipil Belanda yang ingin mengembalikan kekuasaan kolonial. Ketegangan memuncak pada akhir Oktober 1945. Pada 9 November 1945, Inggris mengeluarkan ultimatum agar rakyat Surabaya menyerah. Rakyat menolak. Pada 10 November 1945, pertempuran besar pecah. Bung Tomo membakar semangat rakyat melalui radio. Peristiwa ini kemudian diperingati sebagai Hari Pahlawan Nasional.",
+        source: "Sumber: Sejarah Indonesia Modern (adaptasi)"
+      },
+      s2: {
+        title: "VOC dan Monopoli Rempah",
+        text: "VOC (Vereenigde Oostindische Compagnie) didirikan pada 20 Maret 1602. VOC diberi hak istimewa oleh pemerintah Belanda, termasuk hak berperang, membangun benteng, dan mengadakan perjanjian. Untuk menguasai perdagangan rempah, VOC menerapkan monopoli, politik devide et impera (adu domba), dan hongi tochten — pelayaran menghancurkan kebun rempah rakyat. Pada 1621, di bawah Gubernur Jenderal JP Coen, VOC menaklukkan Banda dan melakukan pembantaian terhadap penduduknya. VOC dibubarkan pada 1799 karena korupsi dan bangkrut.",
+        source: "Sumber: Sejarah VOC di Nusantara (adaptasi)"
+      },
+      s3: {
+        title: "Jalur Rempah Nusantara",
+        text: "Jalur Rempah adalah jaringan perdagangan rempah yang menghubungkan Nusantara dengan India, Tiongkok, Arab, dan Eropa. Rempah utama Nusantara adalah cengkih dari Maluku (Ternate, Tidore, Moti, Makian, Bacan) dan pala dari Kepulauan Banda. Sebelum bangsa Eropa datang, rempah Nusantara sudah sampai ke India, Tiongkok, dan Timur Tengah melalui pedagang India dan Arab. Bangsa Eropa kemudian mencari jalur laut langsung untuk mendapatkan rempah tanpa perantara.",
+        source: "Sumber: Jalur Rempah Nusantara (adaptasi)"
+      },
+      s4: {
+        title: "Keterhubungan Lokal, Nasional, Global",
+        text: "Peristiwa sejarah dapat dianalisis dalam tiga skala: lokal, nasional, dan global. Perang Dunia II (global) menyebabkan Jepang menduduki Indonesia (nasional), yang kemudian memicu kerja paksa di berbagai daerah (lokal). Sebaliknya, Pertempuran Surabaya (lokal) menjadi simbol perlawanan bangsa (nasional) dan menarik perhatian dunia internasional (global). Memahami keterhubungan ini membantu kita melihat bahwa peristiwa lokal tidak pernah benar-benar kecil — ia selalu terhubung dengan skala yang lebih luas.",
+        source: "Sumber: Berpikir Sejarah Lintas Skala (adaptasi)"
+      }
+    },
+    questions: [
+      { t:'PG', stim:'s1', q:"Berdasarkan teks, yang memicu Pertempuran Surabaya adalah ...", o:["Ultimatum Inggris agar rakyat menyerah","Kedatangan Jepang","Perjanjian dengan Belanda","Konferensi Asia-Afrika"], a:0, e:"Ultimatum Inggris pada 9 November 1945 memicu pertempuran." },
+      { t:'MMA', stim:'s1', q:"Pilih semua pernyataan yang sesuai dengan teks!", o:["Pertempuran Surabaya terjadi 10 November 1945","Bung Tomo membakar semangat rakyat melalui radio","Pertempuran dipicu oleh pasukan Jepang","Peristiwa ini diperingati sebagai Hari Pahlawan"], a:[0,1,3], e:"Pertempuran dipicu oleh Sekutu/Inggris, bukan Jepang." },
+      { t:'BS', stim:'s1', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"NICA adalah pemerintahan sipil Belanda yang ingin mengembalikan kekuasaan kolonial.", v:true },
+        { s:"Sekutu datang ke Surabaya hanya untuk melucuti senjata Jepang.", v:false },
+        { s:"Bung Tomo berperan membakar semangat rakyat Surabaya.", v:true }
+      ], e:"Sekutu juga membawa NICA yang ingin mengembalikan kekuasaan kolonial." },
+      { t:'PG', stim:'s2', q:"VOC didirikan pada tahun ...", o:["1602","1619","1621","1799"], a:0, e:"VOC didirikan 20 Maret 1602." },
+      { t:'MMA', stim:'s2', q:"Pilih semua praktik VOC yang disebut dalam teks!", o:["Monopoli perdagangan","Devide et impera","Hongi tochten","Penyebaran agama Kristen"], a:[0,1,2], e:"Penyebaran agama tidak disebut sebagai praktik VOC dalam teks." },
+      { t:'BS', stim:'s2', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"VOC dibubarkan pada 1799 karena korupsi dan bangkrut.", v:true },
+        { s:"Pembantaian Banda terjadi pada 1621.", v:true },
+        { s:"VOC didirikan oleh pemerintah Inggris.", v:false }
+      ], e:"VOC didirikan oleh Belanda, bukan Inggris." },
+      { t:'PG', stim:'s3', q:"Rempah utama dari Kepulauan Banda adalah ...", o:["Cengkih","Pala","Lada","Kayu manis"], a:1, e:"Pala berasal dari Kepulauan Banda." },
+      { t:'BS', stim:'s3', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Cengkih berasal dari Maluku.", v:true },
+        { s:"Sebelum bangsa Eropa datang, rempah Nusantara sudah sampai ke India.", v:true },
+        { s:"Jalur Rempah hanya menghubungkan Nusantara dengan Eropa.", v:false }
+      ], e:"Jalur Rempah juga menghubungkan Nusantara dengan India, Tiongkok, dan Arab." },
+      { t:'MMA', stim:'s3', q:"Pilih semua pedagang yang terlibat dalam jalur rempah sebelum bangsa Eropa!", o:["Pedagang India","Pedagang Arab","Pedagang Tiongkok","Pedagang Amerika"], a:[0,1,2], e:"Pedagang Amerika tidak terlibat dalam jalur rempah awal." },
+      { t:'PG', stim:'s4', q:"Berdasarkan teks, peristiwa global yang memengaruhi Indonesia adalah ...", o:["Perang Dunia II","Sumpah Pemuda","Reformasi","Konferensi Asia-Afrika"], a:0, e:"Perang Dunia II adalah peristiwa global yang memengaruhi Indonesia." },
+      { t:'MMA', stim:'s4', q:"Pilih semua skala analisis peristiwa sejarah!", o:["Lokal","Nasional","Global","Individual"], a:[0,1,2], e:"Tiga skala yang dibahas adalah lokal, nasional, dan global." },
+      { t:'BS', stim:'s4', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Pertempuran Surabaya adalah peristiwa lokal.", v:true },
+        { s:"Peristiwa lokal tidak pernah berdampak global.", v:false },
+        { s:"Keterhubungan skala membantu memahami makna sejarah.", v:true }
+      ], e:"Peristiwa lokal bisa berdampak global, seperti Pertempuran Surabaya." },
+      { t:'PG', q:"Peristiwa yang terjadi di lingkup daerah tertentu disebut peristiwa ...", o:["Lokal","Nasional","Global","Internasional"], a:0, e:"Peristiwa lokal terjadi di daerah tertentu." },
+      { t:'PG', q:"Proklamasi 17 Agustus 1945 termasuk peristiwa ...", o:["Lokal","Nasional","Global","Regional"], a:1, e:"Proklamasi adalah peristiwa nasional." },
+      { t:'MMA', q:"Pilih semua contoh peristiwa lokal di Indonesia!", o:["Bandung Lautan Api","Palagan Ambarawa","Pertempuran Surabaya","Perang Dunia II"], a:[0,1,2], e:"Perang Dunia II adalah peristiwa global." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Bandung Lautan Api terjadi pada 23 Maret 1946.", v:true },
+        { s:"Palagan Ambarawa melibatkan Jenderal Soedirman.", v:true },
+        { s:"Pertempuran Medan Area terjadi di Surabaya.", v:false }
+      ], e:"Pertempuran Medan Area terjadi di Medan, bukan Surabaya." },
+      { t:'PG', q:"Hubungan sebab-akibat antar peristiwa disebut ...", o:["Kronologi","Kausalitas","Skala","Periodisasi"], a:1, e:"Kausalitas adalah hubungan sebab-akibat." },
+      { t:'PG', q:"Konferensi Asia-Afrika diadakan di ...", o:["Bandung","Jakarta","Surabaya","Yogyakarta"], a:0, e:"KAA diadakan di Bandung pada 1955." },
+      { t:'MMA', q:"Pilih semua contoh peristiwa global!", o:["Perang Dunia I","Perang Dunia II","Perang Dingin","Reformasi 1998"], a:[0,1,2], e:"Reformasi 1998 adalah peristiwa nasional Indonesia." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Pandemi COVID-19 adalah peristiwa global.", v:true },
+        { s:"Revolusi Industri dimulai di Inggris.", v:true },
+        { s:"Perang Dingin terjadi antara Inggris dan Prancis.", v:false }
+      ], e:"Perang Dingin terjadi antara AS dan Uni Soviet." },
+      { t:'PG', q:"Politik adu domba VOC terhadap kerajaan Nusantara disebut ...", o:["Devide et impera","Hongi tochten","Monopoli","Ekstirpasi"], a:0, e:"Devide et impera adalah politik adu domba." },
+      { t:'PG', q:"Pembantaian Banda oleh VOC dipimpin oleh ...", o:["JP Coen","Pieter Both","Cornelis de Houtman","Alfonso de Albuquerque"], a:0, e:"JP Coen memimpin pembantaian Banda." },
+      { t:'MMA', q:"Pilih semua dampak negatif perdagangan rempah!", o:["Kolonialisme","Monopoli","Kekerasan","Kemajuan pelabuhan"], a:[0,1,2], e:"Kemajuan pelabuhan adalah dampak positif, bukan negatif." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"VOC dibubarkan pada 1799.", v:true },
+        { s:"Perjanjian Bongaya ditandatangani dengan Gowa pada 1667.", v:true },
+        { s:"Makassar adalah pelabuhan tertutup pada abad ke-17.", v:false }
+      ], e:"Makassar justru pelabuhan bebas terbesar di Indonesia timur." },
+      { t:'PG', q:"Reformasi 1998 mengakhiri masa ...", o:["Orde Lama","Orde Baru","Demokrasi Terpimpin","Kolonial"], a:1, e:"Reformasi mengakhiri Orde Baru." },
+      { t:'PG', q:"Pendudukan Jepang di Indonesia terjadi pada tahun ...", o:["1940–1945","1942–1945","1945–1949","1939–1945"], a:1, e:"Jepang menduduki Indonesia 1942–1945." },
+      { t:'PG', q:"Pertempuran 10 November 1945 terjadi di kota ...", o:["Surabaya","Bandung","Ambarawa","Medan"], a:0, e:"Pertempuran 10 November 1945 terjadi di Surabaya dan diperingati sebagai Hari Pahlawan." },
+      { t:'MMA', q:"Pilih semua peristiwa yang termasuk peristiwa nasional!", o:["Sumpah Pemuda 1928","Proklamasi Kemerdekaan 1945","Reformasi 1998","Bandung Lautan Api"], a:[0,1,2], e:"Bandung Lautan Api adalah peristiwa lokal, bukan nasional." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Sumpah Pemuda terjadi pada 28 Oktober 1928.", v:true },
+        { s:"Proklamasi dibacakan oleh Soekarno dan Hatta.", v:true },
+        { s:"Kebangkitan Nasional ditandai berdirinya Sarekat Islam.", v:false }
+      ], e:"Kebangkitan Nasional ditandai berdirinya Budi Utomo pada 1908, bukan Sarekat Islam." }
+    ]
+  },
+
+  4: {
+    stimuli: {
+      s1: {
+        title: "Teori Out of Taiwan",
+        text: "Teori Out of Taiwan menyatakan bahwa bangsa Austronesia berasal dari Taiwan sekitar 5.000–4.000 SM, lalu menyebar ke Filipina, Indonesia, hingga Pasifik. Teori ini didukung oleh bukti linguistik (kesamaan bahasa Austronesia), bukti arkeologis (kesamaan teknologi pertanian dan bahari), serta penelitian genetika modern. Teori ini juga didukung oleh ahli bahasa seperti Robert Blust dan penelitian DNA yang menunjukkan kesamaan genetik penduduk Indonesia dengan penduduk Taiwan.",
+        source: "Sumber: Asal-Usul Bangsa Austronesia (adaptasi)"
+      },
+      s2: {
+        title: "Proto Melayu dan Deutro Melayu",
+        text: "Proto Melayu (Melayu Tua) datang ke Nusantara sekitar 1500 SM pada zaman Neolitikum. Mereka membawa kapak persegi dan kapak lonjong, serta kebudayaan megalitikum. Keturunannya di Indonesia antara lain Suku Batak, Dayak, Toraja, dan Nias. Deutro Melayu (Melayu Muda) datang sekitar 500 SM pada zaman Logam. Mereka membawa kapak corong dan nekara. Keturunannya antara lain Suku Jawa, Bugis, Minangkabau, Bali, dan Sunda. Kedatangan Deutro Melayu mendorong Proto Melayu ke pedalaman.",
+        source: "Sumber: Bangsa Austronesia (adaptasi)"
+      },
+      s3: {
+        title: "Kebudayaan Megalitikum",
+        text: "Megalitikum berarti \"zaman batu besar\" (megas = besar, lithos = batu). Kebudayaan ini dibawa oleh bangsa Austronesia (Proto Melayu) saat bermigrasi ke Nusantara sekitar 1500 SM. Bentuk peninggalannya antara lain menhir (tugu batu tegak untuk pemujaan roh leluhur), dolmen (meja batu untuk altar persembahan), sarkofagus (peti batu untuk kubur orang penting), dan arca (patung batu). Situs megalitikum di Indonesia antara lain Gunung Padang (Cianjur), Bori Kalimbuang (Toraja), dan Waruga (Minahasa).",
+        source: "Sumber: Kebudayaan Megalitikum Nusantara (adaptasi)"
+      },
+      s4: {
+        title: "Bahasa Austronesia",
+        text: "Rumpun bahasa Austronesia terdiri dari lebih dari 1.200 bahasa yang tersebar dari Madagaskar hingga Selandia Baru. Bahasa-bahasa ini berasal dari satu induk yang sama: bahasa Proto-Austronesia. Kesamaan kata dasar, seperti \"mata\" (Indonesia), \"mata\" (Tagalog), \"mata\" (Maori), dan \"maso\" (Madagaskar), membuktikan kekerabatan bahasa tersebut. Bahasa Indonesia yang kita gunakan sekarang adalah turunan dari bahasa Melayu, yang termasuk rumpun Austronesia.",
+        source: "Sumber: Rumpun Bahasa Austronesia (adaptasi)"
+      }
+    },
+    questions: [
+      { t:'PG', stim:'s1', q:"Berdasarkan teks, teori Out of Taiwan didukung oleh bukti berikut, KECUALI ...", o:["Linguistik","Arkeologis","Genetika","Astronomi"], a:3, e:"Astronomi tidak disebut sebagai bukti dalam teks." },
+      { t:'MMA', stim:'s1', q:"Pilih semua bukti yang mendukung teori Out of Taiwan!", o:["Kesamaan bahasa Austronesia","Kesamaan teknologi bahari","Kesamaan DNA dengan penduduk Taiwan","Kesamaan fosil manusia purba"], a:[0,1,2], e:"Kesamaan fosil manusia purba tidak disebut sebagai bukti teori Out of Taiwan." },
+      { t:'BS', stim:'s1', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Teori Out of Taiwan menyatakan bangsa Austronesia berasal dari Taiwan.", v:true },
+        { s:"Teori ini didukung penelitian genetika modern.", v:true },
+        { s:"Teori ini menyatakan bangsa Austronesia berasal dari Afrika.", v:false }
+      ], e:"Teori ini menyatakan asal dari Taiwan, bukan Afrika." },
+      { t:'PG', stim:'s2', q:"Proto Melayu datang ke Nusantara pada zaman ...", o:["Paleolitikum","Neolitikum","Logam","Mesolitikum"], a:1, e:"Proto Melayu datang pada zaman Neolitikum." },
+      { t:'MMA', stim:'s2', q:"Pilih semua keturunan Proto Melayu menurut teks!", o:["Suku Batak","Suku Dayak","Suku Toraja","Suku Jawa"], a:[0,1,2], e:"Suku Jawa adalah keturunan Deutro Melayu." },
+      { t:'BS', stim:'s2', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Deutro Melayu membawa kebudayaan logam.", v:true },
+        { s:"Proto Melayu membawa kapak persegi dan lonjong.", v:true },
+        { s:"Deutro Melayu datang lebih awal dari Proto Melayu.", v:false }
+      ], e:"Proto Melayu datang lebih awal dari Deutro Melayu." },
+      { t:'PG', stim:'s3', q:"Menhir berfungsi untuk ...", o:["Pemujaan roh leluhur","Kubur orang penting","Altar persembahan","Patung dewa"], a:0, e:"Menhir untuk pemujaan roh leluhur." },
+      { t:'MMA', stim:'s3', q:"Pilih semua peninggalan megalitikum yang disebut dalam teks!", o:["Menhir","Dolmen","Sarkofagus","Candi"], a:[0,1,2], e:"Candi bukan peninggalan megalitikum, melainkan zaman Hindu-Buddha." },
+      { t:'BS', stim:'s3', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Megalitikum berarti zaman batu besar.", v:true },
+        { s:"Gunung Padang adalah situs megalitikum di Cianjur.", v:true },
+        { s:"Waruga berasal dari Toraja.", v:false }
+      ], e:"Waruga berasal dari Minahasa, bukan Toraja." },
+      { t:'PG', stim:'s4', q:"Rumpun bahasa Austronesia memiliki lebih dari ...", o:["100 bahasa","500 bahasa","1.200 bahasa","5.000 bahasa"], a:2, e:"Austronesia memiliki lebih dari 1.200 bahasa." },
+      { t:'BS', stim:'s4', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Bahasa Indonesia adalah turunan dari bahasa Melayu.", v:true },
+        { s:"Kesamaan kata \"mata\" membuktikan kekerabatan bahasa Austronesia.", v:true },
+        { s:"Bahasa Austronesia hanya tersebar di Asia Tenggara.", v:false }
+      ], e:"Bahasa Austronesia tersebar dari Madagaskar hingga Selandia Baru." },
+      { t:'MMA', stim:'s4', q:"Pilih semua bahasa yang termasuk rumpun Austronesia!", o:["Bahasa Indonesia","Bahasa Tagalog","Bahasa Maori","Bahasa Arab"], a:[0,1,2], e:"Bahasa Arab bukan rumpun Austronesia." },
+      { t:'PG', q:"Rumpun bangsa induk Proto dan Deutro Melayu disebut ...", o:["Mongoloid","Austronesia","Melanesoid","Weddoid"], a:1, e:"Austronesia adalah rumpun induk." },
+      { t:'PG', q:"Bangsa Melanesoid banyak mendiami wilayah ...", o:["Jawa dan Sumatra","Papua, Maluku, dan NTT","Kalimantan dan Sulawesi","Bali dan Lombok"], a:1, e:"Melanesoid mendiami Papua, Maluku, NTT." },
+      { t:'MMA', q:"Pilih semua ciri Proto Melayu!", o:["Membawa budaya Neolitikum","Membawa kapak persegi dan lonjong","Membawa budaya logam","Datang sekitar 1500 SM"], a:[0,1,3], e:"Proto Melayu tidak membawa budaya logam." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Teori Yunnan dikemukakan oleh J.H.C. Kern.", v:true },
+        { s:"Teori Nusantara dikemukakan oleh Moh. Yamin.", v:true },
+        { s:"Teori Out of Sundaland didukung oleh Von Heine Geldern.", v:false }
+      ], e:"Teori Out of Sundaland didukung oleh Stephen Oppenheimer." },
+      { t:'PG', q:"Suku Dani, Asmat, dan Amungme adalah keturunan ...", o:["Melanesoid","Proto Melayu","Deutro Melayu","Kaukasoid"], a:0, e:"Suku-suku Papua adalah Melanesoid." },
+      { t:'PG', q:"Tugu batu tegak peninggalan megalitikum disebut ...", o:["Dolmen","Menhir","Sarkofagus","Waruga"], a:1, e:"Menhir adalah tugu batu tegak." },
+      { t:'MMA', q:"Pilih semua warisan budaya Austronesia!", o:["Rumah panggung","Batik","Angklung","Candi Borobudur"], a:[0,1,2], e:"Candi Borobudur adalah warisan zaman Hindu-Buddha, bukan Austronesia." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Subak diakui UNESCO sebagai Warisan Budaya Dunia.", v:true },
+        { s:"Rumah Gadang adalah rumah adat Minangkabau.", v:true },
+        { s:"Tongkonan adalah rumah adat Batak.", v:false }
+      ], e:"Tongkonan adalah rumah adat Toraja." },
+      { t:'PG', q:"Kapak corong adalah peninggalan ...", o:["Deutro Melayu","Proto Melayu","Melanesoid","Kaukasoid"], a:0, e:"Kapak corong peninggalan Deutro Melayu." },
+      { t:'PG', q:"Fosil Homo erectus ditemukan di ...", o:["Sangiran","Flores","Papua","Bali"], a:0, e:"Homo erectus ditemukan di Sangiran." },
+      { t:'MMA', q:"Pilih semua rumah adat Nusantara!", o:["Rumah Gadang","Rumah Betang","Tongkonan","Rumah Bolon"], a:[0,1,2,3], e:"Keempatnya adalah rumah adat Nusantara." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Angklung adalah alat musik dari Jawa Barat.", v:true },
+        { s:"Sasando adalah alat musik dari NTT.", v:true },
+        { s:"Gamelan adalah alat musik dari Sumatra.", v:false }
+      ], e:"Gamelan berasal dari Jawa." },
+      { t:'PG', q:"Upacara Pasola berasal dari ...", o:["Sumba","Toraja","Bali","Nias"], a:0, e:"Pasola dari Sumba." },
+      { t:'PG', q:"Kesamaan kata \"telinga\" dalam berbagai bahasa Austronesia menunjukkan ...", o:["Kekerabatan bahasa","Perbedaan budaya","Persaingan","Migrasi"], a:0, e:"Kesamaan kata menunjukkan kekerabatan bahasa." },
+      { t:'PG', q:"Rumah adat Minangkabau disebut ...", o:["Rumah Gadang","Rumah Betang","Tongkonan","Rumah Bolon"], a:0, e:"Rumah Gadang adalah rumah adat Minangkabau." },
+      { t:'MMA', q:"Pilih semua keturunan Deutro Melayu!", o:["Suku Jawa","Suku Bugis","Suku Minangkabau","Suku Dayak"], a:[0,1,2], e:"Suku Dayak adalah keturunan Proto Melayu." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Bangsa Austronesia mahir berlayar dan bertani.", v:true },
+        { s:"Melanesoid datang ke Nusantara lebih awal dari Austronesia.", v:true },
+        { s:"Bahasa Austronesia hanya memiliki 100 bahasa.", v:false }
+      ], e:"Bahasa Austronesia memiliki lebih dari 1.200 bahasa." }
+    ]
+  },
+
+  5: {
+    stimuli: {
+      s1: {
+        title: "Banda dan Pala",
+        text: "Kepulauan Banda adalah satu-satunya wilayah di dunia yang menghasilkan pala pada abad ke-16. Pala dari Banda menjadi komoditas paling dicari di Eropa. Di Eropa, satu kilogram pala bisa bernilai setara dengan tujuh ekor sapi. Pulau Run, salah satu pulau di Banda, pernah ditukar oleh Inggris dengan Belanda: Inggris menyerahkan Pulau Run, Belanda menyerahkan Pulau Manhattan (New York) di Amerika. Peristiwa ini menunjukkan betapa berharganya rempah Nusantara pada masa itu.",
+        source: "Sumber: Kepulauan Banda dan Sejarah Rempah (adaptasi)"
+      },
+      s2: {
+        title: "VOC dan Monopoli Rempah",
+        text: "VOC menerapkan monopoli perdagangan rempah di Maluku dan Banda. Rakyat hanya boleh berdagang dengan VOC. Untuk menjaga harga tetap tinggi, VOC melakukan hongi tochten — pelayaran menghancurkan kebun rempah rakyat. VOC juga menerapkan politik devide et impera — adu domba antar kerajaan Nusantara. Pada 1621, di bawah JP Coen, VOC menaklukkan Banda dan melakukan pembantaian terhadap penduduknya. Rakyat Maluku dan Banda mengalami penderitaan yang mendalam akibat praktik monopoli VOC.",
+        source: "Sumber: VOC dan Rakyat Nusantara (adaptasi)"
+      },
+      s3: {
+        title: "Akulturasi Budaya Jalur Rempah",
+        text: "Jalur rempah bukan hanya jalur barang, tetapi juga jalur budaya. Berbagai budaya bertemu di pelabuhan-pelabuhan Nusantara, menghasilkan akulturasi. Contohnya, masjid beratap tumpang adalah perpaduan Islam, Hindu, dan Jawa. Batik Pekalongan dipengaruhi budaya Tiongkok dan Belanda. Keroncong adalah musik perpaduan Portugis dan Nusantara. Kata-kata serapan dari Sanskerta, Arab, Portugis, dan Belanda memperkaya bahasa Indonesia. Semua ini adalah jejak akulturasi budaya melalui jalur rempah.",
+        source: "Sumber: Akulturasi Budaya Nusantara (adaptasi)"
+      },
+      s4: {
+        title: "Pelabuhan Nusantara",
+        text: "Pelabuhan-pelabuhan di Nusantara menjadi simpul perdagangan rempah. Malaka adalah pelabuhan terbesar di Asia Tenggara sebelum 1511. Banten menjadi pusat lada di Jawa Barat. Makassar adalah pelabuhan bebas terbesar di Indonesia timur. Ternate dan Tidore adalah pusat perdagangan cengkih. Banda Neira adalah pusat perdagangan pala. Setiap pelabuhan memiliki peran penting dalam jaringan perdagangan rempah Nusantara.",
+        source: "Sumber: Pelabuhan-Pelabuhan Nusantara (adaptasi)"
+      }
+    },
+    questions: [
+      { t:'PG', stim:'s1', q:"Berdasarkan teks, satu kilogram pala pada abad ke-16 di Eropa setara dengan ...", o:["1 ekor sapi","7 ekor sapi","10 ekor sapi","100 ekor sapi"], a:1, e:"Satu kilogram pala setara tujuh ekor sapi." },
+      { t:'MMA', stim:'s1', q:"Pilih semua pernyataan yang sesuai dengan teks!", o:["Banda adalah satu-satunya penghasil pala pada abad ke-16","Pulau Run ditukar dengan Pulau Manhattan","Pala dari Banda menjadi komoditas paling dicari di Eropa","Banda juga menghasilkan cengkih"], a:[0,1,2], e:"Cengkih dihasilkan di Maluku, bukan Banda." },
+      { t:'BS', stim:'s1', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Pulau Run adalah bagian dari Kepulauan Banda.", v:true },
+        { s:"Pala Nusantara dianggap rempah murah di Eropa.", v:false },
+        { s:"Pala menjadi komoditas yang sangat mahal di Eropa.", v:true }
+      ], e:"Pala justru sangat mahal di Eropa." },
+      { t:'PG', stim:'s2', q:"Pelayaran VOC untuk menghancurkan kebun rempah rakyat disebut ...", o:["Devide et impera","Hongi tochten","Monopoli","Ekstirpasi"], a:1, e:"Hongi tochten adalah pelayaran penghancuran kebun rempah." },
+      { t:'MMA', stim:'s2', q:"Pilih semua praktik VOC yang disebut dalam teks!", o:["Monopoli","Devide et impera","Hongi tochten","Pembantaian Banda"], a:[0,1,2,3], e:"Keempatnya disebut dalam teks." },
+      { t:'BS', stim:'s2', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Pembantaian Banda dipimpin oleh JP Coen.", v:true },
+        { s:"Monopoli VOC membuat rakyat Nusantara sejahtera.", v:false },
+        { s:"Devide et impera berarti adu domba.", v:true }
+      ], e:"Monopoli VOC justru membuat rakyat menderita." },
+      { t:'PG', stim:'s3', q:"Keroncong adalah musik perpaduan ...", o:["Portugis dan Nusantara","Arab dan Nusantara","Tiongkok dan Nusantara","India dan Nusantara"], a:0, e:"Keroncong perpaduan Portugis dan Nusantara." },
+      { t:'BS', stim:'s3', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Masjid beratap tumpang adalah contoh akulturasi.", v:true },
+        { s:"Batik Pekalongan dipengaruhi budaya Tiongkok dan Belanda.", v:true },
+        { s:"Kata serapan hanya berasal dari bahasa Arab.", v:false }
+      ], e:"Kata serapan di Indonesia juga berasal dari Sanskerta, Portugis, dan Belanda." },
+      { t:'MMA', stim:'s3', q:"Pilih semua contoh akulturasi budaya!", o:["Masjid beratap tumpang","Batik Pekalongan","Keroncong","Rendang"], a:[0,1,2,3], e:"Keempatnya adalah contoh akulturasi budaya." },
+      { t:'PG', stim:'s4', q:"Pelabuhan terbesar di Asia Tenggara sebelum 1511 adalah ...", o:["Banten","Makassar","Malaka","Gresik"], a:2, e:"Malaka adalah pelabuhan terbesar sebelum 1511." },
+      { t:'MMA', stim:'s4', q:"Pilih semua pusat perdagangan rempah di Nusantara!", o:["Banten","Makassar","Ternate","Banda Neira"], a:[0,1,2,3], e:"Keempatnya adalah pusat perdagangan rempah." },
+      { t:'BS', stim:'s4', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Ternate dan Tidore adalah pusat perdagangan cengkih.", v:true },
+        { s:"Banten adalah pusat lada di Jawa Barat.", v:true },
+        { s:"Makassar adalah pelabuhan tertutup.", v:false }
+      ], e:"Makassar adalah pelabuhan bebas terbesar di Indonesia timur." },
+      { t:'PG', q:"Jalur Rempah adalah jaringan perdagangan ...", o:["Batu mulia dari Afrika","Rempah dari Nusantara ke Asia dan Eropa","Tekstil dari Tiongkok","Emas dari Sumatra"], a:1, e:"Jalur Rempah adalah jaringan perdagangan rempah." },
+      { t:'PG', q:"Rempah yang hanya tumbuh di Maluku adalah ...", o:["Cengkih","Pala","Lada","Kayu manis"], a:0, e:"Cengkih hanya tumbuh di Maluku." },
+      { t:'MMA', q:"Pilih semua rempah khas Nusantara!", o:["Cengkih","Pala","Lada","Kayu manis"], a:[0,1,2,3], e:"Keempatnya adalah rempah khas Nusantara." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Bangsa Portugis pertama kali menaklukkan Malaka pada 1511.", v:true },
+        { s:"Cornelis de Houtman tiba di Banten pada 1596.", v:true },
+        { s:"VOC didirikan pada 1511.", v:false }
+      ], e:"VOC didirikan pada 1602." },
+      { t:'PG', q:"VOC dibubarkan pada tahun ...", o:["1596","1602","1619","1799"], a:3, e:"VOC dibubarkan 1799." },
+      { t:'PG', q:"Semboyan 3G bangsa Eropa berarti ...", o:["Gold, Glory, Gospel","Green, Gold, Great","God, Gold, Great","Glory, Great, Gospel"], a:0, e:"3G: Gold, Glory, Gospel." },
+      { t:'MMA', q:"Pilih semua dampak positif perdagangan rempah!", o:["Kemajuan pelabuhan","Akulturasi budaya","Masuknya agama baru","Kolonialisme"], a:[0,1,2], e:"Kolonialisme adalah dampak negatif." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Batik diakui UNESCO sebagai Warisan Budaya Dunia.", v:true },
+        { s:"Rendang pernah dinobatkan sebagai makanan terenak dunia.", v:true },
+        { s:"Jamu adalah minuman modern hasil industri.", v:false }
+      ], e:"Jamu adalah minuman rempah tradisional, bukan hasil industri modern." },
+      { t:'PG', q:"Benteng Rotterdam terdapat di ...", o:["Makassar","Banda Neira","Surakarta","Jakarta"], a:0, e:"Benteng Rotterdam di Makassar." },
+      { t:'PG', q:"Benteng Belgica terdapat di ...", o:["Banda Neira","Makassar","Surakarta","Jakarta"], a:0, e:"Benteng Belgica di Banda Neira." },
+      { t:'MMA', q:"Pilih semua warisan jalur rempah!", o:["Benteng Rotterdam","Benteng Belgica","Kota Tua Batavia","Candi Borobudur"], a:[0,1,2], e:"Candi Borobudur bukan warisan jalur rempah." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Kedaton Ternate adalah istana Sultan Ternate.", v:true },
+        { s:"Jalur rempah diajukan sebagai Warisan Budaya UNESCO.", v:true },
+        { s:"Festival rempah hanya diadakan di Jawa.", v:false }
+      ], e:"Festival rempah diadakan di Maluku dan Banda." },
+      { t:'PG', q:"Visi Indonesia sebagai Poros Maritim Dunia dicanangkan pada tahun ...", o:["2014","2010","2019","2024"], a:0, e:"Visi Poros Maritim Dunia dicanangkan 2014." },
+      { t:'PG', q:"Rempah Nusantara yang digunakan untuk ritual keagamaan adalah ...", o:["Kemenyan","Lada","Kayu manis","Kemiri"], a:0, e:"Kemenyan digunakan untuk ritual." },
+      { t:'PG', q:"Benteng Vastenburg terdapat di ...", o:["Surakarta","Makassar","Banda Neira","Jakarta"], a:0, e:"Benteng Vastenburg terletak di Surakarta." },
+      { t:'MMA', q:"Pilih semua pelabuhan yang menjadi pusat perdagangan rempah di Nusantara!", o:["Banten","Makassar","Ternate","Banda Neira"], a:[0,1,2,3], e:"Keempatnya adalah pusat perdagangan rempah di Nusantara." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Benteng Belgica terletak di Banda Neira.", v:true },
+        { s:"Benteng Rotterdam terletak di Makassar.", v:true },
+        { s:"Selat Malaka saat ini bukan lagi jalur pelayaran penting.", v:false }
+      ], e:"Selat Malaka hingga kini masih menjadi jalur pelayaran tersibuk di dunia." }
+    ]
+  },
+
+  6: {
+    stimuli: {
+      s1: {
+        title: "Penelitian Sejarah Lokal",
+        text: "Untuk meneliti sejarah lokal, kita dapat mengikuti delapan tahapan keterampilan proses. Pertama, mengamati: melihat papan nama desa, bangunan tua, atau situs bersejarah. Kedua, menanya: merumuskan pertanyaan kritis seperti \"mengapa desa ini bernama demikian?\". Ketiga, mengumpulkan informasi: wawancara sesepuh, membaca arsip desa, mencari buku sejarah lokal. Keempat, mengolah informasi: membandingkan versi cerita dan memeriksa keasliannya. Kelima, menguji dan menerapkan konsep: menerapkan konsep toponimi pada nama desa. Keenam, mengevaluasi dan merefleksi: menilai hasil penelitian dan merenungkan maknanya. Ketujuh, mengomunikasikan: menyajikan hasil dalam bentuk laporan atau video. Kedelapan, menyusun rencana tindak lanjut: merancang aksi nyata, misalnya membuat papan informasi sejarah di balai desa.",
+        source: "Sumber: Panduan Penelitian Sejarah Lokal (adaptasi)"
+      },
+      s2: {
+        title: "Kritik Sumber Sejarah",
+        text: "Kritik sumber adalah tahap menguji keaslian dan kredibilitas sumber sejarah. Kritik ekstern menguji keaslian fisik sumber: apakah bahannya sesuai zaman? apakah tulisan atau bentuknya asli? Kritik intern menguji isi sumber: apakah informasinya masuk akal? apakah konsisten dengan sumber lain? Setelah kritik, sejarawan melakukan interpretasi — penafsiran makna fakta. Sumber yang telah teruji kebenarannya disebut bukti sejarah, dan pernyataan yang didukung bukti disebut fakta sejarah. Fakta keras (hard fact) dapat dibuktikan langsung, sedangkan fakta lunak (soft fact) masih diperdebatkan.",
+        source: "Sumber: Metode Sejarah (adaptasi)"
+      },
+      s3: {
+        title: "Merefleksi Sejarah",
+        text: "Merefleksi berarti merenungkan makna, nilai, dan pelajaran yang dapat diambil dari peristiwa sejarah. Tanpa refleksi, sejarah hanya menjadi tumpukan cerita masa lalu. Dengan refleksi, sejarah menjadi cermin bagi kehidupan kita. Misalnya, setelah mempelajari pembantaian Banda 1621, kita dapat merefleksikan bahwa keserakahan dapat menghancurkan kehidupan, dan kita berkomitmen menolak ketidakadilan. Refleksi juga membantu kita memahami keterhubungan antara masa lampau, masa kini, dan masa depan.",
+        source: "Sumber: Refleksi dalam Pembelajaran Sejarah (adaptasi)"
+      },
+      s4: {
+        title: "Rencana Tindak Lanjut",
+        text: "Menyusun rencana tindak lanjut adalah tahap akhir keterampilan proses sejarah. Setelah penelitian selesai, siswa merancang aksi nyata secara kolaboratif. Contohnya, jika menemukan situs megalitikum yang terabaikan, siswa dapat mengusulkan perawatan situs kepada pemerintah desa. Jika mengumpulkan cerita rakyat yang hampir punah, siswa dapat membuat buku kumpulan cerita dan membagikannya ke perpustakaan sekolah. Tahap ini membedakan pembelajaran sejarah yang bermakna dari sekadar tugas sekolah.",
+        source: "Sumber: Pembelajaran Sejarah Berbasis Proyek (adaptasi)"
+      }
+    },
+    questions: [
+      { t:'PG', stim:'s1', q:"Berdasarkan teks, tahapan pertama dalam keterampilan proses sejarah adalah ...", o:["Menanya","Mengamati","Mengolah informasi","Mengomunikasikan"], a:1, e:"Urutan dimulai dari mengamati." },
+      { t:'MMA', stim:'s1', q:"Pilih semua tahapan yang disebut dalam teks!", o:["Mengamati","Menanya","Mengolah informasi","Menghafal tanggal"], a:[0,1,2], e:"Menghafal tanggal bukan tahapan keterampilan proses sejarah." },
+      { t:'BS', stim:'s1', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Mengamati berarti menggunakan pancaindra untuk mencatat fakta.", v:true },
+        { s:"Rencana tindak lanjut adalah tahap terakhir.", v:true },
+        { s:"Mengomunikasikan berarti menyembunyikan hasil penelitian.", v:false }
+      ], e:"Mengomunikasikan berarti menyajikan hasil penelitian." },
+      { t:'PG', stim:'s2', q:"Kritik terhadap keaslian fisik sumber sejarah disebut kritik ...", o:["Intern","Ekstern","Filologi","Hermeneutik"], a:1, e:"Kritik ekstern menguji keaslian fisik sumber." },
+      { t:'MMA', stim:'s2', q:"Pilih semua pernyataan yang sesuai dengan teks!", o:["Kritik ekstern menguji keaslian fisik sumber","Kritik intern menguji isi sumber","Interpretasi adalah penafsiran makna fakta","Fakta lunak tidak dapat diperdebatkan"], a:[0,1,2], e:"Fakta lunak masih dapat diperdebatkan." },
+      { t:'BS', stim:'s2', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Bukti sejarah adalah sumber yang telah teruji kebenarannya.", v:true },
+        { s:"Fakta keras dapat dibuktikan langsung.", v:true },
+        { s:"Fakta lunak sama dengan fakta keras.", v:false }
+      ], e:"Fakta lunak masih diperdebatkan, berbeda dengan fakta keras." },
+      { t:'PG', stim:'s3', q:"Berdasarkan teks, tujuan refleksi sejarah adalah ...", o:["Menambah hafalan","Merenungkan makna dan pelajaran peristiwa","Memperpanjang cerita","Mengubah fakta"], a:1, e:"Refleksi merenungkan makna dan pelajaran peristiwa." },
+      { t:'MMA', stim:'s3', q:"Pilih semua manfaat refleksi sejarah menurut teks!", o:["Menjadikan sejarah sebagai cermin","Memahami keterhubungan masa","Merenungkan nilai peristiwa","Menghafal tanggal peristiwa"], a:[0,1,2], e:"Menghafal tanggal bukan manfaat refleksi." },
+      { t:'BS', stim:'s3', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Tanpa refleksi, sejarah hanya tumpukan cerita masa lalu.", v:true },
+        { s:"Refleksi menghubungkan masa lampau, kini, dan depan.", v:true },
+        { s:"Refleksi tidak berkaitan dengan nilai moral.", v:false }
+      ], e:"Refleksi justru berkaitan dengan nilai dan moral." },
+      { t:'PG', stim:'s4', q:"Menurut teks, tahap akhir keterampilan proses sejarah adalah ...", o:["Mengamati","Mengomunikasikan","Menyusun rencana tindak lanjut","Merefleksi"], a:2, e:"Tahap terakhir adalah menyusun rencana tindak lanjut." },
+      { t:'BS', stim:'s4', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Rencana tindak lanjut dilakukan secara kolaboratif.", v:true },
+        { s:"Rencana tindak lanjut hanya dilakukan oleh guru.", v:false },
+        { s:"Membuat papan informasi sejarah adalah contoh tindak lanjut.", v:true }
+      ], e:"Rencana tindak lanjut dilakukan siswa secara kolaboratif." },
+      { t:'MMA', stim:'s4', q:"Pilih semua contoh rencana tindak lanjut menurut teks!", o:["Mengusulkan perawatan situs kepada pemerintah desa","Membuat buku kumpulan cerita rakyat","Membagikan buku ke perpustakaan sekolah","Menghafal tanggal-tanggal penting"], a:[0,1,2], e:"Menghafal tanggal bukan rencana tindak lanjut." },
+      { t:'PG', q:"Tahap mengumpulkan sumber-sumber sejarah disebut ...", o:["Interpretasi","Heuristik","Historiografi","Kritik"], a:1, e:"Heuristik adalah tahap mengumpulkan sumber." },
+      { t:'PG', q:"Prinsip yang menjiwai seluruh tahapan keterampilan proses sejarah adalah ...", o:["Kompetisi","Individualisme","Kolaborasi","Hafalan"], a:2, e:"Kolaborasi menjiwai seluruh tahapan." },
+      { t:'MMA', q:"Pilih semua dimensi Profil Pelajar Pancasila yang berkaitan dengan keterampilan proses sejarah!", o:["Bernalar kritis","Kreatif","Bergotong royong","Berkebinekaan global"], a:[0,1,2,3], e:"Keempatnya berkaitan dengan keterampilan proses sejarah." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Pertanyaan HOTS membutuhkan analisis.", v:true },
+        { s:"Pertanyaan hafalan termasuk HOTS.", v:false },
+        { s:"Pertanyaan \"mengapa\" termasuk pertanyaan kritis.", v:true }
+      ], e:"Pertanyaan hafalan bukan HOTS." },
+      { t:'PG', q:"Membuat video pendek tentang asal-usul nama desa termasuk tahap ...", o:["Mengamati","Mengomunikasikan","Merefleksi","Kritik sumber"], a:1, e:"Membuat video adalah mengomunikasikan." },
+      { t:'PG', q:"Studi kasus, simulasi, dan eksperimen kecil termasuk tahap ...", o:["Mengamati","Menguji dan menerapkan konsep","Merefleksi","Mengomunikasikan"], a:1, e:"Ketiganya termasuk menguji dan menerapkan konsep." },
+      { t:'MMA', q:"Pilih semua yang termasuk sumber tidak kredibel!", o:["Blog pribadi","Media sosial tanpa sumber","Grup chat berantai","Jurnal ilmiah"], a:[0,1,2], e:"Jurnal ilmiah adalah sumber kredibel." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Hoaks sejarah adalah informasi sejarah palsu.", v:true },
+        { s:"Verifikasi berarti memastikan kebenaran informasi.", v:true },
+        { s:"Sumber tidak perlu diperiksa kredibilitasnya.", v:false }
+      ], e:"Semua sumber perlu diperiksa kredibilitasnya." },
+      { t:'PG', q:"Contoh kegiatan refleksi adalah ...", o:["Menulis jurnal belajar","Menyebarkan berita","Membuat berita","Menghapus berita"], a:0, e:"Menulis jurnal adalah refleksi." },
+      { t:'PG', q:"Contoh penyajian sejarah yang kreatif adalah ...", o:["Video pendek","Hafalan","Ceramah","Diskusi"], a:0, e:"Video pendek adalah penyajian kreatif." },
+      { t:'MMA', q:"Pilih semua ciri berpikir kritis!", o:["Memeriksa sumber","Membandingkan versi","Menerima informasi tanpa memeriksa","Bertanya \"mengapa\""], a:[0,1,3], e:"Berpikir kritis tidak menerima informasi tanpa memeriksa." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Keterampilan proses sejarah bermanfaat untuk kehidupan sehari-hari.", v:true },
+        { s:"Keterampilan proses sejarah hanya berguna di sekolah.", v:false },
+        { s:"Keterampilan proses sejarah melatih berpikir kritis dan kreatif.", v:true }
+      ], e:"Keterampilan proses bermanfaat untuk kehidupan sehari-hari." },
+      { t:'PG', q:"Contoh sumber kredibel adalah ...", o:["Buku terbitan lembaga pendidikan","Blog pribadi","Media sosial","Grup chat"], a:0, e:"Buku terbitan lembaga pendidikan adalah sumber kredibel." },
+      { t:'PG', q:"Langkah verifikasi informasi sejarah adalah ...", o:["Membandingkan dengan sumber lain","Langsung percaya","Menyebarkan","Mengabaikan"], a:0, e:"Membandingkan dengan sumber lain adalah verifikasi." },
+      { t:'PG', q:"Membuat presentasi hasil penelitian termasuk tahap ...", o:["Mengamati","Mengomunikasikan","Merefleksi","Mengolah informasi"], a:1, e:"Membuat presentasi adalah mengomunikasikan." },
+      { t:'MMA', q:"Pilih semua yang termasuk sumber sejarah lisan!", o:["Wawancara sesepuh","Cerita rakyat","Legenda","Prasasti"], a:[0,1,2], e:"Prasasti adalah sumber tertulis, bukan lisan." },
+      { t:'BS', q:"Tentukan Benar atau Salah setiap pernyataan!", st:[
+        { s:"Mengomunikasikan adalah tahap menyajikan hasil penelitian.", v:true },
+        { s:"Rencana tindak lanjut adalah tahap pertama keterampilan proses.", v:false },
+        { s:"Mengevaluasi berarti menilai hasil penelitian.", v:true }
+      ], e:"Rencana tindak lanjut justru tahap terakhir, bukan pertama." }
+    ]
+  }
+};
+
+/* ============================================================
+   UTILITAS
+   ============================================================ */
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function shuffleInPlace(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+/* ============================================================
+   PENYEIMBANGAN JAWABAN
+   ============================================================ */
+function balancePG(chapter) {
+  const pgList = chapter.questions.filter(q => q.t === 'PG');
+  const n = pgList.length;
+  if (n === 0) return;
+  const targets = [];
+  const per = Math.floor(n / 4);
+  const rem = n % 4;
+  for (let p = 0; p < 4; p++) for (let i = 0; i < per; i++) targets.push(p);
+  for (let i = 0; i < rem; i++) targets.push(i % 4);
+  shuffleInPlace(targets);
+  pgList.forEach((q, i) => {
+    const target = targets[i];
+    const correctText = q.o[q.a];
+    const wrongs = q.o.filter((_, idx) => idx !== q.a);
+    shuffleInPlace(wrongs);
+    const newOpts = [];
+    let wi = 0;
+    for (let p = 0; p < 4; p++) {
+      if (p === target) newOpts.push(correctText);
+      else newOpts.push(wrongs[wi++]);
+    }
+    q.o = newOpts;
+    q.a = target;
+  });
+}
+function balanceMMA(chapter) {
+  chapter.questions.filter(q => q.t === 'MMA').forEach(q => {
+    const correctTexts = q.a.map(i => q.o[i]);
+    const wrongTexts = q.o.filter((_, i) => !q.a.includes(i));
+    const all = [...correctTexts.map(t => ({t, ok:true})), ...wrongTexts.map(t => ({t, ok:false}))];
+    shuffleInPlace(all);
+    q.o = all.map(x => x.t);
+    q.a = all.map((x, i) => x.ok ? i : -1).filter(i => i >= 0).sort((a,b)=>a-b);
+  });
+}
+function balanceBS(chapter) {
+  chapter.questions.filter(q => q.t === 'BS').forEach(q => {
+    shuffleInPlace(q.st);
+  });
+}
+function prepareBank() {
+  CHAPTERS.forEach(ch => {
+    const bank = BANK[ch.id];
+    if (!bank) return;
+    balancePG(bank);
+    balanceMMA(bank);
+    balanceBS(bank);
+  });
+}
+
+/* ============================================================
+   PENYUSUNAN SESI — 30 SOAL
+   ============================================================ */
+function buildSession(chapterId) {
+  const bank = BANK[chapterId];
+  const stimuli = bank.stimuli;
+  const groups = new Map();
+  const standalone = [];
+  bank.questions.forEach(q => {
+    if (q.stim) {
+      if (!groups.has(q.stim)) groups.set(q.stim, []);
+      groups.get(q.stim).push(q);
+    } else {
+      standalone.push(q);
+    }
+  });
+  const blocks = [];
+  groups.forEach((qs, sid) => {
+    blocks.push({ type:'stim', stimId:sid, stim:stimuli[sid], questions: shuffle([...qs]) });
+  });
+  shuffleInPlace(blocks);
+  const questions = [];
+  blocks.forEach(b => {
+    b.questions.forEach(q => {
+      questions.push({ ...q, _stim: b.stim, _stimId: b.stimId });
+    });
+  });
+  shuffleInPlace(standalone).forEach(q => {
+    questions.push({ ...q, _stim: null, _stimId: null });
+  });
+  return questions.slice(0, 30);
+}
+
+/* ============================================================
+   STATE & LOGIKA APLIKASI
+   ============================================================ */
+const SOAL_PER_SESI = 30;
+const DURASI_DETIK = 75 * 60;
+
+let state = {
+  bab: null, questions: [], answers: [], current: 0,
+  timer: null, timeLeft: DURASI_DETIK, finished: false
+};
+
+function renderChapters() {
+  const grid = document.getElementById('chapterGrid');
+  grid.innerHTML = CHAPTERS.map(ch => `
+    <div class="chapter-card" style="--ch-accent:${ch.accent}" onclick="startQuiz(${ch.id})">
+      <div class="chapter-card-inner">
+        <div class="chapter-num">${ch.id}</div>
+        <div class="chapter-title">${ch.title}</div>
+        <div class="chapter-desc">${ch.desc}</div>
+        <div class="chapter-tags">
+          <span>30 Soal</span><span>75 Menit</span><span>3 Tipe</span><span>Stimulus</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function startQuiz(babId) {
+  const ch = CHAPTERS.find(c => c.id === babId);
+  const questions = buildSession(babId);
+  state = {
+    bab: ch, questions,
+    answers: new Array(questions.length).fill(null),
+    current: 0, timer: null, timeLeft: DURASI_DETIK, finished: false
+  };
+  document.documentElement.style.setProperty('--accent', ch.accent);
+  document.getElementById('quizChapterBadge').textContent = `Bab ${ch.id} · ${ch.title}`;
+  showScreen('quiz');
+  renderQuestion();
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(state.timer);
+  updateTimerDisplay();
+  state.timer = setInterval(() => {
+    state.timeLeft--;
+    updateTimerDisplay();
+    if (state.timeLeft <= 0) { clearInterval(state.timer); finishQuiz(true); }
+  }, 1000);
+}
+function updateTimerDisplay() {
+  const box = document.getElementById('timerBox');
+  const txt = document.getElementById('timerText');
+  const m = Math.floor(Math.max(0, state.timeLeft) / 60);
+  const s = Math.max(0, state.timeLeft) % 60;
+  txt.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  box.classList.toggle('warning', state.timeLeft <= 300 && state.timeLeft > 60);
+  box.classList.toggle('danger', state.timeLeft <= 60);
+}
+
+function renderQuestion() {
+  const q = state.questions[state.current];
+  const total = state.questions.length;
+  const ans = state.answers[state.current];
+
+  document.getElementById('qNumber').textContent = `SOAL ${String(state.current+1).padStart(2,'0')}`;
+  document.getElementById('quizProgressText').textContent = `Soal ${state.current+1} dari ${total}`;
+  document.getElementById('progressTrackFill').style.width = `${((state.current+1)/total)*100}%`;
+
+  const typeLabels = { PG:'Pilihan Ganda', MMA:'Pilihan Ganda Kompleks', BS:'Benar / Salah' };
+  document.getElementById('qType').textContent = typeLabels[q.t];
+
+  const stimBox = document.getElementById('stimulusBox');
+  if (q._stim) {
+    document.getElementById('stimulusTitle').textContent = q._stim.title;
+    document.getElementById('stimulusText').textContent = q._stim.text;
+    document.getElementById('stimulusSource').textContent = q._stim.source;
+    stimBox.classList.add('show');
+  } else {
+    stimBox.classList.remove('show');
+  }
+
+  document.getElementById('qText').textContent = q.q;
+
+  const area = document.getElementById('answerArea');
+  if (q.t === 'PG') renderPG(q, ans, area);
+  else if (q.t === 'MMA') renderMMA(q, ans, area);
+  else if (q.t === 'BS') renderBS(q, ans, area);
+
+  const exp = document.getElementById('explanationBox');
+  const isAnswered = checkAnswered(q, ans);
+  if (isAnswered) {
+    exp.innerHTML = `<strong>Pembahasan:</strong> ${q.e}`;
+    exp.classList.add('show');
+  } else {
+    exp.classList.remove('show');
+    exp.innerHTML = '';
+  }
+
+  document.getElementById('prevBtn').disabled = state.current === 0;
+  const nextBtn = document.getElementById('nextBtn');
+  if (state.current === total - 1) nextBtn.textContent = 'Selesai →';
+  else nextBtn.textContent = 'Selanjutnya →';
+}
+
+function renderPG(q, ans, area) {
+  const letters = ['A','B','C','D'];
+  const answered = ans !== null;
+  area.innerHTML = `<div class="options">${q.o.map((text, i) => {
+    let cls = 'option';
+    if (answered) {
+      cls += ' disabled';
+      if (i === q.a) cls += ' correct';
+      else if (i === ans) cls += ' wrong';
+    }
+    return `<div class="${cls}" onclick="pickPG(${i})">
+      <div class="opt-marker">${letters[i]}</div>
+      <div>${text}</div>
+    </div>`;
+  }).join('')}</div>`;
+}
+function pickPG(idx) {
+  if (state.answers[state.current] !== null) return;
+  state.answers[state.current] = idx;
+  renderQuestion();
+}
+
+function renderMMA(q, ans, area) {
+  const answered = ans && ans.confirmed;
+  const selected = (ans && ans.selected) || [];
+  area.innerHTML = `<div class="options">${q.o.map((text, i) => {
+    let cls = 'option';
+    if (selected.includes(i)) cls += ' selected';
+    if (answered) {
+      cls += ' disabled';
+      if (q.a.includes(i)) cls += ' correct';
+      else if (selected.includes(i)) cls += ' wrong';
+    }
+    return `<div class="${cls}" onclick="toggleMMA(${i})">
+      <div class="opt-marker checkbox">${selected.includes(i) ? '✓' : ''}</div>
+      <div>${text}</div>
+    </div>`;
+  }).join('')}</div>
+  ${!answered ? `<button class="confirm-btn" onclick="confirmMMA()" ${selected.length===0?'disabled':''}>Konfirmasi Jawaban</button>` : ''}`;
+}
+function toggleMMA(idx) {
+  const ans = state.answers[state.current];
+  if (ans && ans.confirmed) return;
+  const cur = ans || { selected: [], confirmed: false };
+  if (cur.selected.includes(idx)) cur.selected = cur.selected.filter(i => i !== idx);
+  else cur.selected.push(idx);
+  state.answers[state.current] = cur;
+  renderQuestion();
+}
+function confirmMMA() {
+  const ans = state.answers[state.current];
+  if (!ans || ans.selected.length === 0) return;
+  ans.confirmed = true;
+  renderQuestion();
+}
+
+function renderBS(q, ans, area) {
+  const answered = ans && ans.confirmed;
+  const values = (ans && ans.values) || q.st.map(() => null);
+  area.innerHTML = `<div class="bs-statements">${q.st.map((st, i) => {
+    let cls = 'bs-statement';
+    if (answered) {
+      const userVal = values[i];
+      if (userVal === st.v) cls += ' correct';
+      else cls += ' wrong';
+    }
+    const bCls = ['bs-btn'];
+    const sCls = ['bs-btn'];
+    if (values[i] === true) bCls.push('selected');
+    if (values[i] === false) sCls.push('selected');
+    if (answered) {
+      bCls.push('disabled'); sCls.push('disabled');
+      if (st.v === true) bCls.push('correct-answer');
+      else sCls.push('correct-answer');
+      if (values[i] === true && st.v === false) bCls.push('wrong-answer');
+      if (values[i] === false && st.v === true) sCls.push('wrong-answer');
+    }
+    return `<div class="${cls}">
+      <div class="bs-text">${st.s}</div>
+      <div class="bs-buttons">
+        <button class="${bCls.join(' ')}" onclick="setBS(${i}, true)">Benar</button>
+        <button class="${sCls.join(' ')}" onclick="setBS(${i}, false)">Salah</button>
+      </div>
+    </div>`;
+  }).join('')}</div>
+  ${!answered ? `<button class="confirm-btn" onclick="confirmBS()" ${values.some(v=>v===null)?'disabled':''}>Konfirmasi Jawaban</button>` : ''}`;
+}
+function setBS(idx, val) {
+  const ans = state.answers[state.current];
+  if (ans && ans.confirmed) return;
+  const cur = ans || { values: state.questions[state.current].st.map(() => null), confirmed: false };
+  cur.values[idx] = val;
+  state.answers[state.current] = cur;
+  renderQuestion();
+}
+function confirmBS() {
+  const ans = state.answers[state.current];
+  if (!ans || ans.values.some(v => v === null)) return;
+  ans.confirmed = true;
+  renderQuestion();
+}
+
+function checkAnswered(q, ans) {
+  if (!ans) return false;
+  if (q.t === 'PG') return ans !== null;
+  if (q.t === 'MMA') return ans.confirmed === true;
+  if (q.t === 'BS') return ans.confirmed === true;
+  return false;
+}
+
+function prevQuestion() { if (state.current > 0) { state.current--; renderQuestion(); } }
+function nextQuestion() {
+  const total = state.questions.length;
+  if (state.current < total - 1) { state.current++; renderQuestion(); }
+  else finishQuiz(false);
+}
+
+function finishQuiz(timeout) {
+  if (state.finished) return;
+  state.finished = true;
+  clearInterval(state.timer);
+
+  const total = state.questions.length;
+  let correct = 0;
+  const typeStats = { PG:{c:0,t:0}, MMA:{c:0,t:0}, BS:{c:0,t:0} };
+  state.questions.forEach((q, i) => {
+    const ans = state.answers[i];
+    const isCorrect = checkAnswer(q, ans);
+    typeStats[q.t].t++;
+    if (isCorrect) { correct++; typeStats[q.t].c++; }
+  });
+  const pct = Math.round((correct / total) * 100);
+
+  document.getElementById('scoreRing').style.setProperty('--pct', pct);
+  document.getElementById('scoreValue').textContent = pct;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = total - correct;
+  document.getElementById('accuracyPct').textContent = `${pct}%`;
+
+  let title = 'Selesai!';
+  if (timeout) title = 'Waktu Habis!';
+  else if (pct >= 90) title = 'Luar Biasa!';
+  else if (pct >= 75) title = 'Bagus Sekali!';
+  else if (pct >= 60) title = 'Cukup Baik';
+  else title = 'Perlu Belajar Lagi';
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultSubtitle').textContent = `Kamu menjawab ${correct} dari ${total} soal dengan benar.`;
+
+  const bd = document.getElementById('typeBreakdown');
+  const labels = { PG:'Pilihan Ganda', MMA:'Pilihan Ganda Kompleks', BS:'Benar / Salah' };
+  bd.innerHTML = ['PG','MMA','BS'].map(t => `
+    <div class="breakdown-row">
+      <span class="lbl">${labels[t]}</span>
+      <span class="val">${typeStats[t].c} / ${typeStats[t].t}</span>
+    </div>
+  `).join('');
+
+  const review = document.getElementById('reviewSection');
+  review.innerHTML = state.questions.map((q, i) => {
+    const ans = state.answers[i];
+    const ok = checkAnswer(q, ans);
+    const jawabanUser = formatAnswer(q, ans);
+    const kunci = formatKey(q);
+    return `<div class="review-item ${ok?'correct':'wrong'}">
+      <div class="review-q">
+        <span class="review-num">${i+1}.</span>
+        <span>${q.q}</span>
+      </div>
+      <div class="review-a">
+        <span class="review-tag ${ok?'green':'red'}">${ok?'BENAR':'SALAH'}</span>
+        Jawabanmu: ${jawabanUser} · Kunci: ${kunci}
+      </div>
+    </div>`;
+  }).join('');
+
+  showScreen('result');
+}
+
+function checkAnswer(q, ans) {
+  if (!ans) return false;
+  if (q.t === 'PG') return ans === q.a;
+  if (q.t === 'MMA') {
+    if (!ans.confirmed) return false;
+    const userSet = [...ans.selected].sort((a,b)=>a-b);
+    const keySet = [...q.a].sort((a,b)=>a-b);
+    return userSet.length === keySet.length && userSet.every((v,i) => v === keySet[i]);
+  }
+  if (q.t === 'BS') {
+    if (!ans.confirmed) return false;
+    return q.st.every((st, i) => ans.values[i] === st.v);
+  }
+  return false;
+}
+function formatAnswer(q, ans) {
+  if (!ans) return '<em>(tidak dijawab)</em>';
+  if (q.t === 'PG') return `${['A','B','C','D'][ans]}. ${q.o[ans]}`;
+  if (q.t === 'MMA') {
+    if (!ans.confirmed) return '<em>(belum dikonfirmasi)</em>';
+    return ans.selected.map(i => `${['A','B','C','D'][i]}`).join(', ') || '<em>(kosong)</em>';
+  }
+  if (q.t === 'BS') {
+    if (!ans.confirmed) return '<em>(belum dikonfirmasi)</em>';
+    return ans.values.map(v => v === true ? 'B' : v === false ? 'S' : '-').join(' / ');
+  }
+  return '-';
+}
+function formatKey(q) {
+  if (q.t === 'PG') return `${['A','B','C','D'][q.a]}. ${q.o[q.a]}`;
+  if (q.t === 'MMA') return q.a.map(i => ['A','B','C','D'][i]).join(', ');
+  if (q.t === 'BS') return q.st.map(st => st.v ? 'B' : 'S').join(' / ');
+  return '-';
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+function goHome() {
+  clearInterval(state.timer);
+  document.documentElement.style.setProperty('--accent', '#3b82f6');
+  showScreen('home');
+}
+function retryQuiz() { startQuiz(state.bab.id); }
+
+prepareBank();
+renderChapters();
+</script>
+</body>
+</html>
